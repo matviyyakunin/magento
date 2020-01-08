@@ -5,6 +5,8 @@
  */
 namespace Magento\Mtf\Util\Generate\Factory;
 
+use ReflectionClass;
+
 /**
  * Page Factory generator.
  *
@@ -47,7 +49,7 @@ class Page extends AbstractFactory
     protected function _addPageToFactory($item)
     {
         $realClass = $this->_resolveClass($item);
-        $reflectionClass = new \ReflectionClass($realClass);
+        $reflectionClass = new ReflectionClass($realClass);
         $mca = $reflectionClass->getConstant('MCA');
         $methodNameSuffix = $this->toCamelCase($mca);
 

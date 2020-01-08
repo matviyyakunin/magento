@@ -6,10 +6,12 @@
 
 namespace Magento\Msrp\Test\Block\Product;
 
+use Magento\Catalog\Test\Block\AbstractPriceBlock;
+
 /**
  * Minimum Advertised Price block.
  */
-class Map extends \Magento\Catalog\Test\Block\AbstractPriceBlock
+class Map extends AbstractPriceBlock
 {
     /**
      * Mapping for different type of price.

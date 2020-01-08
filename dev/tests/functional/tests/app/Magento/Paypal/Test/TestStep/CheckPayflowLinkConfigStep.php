@@ -12,6 +12,7 @@ use Magento\Payment\Test\Constraint\AssertFieldsAreActive;
 use Magento\Payment\Test\Constraint\AssertFieldsAreDisabled;
 use Magento\Payment\Test\Constraint\AssertFieldsAreEnabled;
 use Magento\Payment\Test\Constraint\AssertFieldsArePresent;
+use Magento\Paypal\Test\Block\System\Config\PayflowLink;
 
 /**
  * Check PayPal Payflow Link configuration.
@@ -60,7 +61,7 @@ class CheckPayflowLinkConfigStep implements TestStepInterface
     private $sections;
 
     /**
-     * @var \Magento\Paypal\Test\Block\System\Config\PayflowLink
+     * @var PayflowLink
      */
     private $payflowLinkConfigBlock;
 

@@ -6,12 +6,14 @@
 
 namespace Magento\Catalog\Test\Constraint;
 
+use Exception;
 use Magento\Catalog\Test\Fixture\CatalogProductAttribute;
 use Magento\Catalog\Test\Fixture\CatalogProductSimple;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductEdit;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureFactory;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check whether the attribute is unique.
@@ -42,7 +44,7 @@ class AssertProductAttributeIsUnique extends AbstractConstraint
      * @param CatalogProductAttribute $attribute
      * @param CatalogProductSimple $product ,
      * @param FixtureFactory $fixtureFactory
-     * @throws \Exception
+     * @throws Exception
      * @return void
      */
     public function processAssert(
@@ -61,7 +63,7 @@ class AssertProductAttributeIsUnique extends AbstractConstraint
         $actualErrorMessage = $catalogProductEdit->getMessagesBlock()->getErrorMessage();
         $attributeLabel = $attribute->getFrontendLabel();
 
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             sprintf(self::UNIQUE_MESSAGE, $attributeLabel),
             $actualErrorMessage,
             'JS error notice on product edit page is not equal to expected.'

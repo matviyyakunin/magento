@@ -6,6 +6,7 @@
 
 namespace Magento\Catalog\Test\TestCase\Product;
 
+use Exception;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductEdit;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
 use Magento\ConfigurableProduct\Test\Block\Adminhtml\Product\Edit\Section\Variations\Config;
@@ -109,7 +110,7 @@ class ProductTypeSwitchingOnUpdateTest extends Injectable
      * Perform action.
      *
      * @param string $actionName
-     * @throws \Exception
+     * @throws Exception
      * @return void
      */
     protected function performAction($actionName)

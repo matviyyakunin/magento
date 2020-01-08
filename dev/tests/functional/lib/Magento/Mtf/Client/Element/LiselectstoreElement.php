@@ -6,6 +6,7 @@
 
 namespace Magento\Mtf\Client\Element;
 
+use Exception;
 use Magento\Mtf\Client\Locator;
 
 /**
@@ -60,7 +61,7 @@ class LiselectstoreElement extends SimpleElement
      * Select value in liselect dropdown
      *
      * @param string $value
-     * @throws \Exception
+     * @throws Exception
      */
     public function setValue($value)
     {
@@ -76,7 +77,7 @@ class LiselectstoreElement extends SimpleElement
 
         $option = $this->context->find($optionSelector, Locator::SELECTOR_XPATH);
         if (!$option->isVisible()) {
-            throw new \Exception('[' . implode('/', $value) . '] option is not visible in store switcher.');
+            throw new Exception('[' . implode('/', $value) . '] option is not visible in store switcher.');
         }
         $option->click();
     }
@@ -157,7 +158,7 @@ class LiselectstoreElement extends SimpleElement
     /**
      * Get selected store value
      *
-     * @throws \Exception
+     * @throws Exception
      * @return string
      */
     public function getValue()

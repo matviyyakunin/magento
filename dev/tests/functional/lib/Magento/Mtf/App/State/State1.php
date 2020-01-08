@@ -6,6 +6,8 @@
 
 namespace Magento\Mtf\App\State;
 
+use Exception;
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Mtf\ObjectManager;
 use Magento\Mtf\Util\Command\Cli;
 use Magento\Mtf\Util\Protocol\CurlInterface;
@@ -56,7 +58,7 @@ class State1 extends AbstractState
      * Apply set up configuration profile.
      *
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function apply()
     {
@@ -65,7 +67,7 @@ class State1 extends AbstractState
         $response = $this->curlTransport->read();
         if (strpos($response, 'Home Page') !== false) {
             $this->objectManager->create(
-                \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+                SetupConfigurationStep::class,
                 ['configData' => $this->config]
             )->run();
         }

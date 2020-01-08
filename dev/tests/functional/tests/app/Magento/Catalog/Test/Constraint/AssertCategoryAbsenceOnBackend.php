@@ -9,6 +9,7 @@ namespace Magento\Catalog\Test\Constraint;
 use Magento\Catalog\Test\Fixture\Category;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogCategoryIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that not displayed category in backend catalog category tree.
@@ -25,7 +26,7 @@ class AssertCategoryAbsenceOnBackend extends AbstractConstraint
     public function processAssert(CatalogCategoryIndex $catalogCategoryIndex, Category $category)
     {
         $catalogCategoryIndex->open();
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $catalogCategoryIndex->getTreeCategories()->isCategoryVisible($category),
             'Category is displayed in backend catalog category tree.'
         );

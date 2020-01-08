@@ -6,6 +6,10 @@
 
 namespace Magento\Catalog\Test\Page\Category;
 
+use Magento\Backend\Test\Block\Messages;
+use Magento\Backend\Test\Block\Template;
+use Magento\Catalog\Test\Block\Adminhtml\Category\Edit\CategoryForm;
+use Magento\Catalog\Test\Block\Adminhtml\Category\Tree;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\Factory\Factory;
 use Magento\Mtf\Page\Page;
@@ -75,7 +79,7 @@ class CatalogCategory extends Page
     /**
      * Get Category edit form.
      *
-     * @return \Magento\Catalog\Test\Block\Adminhtml\Category\Edit\CategoryForm
+     * @return CategoryForm
      */
     public function getFormBlock()
     {
@@ -87,7 +91,7 @@ class CatalogCategory extends Page
     /**
      * Category Tree container on the Backend.
      *
-     * @return \Magento\Catalog\Test\Block\Adminhtml\Category\Tree
+     * @return Tree
      */
     public function getTreeBlock()
     {
@@ -100,7 +104,7 @@ class CatalogCategory extends Page
     /**
      * Get messages block.
      *
-     * @return \Magento\Backend\Test\Block\Messages
+     * @return Messages
      */
     public function getMessagesBlock()
     {
@@ -112,7 +116,7 @@ class CatalogCategory extends Page
     /**
      * Get abstract block.
      *
-     * @return \Magento\Backend\Test\Block\Template
+     * @return Template
      */
     public function getTemplateBlock()
     {

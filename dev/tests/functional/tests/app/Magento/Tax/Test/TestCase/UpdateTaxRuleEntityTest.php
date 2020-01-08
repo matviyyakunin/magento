@@ -11,6 +11,7 @@ use Magento\Tax\Test\Page\Adminhtml\TaxRuleIndex;
 use Magento\Tax\Test\Page\Adminhtml\TaxRuleNew;
 use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Mtf\TestCase\Injectable;
+use Magento\Tax\Test\TestStep\DeleteAllTaxRulesStep;
 
 /**
  * Preconditions:
@@ -103,6 +104,6 @@ class UpdateTaxRuleEntityTest extends Injectable
      */
     public function tearDown()
     {
-        $this->objectManager->create(\Magento\Tax\Test\TestStep\DeleteAllTaxRulesStep::class, [])->run();
+        $this->objectManager->create(DeleteAllTaxRulesStep::class, [])->run();
     }
 }

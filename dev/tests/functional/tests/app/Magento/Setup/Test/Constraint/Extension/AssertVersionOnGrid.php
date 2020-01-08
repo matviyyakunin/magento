@@ -9,6 +9,7 @@ namespace Magento\Setup\Test\Constraint\Extension;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Setup\Test\Block\Extension\Grid;
 use Magento\Setup\Test\Fixture\Extension;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check that version of extension is correct.
@@ -45,7 +46,7 @@ class AssertVersionOnGrid extends AbstractConstraint
                 $version = '';
         }
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $grid->getVersion($extension) === $version,
             'Version of extension is not correct.'
         );

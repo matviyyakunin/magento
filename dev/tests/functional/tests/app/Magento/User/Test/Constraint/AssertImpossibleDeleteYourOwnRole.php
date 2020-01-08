@@ -8,6 +8,7 @@ namespace Magento\User\Test\Constraint;
 
 use Magento\User\Test\Page\Adminhtml\UserRoleEditRole;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertRoleSuccessSaveMessage
@@ -25,7 +26,7 @@ class AssertImpossibleDeleteYourOwnRole extends AbstractConstraint
     public function processAssert(UserRoleEditRole $rolePage)
     {
         $errorMessage = $rolePage->getMessagesBlock()->getErrorMessage();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::ERROR_MESSAGE,
             $errorMessage,
             'Wrong success message is displayed.'

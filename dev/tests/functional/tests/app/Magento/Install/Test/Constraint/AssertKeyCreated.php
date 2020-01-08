@@ -9,6 +9,7 @@ namespace Magento\Install\Test\Constraint;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Install\Test\Page\Install;
 use Magento\Install\Test\Fixture\Install as InstallConfig;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that selected encryption key displays on success full install page.
@@ -24,7 +25,7 @@ class AssertKeyCreated extends AbstractConstraint
      */
     public function processAssert(Install $installPage, InstallConfig $installConfig)
     {
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $installConfig->getKeyValue(),
             $installPage->getInstallBlock()->getAdminInfo()['encryption_key'],
             'Selected encryption key on install page not equals to data from fixture.'

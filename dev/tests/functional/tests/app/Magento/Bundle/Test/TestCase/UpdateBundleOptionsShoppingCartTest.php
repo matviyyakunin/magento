@@ -6,9 +6,11 @@
 
 namespace Magento\Bundle\Test\TestCase;
 
+use Magento\Bundle\Test\Block\Adminhtml\Catalog\Product\Edit\Section\Bundle;
 use Magento\Bundle\Test\Fixture\BundleProduct;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductEdit;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
+use Magento\Checkout\Test\TestStep\AddProductsToTheCartStep;
 use Magento\Mtf\TestStep\TestStepFactory;
 use Magento\Mtf\TestCase\Injectable;
 
@@ -85,7 +87,7 @@ class UpdateBundleOptionsShoppingCartTest extends Injectable
         // Add product to the shopping cart
         $productData = ['products' => $originalProduct];
         $addToCartStep = $this->testStepFactory->create(
-            \Magento\Checkout\Test\TestStep\AddProductsToTheCartStep::class,
+            AddProductsToTheCartStep::class,
             ['products' => $productData]
         );
         $addToCartStep->run();
@@ -95,7 +97,7 @@ class UpdateBundleOptionsShoppingCartTest extends Injectable
         $this->catalogProductIndex->getProductGrid()->searchAndOpen($filter);
         $form = $this->catalogProductEdit->getProductForm();
         $form->openSection('bundle');
-        /** @var  \Magento\Bundle\Test\Block\Adminhtml\Catalog\Product\Edit\Section\Bundle $container */
+        /** @var  Bundle $container */
         $container = $form->getSection('bundle');
         $container->changeOptionTitle($optionTitle, $optionNumber);
         $this->catalogProductEdit->getFormPageActions()->save();

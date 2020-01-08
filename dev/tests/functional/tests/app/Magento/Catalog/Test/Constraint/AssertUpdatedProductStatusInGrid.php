@@ -8,6 +8,7 @@ namespace Magento\Catalog\Test\Constraint;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
 use Magento\Catalog\Test\Fixture\CatalogProductSimple;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 class AssertUpdatedProductStatusInGrid extends AbstractConstraint
 {
@@ -31,7 +32,7 @@ class AssertUpdatedProductStatusInGrid extends AbstractConstraint
             ? 'Enabled'
             : 'Disabled';
         $filter = ['status' => $productStatus];
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $catalogProductIndex->getProductGrid()->isRowVisible($filter),
             'Product \'' . $product->getName() . '\' is absent in Products grid.'
         );

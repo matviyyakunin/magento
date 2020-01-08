@@ -11,6 +11,7 @@ use Magento\Catalog\Test\Page\Category\CatalogCategoryView;
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Checking the product in the page of its price.
@@ -46,7 +47,7 @@ class AssertProductInCategory extends AbstractConstraint
             $isProductVisible = $catalogCategoryView->getListProductBlock()->getProductItem($product)->isVisible();
         }
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $isProductVisible,
             'Product is absent on category page.'
         );
@@ -66,14 +67,14 @@ class AssertProductInCategory extends AbstractConstraint
     {
         $priceBlock = $catalogCategoryView->getListProductBlock()->getProductItem($product)->getPriceBlock();
 
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             number_format($product->getPrice(), 2, '.', ''),
             $priceBlock->isOldPriceVisible() ? $priceBlock->getOldPrice() : $priceBlock->getPrice(),
             'Product regular price on category page is not correct.'
         );
 
         if ($product->hasData('special_price')) {
-            \PHPUnit\Framework\Assert::assertEquals(
+            Assert::assertEquals(
                 number_format($product->getSpecialPrice(), 2, '.', ''),
                 $priceBlock->getSpecialPrice(),
                 'Product special price on category page is not correct.'

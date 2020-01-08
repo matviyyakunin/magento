@@ -5,6 +5,10 @@
  */
 namespace Magento\TestFramework\Utility\File;
 
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use RegexIterator;
+
 /**
  * Factory for \RegexIterator
  */
@@ -15,12 +19,12 @@ class RegexIteratorFactory
      *
      * @param string $directoryPath
      * @param string $regexp
-     * @return \RegexIterator
+     * @return RegexIterator
      */
     public function create($directoryPath, $regexp)
     {
-        $directory = new \RecursiveDirectoryIterator($directoryPath);
-        $recursiveIterator = new \RecursiveIteratorIterator($directory);
-        return new \RegexIterator($recursiveIterator, $regexp, \RegexIterator::GET_MATCH);
+        $directory = new RecursiveDirectoryIterator($directoryPath);
+        $recursiveIterator = new RecursiveIteratorIterator($directory);
+        return new RegexIterator($recursiveIterator, $regexp, RegexIterator::GET_MATCH);
     }
 }

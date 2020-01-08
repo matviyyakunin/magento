@@ -11,6 +11,7 @@ use Magento\CatalogSearch\Test\Page\CatalogsearchResult;
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\InjectableFixture;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that attribute present in sort dropdown on search results page on frontend.
@@ -37,7 +38,7 @@ class AssertProductAttributeIsUsedInSortOnFrontend extends AbstractConstraint
             ? $attribute->getManageFrontendLabel()
             : $attribute->getFrontendLabel();
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             in_array($label, $catalogsearchResult->getListProductBlock()->getSortByValues()),
             'Attribute is absent in sort dropdown on search results page on frontend.'
         );

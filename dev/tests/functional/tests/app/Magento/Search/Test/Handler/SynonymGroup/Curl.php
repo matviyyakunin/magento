@@ -6,6 +6,7 @@
 
 namespace Magento\Search\Test\Handler\SynonymGroup;
 
+use Exception;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Handler\Curl as AbstractCurl;
 use Magento\Mtf\Util\Protocol\CurlTransport;
@@ -45,7 +46,7 @@ class Curl extends AbstractCurl implements SynonymGroupInterface
      *
      * @param FixtureInterface|null $fixture [optional]
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function persist(FixtureInterface $fixture = null)
     {
@@ -57,7 +58,7 @@ class Curl extends AbstractCurl implements SynonymGroupInterface
         $response = $curl->read();
         $curl->close();
         if (strpos($response, 'data-ui-id="messages-message-success"') === false) {
-            throw new \Exception(
+            throw new Exception(
                 "Synonym Group entity creation by curl handler was not successful! Response: $response"
             );
         }

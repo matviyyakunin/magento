@@ -9,6 +9,7 @@ namespace Magento\Catalog\Test\Constraint;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductEdit;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert form data equals fixture data.
@@ -62,7 +63,7 @@ class AssertProductDuplicateForm extends AssertProductForm
         $fixtureData = $this->prepareFixtureData($product->getData());
 
         $errors = $this->verifyData($fixtureData, $formData);
-        \PHPUnit\Framework\Assert::assertEmpty($errors, $errors);
+        Assert::assertEmpty($errors, $errors);
     }
 
     /**

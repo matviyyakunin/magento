@@ -8,6 +8,7 @@ namespace Magento\Contact\Test\Constraint;
 
 use Magento\Contact\Test\Page\ContactIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that success message is present on "Contact Us" page.
@@ -32,7 +33,7 @@ class AssertContactUsSuccessMessage extends AbstractConstraint
      */
     public function processAssert(ContactIndex $contactIndex)
     {
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::SUCCESS_MESSAGE_PART_1 . self::SUCCESS_MESSAGE_PART_2,
             $contactIndex->getMessagesBlock()->getMessage(),
             'Wrong message is displayed.'

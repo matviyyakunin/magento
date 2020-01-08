@@ -6,10 +6,12 @@
 
 namespace Magento\Mtf\Util\Command\Cli;
 
+use Magento\Mtf\Util\Command\Cli;
+
 /**
  * Class Queue
  */
-class Queue extends \Magento\Mtf\Util\Command\Cli
+class Queue extends Cli
 {
     /**
      * Starts consumer

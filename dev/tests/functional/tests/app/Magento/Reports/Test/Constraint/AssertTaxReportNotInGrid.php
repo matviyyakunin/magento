@@ -10,6 +10,7 @@ use Magento\Reports\Test\Page\Adminhtml\SalesTaxReport;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Tax\Test\Fixture\TaxRule;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertTaxReportNotInGrid
@@ -43,7 +44,7 @@ class AssertTaxReportNotInGrid extends AbstractConstraint
             'tax_amount' => $taxAmount,
         ];
 
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $salesTaxReport->getGridBlock()->isRowVisible($filter, false),
             "Tax Report is visible in grid on tax report page."
         );

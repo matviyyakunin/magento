@@ -7,6 +7,7 @@
 namespace Magento\Captcha\Test\TestCase;
 
 use Magento\Captcha\Test\Constraint\AssertCaptchaFieldOnContactUsForm;
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Contact\Test\Fixture\Comment;
 use Magento\Captcha\Test\Page\ContactIndexCaptcha as ContactIndex;
 use Magento\Mtf\TestCase\Injectable;
@@ -86,7 +87,7 @@ class CaptchaOnContactUsTest extends Injectable
 
         // Preconditions
         $this->stepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData]
         )->run();
 
@@ -105,7 +106,7 @@ class CaptchaOnContactUsTest extends Injectable
     public function tearDown()
     {
         $this->stepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData, 'rollback' => true]
         )->run();
     }

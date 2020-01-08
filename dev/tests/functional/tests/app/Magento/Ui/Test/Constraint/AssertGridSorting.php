@@ -7,6 +7,7 @@
 namespace Magento\Ui\Test\Constraint;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertGridSorting
@@ -22,7 +23,7 @@ class AssertGridSorting extends AbstractConstraint
     public function processAssert(array $sortingResults)
     {
         foreach ($sortingResults as $columnName => $sortingResult) {
-            \PHPUnit\Framework\Assert::assertNotEquals(
+            Assert::assertNotEquals(
                 $sortingResult['firstIdAfterFirstSoring'],
                 $sortingResult['firstIdAfterSecondSoring'],
                 sprintf('Sorting for "%s" column have not changed the first item of grid!', $columnName)

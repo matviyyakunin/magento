@@ -7,6 +7,7 @@ namespace Magento\Email\Test\Constraint;
 
 use Magento\Email\Test\Page\Adminhtml\EmailTemplateIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assertion to check Success Save Message for Email Template.
@@ -21,7 +22,7 @@ class AssertEmailTemplateSuccessSaveMessage extends AbstractConstraint
     public function processAssert(EmailTemplateIndex $emailTemplateIndex)
     {
         $actualMessage = $emailTemplateIndex->getMessagesBlock()->getSuccessMessage();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $actualMessage,
             'Wrong success message is displayed.'

@@ -14,6 +14,7 @@ use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductIsNotDisplayingOnFrontend
@@ -98,7 +99,7 @@ class AssertProductIsNotDisplayingOnFrontend extends AbstractConstraint
         foreach ($products as $product) {
             $errors = array_merge($errors, $this->isNotDisplayingOnFrontendAssert($product));
         }
-        \PHPUnit\Framework\Assert::assertEmpty(
+        Assert::assertEmpty(
             $errors,
             "In the process of checking product availability on the frontend, found the following errors:\n"
             . implode("\n", $errors)

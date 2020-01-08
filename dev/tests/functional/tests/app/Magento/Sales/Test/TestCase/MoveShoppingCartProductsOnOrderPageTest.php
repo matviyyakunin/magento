@@ -7,13 +7,15 @@
 namespace Magento\Sales\Test\TestCase;
 
 use Magento\Catalog\Test\Page\Product\CatalogProductView;
+use Magento\Catalog\Test\TestStep\CreateProductStep;
 use Magento\Customer\Test\Fixture\Customer;
 use Magento\Customer\Test\Page\Adminhtml\CustomerIndex;
 use Magento\Customer\Test\Page\Adminhtml\CustomerIndexEdit;
 use Magento\Customer\Test\Page\CustomerAccountLogout;
-use Magento\Sales\Test\Page\Adminhtml\OrderCreateIndex;
+use Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\TestCase\Injectable;
+use Magento\Sales\Test\Page\Adminhtml\OrderCreateIndex;
 
 /**
  * Preconditions:
@@ -134,12 +136,12 @@ class MoveShoppingCartProductsOnOrderPageTest extends Injectable
         //Preconditions
         // Create product
         $product = $this->objectManager->create(
-            \Magento\Catalog\Test\TestStep\CreateProductStep::class,
+            CreateProductStep::class,
             ['product' => $product]
         )->run()['product'];
         // Login under customer
         $this->objectManager->create(
-            \Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep::class,
+            LoginCustomerOnFrontendStep::class,
             ['customer' => $customer]
         )->run();
         $this->browser->open($_ENV['app_frontend_url'] . $product->getUrlKey() . '.html');

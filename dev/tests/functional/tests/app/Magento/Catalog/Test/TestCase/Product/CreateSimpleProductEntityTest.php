@@ -10,6 +10,7 @@ use Magento\Catalog\Test\Fixture\Category;
 use Magento\Catalog\Test\Fixture\CatalogProductSimple;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductNew;
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Mtf\TestCase\Injectable;
 
 /**
@@ -86,7 +87,7 @@ class CreateSimpleProductEntityTest extends Injectable
 
         // Preconditions
         $this->objectManager->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData, 'flushCache' => $this->flushCache]
         )->run();
 
@@ -107,7 +108,7 @@ class CreateSimpleProductEntityTest extends Injectable
     public function tearDown()
     {
         $this->objectManager->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData, 'rollback' => true, 'flushCache' => $this->flushCache]
         )->run();
     }

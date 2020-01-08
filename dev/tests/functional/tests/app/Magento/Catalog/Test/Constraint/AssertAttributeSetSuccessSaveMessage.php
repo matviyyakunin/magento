@@ -8,6 +8,7 @@ namespace Magento\Catalog\Test\Constraint;
 
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductSetIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertAttributeSetSuccessSaveMessage
@@ -29,7 +30,7 @@ class AssertAttributeSetSuccessSaveMessage extends AbstractConstraint
     public function processAssert(CatalogProductSetIndex $productSetIndex)
     {
         $actualMessage = $productSetIndex->getMessagesBlock()->getSuccessMessage();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $actualMessage,
             'Wrong success message is displayed.'

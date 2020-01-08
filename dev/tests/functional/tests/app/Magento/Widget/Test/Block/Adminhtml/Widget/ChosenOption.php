@@ -6,8 +6,10 @@
 
 namespace Magento\Widget\Test\Block\Adminhtml\Widget;
 
+use Magento\Catalog\Test\Block\Adminhtml\Product\Widget\Chooser;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\Client\Element\SimpleElement;
+use Magento\Mtf\ObjectManager;
 
 /**
  * Widget Chosen Option.
@@ -56,7 +58,7 @@ class ChosenOption extends SimpleElement
      *
      * @var string
      */
-    protected $productWidgetChooserBlockClass = \Magento\Catalog\Test\Block\Adminhtml\Product\Widget\Chooser::class;
+    protected $productWidgetChooserBlockClass = Chooser::class;
 
     /**
      * Entity chooser block class mapping.
@@ -66,7 +68,7 @@ class ChosenOption extends SimpleElement
     protected $chooserClasses = [
         'page' => \Magento\Cms\Test\Block\Adminhtml\Page\Widget\Chooser::class,
         'category' => \Magento\Catalog\Test\Block\Adminhtml\Category\Widget\Chooser::class,
-        'product' => \Magento\Catalog\Test\Block\Adminhtml\Product\Widget\Chooser::class,
+        'product' => Chooser::class,
     ];
 
     /**
@@ -135,7 +137,7 @@ class ChosenOption extends SimpleElement
      */
     protected function getClassBlock($class)
     {
-        return \Magento\Mtf\ObjectManager::getInstance()->create(
+        return ObjectManager::getInstance()->create(
             $class,
             ['element' => $this->find($this->selectBlock, Locator::SELECTOR_XPATH)]
         );

@@ -8,6 +8,7 @@ namespace Magento\Search\Test\Constraint;
 
 use Magento\Search\Test\Page\Adminhtml\SynonymGroupNew;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that after save block successful message appears.
@@ -25,7 +26,7 @@ class AssertSynonymMergeErrorMessage extends AbstractConstraint
     public function processAssert(SynonymGroupNew $synonymGroupNew)
     {
         $actualMessage = $synonymGroupNew->getMessagesBlock()->getErrorMessage();
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             self::ERROR_MESSAGE,
             $actualMessage,
             'Wrong success message is displayed.'

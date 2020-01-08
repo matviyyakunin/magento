@@ -8,6 +8,7 @@ namespace Magento\Indexer\Test\Constraint;
 
 use Magento\Indexer\Test\Page\Adminhtml\IndexManagement;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert indexers status after change action.
@@ -29,7 +30,7 @@ class AssertUpdateByScheduleSuccessSaveMessage extends AbstractConstraint
     public function processAssert(IndexManagement $indexManagement, array $indexers)
     {
         $actualMessage = $indexManagement->getMessagesBlock()->getSuccessMessage();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             sprintf(self::SUCCESS_SAVE_MESSAGE, count($indexers)),
             $actualMessage,
             'Wrong success message is displayed.'

@@ -7,7 +7,10 @@
  */
 namespace Magento\TestFramework\Dependency;
 
-class LayoutRule implements \Magento\TestFramework\Dependency\RuleInterface
+use Magento\Framework\App\Utility\Files;
+use Magento\Test\Integrity\DependencyTest;
+
+class LayoutRule implements RuleInterface
 {
     /**
      * Default modules list.
@@ -90,7 +93,7 @@ class LayoutRule implements \Magento\TestFramework\Dependency\RuleInterface
         $this->_mapRouters = $mapRouters;
         $this->_mapLayoutBlocks = $mapLayoutBlocks;
         $this->_mapLayoutHandles = $mapLayoutHandles;
-        $this->_namespaces = implode('|', \Magento\Framework\App\Utility\Files::init()->getNamespaces());
+        $this->_namespaces = implode('|', Files::init()->getNamespaces());
     }
 
     /**
@@ -143,7 +146,7 @@ class LayoutRule implements \Magento\TestFramework\Dependency\RuleInterface
             '/(?<source><.+module\s*=\s*[\'"](?<namespace>' .
             $this->_namespaces .
             ')[_\\\\]' .
-            '(?<module>[A-Z][a-zA-Z]+)[\'"].*>)/' => \Magento\Test\Integrity\DependencyTest::TYPE_SOFT,
+            '(?<module>[A-Z][a-zA-Z]+)[\'"].*>)/' => DependencyTest::TYPE_SOFT,
         ];
         return $this->_checkDependenciesByRegexp($currentModule, $contents, $patterns);
     }
@@ -165,11 +168,11 @@ class LayoutRule implements \Magento\TestFramework\Dependency\RuleInterface
             $this->_namespaces .
             ')[_\\\\]' .
             '(?<module>[A-Z][a-zA-Z]+)[_\\\\]' .
-            '(?:[A-Z][a-zA-Z]+[_\\\\]?){1,}[\'"].*>)/' => \Magento\Test\Integrity\DependencyTest::TYPE_HARD,
+            '(?:[A-Z][a-zA-Z]+[_\\\\]?){1,}[\'"].*>)/' => DependencyTest::TYPE_HARD,
             '/(?<source><block.*template\s*=\s*[\'"](?<namespace>' .
             $this->_namespaces .
             ')[_\\\\]' .
-            '(?<module>[A-Z][a-zA-Z]+)::[\w\/\.]+[\'"].*>)/' => \Magento\Test\Integrity\DependencyTest::TYPE_SOFT,
+            '(?<module>[A-Z][a-zA-Z]+)::[\w\/\.]+[\'"].*>)/' => DependencyTest::TYPE_SOFT,
         ];
         return $this->_checkDependenciesByRegexp($currentModule, $contents, $patterns);
     }
@@ -193,22 +196,22 @@ class LayoutRule implements \Magento\TestFramework\Dependency\RuleInterface
             $this->_namespaces .
             ')[_\\\\]' .
             '(?<module>[A-Z][a-zA-Z]+)[_\\\\]' .
-            '(?:[A-Z][a-zA-Z]+[_\\\\]?){1,}<\/block\s*>)/' => \Magento\Test\Integrity\DependencyTest::TYPE_SOFT,
+            '(?:[A-Z][a-zA-Z]+[_\\\\]?){1,}<\/block\s*>)/' => DependencyTest::TYPE_SOFT,
             '/(?<source><template\s*>(?<namespace>' .
             $this->_namespaces .
             ')[_\\\\]' .
             '(?<module>[A-Z][a-zA-Z]+)::[\w\/\.]+' .
-            '<\/template\s*>)/' => \Magento\Test\Integrity\DependencyTest::TYPE_SOFT,
+            '<\/template\s*>)/' => DependencyTest::TYPE_SOFT,
             '/(?<source><file\s*>(?<namespace>' .
             $this->_namespaces .
             ')[_\\\\]' .
             '(?<module>[A-Z][a-zA-Z]+)::[\w\/\.-]+' .
-            '<\/file\s*>)/' => \Magento\Test\Integrity\DependencyTest::TYPE_SOFT,
+            '<\/file\s*>)/' => DependencyTest::TYPE_SOFT,
             '/(?<source><.*helper\s*=\s*[\'"](?<namespace>' .
             $this->_namespaces .
             ')[_\\\\]' .
             '(?<module>[A-Z][a-zA-Z]+)[_\\\\](?:[A-Z][a-z]+[_\\\\]?){1,}::[\w]+' .
-            '[\'"].*>)/' => \Magento\Test\Integrity\DependencyTest::TYPE_SOFT,
+            '[\'"].*>)/' => DependencyTest::TYPE_SOFT,
         ];
         return $this->_checkDependenciesByRegexp($currentModule, $contents, $patterns);
     }
@@ -242,7 +245,7 @@ class LayoutRule implements \Magento\TestFramework\Dependency\RuleInterface
                 }
                 foreach ($modules as $module) {
                     $result[$module] = [
-                        'type' => \Magento\Test\Integrity\DependencyTest::TYPE_SOFT,
+                        'type' => DependencyTest::TYPE_SOFT,
                         'source' => $element->getName(),
                     ];
                 }
@@ -280,7 +283,7 @@ class LayoutRule implements \Magento\TestFramework\Dependency\RuleInterface
                 }
                 foreach ($modules as $module) {
                     $result[$module] = [
-                        'type' => \Magento\Test\Integrity\DependencyTest::TYPE_HARD,
+                        'type' => DependencyTest::TYPE_HARD,
                         'source' => (string)$element,
                     ];
                 }
@@ -318,7 +321,7 @@ class LayoutRule implements \Magento\TestFramework\Dependency\RuleInterface
                 }
                 foreach ($modules as $module) {
                     $result[$module] = [
-                        'type' => \Magento\Test\Integrity\DependencyTest::TYPE_SOFT,
+                        'type' => DependencyTest::TYPE_SOFT,
                         'source' => (string)$element,
                     ];
                 }
@@ -352,7 +355,7 @@ class LayoutRule implements \Magento\TestFramework\Dependency\RuleInterface
             $module = isset($check['module']) ? $check['module'] : null;
             if ($module) {
                 $result[$module] = [
-                    'type' => \Magento\TestFramework\Dependency\RuleInterface::TYPE_SOFT,
+                    'type' => RuleInterface::TYPE_SOFT,
                     'source' => (string)$element,
                 ];
             }

@@ -10,6 +10,7 @@ use Magento\Bundle\Test\Fixture\BundleProduct;
 use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractAssertForm;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that displayed product bundle items data on product page equals passed from fixture
@@ -43,7 +44,7 @@ class AssertBundleItemsOnProductPage extends AbstractAssertForm
         }
 
         $error = $this->verifyData($productOptions, $formOptions);
-        \PHPUnit\Framework\Assert::assertEmpty($error, $error);
+        Assert::assertEmpty($error, $error);
     }
 
     /**

@@ -6,11 +6,14 @@
 
 namespace Magento\Mtf\Util\Generate\Repository;
 
+use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
+
 /**
  * Class Resource
  *
  */
-class RepositoryResource extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
+class RepositoryResource extends AbstractDb
 {
     /**
      * Set fixture entity_type
@@ -25,13 +28,13 @@ class RepositoryResource extends \Magento\Framework\Model\ResourceModel\Db\Abstr
     /**
      * Load an object
      *
-     * @param \Magento\Framework\Model\AbstractModel $object
+     * @param AbstractModel $object
      * @param mixed $value
      * @param null $field
-     * @return \Magento\Framework\Model\ResourceModel\Db\AbstractDb|void
+     * @return AbstractDb|void
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function load(\Magento\Framework\Model\AbstractModel $object, $value, $field = null)
+    public function load(AbstractModel $object, $value, $field = null)
     {
         // forbid using resource model
     }

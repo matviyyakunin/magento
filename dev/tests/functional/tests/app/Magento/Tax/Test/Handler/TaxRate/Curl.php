@@ -6,11 +6,12 @@
 
 namespace Magento\Tax\Test\Handler\TaxRate;
 
-use Magento\Tax\Test\Fixture\TaxRate;
+use Exception;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Handler\Curl as AbstractCurl;
 use Magento\Mtf\Util\Protocol\CurlTransport;
 use Magento\Mtf\Util\Protocol\CurlTransport\BackendDecorator;
+use Magento\Tax\Test\Fixture\TaxRate;
 
 /**
  * Curl handler for creating Tax Rate.
@@ -77,13 +78,13 @@ class Curl extends AbstractCurl implements TaxRateInterface
      *
      * @param $response
      * @return int|null
-     * @throws \Exception
+     * @throws Exception
      */
     protected function getTaxRateId($response)
     {
         $data = json_decode($response, true);
         if ($data['success'] !== true) {
-            throw new \Exception("Tax rate creation by curl handler was not successful! Response: $response");
+            throw new Exception("Tax rate creation by curl handler was not successful! Response: $response");
         }
         return isset($data['tax_calculation_rate_id']) ? (int)$data['tax_calculation_rate_id'] : null;
     }

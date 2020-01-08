@@ -7,6 +7,7 @@
 namespace Magento\Catalog\Test\Block\Product\Grouped;
 
 use Magento\Backend\Test\Block\Widget\Tab;
+use Magento\Catalog\Test\Block\Product\Grouped\AssociatedProducts\ListAssociatedProducts;
 use Magento\Mtf\Client\Element\SimpleElement;
 use Magento\Mtf\Client\Element;
 use Magento\Mtf\Client\Locator;
@@ -55,7 +56,7 @@ class AssociatedProducts extends Tab
      * Get associated products list block
      *
      * @param SimpleElement $context
-     * @return \Magento\Catalog\Test\Block\Product\Grouped\AssociatedProducts\ListAssociatedProducts
+     * @return ListAssociatedProducts
      */
     protected function getListAssociatedProductsBlock(SimpleElement $context = null)
     {

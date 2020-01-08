@@ -8,6 +8,7 @@ namespace Magento\Paypal\Test\Constraint;
 
 use Magento\Checkout\Test\Page\CheckoutCart;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertExpressCancelledMessage
@@ -27,7 +28,7 @@ class AssertExpressCancelledMessage extends AbstractConstraint
      */
     public function processAssert(CheckoutCart $checkoutCart)
     {
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $checkoutCart->getMessagesBlock()->getSuccessMessage(),
             'Success message about Express Checkout cancellation is not present or wrong.'

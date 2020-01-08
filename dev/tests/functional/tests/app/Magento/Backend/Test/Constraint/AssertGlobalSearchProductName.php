@@ -10,6 +10,7 @@ use Magento\Backend\Test\Fixture\GlobalSearch;
 use Magento\Backend\Test\Page\Adminhtml\Dashboard;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertGlobalSearchProductName
@@ -33,7 +34,7 @@ class AssertGlobalSearchProductName extends AbstractConstraint
         $productName = $product->getName();
         $isVisibleInResult = $dashboard->getAdminPanelHeader()->isSearchResultVisible($productName);
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $isVisibleInResult,
             'Product name ' . $productName . ' is absent in search results'
         );

@@ -8,6 +8,7 @@ namespace Magento\Catalog\Test\Constraint;
 
 use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Customer\Test\Fixture\Customer;
+use Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
@@ -36,7 +37,7 @@ class AssertProductTierPriceOnProductPageWithCustomer extends AbstractConstraint
         $this->loginCustomer($customer);
 
         $productTierPriceAssert = $this->objectManager->get(
-            \Magento\Catalog\Test\Constraint\AssertProductTierPriceOnProductPage::class
+            AssertProductTierPriceOnProductPage::class
         );
         $productTierPriceAssert->processAssert($browser, $catalogProductView, $product);
     }
@@ -51,7 +52,7 @@ class AssertProductTierPriceOnProductPageWithCustomer extends AbstractConstraint
     protected function loginCustomer($customer)
     {
         $this->objectManager->create(
-            \Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep::class,
+            LoginCustomerOnFrontendStep::class,
             ['customer' => $customer]
         )->run();
     }

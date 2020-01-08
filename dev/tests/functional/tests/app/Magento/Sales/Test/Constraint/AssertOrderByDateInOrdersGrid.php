@@ -9,6 +9,7 @@ namespace Magento\Sales\Test\Constraint;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that order is present in the grid after setting date from and date to in filter on the orders grid page.
@@ -31,7 +32,7 @@ class AssertOrderByDateInOrdersGrid extends AbstractConstraint
         ];
         $orderIndex->open();
         $orderIndex->getSalesOrderGrid()->search($filter);
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $orderIndex->getSalesOrderGrid()->isFirstRowVisible(),
             'Order with following id ' . $order->getId() . ' is absent in Orders grid with applied date.'
         );

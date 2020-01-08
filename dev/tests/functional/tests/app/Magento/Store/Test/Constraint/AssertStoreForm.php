@@ -10,6 +10,7 @@ use Magento\Backend\Test\Page\Adminhtml\StoreIndex;
 use Magento\Backend\Test\Page\Adminhtml\StoreNew;
 use Magento\Store\Test\Fixture\Store;
 use Magento\Mtf\Constraint\AbstractAssertForm;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertStoreForm
@@ -34,7 +35,7 @@ class AssertStoreForm extends AbstractAssertForm
         $formData = $storeNew->getStoreForm()->getData();
         $fixtureData = $store->getData();
         $errors = $this->verifyData($fixtureData, $formData);
-        \PHPUnit\Framework\Assert::assertEmpty($errors, $errors);
+        Assert::assertEmpty($errors, $errors);
     }
 
     /**

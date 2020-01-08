@@ -6,12 +6,14 @@
 
 namespace Magento\Catalog\Test\TestCase\Product;
 
+use Magento\Catalog\Test\Fixture\CatalogProductSimple;
+use Magento\Catalog\Test\Page\Adminhtml\CatalogProductActionAttributeEdit;
+use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
+use Magento\Catalog\Test\TestStep\CreateProductsStep;
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\TestCase\Injectable;
-use Magento\Catalog\Test\Fixture\CatalogProductSimple;
-use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
-use Magento\Catalog\Test\Page\Adminhtml\CatalogProductActionAttributeEdit;
 use Magento\Mtf\TestStep\TestStepFactory;
 
 /**
@@ -110,12 +112,12 @@ class MassProductUpdateTest extends Injectable
 
         // Preconditions
         $products = $this->testStepFactory->create(
-            \Magento\Catalog\Test\TestStep\CreateProductsStep::class,
+            CreateProductsStep::class,
             ['products' => $initialProducts]
         )->run()['products'];
 
         $this->objectManager->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $configData]
         )->run();
 
@@ -125,7 +127,7 @@ class MassProductUpdateTest extends Injectable
         $this->attributeMassActionPage->getAttributesBlockForm()->fill($product);
         $this->attributeMassActionPage->getFormPageActions()->save();
         $updatedProducts = $this->prepareUpdatedProducts($products, $product);
-        
+
         return ['products' => $updatedProducts];
     }
 
@@ -158,7 +160,7 @@ class MassProductUpdateTest extends Injectable
     public function tearDown()
     {
         $this->objectManager->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData, 'rollback' => true]
         )->run();
     }

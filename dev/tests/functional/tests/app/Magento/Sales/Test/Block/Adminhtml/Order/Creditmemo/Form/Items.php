@@ -6,9 +6,9 @@
 
 namespace Magento\Sales\Test\Block\Adminhtml\Order\Creditmemo\Form;
 
-use Magento\Sales\Test\Block\Adminhtml\Order\Creditmemo\Form\Items\Product;
 use Magento\Mtf\Block\Block;
 use Magento\Mtf\Client\Locator;
+use Magento\Sales\Test\Block\Adminhtml\Order\Creditmemo\Form\Items\Product;
 
 /**
  * Credit Memo Items block on Credit Memo new page.
@@ -39,7 +39,7 @@ class Items extends Block
     {
         $selector = sprintf($this->productItems, $productSku);
         return $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Creditmemo\Form\Items\Product::class,
+            Product::class,
             ['element' => $this->_rootElement->find($selector, Locator::SELECTOR_XPATH)]
         );
     }

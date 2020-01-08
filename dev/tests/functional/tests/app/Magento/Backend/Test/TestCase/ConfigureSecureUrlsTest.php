@@ -130,13 +130,13 @@ class ConfigureSecureUrlsTest extends Injectable
         $_ENV['app_backend_url'] = str_replace('http', 'https', $_ENV['app_backend_url']);
 
         $this->configurationAdminPage = $this->objectManager->create(
-            \Magento\Backend\Test\Page\Adminhtml\SystemConfigEdit::class
+            SystemConfigEdit::class
         );
 
-        $this->cache = $this->objectManager->create(\Magento\Mtf\Util\Command\Cli\Cache::class);
+        $this->cache = $this->objectManager->create(Cache::class);
         $this->cache->flush(['config', 'full_page']);
 
-        $this->staticContent = $this->objectManager->create(\Magento\Mtf\Util\Command\Cli\StaticContent::class);
+        $this->staticContent = $this->objectManager->create(StaticContent::class);
         $this->staticContent->deploy();
     }
 

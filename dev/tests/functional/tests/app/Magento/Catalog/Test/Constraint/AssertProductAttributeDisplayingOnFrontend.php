@@ -11,6 +11,7 @@ use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\InjectableFixture;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check whether the attribute is visible on the frontend.
@@ -34,7 +35,7 @@ class AssertProductAttributeDisplayingOnFrontend extends AbstractConstraint
     ) {
         $browser->open($_ENV['app_frontend_url'] . $product->getUrlKey() . '.html');
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             in_array(
                 $attribute->getFrontendLabel(),
                 $catalogProductView->getAdditionalInformationBlock()->getAttributeLabels()

@@ -8,6 +8,7 @@ namespace Magento\Paypal\Test\Block\Express;
 
 use Magento\Checkout\Test\Block\Onepage\AbstractReview;
 use Magento\Mtf\Client\Locator;
+use Magento\Paypal\Test\Block\Express\Review\ShippingoptgroupElement;
 
 /**
  * Review order on Magento side after redirecting from PayPal.
@@ -32,7 +33,7 @@ class Review extends AbstractReview
         $shippingElement = $this->_rootElement->find(
             $this->shippingMethod,
             Locator::SELECTOR_CSS,
-            \Magento\Paypal\Test\Block\Express\Review\ShippingoptgroupElement::class
+            ShippingoptgroupElement::class
         );
         $shippingElement->setValue($shippingMethod['shipping_service'] . '/' . $shippingMethod['shipping_method']);
         $this->waitForElementNotVisible('#review-please-wait');

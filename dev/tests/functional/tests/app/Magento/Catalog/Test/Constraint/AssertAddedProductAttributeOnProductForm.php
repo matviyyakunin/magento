@@ -6,14 +6,17 @@
 
 namespace Magento\Catalog\Test\Constraint;
 
+use Exception;
 use Magento\Catalog\Test\Fixture\CatalogAttributeSet;
-use Magento\Mtf\Fixture\InjectableFixture;
-use Magento\Mtf\Fixture\FixtureFactory;
-use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Catalog\Test\Fixture\CatalogProductAttribute;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductEdit;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
+use Magento\Catalog\Test\TestStep\CreateProductWithAttributeSetStep;
 use Magento\Mtf\Client\BrowserInterface;
+use Magento\Mtf\Constraint\AbstractConstraint;
+use Magento\Mtf\Fixture\FixtureFactory;
+use Magento\Mtf\Fixture\InjectableFixture;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check attribute on product form.
@@ -65,7 +68,7 @@ class AssertAddedProductAttributeOnProductForm extends AbstractConstraint
      * @param CatalogProductAttribute $attribute
      * @param CatalogAttributeSet $attributeSet
      * @param CatalogProductAttribute $productAttributeOriginal
-     * @throws \Exception
+     * @throws Exception
      * @return void
      */
     public function processAssert(
@@ -87,7 +90,7 @@ class AssertAddedProductAttributeOnProductForm extends AbstractConstraint
                 $productAttributeOriginal = $attribute;
             }
             $product = $this->objectManager->create(
-                \Magento\Catalog\Test\TestStep\CreateProductWithAttributeSetStep::class,
+                CreateProductWithAttributeSetStep::class,
                 [
                     'attribute' => $productAttributeOriginal,
                     'attributeSet' => $attributeSet
@@ -106,7 +109,7 @@ class AssertAddedProductAttributeOnProductForm extends AbstractConstraint
             $catalogProductEdit->getProductForm()->openSection(self::ATTRIBUTES);
         }
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $catalogProductEdit->getProductForm()->checkAttributeLabel($catalogProductAttribute),
             "Product Attribute is absent on Product form."
         );

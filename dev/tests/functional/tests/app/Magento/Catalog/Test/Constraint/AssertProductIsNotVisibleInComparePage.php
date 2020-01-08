@@ -9,6 +9,7 @@ namespace Magento\Catalog\Test\Constraint;
 use Magento\Catalog\Test\Page\Product\CatalogProductCompare;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductIsNotVisibleInComparePage
@@ -36,12 +37,12 @@ class AssertProductIsNotVisibleInComparePage extends AbstractConstraint
         $compareBlock = $comparePage->getCompareProductsBlock();
 
         if ($countProducts > 1) {
-            \PHPUnit\Framework\Assert::assertFalse(
+            Assert::assertFalse(
                 $compareBlock->isProductVisibleInCompareBlock($product->getName()),
                 'The product displays on Compare Products page.'
             );
         } else {
-            \PHPUnit\Framework\Assert::assertEquals(
+            Assert::assertEquals(
                 self::SUCCESS_MESSAGE,
                 $compareBlock->getEmptyMessage(),
                 'The product displays on Compare Products page.'

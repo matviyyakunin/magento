@@ -6,6 +6,7 @@
 
 namespace Magento\Tax\Test\Handler\TaxClass;
 
+use Exception;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Handler\Curl as AbstractCurl;
 use Magento\Mtf\Util\Protocol\CurlTransport;
@@ -41,13 +42,13 @@ class Curl extends AbstractCurl implements TaxClassInterface
      *
      * @param $response
      * @return int|null
-     * @throws \Exception
+     * @throws Exception
      */
     protected function getClassId($response)
     {
         $data = json_decode($response, true);
         if ($data['success'] !== true) {
-            throw new \Exception("Tax class creation by curl handler was not successful! Response: $response");
+            throw new Exception("Tax class creation by curl handler was not successful! Response: $response");
         }
         return isset($data['class_id']) ? (int)$data['class_id'] : null;
     }

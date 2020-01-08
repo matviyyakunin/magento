@@ -8,13 +8,15 @@ namespace Magento\Sales\Test\TestCase;
 
 use Magento\Catalog\Test\Page\Product\CatalogProductCompare;
 use Magento\Catalog\Test\Page\Product\CatalogProductView;
+use Magento\Catalog\Test\TestStep\CreateProductsStep;
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Customer\Test\Fixture\Customer;
 use Magento\Customer\Test\Page\Adminhtml\CustomerIndex;
 use Magento\Customer\Test\Page\Adminhtml\CustomerIndexEdit;
-use Magento\Sales\Test\Page\Adminhtml\OrderCreateIndex;
+use Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\TestCase\Injectable;
+use Magento\Sales\Test\Page\Adminhtml\OrderCreateIndex;
 
 /**
  * Preconditions:
@@ -103,7 +105,7 @@ class MoveRecentlyComparedProductsOnOrderPageTest extends Injectable
         $customer->persist();
         // Login under customer
         $this->objectManager
-            ->create(\Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep::class, ['customer' => $customer])
+            ->create(LoginCustomerOnFrontendStep::class, ['customer' => $customer])
             ->run();
         $this->browser = $browser;
 
@@ -150,7 +152,7 @@ class MoveRecentlyComparedProductsOnOrderPageTest extends Injectable
         // Preconditions
         // Create product
         $products = $this->objectManager->create(
-            \Magento\Catalog\Test\TestStep\CreateProductsStep::class,
+            CreateProductsStep::class,
             ['products' => $products]
         )->run()['products'];
         foreach ($products as $itemProduct) {

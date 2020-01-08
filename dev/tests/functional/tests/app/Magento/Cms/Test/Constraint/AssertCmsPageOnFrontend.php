@@ -10,6 +10,7 @@ use Magento\Cms\Test\Fixture\CmsPage;
 use Magento\Cms\Test\Page\CmsPage as FrontCmsPage;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that created CMS page with expected contents displayed on Frontend.
@@ -33,7 +34,7 @@ class AssertCmsPageOnFrontend extends AbstractConstraint
     ) {
         $browser->open($_ENV['app_frontend_url'] . $cms->getIdentifier());
         $fixtureContent = $cms->getContent();
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             $displayContent != null ? $displayContent : $fixtureContent['content'],
             $frontCmsPage->getCmsPageBlock()->getPageContent(),
             'Wrong content is displayed.'

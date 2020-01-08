@@ -9,6 +9,9 @@
  */
 namespace Magento\TestFramework\Inspection;
 
+use Magento\Framework\Component\ComponentRegistrar;
+use SimpleXMLElement;
+
 class WordsFinder
 {
     /**
@@ -82,7 +85,7 @@ class WordsFinder
     /**
      * Component Registrar
      *
-     * @var \Magento\Framework\Component\ComponentRegistrar
+     * @var ComponentRegistrar
      */
     protected $componentRegistrar;
 
@@ -96,14 +99,14 @@ class WordsFinder
     /**
      * @param string|array $configFiles
      * @param string $baseDir
-     * @param \Magento\Framework\Component\ComponentRegistrar $componentRegistrar
+     * @param ComponentRegistrar $componentRegistrar
      * @param bool $isCopyrightChecked
-     * @throws \Magento\TestFramework\Inspection\Exception
+     * @throws Exception
      */
     public function __construct($configFiles, $baseDir, $componentRegistrar, $isCopyrightChecked = false)
     {
         if (!is_dir($baseDir)) {
-            throw new \Magento\TestFramework\Inspection\Exception("Base directory {$baseDir} does not exist");
+            throw new Exception("Base directory {$baseDir} does not exist");
         }
         $this->_baseDir = str_replace('\\', '/', realpath($baseDir));
         $this->componentRegistrar = $componentRegistrar;
@@ -126,7 +129,7 @@ class WordsFinder
 
         // Final verifications
         if (!$this->_words) {
-            throw new \Magento\TestFramework\Inspection\Exception('No words to check');
+            throw new Exception('No words to check');
         }
 
         $this->isCopyrightChecked = $isCopyrightChecked;
@@ -136,17 +139,17 @@ class WordsFinder
      * Load configuration from file, adding words and whitelisted entries to main config
      *
      * @param string $configFile
-     * @throws \Magento\TestFramework\Inspection\Exception
+     * @throws Exception
      */
     protected function _loadConfig($configFile)
     {
         if (!file_exists($configFile)) {
-            throw new \Magento\TestFramework\Inspection\Exception("Configuration file {$configFile} does not exist");
+            throw new Exception("Configuration file {$configFile} does not exist");
         }
         try {
-            $xml = new \SimpleXMLElement(file_get_contents($configFile));
+            $xml = new SimpleXMLElement(file_get_contents($configFile));
         } catch (\Exception $e) {
-            throw new \Magento\TestFramework\Inspection\Exception($e->getMessage(), $e->getCode(), $e);
+            throw new Exception($e->getMessage(), $e->getCode(), $e);
         }
 
         $this->_extractWords($xml)->_extractWhitelist($xml);
@@ -155,11 +158,11 @@ class WordsFinder
     /**
      * Extract words from configuration xml
      *
-     * @param \SimpleXMLElement $configXml
-     * @return \Magento\TestFramework\Inspection\WordsFinder
-     * @throws \Magento\TestFramework\Inspection\Exception
+     * @param SimpleXMLElement $configXml
+     * @return WordsFinder
+     * @throws Exception
      */
-    protected function _extractWords(\SimpleXMLElement $configXml)
+    protected function _extractWords(SimpleXMLElement $configXml)
     {
         $words = [];
         $nodes = $configXml->xpath('//config/words/word');
@@ -176,13 +179,13 @@ class WordsFinder
     /**
      * Extract whitelisted entries and words from configuration xml
      *
-     * @param \SimpleXMLElement $configXml
-     * @return \Magento\TestFramework\Inspection\WordsFinder
-     * @throws \Magento\TestFramework\Inspection\Exception
+     * @param SimpleXMLElement $configXml
+     * @return WordsFinder
+     * @throws Exception
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @SuppressWarnings(PHPMD.NPathComplexity)
      */
-    protected function _extractWhitelist(\SimpleXMLElement $configXml)
+    protected function _extractWhitelist(SimpleXMLElement $configXml)
     {
         // Load whitelist entries
         $whitelist = [];
@@ -191,7 +194,7 @@ class WordsFinder
         foreach ($nodes as $node) {
             $path = $node->xpath('path');
             if (!$path) {
-                throw new \Magento\TestFramework\Inspection\Exception(
+                throw new Exception(
                     'A "path" must be defined for the whitelisted item'
                 );
             }

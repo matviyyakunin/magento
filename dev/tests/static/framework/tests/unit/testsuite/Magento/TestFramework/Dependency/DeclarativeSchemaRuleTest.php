@@ -5,12 +5,14 @@
  */
 namespace Magento\TestFramework\Dependency;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Test for declarative schema integrity rule.
  *
  * @package Magento\TestFramework\Dependency
  */
-class DeclarativeSchemaRuleTest extends \PHPUnit\Framework\TestCase
+class DeclarativeSchemaRuleTest extends TestCase
 {
     /**
      * @var DeclarativeSchemaRule
@@ -61,7 +63,7 @@ class DeclarativeSchemaRuleTest extends \PHPUnit\Framework\TestCase
                 [
                     [
                         'module' => 'SomeModule',
-                        'type' => \Magento\TestFramework\Dependency\RuleInterface::TYPE_HARD,
+                        'type' => RuleInterface::TYPE_HARD,
                         'source' => 'some_table',
                     ]
                 ]
@@ -84,7 +86,7 @@ class DeclarativeSchemaRuleTest extends \PHPUnit\Framework\TestCase
                 [
                     [
                         'module' => 'SomeModule',
-                        'type' => \Magento\TestFramework\Dependency\RuleInterface::TYPE_HARD,
+                        'type' => RuleInterface::TYPE_HARD,
                         'source' => 'some_table',
                     ],
                     [

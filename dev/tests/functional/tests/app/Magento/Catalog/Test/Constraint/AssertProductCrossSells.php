@@ -12,6 +12,7 @@ use Magento\Checkout\Test\Page\CheckoutCart;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that product is displayed in cross-sell section.
@@ -56,7 +57,7 @@ class AssertProductCrossSells extends AbstractConstraint
             }
         }
 
-        \PHPUnit\Framework\Assert::assertEmpty($errors, implode(" ", $errors));
+        Assert::assertEmpty($errors, implode(" ", $errors));
     }
 
     /**

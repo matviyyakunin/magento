@@ -6,6 +6,7 @@
 
 namespace Magento\Ui\Test\Block\Adminhtml;
 
+use Exception;
 use Magento\Mtf\Block\Form;
 use Magento\Mtf\Client\Element\SimpleElement;
 use Magento\Mtf\Fixture\FixtureInterface;
@@ -62,7 +63,7 @@ abstract class AbstractFormContainers extends Form
      *
      * @param string $containerName
      * @return AbstractContainer
-     * @throws \Exception
+     * @throws Exception
      */
     protected function getContainer($containerName)
     {
@@ -70,7 +71,7 @@ abstract class AbstractFormContainers extends Form
         /** @var AbstractContainer $container */
         $container = $this->blockFactory->create($containerClass, ['element' => $this->_rootElement]);
         if (!$container instanceof AbstractContainer) {
-            throw new \Exception('Wrong Container Class.');
+            throw new Exception('Wrong Container Class.');
         }
         $container->setWrapper(
             isset($this->containers[$containerName]['wrapper']) ? $this->containers[$containerName]['wrapper'] : ''
@@ -185,7 +186,7 @@ abstract class AbstractFormContainers extends Form
     /**
      * Fill fields that were not found on the filled containers.
      *
-     * @throws \Exception
+     * @throws Exception
      * @return void
      */
     protected function fillMissedFields()
@@ -211,7 +212,7 @@ abstract class AbstractFormContainers extends Form
         }
 
         if (!empty($this->unassignedFields)) {
-            throw new \Exception(
+            throw new Exception(
                 'Could not find all elements on the tabs: ' . implode(', ', array_keys($this->unassignedFields))
             );
         }

@@ -8,6 +8,7 @@ namespace Magento\Sales\Test\Constraint;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Sales\Test\Page\Adminhtml\OrderCreateIndex;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that Items Ordered section on Create Order page on backend contains products.
@@ -27,7 +28,7 @@ class AssertItemsOrderedSectionContainsProducts extends AbstractConstraint
             $expectedItemNames[] = $product->getName();
         }
         $itemsNames = $orderCreateIndex->getCreateBlock()->getItemsBlock()->getItemsNames();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             sort($expectedItemNames),
             sort($itemsNames),
             "Items Ordered section on Create Order page on backend doesn't contain correct products."

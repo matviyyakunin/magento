@@ -9,6 +9,7 @@ namespace Magento\Catalog\Test\TestCase\Product;
 use Magento\Checkout\Test\Page\CheckoutCart;
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Fixture\InjectableFixture;
+use PHPUnit\Framework\Assert;
 
 /**
  * Preconditions:
@@ -118,7 +119,7 @@ class AddToCartCrossSellTest extends AbstractProductPromotedProductsTest
     protected function assertAbsentCrossSellSection()
     {
         $this->checkoutCart->open();
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $this->checkoutCart->getCrosssellBlock()->isVisible(),
             "Cross-sell block is present."
         );
@@ -145,7 +146,7 @@ class AddToCartCrossSellTest extends AbstractProductPromotedProductsTest
 
         sort($productNames);
         sort($pageProductNames);
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $productNames,
             $pageProductNames,
             'Wrong products are displayed in cross-sell section.'

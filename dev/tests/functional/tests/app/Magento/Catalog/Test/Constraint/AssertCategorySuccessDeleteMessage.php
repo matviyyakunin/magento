@@ -8,6 +8,7 @@ namespace Magento\Catalog\Test\Constraint;
 
 use Magento\Catalog\Test\Page\Adminhtml\CatalogCategoryEdit;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertCategorySuccessDeleteMessage
@@ -29,7 +30,7 @@ class AssertCategorySuccessDeleteMessage extends AbstractConstraint
     public function processAssert(CatalogCategoryEdit $categoryEdit)
     {
         $actualMessage = $categoryEdit->getMessagesBlock()->getSuccessMessage();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::SUCCESS_DELETE_MESSAGE,
             $actualMessage,
             'Wrong success delete message is displayed.'

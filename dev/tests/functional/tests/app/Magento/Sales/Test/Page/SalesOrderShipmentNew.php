@@ -9,6 +9,7 @@ namespace Magento\Sales\Test\Page;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\Factory\Factory;
 use Magento\Mtf\Page\Page;
+use Magento\Sales\Test\Block\Adminhtml\Order\Shipment\Totals;
 
 /**
  * Manage orders page.
@@ -40,7 +41,7 @@ class SalesOrderShipmentNew extends Page
     /**
      * Get shipment totals.
      *
-     * @return \Magento\Sales\Test\Block\Adminhtml\Order\Shipment\Totals
+     * @return Totals
      */
     public function getTotalsBlock()
     {

@@ -6,6 +6,7 @@
 
 namespace Magento\Tax\Test\Handler\TaxClass;
 
+use Exception;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Util\Protocol\CurlTransport;
 use Magento\Mtf\Handler\Webapi as AbstractWebapi;
@@ -20,7 +21,7 @@ class Webapi extends AbstractWebapi implements TaxClassInterface
      *
      * @param FixtureInterface $fixture
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function persist(FixtureInterface $fixture = null)
     {
@@ -33,7 +34,7 @@ class Webapi extends AbstractWebapi implements TaxClassInterface
 
         if (!is_numeric($response)) {
             $this->eventManager->dispatchEvent(['webapi_failed'], [$response]);
-            throw new \Exception('Tax class creation by Web API handler was not successful!');
+            throw new Exception('Tax class creation by Web API handler was not successful!');
         }
 
         return ['id' => $response];

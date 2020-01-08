@@ -6,6 +6,7 @@
 
 namespace Magento\Mtf\Client\Element;
 
+use Exception;
 use Magento\Mtf\Client\Locator;
 
 /**
@@ -47,7 +48,7 @@ class SelectstoreElement extends SelectElement
      * Select value in dropdown which has option groups.
      *
      * @param string $value
-     * @throws \Exception
+     * @throws Exception
      * @return void
      */
     public function setValue($value)
@@ -65,7 +66,7 @@ class SelectstoreElement extends SelectElement
 
         $option = $this->context->find($optionLocator, Locator::SELECTOR_XPATH);
         if (!$option->isVisible()) {
-            throw new \Exception('[' . implode('/', $pieces) . '] option is not visible in store switcher.');
+            throw new Exception('[' . implode('/', $pieces) . '] option is not visible in store switcher.');
         }
         $option->click();
     }

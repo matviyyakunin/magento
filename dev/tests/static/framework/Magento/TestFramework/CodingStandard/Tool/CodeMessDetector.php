@@ -9,7 +9,10 @@
  */
 namespace Magento\TestFramework\CodingStandard\Tool;
 
-use \Magento\TestFramework\CodingStandard\ToolInterface;
+use Magento\TestFramework\CodingStandard\ToolInterface;
+use PHPMD\RuleSetFactory;
+use PHPMD\TextUI\Command;
+use PHPMD\TextUI\CommandLineOptions;
 
 class CodeMessDetector implements ToolInterface
 {
@@ -46,7 +49,7 @@ class CodeMessDetector implements ToolInterface
      */
     public function canRun()
     {
-        return class_exists(\PHPMD\TextUI\Command::class);
+        return class_exists(Command::class);
     }
 
     /**
@@ -55,7 +58,7 @@ class CodeMessDetector implements ToolInterface
     public function run(array $whiteList)
     {
         if (empty($whiteList)) {
-            return \PHPMD\TextUI\Command::EXIT_SUCCESS;
+            return Command::EXIT_SUCCESS;
         }
 
         $commandLineArguments = [
@@ -67,10 +70,10 @@ class CodeMessDetector implements ToolInterface
             $this->reportFile,
         ];
 
-        $options = new \PHPMD\TextUI\CommandLineOptions($commandLineArguments);
+        $options = new CommandLineOptions($commandLineArguments);
 
-        $command = new \PHPMD\TextUI\Command();
+        $command = new Command();
 
-        return $command->run($options, new \PHPMD\RuleSetFactory());
+        return $command->run($options, new RuleSetFactory());
     }
 }

@@ -8,6 +8,7 @@ namespace Magento\Install\Test\Constraint;
 
 use Magento\Install\Test\Page\Install;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check that PHP Version, PHP Extensions and File Permission are ok.
@@ -37,17 +38,17 @@ class AssertSuccessfulReadinessCheck extends AbstractConstraint
      */
     public function processAssert(Install $installPage)
     {
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             self::PHP_VERSION_MESSAGE,
             $installPage->getReadinessBlock()->getPhpVersionCheck(),
             'PHP version is incorrect.'
         );
-        \PHPUnit\Framework\Assert::assertRegExp(
+        Assert::assertRegExp(
             self::PHP_EXTENSIONS_REGEXP,
             $installPage->getReadinessBlock()->getPhpExtensionsCheck(),
             'PHP extensions missed.'
         );
-        \PHPUnit\Framework\Assert::assertRegExp(
+        Assert::assertRegExp(
             self::FILE_PERMISSION_REGEXP,
             $installPage->getReadinessBlock()->getFilePermissionCheck(),
             'File permissions does not meet requirements.'

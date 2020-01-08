@@ -10,6 +10,7 @@ use Magento\Backend\Test\Page\Adminhtml\NewGroupIndex;
 use Magento\Backend\Test\Page\Adminhtml\StoreIndex;
 use Magento\Store\Test\Fixture\Website;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertWebsiteOnStoreForm
@@ -33,7 +34,7 @@ class AssertWebsiteOnStoreForm extends AbstractConstraint
     {
         $websiteName = $website->getName();
         $storeIndex->open()->getGridPageActions()->createStoreGroup();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $newGroupIndex->getEditFormGroup()->isWebsiteVisible($websiteName),
             'Website \'' . $websiteName . '\' is not present on Store Group Form in Website dropdown.'
         );

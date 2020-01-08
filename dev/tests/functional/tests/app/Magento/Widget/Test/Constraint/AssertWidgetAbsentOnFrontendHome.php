@@ -7,9 +7,10 @@
 namespace Magento\Widget\Test\Constraint;
 
 use Magento\Cms\Test\Page\CmsIndex;
-use Magento\Widget\Test\Fixture\Widget;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Util\Command\Cli\Cache;
+use Magento\Widget\Test\Fixture\Widget;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check that created widget does NOT displayed on frontend on Home page.
@@ -37,7 +38,7 @@ class AssertWidgetAbsentOnFrontendHome extends AbstractConstraint
         }
         $cmsIndex->open();
         $widgetText = $widget->getParameters()['anchor_text'];
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $cmsIndex->getWidgetView()->isWidgetVisible($widget, $widgetText),
             'Widget is present on Home page.'
         );

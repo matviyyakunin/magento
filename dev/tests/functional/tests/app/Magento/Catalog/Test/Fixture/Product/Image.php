@@ -6,6 +6,7 @@
 
 namespace Magento\Catalog\Test\Fixture\Product;
 
+use Exception;
 use Magento\Mtf\Fixture\DataSource;
 use Magento\Mtf\Fixture\FixtureFactory;
 
@@ -42,7 +43,7 @@ class Image extends DataSource
 
     /**
      * {@inheritdoc}
-     * @throws \Exception
+     * @throws Exception
      */
     public function getData($key = null)
     {
@@ -50,7 +51,7 @@ class Image extends DataSource
             if (isset($imageData['file']) && file_exists(MTF_TESTS_PATH . $imageData['file'])) {
                 $imageData['file'] = MTF_TESTS_PATH . $imageData['file'];
             } else {
-                throw new \Exception("Image '{$imageData['file']}'' not found on the server.");
+                throw new Exception("Image '{$imageData['file']}'' not found on the server.");
             }
         }
         $this->data = $this->fixtureData;

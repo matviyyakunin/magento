@@ -9,6 +9,7 @@ namespace Magento\Catalog\Test\Constraint;
 use Magento\Catalog\Test\Page\Product\CatalogProductCompare;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductCompareSuccessRemoveMessage
@@ -29,7 +30,7 @@ class AssertProductCompareSuccessRemoveMessage extends AbstractConstraint
     {
         $successMessage = sprintf(self::SUCCESS_MESSAGE, $product->getName());
         $actualMessage = $catalogProductCompare->getMessagesBlock()->getSuccessMessage();
-        \PHPUnit\Framework\Assert::assertEquals($successMessage, $actualMessage, 'Wrong success message is displayed.');
+        Assert::assertEquals($successMessage, $actualMessage, 'Wrong success message is displayed.');
     }
 
     /**

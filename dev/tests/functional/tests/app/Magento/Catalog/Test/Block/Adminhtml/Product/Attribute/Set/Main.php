@@ -8,6 +8,7 @@ namespace Magento\Catalog\Test\Block\Adminhtml\Product\Attribute\Set;
 
 use Magento\Mtf\Block\Block;
 use Magento\Mtf\Client\Locator;
+use Magento\Ui\Test\Block\Adminhtml\Modal;
 
 /**
  * Class Main
@@ -131,8 +132,8 @@ class Main extends Block
     {
         $this->_rootElement->find($this->addGroupButton)->click();
         $element = $this->browser->find($this->promptModal);
-        /** @var \Magento\Ui\Test\Block\Adminhtml\Modal $modal */
-        $modal = $this->blockFactory->create(\Magento\Ui\Test\Block\Adminhtml\Modal::class, ['element' => $element]);
+        /** @var Modal $modal */
+        $modal = $this->blockFactory->create(Modal::class, ['element' => $element]);
         $modal->setAlertText($groupName);
         $modal->acceptAlert();
     }

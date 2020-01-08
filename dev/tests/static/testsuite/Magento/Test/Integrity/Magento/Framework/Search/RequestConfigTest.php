@@ -7,14 +7,17 @@
  */
 namespace Magento\Test\Integrity\Magento\Framework\Search;
 
-class RequestConfigTest extends \Magento\TestFramework\Integrity\AbstractConfig
+use Magento\Framework\Config\Dom\UrnResolver;
+use Magento\TestFramework\Integrity\AbstractConfig;
+
+class RequestConfigTest extends AbstractConfig
 {
-    /** @var \Magento\Framework\Config\Dom\UrnResolver */
+    /** @var UrnResolver */
     protected $urnResolver;
 
     protected function setUp()
     {
-        $this->urnResolver = new \Magento\Framework\Config\Dom\UrnResolver();
+        $this->urnResolver = new UrnResolver();
     }
 
     /**

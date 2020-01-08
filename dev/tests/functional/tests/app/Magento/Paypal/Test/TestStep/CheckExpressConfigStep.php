@@ -12,6 +12,7 @@ use Magento\Payment\Test\Constraint\AssertFieldsAreActive;
 use Magento\Payment\Test\Constraint\AssertFieldsAreDisabled;
 use Magento\Payment\Test\Constraint\AssertFieldsAreEnabled;
 use Magento\Payment\Test\Constraint\AssertFieldsArePresent;
+use Magento\Paypal\Test\Block\System\Config\ExpressCheckout;
 
 /**
  * Check PayPal Express Checkout configuration.
@@ -60,7 +61,7 @@ class CheckExpressConfigStep implements TestStepInterface
     private $sections;
 
     /**
-     * @var \Magento\Paypal\Test\Block\System\Config\ExpressCheckout
+     * @var ExpressCheckout
      */
     private $expressCheckoutConfigBlock;
 

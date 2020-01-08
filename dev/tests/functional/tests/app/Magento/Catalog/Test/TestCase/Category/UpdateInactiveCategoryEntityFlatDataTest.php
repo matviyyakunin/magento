@@ -7,6 +7,7 @@
 namespace Magento\Catalog\Test\TestCase\Category;
 
 use Magento\Catalog\Test\Fixture\Category;
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Mtf\TestStep\TestStepFactory;
 use Magento\Mtf\Util\Command\Cli\Cron;
 use Magento\Mtf\Util\Command\Cli\Indexer;
@@ -105,7 +106,7 @@ class UpdateInactiveCategoryEntityFlatDataTest extends UpdateCategoryEntityTest
         $this->cron->run();
 
         $this->stepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData, 'flushCache' => true]
         )->run();
 
@@ -123,7 +124,7 @@ class UpdateInactiveCategoryEntityFlatDataTest extends UpdateCategoryEntityTest
     public function tearDown()
     {
         $this->stepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData, 'rollback' => true, 'flushCache' => true]
         )->run();
         $this->indexer->reindex();

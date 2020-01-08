@@ -5,7 +5,13 @@
  */
 namespace Magento\Test\Integrity\Magento\Framework\Api;
 
+use Magento\Framework\Api\ExtensibleDataInterface;
+use Magento\Framework\App\Utility\AggregateInvoker;
 use Magento\Framework\App\Utility\Files;
+use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use ReflectionException;
+use Zend\Code\Reflection\FileReflection;
 
 /**
  * Check interfaces inherited from \Magento\Framework\Api\ExtensibleDataInterface.
@@ -13,16 +19,16 @@ use Magento\Framework\App\Utility\Files;
  * Ensure that all interfaces inherited from \Magento\Framework\Api\ExtensibleDataInterface
  * override getExtensionAttributes() method and have correct return type specified.
  */
-class ExtensibleInterfacesTest extends \PHPUnit\Framework\TestCase
+class ExtensibleInterfacesTest extends TestCase
 {
-    const EXTENSIBLE_DATA_INTERFACE = \Magento\Framework\Api\ExtensibleDataInterface::class;
+    const EXTENSIBLE_DATA_INTERFACE = ExtensibleDataInterface::class;
 
     /**
      * Check return types of getExtensionAttributes() methods.
      */
     public function testGetSetExtensionAttributes()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * @param string $filename
@@ -41,7 +47,7 @@ class ExtensibleInterfacesTest extends \PHPUnit\Framework\TestCase
                     $namespace = $matches[1];
                     $interfaceName = $matches[2];
                     $fullInterfaceName = '\\' . $namespace . '\\' . $interfaceName;
-                    $interfaceReflection = new \ReflectionClass($fullInterfaceName);
+                    $interfaceReflection = new ReflectionClass($fullInterfaceName);
                     if ($interfaceReflection->isSubclassOf(self::EXTENSIBLE_DATA_INTERFACE)) {
                         $interfaceName = '\\' . $interfaceReflection->getName();
                         $extensionClassName = substr($interfaceName, 0, -strlen('Interface')) . 'Extension';
@@ -78,13 +84,13 @@ class ExtensibleInterfacesTest extends \PHPUnit\Framework\TestCase
     /**
      * Check getExtensionAttributes methods
      *
-     * @param \ReflectionClass $interfaceReflection
+     * @param ReflectionClass $interfaceReflection
      * @param string $extensionInterfaceName
      * @param string $fullInterfaceName
      * @return array
      */
     private function checkGetExtensionAttributes(
-        \ReflectionClass $interfaceReflection,
+        ReflectionClass $interfaceReflection,
         $extensionInterfaceName,
         $fullInterfaceName
     ) {
@@ -99,7 +105,7 @@ class ExtensibleInterfacesTest extends \PHPUnit\Framework\TestCase
                     "'{$fullInterfaceName}::getExtensionAttributes()' must be declared "
                     . "with a return type of '{$extensionInterfaceName}'.";
             }
-        } catch (\ReflectionException $e) {
+        } catch (ReflectionException $e) {
             $errors[] = "The following method should be declared in "
                 . "'{$extensionInterfaceName}'. '{$extensionInterfaceName}' must be specified as"
                 . " a return type for '{$fullInterfaceName}::getExtensionAttributes()'";
@@ -111,13 +117,13 @@ class ExtensibleInterfacesTest extends \PHPUnit\Framework\TestCase
     /**
      * Check setExtensionAttributes methods
      *
-     * @param \ReflectionClass $interfaceReflection
+     * @param ReflectionClass $interfaceReflection
      * @param string $extensionInterfaceName
      * @param string $fullInterfaceName
      * @return array
      */
     private function checkSetExtensionAttributes(
-        \ReflectionClass $interfaceReflection,
+        ReflectionClass $interfaceReflection,
         $extensionInterfaceName,
         $fullInterfaceName
     ) {
@@ -144,7 +150,7 @@ class ExtensibleInterfacesTest extends \PHPUnit\Framework\TestCase
                         . "in '{$fullInterfaceName}::setExtensionAttributes()'.";
                 }
             }
-        } catch (\ReflectionException $e) {
+        } catch (ReflectionException $e) {
             $errors[] = "'{$fullInterfaceName}::setExtensionAttributes()' must be declared "
                 . "with a '{$extensionInterfaceName}' parameter type.";
         }
@@ -157,7 +163,7 @@ class ExtensibleInterfacesTest extends \PHPUnit\Framework\TestCase
      */
     public function testExtensibleClassesWithMissingInterface()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * @param string $filename
@@ -170,14 +176,14 @@ class ExtensibleInterfacesTest extends \PHPUnit\Framework\TestCase
                 if (preg_match('/' . $extensibleClassPattern . '/', $fileContent) &&
                     !preg_match('/' . $abstractExtensibleClassPattern . '/', $fileContent)
                 ) {
-                    $fileReflection = new \Zend\Code\Reflection\FileReflection($filename, true);
+                    $fileReflection = new FileReflection($filename, true);
                     foreach ($fileReflection->getClasses() as $classReflection) {
                         if ($classReflection->isSubclassOf(self::EXTENSIBLE_DATA_INTERFACE)) {
                             $methodsToCheck = ['setExtensionAttributes', 'getExtensionAttributes'];
                             foreach ($methodsToCheck as $methodName) {
                                 try {
                                     $classReflection->getMethod($methodName);
-                                } catch (\ReflectionException $e) {
+                                } catch (ReflectionException $e) {
                                     $className = $classReflection->getName();
                                     $errors[] = "'{$className}::{$methodName}()' must be declared or "
                                         . "'{$className}' should not be inherited from extensible class.";

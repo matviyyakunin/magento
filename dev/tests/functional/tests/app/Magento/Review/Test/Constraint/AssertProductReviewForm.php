@@ -10,6 +10,7 @@ use Magento\Mtf\Constraint\AbstractAssertForm;
 use Magento\Review\Test\Fixture\Review;
 use Magento\Review\Test\Page\Adminhtml\ReviewIndex;
 use Magento\Review\Test\Page\Adminhtml\ReviewEdit;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that review data on edit page equals passed from fixture.
@@ -54,7 +55,7 @@ class AssertProductReviewForm extends AbstractAssertForm
 
         $error = $this->verifyData($fixtureData, $formData);
 
-        \PHPUnit\Framework\Assert::assertEmpty($error, $error);
+        Assert::assertEmpty($error, $error);
     }
 
     /**

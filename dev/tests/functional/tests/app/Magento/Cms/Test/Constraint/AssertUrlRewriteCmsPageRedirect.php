@@ -11,6 +11,7 @@ use Magento\UrlRewrite\Test\Fixture\UrlRewrite;
 use Magento\Variable\Test\Page\Adminhtml\SystemVariableNew;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that created CMS Page URL Rewrite lead to appropriate page in frontend.
@@ -41,7 +42,7 @@ class AssertUrlRewriteCmsPageRedirect extends AbstractConstraint
             ? $urlRewrite->getRequestPath()
             : $cmsPage->getTitle();
 
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $_ENV['app_frontend_url'] . $url,
             $browser->getUrl(),
             'URL rewrite CMS Page redirect false.'

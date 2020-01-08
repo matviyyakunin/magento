@@ -7,7 +7,7 @@
  */
 namespace Magento\TestFramework\Dependency;
 
-class DbRule implements \Magento\TestFramework\Dependency\RuleInterface
+class DbRule implements RuleInterface
 {
     /**
      * Map of tables and modules
@@ -53,7 +53,7 @@ class DbRule implements \Magento\TestFramework\Dependency\RuleInterface
                 if (strtolower($currentModule) !== strtolower($this->_moduleTableMap[$table])) {
                     $dependenciesInfo[] = [
                         'module' => $this->_moduleTableMap[$table],
-                        'type' => \Magento\TestFramework\Dependency\RuleInterface::TYPE_HARD,
+                        'type' => RuleInterface::TYPE_HARD,
                         'source' => $table,
                     ];
                 }

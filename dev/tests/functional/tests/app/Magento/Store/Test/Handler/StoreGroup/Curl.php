@@ -6,6 +6,7 @@
 
 namespace Magento\Store\Test\Handler\StoreGroup;
 
+use Exception;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Handler\Curl as AbstractCurl;
 use Magento\Mtf\Util\Protocol\CurlInterface;
@@ -23,7 +24,7 @@ class Curl extends AbstractCurl implements StoreGroupInterface
      *
      * @param FixtureInterface $fixture
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function persist(FixtureInterface $fixture = null)
     {
@@ -34,7 +35,7 @@ class Curl extends AbstractCurl implements StoreGroupInterface
         $response = $curl->read();
         $curl->close();
         if (strpos($response, 'data-ui-id="messages-message-success"') === false) {
-            throw new \Exception("Store group entity creating by curl handler was not successful! Response: $response");
+            throw new Exception("Store group entity creating by curl handler was not successful! Response: $response");
         }
 
         return ['group_id' => $this->getStoreGroupIdByGroupName($fixture->getName())];
@@ -45,7 +46,7 @@ class Curl extends AbstractCurl implements StoreGroupInterface
      *
      * @param string $storeName
      * @return int
-     * @throws \Exception
+     * @throws Exception
      */
     protected function getStoreGroupIdByGroupName($storeName)
     {
@@ -62,7 +63,7 @@ class Curl extends AbstractCurl implements StoreGroupInterface
         preg_match('/' . $expectedUrl . '([0-9]*)\/(.)*>' . $storeName . '<\/a>/', $response, $matches);
 
         if (empty($matches)) {
-            throw new \Exception('Cannot find store group id');
+            throw new Exception('Cannot find store group id');
         }
 
         return (int)$matches[1];

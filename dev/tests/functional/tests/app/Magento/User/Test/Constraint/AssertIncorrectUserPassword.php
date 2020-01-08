@@ -8,6 +8,7 @@ namespace Magento\User\Test\Constraint;
 
 use Magento\Backend\Test\Page\Adminhtml\Dashboard;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that message about incorrect user password is displayed.
@@ -25,7 +26,7 @@ class AssertIncorrectUserPassword extends AbstractConstraint
     public function processAssert(Dashboard $dashboard)
     {
         $errorMessage = $dashboard->getMessagesBlock()->getErrorMessage();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::ERROR_MESSAGE,
             $errorMessage,
             'Wrong error message is displayed.'

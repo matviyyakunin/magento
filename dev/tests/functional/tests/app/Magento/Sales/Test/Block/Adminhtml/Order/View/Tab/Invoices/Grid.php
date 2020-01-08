@@ -7,11 +7,12 @@
 namespace Magento\Sales\Test\Block\Adminhtml\Order\View\Tab\Invoices;
 
 use Magento\Mtf\Client\Locator;
+use Magento\Ui\Test\Block\Adminhtml\DataGrid;
 
 /**
  * Invoices grid on order view page.
  */
-class Grid extends \Magento\Ui\Test\Block\Adminhtml\DataGrid
+class Grid extends DataGrid
 {
     /**
      * Locator value for link in action column.

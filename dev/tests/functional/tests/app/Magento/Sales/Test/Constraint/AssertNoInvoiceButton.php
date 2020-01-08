@@ -10,6 +10,7 @@ use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
 use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert no Invoice button the order grid
@@ -28,7 +29,7 @@ class AssertNoInvoiceButton extends AbstractConstraint
     {
         $orderIndex->open();
         $orderIndex->getSalesOrderGrid()->searchAndOpen(['id' => $order->getId()]);
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $salesOrderView->getPageActions()->isActionButtonVisible('Invoice'),
             'Invoice button is present on order view page.'
         );

@@ -10,6 +10,7 @@ use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
 use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that buttons from dataset are not present on page
@@ -40,7 +41,7 @@ class AssertOrderButtonsUnavailable extends AbstractConstraint
                 $matches[] = $button;
             }
         }
-        \PHPUnit\Framework\Assert::assertEmpty(
+        Assert::assertEmpty(
             $matches,
             'Buttons are present on order page.'
             . "\nLog:\n" . implode(";\n", $matches)

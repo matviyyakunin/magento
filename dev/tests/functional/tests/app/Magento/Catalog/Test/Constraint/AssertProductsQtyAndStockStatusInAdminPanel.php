@@ -8,6 +8,7 @@ namespace Magento\Catalog\Test\Constraint;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductEdit;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert Products Qty and Stock Status In Admin Panel.
@@ -43,7 +44,7 @@ class AssertProductsQtyAndStockStatusInAdminPanel extends AbstractConstraint
             $actualQtyAndStockStatus['stock_status'] =
                 strtolower($productData['quantity_and_stock_status']['is_in_stock']);
 
-            \PHPUnit\Framework\Assert::assertEquals(
+            Assert::assertEquals(
                 $actualQtyAndStockStatus,
                 $expectedQtyAndStockStatus,
                 'Expected and actual products qty and status are not equal.'

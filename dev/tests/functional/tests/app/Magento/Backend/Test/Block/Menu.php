@@ -6,8 +6,10 @@
 
 namespace Magento\Backend\Test\Block;
 
+use Exception;
 use Magento\Mtf\Block\Block;
 use Magento\Mtf\Client\Locator;
+use PHPUnit_Extensions_Selenium2TestCase_WebDriverException;
 
 /**
  * Top menu navigation block.
@@ -70,7 +72,7 @@ class Menu extends Block
      * @param string $menuItem
      * @param bool $waitMenuItemNotVisible
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function navigate($menuItem, $waitMenuItemNotVisible = true)
     {
@@ -81,7 +83,7 @@ class Menu extends Block
         // Click on element in main menu
         $mainMenuElement = $this->_rootElement->find(sprintf($this->mainMenu, $mainMenu), Locator::SELECTOR_XPATH);
         if (!$mainMenuElement->isVisible()) {
-            throw new \Exception('Main menu item "' . $mainMenu . '" is not visible.');
+            throw new Exception('Main menu item "' . $mainMenu . '" is not visible.');
         }
         $mainMenuElement->click();
 
@@ -96,7 +98,7 @@ class Menu extends Block
         // Resolve an issue on with "Offset within element cannot be scrolled into view" on low screen resolution
         try {
             $this->_rootElement->find($subMenuItem, Locator::SELECTOR_XPATH)->hover();
-        } catch (\PHPUnit_Extensions_Selenium2TestCase_WebDriverException  $e) {
+        } catch (PHPUnit_Extensions_Selenium2TestCase_WebDriverException  $e) {
         }
         $this->_rootElement->find($subMenuItem, Locator::SELECTOR_XPATH)->click();
         if ($waitMenuItemNotVisible) {

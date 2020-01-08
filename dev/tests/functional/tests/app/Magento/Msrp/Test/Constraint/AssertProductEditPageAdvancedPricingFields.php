@@ -9,6 +9,7 @@ namespace Magento\Msrp\Test\Constraint;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductEdit;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check "Manufacturer's Suggested Retail Price" field on "Advanced pricing" page.
@@ -33,7 +34,7 @@ class AssertProductEditPageAdvancedPricingFields extends AbstractConstraint
         $catalogProductEdit->getProductForm()->openSection('advanced-pricing');
         $advancedPricing = $catalogProductEdit->getProductForm()->getSection('advanced-pricing');
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $advancedPricing->checkField($this->manufacturerFieldTitle),
             '"Manufacturer\'s Suggested Retail Price" field is not correct.'
         );

@@ -6,6 +6,7 @@
 
 namespace Magento\Sales\Test\TestCase;
 
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
 use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
@@ -55,7 +56,7 @@ class HoldCreatedOrderTest extends Injectable
     public function __prepare()
     {
         $this->objectManager->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => 'checkmo, flatrate', 'rollback' => true]
         )->run();
     }

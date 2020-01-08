@@ -8,6 +8,7 @@ namespace Magento\Install\Test\Constraint;
 
 use Magento\Backend\Test\Page\Adminhtml\Dashboard;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that selected currency symbol displays in admin.
@@ -23,7 +24,7 @@ class AssertCurrencySelected extends AbstractConstraint
      */
     public function processAssert($currencySymbol, Dashboard $dashboardPage)
     {
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             strpos($dashboardPage->getMainBlock()->getRevenuePrice(), $currencySymbol) !== false,
             'Selected currency symbol not displays on dashboard.'
         );

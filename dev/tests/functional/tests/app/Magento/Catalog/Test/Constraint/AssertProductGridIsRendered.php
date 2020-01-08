@@ -6,22 +6,26 @@
 
 namespace Magento\Catalog\Test\Constraint;
 
+use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
+use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
+
 /**
  * Assert that product grid is rendered correctly.
  */
-class AssertProductGridIsRendered extends \Magento\Mtf\Constraint\AbstractConstraint
+class AssertProductGridIsRendered extends AbstractConstraint
 {
     /**
      * Assert that product grid is rendered correctly.
      *
-     * @param \Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex $catalogProductIndex
+     * @param CatalogProductIndex $catalogProductIndex
      * @return void
      */
     public function processAssert(
-        \Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex $catalogProductIndex
+        CatalogProductIndex $catalogProductIndex
     ) {
         $productId = $catalogProductIndex->open()->getProductGrid()->getFirstItemId();
-        \PHPUnit\Framework\Assert::assertNotNull(
+        Assert::assertNotNull(
             $productId,
             'Product grid is not rendered correctly.'
         );

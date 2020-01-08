@@ -4,6 +4,8 @@
  * See COPYING.txt for license details.
  */
 
+use Magento\Framework\App\Bootstrap;
+
 /**
  * Environment initialization
  */
@@ -30,7 +32,7 @@ HTML;
 
 require_once __DIR__ . '/autoload.php';
 // Sets default autoload mappings, may be overridden in Bootstrap::create
-\Magento\Framework\App\Bootstrap::populateAutoloader(BP, []);
+Bootstrap::populateAutoloader(BP, []);
 
 /* Custom umask value may be provided in optional mage_umask file in root */
 $umaskFile = BP . '/magento_umask';

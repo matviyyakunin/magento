@@ -7,12 +7,13 @@
 namespace Magento\Catalog\Test\TestCase\Product;
 
 use Magento\Catalog\Test\Fixture\CatalogProductSimple;
-use Magento\Store\Test\Fixture\Store;
+use Magento\Catalog\Test\Fixture\Category;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductEdit;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
-use Magento\Mtf\TestCase\Injectable;
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Mtf\Fixture\FixtureFactory;
-use Magento\Catalog\Test\Fixture\Category;
+use Magento\Mtf\TestCase\Injectable;
+use Magento\Store\Test\Fixture\Store;
 
 /**
  * Precondition:
@@ -109,7 +110,7 @@ class UpdateSimpleProductEntityTest extends Injectable
         }
 
         $this->objectManager->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $configData]
         )->run();
 
@@ -157,7 +158,7 @@ class UpdateSimpleProductEntityTest extends Injectable
     {
         if ($this->configData) {
             $this->objectManager->create(
-                \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+                SetupConfigurationStep::class,
                 ['configData' => $this->configData, 'rollback' => true]
             )->run();
         }

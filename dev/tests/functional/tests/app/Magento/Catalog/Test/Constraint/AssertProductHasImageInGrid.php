@@ -8,6 +8,7 @@ namespace Magento\Catalog\Test\Constraint;
 use Magento\Mtf\Fixture\InjectableFixture;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
+use PHPUnit\Framework\Assert;
 
 class AssertProductHasImageInGrid extends AbstractConstraint
 {
@@ -26,7 +27,7 @@ class AssertProductHasImageInGrid extends AbstractConstraint
         $productGrid->open();
         $productGrid->getProductGrid()->search($filter);
         $src = $productGrid->getProductGrid()->getBaseImageAttribute('src');
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             strpos($src, '/placeholder/') === false,
             'Product image is not present in product grid when it should be'
         );

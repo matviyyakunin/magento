@@ -12,6 +12,7 @@ use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\InjectableFixture;
 use Magento\Catalog\Test\Fixture\CatalogProductSimple;
 use Magento\Catalog\Test\Page\Product\CatalogProductView;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert product MSRP related data on product view page.
@@ -40,12 +41,12 @@ class AssertMsrpOnProductView extends AbstractConstraint
 
         $viewBlock = $catalogProductView->getMsrpViewBlock();
         $priceBlock = $viewBlock->getPriceBlock();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $product->getMsrp(),
             $priceBlock->getOldPrice(),
             'Displayed on Product view page MSRP is incorrect'
         );
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $priceBlock->isRegularPriceVisible(),
             'Regular price on Product view page is visible and not expected.'
         );

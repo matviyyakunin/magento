@@ -10,6 +10,7 @@ use Magento\Backend\Test\Page\Adminhtml\EditGroup;
 use Magento\Backend\Test\Page\Adminhtml\StoreIndex;
 use Magento\Store\Test\Fixture\StoreGroup;
 use Magento\Mtf\Constraint\AbstractAssertForm;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertStoreGroupForm
@@ -45,7 +46,7 @@ class AssertStoreGroupForm extends AbstractAssertForm
         $storeIndex->open()->getStoreGrid()->searchAndOpenStoreGroup($storeGroup);
         $formData = $editGroup->getEditFormGroup()->getData();
         $errors = $this->verifyData($fixtureData, $formData);
-        \PHPUnit\Framework\Assert::assertEmpty($errors, $errors);
+        Assert::assertEmpty($errors, $errors);
     }
 
     /**

@@ -8,6 +8,7 @@ namespace Magento\Review\Test\Constraint;
 
 use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertReviewCreationSuccessMessage
@@ -28,7 +29,7 @@ class AssertReviewCreationSuccessMessage extends AbstractConstraint
     public function processAssert(CatalogProductView $catalogProductView)
     {
         $actualMessage = $catalogProductView->getMessagesBlock()->getSuccessMessage();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $actualMessage,
             'Wrong success message is displayed.'

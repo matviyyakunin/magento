@@ -9,6 +9,7 @@ namespace Magento\Widget\Test\Constraint;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Widget\Test\Fixture\Widget;
 use Magento\Widget\Test\Page\Adminhtml\WidgetInstanceIndex;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert theme filter contains all possible values from created widgets.
@@ -30,7 +31,7 @@ class AssertThemeFilterValuesOnWidgetGrid extends AbstractConstraint
         }
         $widgetInstanceIndex->open();
         $actualValues = $widgetInstanceIndex->getWidgetGrid()->getThemeIdValues();
-        \PHPUnit\Framework\Assert::assertEmpty(
+        Assert::assertEmpty(
             array_diff($expectedValues, $actualValues),
             'Widget grid theme filter doesn\'t contain all possible values from created widgets.'
         );

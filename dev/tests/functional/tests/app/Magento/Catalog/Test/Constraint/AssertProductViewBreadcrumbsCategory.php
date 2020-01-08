@@ -14,6 +14,7 @@ use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that correct category is displayed in breadcrumbs.
@@ -46,7 +47,7 @@ class AssertProductViewBreadcrumbsCategory extends AbstractConstraint
                 $cmsIndex->getTopmenu()->selectCategoryByName($category->getName());
 
                 $productItem = $catalogCategoryView->getListProductBlock()->getProductItem($product);
-                \PHPUnit\Framework\Assert::assertTrue(
+                Assert::assertTrue(
                     $productItem->isVisible(),
                     'Product is not present in category.'
                 );
@@ -57,7 +58,7 @@ class AssertProductViewBreadcrumbsCategory extends AbstractConstraint
 
                 $breadcrumbs = $catalogProductView->getBreadcrumbs()->getCrumbs();
 
-                \PHPUnit\Framework\Assert::assertContains(
+                Assert::assertContains(
                     $category->getName(),
                     $breadcrumbs,
                     'Product view page has incorrect breadcrumbs.'

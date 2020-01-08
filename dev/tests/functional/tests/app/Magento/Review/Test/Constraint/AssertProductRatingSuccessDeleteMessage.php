@@ -8,6 +8,7 @@ namespace Magento\Review\Test\Constraint;
 
 use Magento\Review\Test\Page\Adminhtml\RatingIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductRatingSuccessDeleteMessage
@@ -25,7 +26,7 @@ class AssertProductRatingSuccessDeleteMessage extends AbstractConstraint
     public function processAssert(RatingIndex $ratingIndex)
     {
         $actualMessage = $ratingIndex->getMessagesBlock()->getSuccessMessage();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::SUCCESS_DELETE_MESSAGE,
             $actualMessage,
             'Wrong success message is displayed.'

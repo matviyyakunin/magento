@@ -6,8 +6,10 @@
 namespace Magento\Sales\Test\Constraint;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
+use Magento\Sales\Test\Block\Adminhtml\Order\View\Tab\Info;
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
 use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that comment about canceled amount exists in
@@ -36,12 +38,12 @@ class AssertCancelInCommentsHistory extends AbstractConstraint
         $salesOrder->open();
         $salesOrder->getSalesOrderGrid()->searchAndOpen(['id' => $orderId]);
 
-        /** @var \Magento\Sales\Test\Block\Adminhtml\Order\View\Tab\Info $infoTab */
+        /** @var Info $infoTab */
         $infoTab = $salesOrderView->getOrderForm()->openTab('info')->getTab('info');
         $comments = $infoTab->getCommentsHistoryBlock()->getComments();
         $commentsMessages = array_column($comments, 'comment');
 
-        \PHPUnit\Framework\Assert::assertRegExp(
+        Assert::assertRegExp(
             sprintf($this->canceledAmountPattern, $prices['grandTotal']),
             implode('. ', $commentsMessages),
             'Incorrect canceled amount value for the order #' . $orderId

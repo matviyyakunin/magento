@@ -9,6 +9,7 @@ namespace Magento\Catalog\Test\Constraint;
 use Magento\Catalog\Test\Fixture\CatalogAttributeSet;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductSetIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertAttributeSetInGrid
@@ -30,7 +31,7 @@ class AssertAttributeSetInGrid extends AbstractConstraint
         ];
 
         $productSetPage->open();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $productSetPage->getGrid()->isRowVisible($filterAttributeSet),
             'Attribute Set \'' . $filterAttributeSet['set_name'] . '\' is absent in Attribute Set grid.'
         );

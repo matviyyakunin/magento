@@ -8,6 +8,7 @@ namespace Magento\User\Test\TestCase;
 
 use Magento\Backend\Test\Page\AdminAuthLogin;
 use Magento\Config\Test\Fixture\ConfigData;
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Mtf\TestCase\Injectable;
 use Magento\Mtf\TestStep\TestStepFactory;
@@ -111,7 +112,7 @@ class UnlockAdminUserTest extends Injectable
         $this->configData = $configData;
         $config->persist();
         $this->testStepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $configData]
         )->run();
         $customAdmin->persist();
@@ -141,7 +142,7 @@ class UnlockAdminUserTest extends Injectable
     public function tearDown()
     {
         $this->testStepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData, 'rollback' => true]
         )->run();
     }

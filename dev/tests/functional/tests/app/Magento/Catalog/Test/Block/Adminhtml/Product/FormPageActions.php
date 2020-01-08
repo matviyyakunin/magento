@@ -9,6 +9,7 @@ namespace Magento\Catalog\Test\Block\Adminhtml\Product;
 use Magento\Backend\Test\Block\FormPageActions as ParentFormPageActions;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\Fixture\FixtureInterface;
+use Magento\Ui\Test\Block\Adminhtml\Modal;
 
 /**
  * Product Form page actions.
@@ -158,9 +159,9 @@ class FormPageActions extends ParentFormPageActions
             ->find($this->dropdownBlock, Locator::SELECTOR_CSS, 'liselectstore')
             ->setValue(sprintf('%s/%s', $store->getGroupId(), $store->getName()));
         $modalElement = $this->browser->find($this->confirmModal);
-        /** @var \Magento\Ui\Test\Block\Adminhtml\Modal $modal */
+        /** @var Modal $modal */
         $modal = $this->blockFactory->create(
-            \Magento\Ui\Test\Block\Adminhtml\Modal::class,
+            Modal::class,
             ['element' => $modalElement]
         );
         $modal->acceptAlert();

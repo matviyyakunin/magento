@@ -6,7 +6,9 @@
 
 namespace Magento\Mtf\Client\Element;
 
+use Exception;
 use Magento\Mtf\Client\Locator;
+use UnexpectedValueException;
 
 /**
  * Toggle element in the backend.
@@ -37,7 +39,7 @@ class SwitcherElement extends SimpleElement
     public function setValue($value)
     {
         if (($value != 'Yes') && ($value != 'No')) {
-            throw new \UnexpectedValueException(
+            throw new UnexpectedValueException(
                 sprintf('Switcher element accepts only "Yes" and "No" values.')
             );
         }
@@ -50,7 +52,7 @@ class SwitcherElement extends SimpleElement
      * Get the current value.
      *
      * @return string 'Yes'|'No'
-     * @throws \Exception
+     * @throws Exception
      */
     public function getValue()
     {
@@ -59,7 +61,7 @@ class SwitcherElement extends SimpleElement
         } elseif ($this->find($this->parentContainer, 'xpath')->find('input')->isVisible()) {
             return 'No';
         } else {
-            throw new \Exception(
+            throw new Exception(
                 sprintf('Element %s not found on page', $this->getLocator())
             );
         }

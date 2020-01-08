@@ -10,6 +10,7 @@ use Magento\Catalog\Test\Fixture\CatalogProductAttribute;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductNew;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Checks that product attribute cannot be added to attribute set on Product Page via Add Attribute control.
@@ -35,7 +36,7 @@ class AssertProductAttributeAbsenceInSearchOnProductForm extends AbstractConstra
         $filter = [
             'label' => $productAttribute->getFrontendLabel(),
         ];
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $newProductPage->getProductForm()->getAttributesSearchGrid()->isRowVisible($filter),
             'Attribute \'' . $productAttribute->getFrontendLabel() . '\' is found in Attributes grid.'
         );

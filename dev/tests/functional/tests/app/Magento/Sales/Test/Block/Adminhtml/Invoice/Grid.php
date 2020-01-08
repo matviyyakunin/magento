@@ -6,10 +6,12 @@
 
 namespace Magento\Sales\Test\Block\Adminhtml\Invoice;
 
+use Magento\Ui\Test\Block\Adminhtml\DataGrid;
+
 /**
  * Invoice grid on invoice index page.
  */
-class Grid extends \Magento\Ui\Test\Block\Adminhtml\DataGrid
+class Grid extends DataGrid
 {
     /**
      * Filters array mapping.

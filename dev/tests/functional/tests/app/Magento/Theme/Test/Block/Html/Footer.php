@@ -6,6 +6,7 @@
 
 namespace Magento\Theme\Test\Block\Html;
 
+use Exception;
 use Magento\Mtf\Block\Block;
 use Magento\Mtf\Client\Locator;
 use Magento\Store\Test\Fixture\Store;
@@ -63,13 +64,13 @@ class Footer extends Block
      *
      * @param string $linkName
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function clickLink($linkName)
     {
         $link = $this->_rootElement->find(sprintf($this->linkSelector, $linkName), Locator::SELECTOR_XPATH);
         if (!$link->isVisible()) {
-            throw new \Exception(sprintf('"%s" link is not visible', $linkName));
+            throw new Exception(sprintf('"%s" link is not visible', $linkName));
         }
         $link->click();
     }

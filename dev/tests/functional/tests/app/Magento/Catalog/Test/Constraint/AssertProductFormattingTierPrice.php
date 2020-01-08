@@ -8,6 +8,7 @@ namespace Magento\Catalog\Test\Constraint;
 
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductEdit;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Asserts that tier price formatting correct
@@ -25,7 +26,7 @@ class AssertProductFormattingTierPrice extends AbstractConstraint
         $productPage->getProductForm()->openSection('advanced-pricing');
         $productPage->getAdvancedPrice()->getFieldsData([]);
         $productPage->getAdvancedPrice()->getTierPriceForm()->waitTierPriceFormLocks();
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $productPage->getAdvancedPrice()->getTierPriceForm()->isVisible(),
             'Advanced price form still visible'
         );

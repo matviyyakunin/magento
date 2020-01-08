@@ -6,6 +6,7 @@
 
 namespace Magento\Sales\Test\Constraint;
 
+use Magento\Catalog\Test\Fixture\Cart\Item;
 use Magento\Checkout\Test\Fixture\Cart;
 use Magento\Mtf\Constraint\AbstractAssertForm;
 use Magento\Mtf\Fixture\FixtureFactory;
@@ -50,7 +51,7 @@ abstract class AbstractAssertItems extends AbstractAssertForm
             $fixtureFactory = $this->objectManager->create(FixtureFactory::class);
             $cart = $fixtureFactory->createByCode('cart', $cart);
         }
-        /** @var \Magento\Catalog\Test\Fixture\Cart\Item $item */
+        /** @var Item $item */
         foreach ($cart->getItems() as $key => $item) {
             if (isset($data[$key]['qty']) && $data[$key]['qty'] == 0) {
                 continue;

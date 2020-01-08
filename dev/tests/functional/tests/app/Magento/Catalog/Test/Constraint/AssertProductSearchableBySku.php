@@ -10,6 +10,7 @@ use Magento\CatalogSearch\Test\Page\CatalogsearchResult;
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductSearchableBySku
@@ -68,7 +69,7 @@ class AssertProductSearchableBySku extends AbstractConstraint
             list($this->errorMessage, $this->successfulMessage) = [$this->successfulMessage, $this->errorMessage];
         }
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $isVisible,
             $this->errorMessage
         );

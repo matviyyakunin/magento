@@ -9,8 +9,10 @@
 namespace Magento\Test\Integrity;
 
 use Magento\Framework\App\Utility\Files;
+use PHPUnit\Framework\TestCase;
+use function array_merge;
 
-class HhvmCompatibilityTest extends \PHPUnit\Framework\TestCase
+class HhvmCompatibilityTest extends TestCase
 {
     /**
      * @var array
@@ -99,7 +101,7 @@ class HhvmCompatibilityTest extends \PHPUnit\Framework\TestCase
      */
     protected function getFiles()
     {
-        return \array_merge(
+        return array_merge(
             Files::init()->getPhpFiles(
                 Files::INCLUDE_APP_CODE
                 | Files::INCLUDE_PUB_CODE

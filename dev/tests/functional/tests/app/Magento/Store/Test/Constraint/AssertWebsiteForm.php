@@ -10,6 +10,7 @@ use Magento\Backend\Test\Page\Adminhtml\EditWebsite;
 use Magento\Backend\Test\Page\Adminhtml\StoreIndex;
 use Magento\Store\Test\Fixture\Website;
 use Magento\Mtf\Constraint\AbstractAssertForm;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertWebsiteForm
@@ -41,7 +42,7 @@ class AssertWebsiteForm extends AbstractAssertForm
         $storeIndex->open()->getStoreGrid()->searchAndOpenWebsite($website);
         $formData = $editWebsite->getEditFormWebsite()->getData();
         $errors = $this->verifyData($fixtureData, $formData);
-        \PHPUnit\Framework\Assert::assertEmpty($errors, $errors);
+        Assert::assertEmpty($errors, $errors);
     }
 
     /**

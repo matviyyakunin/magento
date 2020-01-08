@@ -8,6 +8,7 @@ namespace Magento\Sales\Test\Constraint;
 
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertOrderOnHoldSuccessMessage
@@ -42,7 +43,7 @@ class AssertOrderOnHoldSuccessMessage extends AbstractConstraint
             ? sprintf(self::MULTIPLE_SUCCESS_ON_HOLD_MESSAGE, $ordersCount)
             : self::SINGLE_SUCCESS_ON_HOLD_MESSAGE;
 
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $successOnHoldMessage,
             $orderIndex->getMessagesBlock()->getSuccessMessage()
         );

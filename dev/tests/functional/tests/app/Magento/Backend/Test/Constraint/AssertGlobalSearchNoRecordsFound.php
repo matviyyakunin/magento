@@ -8,6 +8,7 @@ namespace Magento\Backend\Test\Constraint;
 
 use Magento\Backend\Test\Page\Adminhtml\Dashboard;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertGlobalSearchNoRecordsFound
@@ -29,7 +30,7 @@ class AssertGlobalSearchNoRecordsFound extends AbstractConstraint
     public function processAssert(Dashboard $dashboard)
     {
         $isVisibleInResult = $dashboard->getAdminPanelHeader()->isSearchResultVisible(self::EXPECTED_RESULT);
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $isVisibleInResult,
             'Expected text ' . self::EXPECTED_RESULT . ' is absent in search results'
         );

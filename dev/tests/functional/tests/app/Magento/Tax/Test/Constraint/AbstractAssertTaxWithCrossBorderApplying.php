@@ -11,6 +11,7 @@ use Magento\Catalog\Test\Page\Category\CatalogCategoryView;
 use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Checkout\Test\Page\CheckoutCart;
 use Magento\Cms\Test\Page\CmsIndex;
+use Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
 
@@ -183,7 +184,7 @@ abstract class AbstractAssertTaxWithCrossBorderApplying extends AbstractConstrai
     protected function loginCustomer($customer)
     {
         $this->objectManager->create(
-            \Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep::class,
+            LoginCustomerOnFrontendStep::class,
             ['customer' => $customer]
         )->run();
     }

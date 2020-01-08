@@ -7,6 +7,8 @@
 namespace Magento\Cms\Test\Block\Adminhtml\Page\Edit;
 
 use Magento\Backend\Test\Block\Widget\FormTabs;
+use Magento\Cms\Test\Block\Adminhtml\Page\Edit\Tab\Content;
+use Magento\Cms\Test\Block\Adminhtml\Wysiwyg\Config;
 use Magento\Mtf\Client\Locator;
 
 /**
@@ -64,9 +66,9 @@ class PageForm extends FormTabs
     public function getSystemVariables()
     {
         $this->openTab('content');
-        /** @var \Magento\Cms\Test\Block\Adminhtml\Page\Edit\Tab\Content $contentTab */
+        /** @var Content $contentTab */
         $contentTab = $this->getTab('content');
-        /** @var \Magento\Cms\Test\Block\Adminhtml\Wysiwyg\Config $config */
+        /** @var Config $config */
         $contentTab->clickInsertVariable();
         $config = $contentTab->getWysiwygConfig();
 
@@ -99,7 +101,7 @@ class PageForm extends FormTabs
     public function isVariablesBlockVisible()
     {
         $this->openTab('content');
-        /** @var \Magento\Cms\Test\Block\Adminhtml\Page\Edit\Tab\Content $contentTab */
+        /** @var Content $contentTab */
         $contentTab = $this->getTab('content');
         $contentTab->clickInsertVariable();
         $this->waitForElementNotVisible($this->loader);

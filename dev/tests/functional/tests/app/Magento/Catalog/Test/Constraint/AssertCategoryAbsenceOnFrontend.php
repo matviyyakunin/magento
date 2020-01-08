@@ -10,6 +10,7 @@ use Magento\Catalog\Test\Fixture\Category;
 use Magento\Catalog\Test\Page\Category\CatalogCategoryView;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertCategoryAbsenceOnFrontend
@@ -40,7 +41,7 @@ class AssertCategoryAbsenceOnFrontend extends AbstractConstraint
         Category $category
     ) {
         $browser->open($_ENV['app_frontend_url'] . $category->getUrlKey() . '.html');
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::NOT_FOUND_MESSAGE,
             $categoryView->getTitleBlock()->getTitle(),
             'Wrong page is displayed.'

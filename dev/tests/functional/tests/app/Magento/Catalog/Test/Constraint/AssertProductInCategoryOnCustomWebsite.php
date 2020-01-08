@@ -7,10 +7,11 @@
 namespace Magento\Catalog\Test\Constraint;
 
 use Magento\Catalog\Test\Page\Category\CatalogCategoryView;
-use Magento\Store\Test\Fixture\Store;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
+use Magento\Store\Test\Fixture\Store;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that product is present on the category page on the custom website.
@@ -45,7 +46,7 @@ class AssertProductInCategoryOnCustomWebsite extends AbstractConstraint
             $isProductVisible = $catalogCategoryView->getListProductBlock()->getProductItem($product)->isVisible();
         }
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $isProductVisible,
             'Product is absent on the category page.'
         );

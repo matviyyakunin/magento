@@ -6,10 +6,11 @@
 
 namespace Magento\Catalog\Test\Block\Adminhtml\Product\Attribute\Edit;
 
-use Magento\Backend\Test\Block\Widget\Tab;
+use Exception;
 use Magento\Backend\Test\Block\Widget\FormTabs;
-use Magento\Mtf\Client\Element\SimpleElement;
+use Magento\Backend\Test\Block\Widget\Tab;
 use Magento\Mtf\Client\Element;
+use Magento\Mtf\Client\Element\SimpleElement;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Fixture\InjectableFixture;
 
@@ -45,7 +46,7 @@ class AttributeForm extends FormTabs
      * @param FixtureInterface $fixture
      * @param SimpleElement $element
      * @return array
-     * @throws \Exception
+     * @throws Exception
      *
      * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)

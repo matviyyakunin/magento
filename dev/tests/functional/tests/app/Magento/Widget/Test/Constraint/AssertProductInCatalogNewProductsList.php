@@ -6,12 +6,13 @@
 
 namespace Magento\Widget\Test\Constraint;
 
-use Magento\PageCache\Test\Page\Adminhtml\AdminCache;
+use Magento\Catalog\Test\Fixture\CatalogProductSimple;
 use Magento\Catalog\Test\Page\Category\CatalogCategoryView;
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
-use Magento\Catalog\Test\Fixture\CatalogProductSimple;
 use Magento\Mtf\Fixture\FixtureFactory;
+use Magento\PageCache\Test\Page\Adminhtml\AdminCache;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check that created product appears in Catalog New Products List widget on frontend on Category Page.
@@ -24,7 +25,7 @@ class AssertProductInCatalogNewProductsList extends AbstractConstraint
      * @var CatalogCategoryView
      */
     protected $catalogCategoryView;
-    
+
     /**
      * Assert that created product appears in Catalog New Products List widget on frontend on Category Page.
      *
@@ -53,7 +54,7 @@ class AssertProductInCatalogNewProductsList extends AbstractConstraint
 
         $cmsIndex->open();
 
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             $product->getName(),
             $this->catalogCategoryView->getViewBlock()->getProductsFromCatalogNewProductsListBlock(),
             'Product is absent on Catalog New Products List block on Category page.'

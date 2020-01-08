@@ -9,6 +9,7 @@ namespace Magento\Sales\Test\Constraint;
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
 use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that transactions status is closed on order page in Admin.
@@ -38,7 +39,7 @@ class AssertTransactionStatus extends AbstractConstraint
         foreach ($transactions as $transaction) {
             foreach ($actualTransactions as $actualTransaction) {
                 if ($actualTransaction['transactionType'] === $transaction['transactionType']) {
-                    \PHPUnit\Framework\Assert::assertEquals(
+                    Assert::assertEquals(
                         $transaction['statusIsClosed'],
                         $actualTransaction['statusIsClosed'],
                         'The ' . $transaction['transactionType'] . ' transaction status is not closed.'

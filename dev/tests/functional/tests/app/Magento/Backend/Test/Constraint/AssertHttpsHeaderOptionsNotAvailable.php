@@ -6,9 +6,10 @@
 
 namespace Magento\Backend\Test\Constraint;
 
-use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Backend\Test\Page\Adminhtml\SystemConfigEdit;
 use Magento\Config\Test\Fixture\ConfigData;
+use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that https header options are not available.
@@ -62,7 +63,7 @@ class AssertHttpsHeaderOptionsNotAvailable extends AbstractConstraint
             $fieldName = $parts[2];
             $isVisible = $systemConfigEdit->getForm()->getGroup($tabName, $groupName)
                 ->isFieldVisible($tabName, $groupName, $fieldName);
-            \PHPUnit\Framework\Assert::assertTrue(
+            Assert::assertTrue(
                 !$isVisible,
                 $fieldName . " configuration is not visible."
             );

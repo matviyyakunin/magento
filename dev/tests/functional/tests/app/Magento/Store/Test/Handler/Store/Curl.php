@@ -6,6 +6,7 @@
 
 namespace Magento\Store\Test\Handler\Store;
 
+use Exception;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Handler\Curl as AbstractCurl;
 use Magento\Mtf\Util\Protocol\CurlInterface;
@@ -45,7 +46,7 @@ class Curl extends AbstractCurl implements StoreInterface
      *
      * @param FixtureInterface|null $fixture [optional]
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function persist(FixtureInterface $fixture = null)
     {
@@ -56,7 +57,7 @@ class Curl extends AbstractCurl implements StoreInterface
         $response = $curl->read();
         $curl->close();
         if (strpos($response, 'data-ui-id="messages-message-success"') === false) {
-            throw new \Exception("Store View entity creating  by curl handler was not successful! Response: $response");
+            throw new Exception("Store View entity creating  by curl handler was not successful! Response: $response");
         }
 
         return ['store_id' => $this->getStoreId($fixture->getName())];
@@ -86,7 +87,7 @@ class Curl extends AbstractCurl implements StoreInterface
      *
      * @param string $name
      * @return int|null
-     * @throws \Exception
+     * @throws Exception
      */
     protected function getStoreId($name)
     {
@@ -103,7 +104,7 @@ class Curl extends AbstractCurl implements StoreInterface
         preg_match('/' . $expectedUrl . '([0-9]*)\/(.)*>' . $name . '<\/a>/', $response, $matches);
 
         if (empty($matches)) {
-            throw new \Exception('Cannot find store id');
+            throw new Exception('Cannot find store id');
         }
 
         return empty($matches[1]) ? null : $matches[1];

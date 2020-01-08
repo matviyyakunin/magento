@@ -47,18 +47,18 @@ class ExpressMainLogin extends Form
     /**
      * Determines whether new login form or old is shown.
      *
-     * @return \Magento\Paypal\Test\Block\Sandbox\ExpressLogin|\Magento\Paypal\Test\Block\Sandbox\ExpressOldLogin
+     * @return ExpressLogin|ExpressOldLogin
      */
     public function getLoginBlock()
     {
         if ($this->_rootElement->find($this->expressLogin)->isVisible()) {
             return $this->blockFactory->create(
-                \Magento\Paypal\Test\Block\Sandbox\ExpressLogin::class,
+                ExpressLogin::class,
                 ['element' => $this->_rootElement->find($this->expressLogin)]
             );
         }
         return $this->blockFactory->create(
-            \Magento\Paypal\Test\Block\Sandbox\ExpressOldLogin::class,
+            ExpressOldLogin::class,
             ['element' => $this->_rootElement->find($this->expressOldLogin)]
         );
     }

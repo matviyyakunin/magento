@@ -8,6 +8,7 @@ namespace Magento\Bundle\Test\Block\Catalog\Product;
 
 use Magento\Bundle\Test\Block\Catalog\Product\View\Summary;
 use Magento\Bundle\Test\Block\Catalog\Product\View\Type\Bundle;
+use Magento\Bundle\Test\Fixture\BundleProduct;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\Fixture\FixtureInterface;
 
@@ -60,7 +61,7 @@ class View extends \Magento\Catalog\Test\Block\Product\View
     public function getBundleBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Bundle\Test\Block\Catalog\Product\View\Type\Bundle::class,
+            Bundle::class,
             ['element' => $this->_rootElement->find($this->bundleBlock, Locator::SELECTOR_XPATH)]
         );
     }
@@ -123,7 +124,7 @@ class View extends \Magento\Catalog\Test\Block\Product\View
      */
     public function fillOptions(FixtureInterface $product)
     {
-        /** @var \Magento\Bundle\Test\Fixture\BundleProduct $product */
+        /** @var BundleProduct $product */
         $checkoutData = $product->getCheckoutData();
         $bundleCheckoutData = isset($checkoutData['options']['bundle_options'])
             ? $checkoutData['options']['bundle_options']

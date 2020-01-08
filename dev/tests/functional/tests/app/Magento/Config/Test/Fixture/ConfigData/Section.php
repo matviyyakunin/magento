@@ -6,6 +6,7 @@
 
 namespace Magento\Config\Test\Fixture\ConfigData;
 
+use Exception;
 use Magento\Store\Test\Fixture\Store;
 use Magento\Store\Test\Fixture\Website;
 use Magento\Mtf\Fixture\FixtureFactory;
@@ -136,7 +137,7 @@ class Section extends DataSource
      * Prepare scope data.
      *
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     private function prepareScopeData()
     {
@@ -152,7 +153,7 @@ class Section extends DataSource
         } elseif (isset($this->scopeData['fixture'])) {
             $this->scope = $this->scopeData['fixture'];
         } else {
-            throw new \Exception('Parameters "dataset" and "fixture" aren\'t identify.');
+            throw new Exception('Parameters "dataset" and "fixture" aren\'t identify.');
         }
 
         $this->prepareScope();
@@ -162,12 +163,12 @@ class Section extends DataSource
      * Prepare scope.
      *
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     private function prepareScope()
     {
         if ($this->setLevel == self::STORE_CODE && $this->scopeType == self::WEBSITE_CODE) {
-            throw new \Exception('Store level can\'t set to ["scope_type" = "website"].');
+            throw new Exception('Store level can\'t set to ["scope_type" = "website"].');
         } elseif ($this->setLevel == self::WEBSITE_CODE && $this->scopeType == self::STORE_CODE) {
             $this->scopeType = $this->setLevel;
             $this->scope = $this->scope

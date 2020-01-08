@@ -6,6 +6,7 @@
 
 namespace Magento\Review\Test\Handler\Rating;
 
+use Exception;
 use Magento\Backend\Test\Handler\Extractor;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Handler\Curl as AbstractCurl;
@@ -44,7 +45,7 @@ class Curl extends AbstractCurl implements RatingInterface
      *
      * @param FixtureInterface|null $rating [optional]
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function persist(FixtureInterface $rating = null)
     {
@@ -58,7 +59,7 @@ class Curl extends AbstractCurl implements RatingInterface
         $response = $curl->read();
         $curl->close();
         if (strpos($response, 'data-ui-id="messages-message-success"') === false) {
-            throw new \Exception(
+            throw new Exception(
                 'Product Rating entity creating by curl handler was not successful! Response:' . $response
             );
         }

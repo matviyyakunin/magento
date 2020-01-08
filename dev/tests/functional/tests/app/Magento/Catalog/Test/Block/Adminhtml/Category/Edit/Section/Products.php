@@ -74,12 +74,12 @@ class Products extends Section
     /**
      * Returns product grid.
      *
-     * @return \Magento\Catalog\Test\Block\Adminhtml\Category\Edit\Section\ProductGrid
+     * @return ProductGrid
      */
     public function getProductGrid()
     {
         return $this->blockFactory->create(
-            \Magento\Catalog\Test\Block\Adminhtml\Category\Edit\Section\ProductGrid::class,
+            ProductGrid::class,
             ['element' => $this->_rootElement->find($this->productGrid)]
         );
     }

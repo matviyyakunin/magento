@@ -9,6 +9,7 @@ namespace Magento\Sales\Test\Constraint;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\Adminhtml\CreditMemoIndex;
 use Magento\Sales\Test\Page\Adminhtml\SalesCreditMemoView;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert credit memo items on credit memo view page.
@@ -43,7 +44,7 @@ class AssertCreditMemoItems extends AbstractAssertItems
             $creditMemoIndex->getCreditMemoGrid()->searchAndOpen($filter);
             $itemsData = $this->preparePageItems($salesCreditMemoView->getItemsBlock()->getData());
             $error = $this->verifyData($productsData, $itemsData);
-            \PHPUnit\Framework\Assert::assertEmpty($error, $error);
+            Assert::assertEmpty($error, $error);
         }
     }
 

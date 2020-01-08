@@ -6,14 +6,14 @@
 
 namespace Magento\Sales\Test\Handler\OrderInjectable;
 
+use Exception;
 use Magento\Bundle\Test\Fixture\BundleProduct;
 use Magento\ConfigurableProduct\Test\Fixture\ConfigurableProduct;
 use Magento\Downloadable\Test\Fixture\DownloadableProduct;
-use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Mtf\Fixture\FixtureInterface;
-use Magento\Mtf\Util\Protocol\CurlTransport;
 use Magento\Mtf\Handler\Webapi as AbstractWebapi;
 use Magento\Mtf\Util\Protocol\CurlTransport\WebapiDecorator;
+use Magento\Sales\Test\Fixture\OrderInjectable;
 
 /**
  * Create new order via web API.
@@ -68,7 +68,7 @@ class Webapi extends AbstractWebapi implements OrderInjectableInterface
 
         /** @var OrderInjectable $fixture */
         $this->createQuote($fixture);
-        $url = $this->isCustomerGuest ? 'guest-carts/' . $this->quote  : 'carts/' . (int)$this->quote;
+        $url = $this->isCustomerGuest ? 'guest-carts/' . $this->quote : 'carts/' . (int)$this->quote;
         $this->url = $_ENV['app_frontend_url'] . $this->prepareWebsiteUrl($fixture) . '/V1/' . $url;
 
         $this->setProducts($fixture);
@@ -87,7 +87,7 @@ class Webapi extends AbstractWebapi implements OrderInjectableInterface
      *
      * @param OrderInjectable $order
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function createQuote(OrderInjectable $order)
     {
@@ -98,7 +98,7 @@ class Webapi extends AbstractWebapi implements OrderInjectableInterface
             $this->webapiTransport->close();
             if (!is_string($response)) {
                 $this->eventManager->dispatchEvent(['webapi_failed'], [$response]);
-                throw new \Exception('Could not create a checkout quote using web API.');
+                throw new Exception('Could not create a checkout quote using web API.');
             }
             $this->quote = $response;
         } else {
@@ -110,7 +110,7 @@ class Webapi extends AbstractWebapi implements OrderInjectableInterface
             $this->webapiTransport->close();
             if (!is_numeric($response)) {
                 $this->eventManager->dispatchEvent(['webapi_failed'], [$response]);
-                throw new \Exception('Could not create a checkout quote using web API.');
+                throw new Exception('Could not create a checkout quote using web API.');
             }
             $this->quote = $response;
         }
@@ -121,7 +121,7 @@ class Webapi extends AbstractWebapi implements OrderInjectableInterface
      *
      * @param OrderInjectable $order
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function setProducts(OrderInjectable $order)
     {
@@ -144,7 +144,7 @@ class Webapi extends AbstractWebapi implements OrderInjectableInterface
             $this->webapiTransport->close();
             if (isset($response['message'])) {
                 $this->eventManager->dispatchEvent(['webapi_failed'], [$response]);
-                throw new \Exception('Could not add product item to quote!');
+                throw new Exception('Could not add product item to quote!');
             }
         }
     }
@@ -154,7 +154,7 @@ class Webapi extends AbstractWebapi implements OrderInjectableInterface
      *
      * @param OrderInjectable $order
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function setCoupon(OrderInjectable $order)
     {
@@ -171,7 +171,7 @@ class Webapi extends AbstractWebapi implements OrderInjectableInterface
         $this->webapiTransport->close();
         if ($response !== true) {
             $this->eventManager->dispatchEvent(['webapi_failed'], [$response]);
-            throw new \Exception("The coupon code couldn't be applied. Verify the coupon code and try again.");
+            throw new Exception("The coupon code couldn't be applied. Verify the coupon code and try again.");
         }
     }
 
@@ -180,7 +180,7 @@ class Webapi extends AbstractWebapi implements OrderInjectableInterface
      *
      * @param OrderInjectable $order
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function setBillingAddress(OrderInjectable $order)
     {
@@ -200,7 +200,7 @@ class Webapi extends AbstractWebapi implements OrderInjectableInterface
         $this->webapiTransport->close();
         if (!is_numeric($response)) {
             $this->eventManager->dispatchEvent(['webapi_failed'], [$response]);
-            throw new \Exception("Could not set billing address to quote!");
+            throw new Exception("Could not set billing address to quote!");
         }
     }
 
@@ -208,7 +208,7 @@ class Webapi extends AbstractWebapi implements OrderInjectableInterface
      * Set shipping information to quote
      *
      * @param OrderInjectable $order
-     * @throws \Exception
+     * @throws Exception
      */
     protected function setShippingInformation(OrderInjectable $order)
     {
@@ -243,7 +243,7 @@ class Webapi extends AbstractWebapi implements OrderInjectableInterface
         $this->webapiTransport->close();
         if (!isset($response['payment_methods'], $response['totals'])) {
             $this->eventManager->dispatchEvent(['webapi_failed'], [$response]);
-            throw new \Exception("The shipping method can't be set to quote.");
+            throw new Exception("The shipping method can't be set to quote.");
         }
     }
 
@@ -252,7 +252,7 @@ class Webapi extends AbstractWebapi implements OrderInjectableInterface
      *
      * @param OrderInjectable $order
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function setPaymentMethod(OrderInjectable $order)
     {
@@ -266,7 +266,7 @@ class Webapi extends AbstractWebapi implements OrderInjectableInterface
         $this->webapiTransport->close();
         if (!is_numeric($response)) {
             $this->eventManager->dispatchEvent(['webapi_failed'], [$response]);
-            throw new \Exception('Could not set payment method to quote!');
+            throw new Exception('Could not set payment method to quote!');
         }
     }
 
@@ -274,7 +274,7 @@ class Webapi extends AbstractWebapi implements OrderInjectableInterface
      * Place order.
      *
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     protected function placeOrder()
     {
@@ -285,7 +285,7 @@ class Webapi extends AbstractWebapi implements OrderInjectableInterface
         $this->webapiTransport->close();
         if (!is_numeric($response)) {
             $this->eventManager->dispatchEvent(['webapi_failed'], [$response]);
-            throw new \Exception('Could not place order via web API!');
+            throw new Exception('Could not place order via web API!');
         }
 
         return $response;
@@ -380,7 +380,7 @@ class Webapi extends AbstractWebapi implements OrderInjectableInterface
      *
      * @param int $orderId
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     private function getOrderIncrementId($orderId)
     {
@@ -391,7 +391,7 @@ class Webapi extends AbstractWebapi implements OrderInjectableInterface
 
         if (!$response['increment_id']) {
             $this->eventManager->dispatchEvent(['webapi_failed'], [$response]);
-            throw new \Exception('Could not get order details using web API.');
+            throw new Exception('Could not get order details using web API.');
         }
         return $response['increment_id'];
     }

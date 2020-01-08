@@ -6,6 +6,7 @@
 
 namespace Magento\Contact\Test\Fixture\Comment;
 
+use Exception;
 use Magento\Customer\Test\Fixture\Customer as CustomerFixture;
 use Magento\Mtf\Fixture\DataSource;
 use Magento\Mtf\Fixture\FixtureFactory;
@@ -49,12 +50,12 @@ class Customer extends DataSource
      *
      * @param string $key [optional]
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function getData($key = null)
     {
         if (empty($this->data)) {
-            throw new \Exception("Data must be set");
+            throw new Exception("Data must be set");
         }
 
         if (isset($this->data['dataset']) && !$this->customer) {

@@ -8,10 +8,14 @@ namespace Magento\Tax\Test\TestCase;
 
 use Magento\Catalog\Test\Fixture\CatalogProductSimple;
 use Magento\CatalogRule\Test\Fixture\CatalogRule;
+use Magento\CatalogRule\Test\TestStep\DeleteAllCatalogRulesStep;
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Customer\Test\Fixture\Customer;
-use Magento\SalesRule\Test\Fixture\SalesRule;
 use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Mtf\TestCase\Injectable;
+use Magento\SalesRule\Test\Fixture\SalesRule;
+use Magento\SalesRule\Test\TestStep\DeleteAllSalesRuleStep;
+use Magento\Tax\Test\TestStep\DeleteAllTaxRulesStep;
 
 /**
  * Steps:
@@ -128,7 +132,7 @@ class TaxWithCrossBorderTest extends Injectable
             $this->catalogRule = $catalogRule;
         }
         $this->objectManager->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $configData]
         )->run();
         $product->persist();
@@ -142,18 +146,18 @@ class TaxWithCrossBorderTest extends Injectable
     public function tearDown()
     {
         if (isset($this->salesRule)) {
-            $this->objectManager->create(\Magento\SalesRule\Test\TestStep\DeleteAllSalesRuleStep::class)->run();
+            $this->objectManager->create(DeleteAllSalesRuleStep::class)->run();
             $this->salesRule = null;
         }
         if (isset($this->catalogRule)) {
-            $this->objectManager->create(\Magento\CatalogRule\Test\TestStep\DeleteAllCatalogRulesStep::class)->run();
+            $this->objectManager->create(DeleteAllCatalogRulesStep::class)->run();
             $this->catalogRule = null;
         }
 
         // TODO: Move set default configuration to "tearDownAfterClass" method after fix bug MAGETWO-29331
-        $this->objectManager->create(\Magento\Tax\Test\TestStep\DeleteAllTaxRulesStep::class)->run();
+        $this->objectManager->create(DeleteAllTaxRulesStep::class)->run();
         $this->objectManager->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => 'default_tax_configuration']
         )->run();
     }

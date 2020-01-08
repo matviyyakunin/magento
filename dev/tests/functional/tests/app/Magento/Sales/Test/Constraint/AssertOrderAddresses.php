@@ -5,9 +5,11 @@
  */
 namespace Magento\Sales\Test\Constraint;
 
+use Magento\Customer\Test\Block\Address\Renderer;
 use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Customer\Test\Fixture\Address;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that Order Billing and Shipping addresses are correct on order page in backend.
@@ -31,12 +33,12 @@ class AssertOrderAddresses extends AbstractConstraint
     ) {
 
         $selectedShippingAddress = $this->objectManager->create(
-            \Magento\Customer\Test\Block\Address\Renderer::class,
+            Renderer::class,
             ['address' => $shippingAddress, 'type' => 'html']
         )->render();
 
         $selectedBillingAddress = $this->objectManager->create(
-            \Magento\Customer\Test\Block\Address\Renderer::class,
+            Renderer::class,
             ['address' => $billingAddress, 'type' => 'html']
         )->render();
 
@@ -44,7 +46,7 @@ class AssertOrderAddresses extends AbstractConstraint
         $orderBillingAddress = $salesOrderView->getAddressesBlock()->getCustomerBillingAddress();
         $orderShippingAddress = $salesOrderView->getAddressesBlock()->getCustomerShippingAddress();
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $selectedBillingAddress == $orderBillingAddress && $selectedShippingAddress == $orderShippingAddress,
             'Billing and shipping addresses from the address book and from the order page are not the same.'
         );

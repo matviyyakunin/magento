@@ -8,6 +8,7 @@ namespace Magento\Catalog\Test\Constraint;
 
 use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that every required product's Custom Option contains JS validation error.
@@ -27,7 +28,7 @@ class AssertProductCustomOptionsErrors extends AbstractConstraint
     ) {
         foreach ($products as $product) {
             foreach ($product->getData('custom_options') as $option) {
-                \PHPUnit\Framework\Assert::assertTrue(
+                Assert::assertTrue(
                     $catalogProductView->getCustomOptionsBlock()->isJsMessageVisible($option['title']),
                     'Required Custom Option ' . $option['title'] . " doesn't contain JS validation error."
                 );

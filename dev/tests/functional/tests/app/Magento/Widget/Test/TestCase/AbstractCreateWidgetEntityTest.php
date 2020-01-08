@@ -12,6 +12,7 @@ use Magento\Widget\Test\Page\Adminhtml\WidgetInstanceNew;
 use Magento\Mtf\TestCase\Injectable;
 use Magento\Mtf\Util\Command\Cli\Cache;
 use Magento\Cms\Test\Page\CmsIndex;
+use Magento\Widget\Test\TestStep\DeleteAllWidgetsStep;
 
 /**
  * Test Creation for New Instance of WidgetEntity.
@@ -84,6 +85,6 @@ abstract class AbstractCreateWidgetEntityTest extends Injectable
      */
     public function tearDown()
     {
-        $this->objectManager->create(\Magento\Widget\Test\TestStep\DeleteAllWidgetsStep::class)->run();
+        $this->objectManager->create(DeleteAllWidgetsStep::class)->run();
     }
 }

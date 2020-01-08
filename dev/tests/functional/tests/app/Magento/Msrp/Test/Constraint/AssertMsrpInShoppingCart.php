@@ -6,13 +6,14 @@
 
 namespace Magento\Msrp\Test\Constraint;
 
-use Magento\Mtf\Constraint\AbstractConstraint;
-use Magento\Cms\Test\Page\CmsIndex;
+use Magento\Catalog\Test\Fixture\CatalogProductSimple;
 use Magento\Catalog\Test\Page\Category\CatalogCategoryView;
 use Magento\Catalog\Test\Page\Product\CatalogProductView;
-use Magento\Mtf\Fixture\InjectableFixture;
-use Magento\Catalog\Test\Fixture\CatalogProductSimple;
 use Magento\Checkout\Test\Page\CheckoutCart;
+use Magento\Cms\Test\Page\CmsIndex;
+use Magento\Mtf\Constraint\AbstractConstraint;
+use Magento\Mtf\Fixture\InjectableFixture;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert product MAP related data in Shopping Cart.
@@ -54,7 +55,7 @@ class AssertMsrpInShoppingCart extends AbstractConstraint
         $priceData = $product->getDataFieldConfig('price')['source']->getPriceData();
         $productPrice = isset($priceData['category_price']) ? $priceData['category_price'] : $product->getPrice();
         $unitPrice = $checkoutCart->getCartBlock()->getCartItem($product)->getPrice();
-        \PHPUnit\Framework\Assert::assertEquals($productPrice, $unitPrice, 'Incorrect unit price is displayed in Cart');
+        Assert::assertEquals($productPrice, $unitPrice, 'Incorrect unit price is displayed in Cart');
     }
 
     /**

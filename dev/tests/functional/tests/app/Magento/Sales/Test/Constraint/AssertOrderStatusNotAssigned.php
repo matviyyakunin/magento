@@ -9,6 +9,7 @@ namespace Magento\Sales\Test\Constraint;
 use Magento\Sales\Test\Fixture\OrderStatus;
 use Magento\Sales\Test\Page\Adminhtml\OrderStatusIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertOrderStatusNotAssigned
@@ -30,7 +31,7 @@ class AssertOrderStatusNotAssigned extends AbstractConstraint
     public function processAssert(OrderStatus $orderStatus, OrderStatusIndex $orderStatusIndex)
     {
         $statusLabel = $orderStatus->getLabel();
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $orderStatusIndex->open()->getOrderStatusGrid()->isRowVisible(
                 ['label' => $statusLabel, 'state' => $orderStatus->getState()]
             ),

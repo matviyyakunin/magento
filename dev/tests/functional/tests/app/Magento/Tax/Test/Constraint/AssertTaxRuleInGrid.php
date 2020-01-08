@@ -9,6 +9,7 @@ namespace Magento\Tax\Test\Constraint;
 use Magento\Tax\Test\Fixture\TaxRule;
 use Magento\Tax\Test\Page\Adminhtml\TaxRuleIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertTaxRuleInGrid
@@ -37,7 +38,7 @@ class AssertTaxRuleInGrid extends AbstractConstraint
         ];
 
         $taxRuleIndex->open();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $taxRuleIndex->getTaxRuleGrid()->isRowVisible($filter),
             'Tax Rule \'' . $filter['code'] . '\' is absent in Tax Rule grid.'
         );

@@ -7,11 +7,13 @@
 namespace Magento\Bundle\Test\Block\Catalog\Product\View;
 
 use Magento\Bundle\Test\Block\Catalog\Product\View\Summary\ConfiguredPrice;
+use Magento\Catalog\Test\Block\Product\View;
+use Magento\Mtf\Client\ElementInterface;
 
 /**
  * Bundle Summary block.
  */
-class Summary extends \Magento\Catalog\Test\Block\Product\View
+class Summary extends View
 {
     /**
      * Configured Price block selector.
@@ -43,7 +45,7 @@ class Summary extends \Magento\Catalog\Test\Block\Product\View
     /**
      * Get Bundle Summary row items.
      *
-     * @return \Magento\Mtf\Client\ElementInterface[]
+     * @return ElementInterface[]
      */
     public function getSummaryItems()
     {

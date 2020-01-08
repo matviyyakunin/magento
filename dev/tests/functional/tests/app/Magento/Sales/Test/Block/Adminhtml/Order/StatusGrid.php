@@ -6,6 +6,8 @@
 
 namespace Magento\Sales\Test\Block\Adminhtml\Order;
 
+use Exception;
+
 /**
  * Backend sales order's status management grid.
  */
@@ -44,7 +46,7 @@ class StatusGrid extends \Magento\Backend\Test\Block\Widget\Grid
      * Search custom status and unassign it.
      *
      * @param array $filter
-     * @throws \Exception
+     * @throws Exception
      * @return void
      */
     public function searchAndUnassign(array $filter)
@@ -54,7 +56,7 @@ class StatusGrid extends \Magento\Backend\Test\Block\Widget\Grid
         if ($selectItem->isVisible()) {
             $selectItem->click();
         } else {
-            throw new \Exception("Searched item was not found by filter\n" . print_r($filter, true));
+            throw new Exception("Searched item was not found by filter\n" . print_r($filter, true));
         }
     }
 

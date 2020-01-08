@@ -9,6 +9,7 @@ namespace Magento\Review\Test\Constraint;
 use Magento\Review\Test\Fixture\Review;
 use Magento\Review\Test\Page\Adminhtml\ReviewIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductReviewMassActionSuccessMessage
@@ -32,7 +33,7 @@ class AssertProductReviewMassActionSuccessMessage extends AbstractConstraint
     {
         $reviews = is_array($review) ? $review : [$review];
         $successMessage = sprintf(self::SUCCESS_MESSAGE, count($reviews));
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $successMessage,
             $reviewIndex->getMessagesBlock()->getSuccessMessage(),
             'Wrong success message is displayed.'

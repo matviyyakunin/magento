@@ -6,9 +6,11 @@
 
 namespace Magento\Ui\Test\Block\Adminhtml;
 
-use Magento\Mtf\Client\Locator;
+use Exception;
 use Magento\Backend\Test\Block\Widget\Grid;
 use Magento\Mtf\Client\Element\SimpleElement;
+use Magento\Mtf\Client\ElementInterface;
+use Magento\Mtf\Client\Locator;
 
 /**
  * Backend Data Grid with advanced functionality for managing entities.
@@ -245,7 +247,7 @@ class DataGrid extends Grid
      * Search item and open it.
      *
      * @param array $filter
-     * @throws \Exception
+     * @throws Exception
      */
     public function searchAndOpen(array $filter)
     {
@@ -254,7 +256,7 @@ class DataGrid extends Grid
         if ($rowItem->isVisible()) {
             $this->clickEditLink($rowItem);
         } else {
-            throw new \Exception("Searched item was not found by filter\n" . print_r($filter, true));
+            throw new Exception("Searched item was not found by filter\n" . print_r($filter, true));
         }
         $this->waitLoader();
     }
@@ -263,7 +265,7 @@ class DataGrid extends Grid
      * Search item and select it.
      *
      * @param array $filter
-     * @throws \Exception
+     * @throws Exception
      */
     public function searchAndSelect(array $filter)
     {
@@ -272,7 +274,7 @@ class DataGrid extends Grid
         if ($rowItem->isVisible()) {
             $rowItem->find($this->selectItem)->click();
         } else {
-            throw new \Exception("Searched item was not found by filter\n" . print_r($filter, true));
+            throw new Exception("Searched item was not found by filter\n" . print_r($filter, true));
         }
         $this->waitLoader();
     }
@@ -300,9 +302,9 @@ class DataGrid extends Grid
         $this->selectAction($action);
         if ($acceptAlert) {
             $element = $this->browser->find($this->alertModal);
-            /** @var \Magento\Ui\Test\Block\Adminhtml\Modal $modal */
+            /** @var Modal $modal */
             $modal = $this->blockFactory->create(
-                \Magento\Ui\Test\Block\Adminhtml\Modal::class,
+                Modal::class,
                 ['element' => $element]
             );
             $modal->acceptAlert();
@@ -360,7 +362,7 @@ class DataGrid extends Grid
      * @param array $items
      * @param bool $isSortable
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function selectItems(array $items, $isSortable = true)
     {
@@ -380,7 +382,7 @@ class DataGrid extends Grid
                 }
             } while ($this->nextPage());
             if (!$selectItem->isVisible()) {
-                throw new \Exception("Searched item was not found\n" . print_r($item, true));
+                throw new Exception("Searched item was not found\n" . print_r($item, true));
             }
         }
     }
@@ -496,7 +498,7 @@ class DataGrid extends Grid
     /**
      * Returns admin data grid header element.
      *
-     * @return \Magento\Mtf\Client\ElementInterface
+     * @return ElementInterface
      */
     private function getGridHeaderElement()
     {

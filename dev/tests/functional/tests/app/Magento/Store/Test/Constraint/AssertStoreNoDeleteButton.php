@@ -8,6 +8,7 @@ namespace Magento\Store\Test\Constraint;
 
 use Magento\Backend\Test\Page\Adminhtml\StoreNew;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that 'Delete' button on Store view edit page is absent.
@@ -22,7 +23,7 @@ class AssertStoreNoDeleteButton extends AbstractConstraint
      */
     public function processAssert(StoreNew $storePage)
     {
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $storePage->getFormPageActions()->checkDeleteButton(),
             '\'Delete\' button on Store view edit page is present when it should not.'
         );

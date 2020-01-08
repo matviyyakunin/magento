@@ -9,6 +9,7 @@ namespace Magento\Install\Test\Constraint;
 use Magento\Install\Test\Page\Install;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\TestFramework\Inspection\Exception;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check that agreement text present on Terms & Agreement page during install.
@@ -34,13 +35,13 @@ class AssertAgreementTextPresent extends AbstractConstraint
     public function processAssert(Install $installPage)
     {
         try {
-            \PHPUnit\Framework\Assert::assertContains(
+            Assert::assertContains(
                 self::LICENSE_AGREEMENT_TEXT,
                 $installPage->getLicenseBlock()->getLicense(),
                 'License agreement text is absent.'
             );
         } catch (\Exception $e) {
-            \PHPUnit\Framework\Assert::assertContains(
+            Assert::assertContains(
                 self::DEFAULT_LICENSE_AGREEMENT_TEXT,
                 $installPage->getLicenseBlock()->getLicense(),
                 'License agreement text is absent.'

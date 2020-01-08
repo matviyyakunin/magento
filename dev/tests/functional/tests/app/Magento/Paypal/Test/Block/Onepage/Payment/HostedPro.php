@@ -7,6 +7,7 @@
 namespace Magento\Paypal\Test\Block\Onepage\Payment;
 
 use Magento\Mtf\Client\ElementInterface;
+use Magento\Paypal\Test\Block\Form\HostedPro\Cc;
 
 /**
  * Hosted Pro credit card block.
@@ -18,7 +19,7 @@ class HostedPro extends PaypalIframe
      *
      * @var string
      */
-    protected $formBlockCc = \Magento\Paypal\Test\Block\Form\HostedPro\Cc::class;
+    protected $formBlockCc = Cc::class;
 
     /**
      * {@inheritdoc}

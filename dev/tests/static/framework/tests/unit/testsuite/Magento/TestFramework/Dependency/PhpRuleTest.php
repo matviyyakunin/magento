@@ -5,7 +5,9 @@
  */
 namespace Magento\TestFramework\Dependency;
 
-class PhpRuleTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+class PhpRuleTest extends TestCase
 {
     /**
      * @var PhpRule
@@ -59,7 +61,7 @@ class PhpRuleTest extends \PHPUnit\Framework\TestCase
                 [
                     [
                         'module' => 'Magento\SomeModule',
-                        'type' => \Magento\TestFramework\Dependency\RuleInterface::TYPE_HARD,
+                        'type' => RuleInterface::TYPE_HARD,
                         'source' => 'Magento\SomeModule\Any\ClassName',
                     ]
                 ]
@@ -75,7 +77,7 @@ class PhpRuleTest extends \PHPUnit\Framework\TestCase
                 [
                     [
                         'module' => 'Magento\SomeModule',
-                        'type' => \Magento\TestFramework\Dependency\RuleInterface::TYPE_HARD,
+                        'type' => RuleInterface::TYPE_HARD,
                         'source' => 'Magento_SomeModule',
                     ]
                 ]
@@ -91,7 +93,7 @@ class PhpRuleTest extends \PHPUnit\Framework\TestCase
                 [
                     [
                         'module' => 'Magento\SomeModule',
-                        'type' => \Magento\TestFramework\Dependency\RuleInterface::TYPE_HARD,
+                        'type' => RuleInterface::TYPE_HARD,
                         'source' => 'Magento\SomeModule\Any\ClassName',
                     ]
                 ]
@@ -107,7 +109,7 @@ class PhpRuleTest extends \PHPUnit\Framework\TestCase
                 [
                     [
                         'module' => 'Magento\OneModule',
-                        'type' => \Magento\TestFramework\Dependency\RuleInterface::TYPE_HARD,
+                        'type' => RuleInterface::TYPE_HARD,
                         'source' => 'getUrl("anotherModule"',
                     ]
                 ]
@@ -122,7 +124,7 @@ class PhpRuleTest extends \PHPUnit\Framework\TestCase
                 [
                     [
                         'module' => 'Magento\SomeModule',
-                        'type' => \Magento\TestFramework\Dependency\RuleInterface::TYPE_HARD,
+                        'type' => RuleInterface::TYPE_HARD,
                         'source' => 'getBlock(\'block.name\')',
                     ]
                 ]
@@ -143,7 +145,7 @@ class PhpRuleTest extends \PHPUnit\Framework\TestCase
                 [
                     [
                         'module' => 'Magento\Module2',
-                        'type' => \Magento\TestFramework\Dependency\RuleInterface::TYPE_SOFT,
+                        'type' => RuleInterface::TYPE_SOFT,
                         'source' => 'Magento\Module2\Subject',
                     ]
                 ],
@@ -154,7 +156,7 @@ class PhpRuleTest extends \PHPUnit\Framework\TestCase
                 [
                     [
                         'module' => 'Magento\Module2',
-                        'type' => \Magento\TestFramework\Dependency\RuleInterface::TYPE_SOFT,
+                        'type' => RuleInterface::TYPE_SOFT,
                         'source' => 'Magento\Module2\NotSubject',
                     ]
                 ]
@@ -165,7 +167,7 @@ class PhpRuleTest extends \PHPUnit\Framework\TestCase
                 [
                     [
                         'module' => 'Magento\OtherModule',
-                        'type' => \Magento\TestFramework\Dependency\RuleInterface::TYPE_HARD,
+                        'type' => RuleInterface::TYPE_HARD,
                         'source' => 'Magento\OtherModule\NotSubject',
                     ]
                 ]
@@ -201,7 +203,7 @@ class PhpRuleTest extends \PHPUnit\Framework\TestCase
                 [
                     [
                         'module' => 'Magento\SomeModule',
-                        'type' => \Magento\TestFramework\Dependency\RuleInterface::TYPE_HARD,
+                        'type' => RuleInterface::TYPE_HARD,
                         'source' => 'getBlock(\'block.name\')',
                     ]
                 ],

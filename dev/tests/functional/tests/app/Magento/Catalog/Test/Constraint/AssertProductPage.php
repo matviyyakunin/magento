@@ -6,10 +6,13 @@
 
 namespace Magento\Catalog\Test\Constraint;
 
+use Magento\Catalog\Test\Block\Product\View;
 use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractAssertForm;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
+use PHPUnit_Extensions_Selenium2TestCase_WebDriverException;
 
 /**
  * Class AssertProductPage
@@ -20,7 +23,7 @@ class AssertProductPage extends AbstractAssertForm
     /**
      * Product view block on frontend page
      *
-     * @var \Magento\Catalog\Test\Block\Product\View
+     * @var View
      */
     protected $productView;
 
@@ -62,7 +65,7 @@ class AssertProductPage extends AbstractAssertForm
         $this->productView = $catalogProductView->getViewBlock();
 
         $errors = $this->verify();
-        \PHPUnit\Framework\Assert::assertEmpty(
+        Assert::assertEmpty(
             $errors,
             "\nFound the following errors:\n" . implode(" \n", $errors)
         );
@@ -97,7 +100,7 @@ class AssertProductPage extends AbstractAssertForm
         $expectedName = $this->product->getName();
         try {
             $actualName = $this->productView->getProductName();
-        } catch (\PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
+        } catch (PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
             return "Could not find product '{$this->product->getName()}' name on the page.\n" . $e->getMessage();
         }
 
@@ -167,7 +170,7 @@ class AssertProductPage extends AbstractAssertForm
         $expectedSku = $this->product->getSku();
         try {
             $actualSku = $this->productView->getProductSku();
-        } catch (\PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
+        } catch (PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
             return "Could not find product {$this->product->getName()}' SKU on the page.\n" . $e->getMessage();
         }
 

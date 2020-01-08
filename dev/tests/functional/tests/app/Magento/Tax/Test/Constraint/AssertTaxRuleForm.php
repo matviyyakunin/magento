@@ -10,6 +10,7 @@ use Magento\Tax\Test\Fixture\TaxRule;
 use Magento\Tax\Test\Page\Adminhtml\TaxRuleIndex;
 use Magento\Tax\Test\Page\Adminhtml\TaxRuleNew;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertTaxRuleForm
@@ -44,7 +45,7 @@ class AssertTaxRuleForm extends AbstractConstraint
         $taxRuleNew->getTaxRuleForm()->openAdditionalSettings();
         $formData = $taxRuleNew->getTaxRuleForm()->getData($taxRule);
         $dataDiff = $this->verifyForm($formData, $data);
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             empty($dataDiff),
             'Tax Rule form was filled not right.'
             . "\nLog:\n" . implode(";\n", $dataDiff)

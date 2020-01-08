@@ -4,13 +4,15 @@
  * See COPYING.txt for license details.
  */
 
+use Magento\Framework\Phrase;
+
 /**
  * Create value-object \Magento\Framework\Phrase
  * @deprecated The global function __() is now loaded via Magento Framework, the below require is only
  *             for backwards compatibility reasons and this file will be removed in a future version
  * @see        Magento\Framework\Phrase\__.php
  * @SuppressWarnings(PHPMD.ShortMethodName)
- * @return \Magento\Framework\Phrase
+ * @return Phrase
  */
 if (!function_exists('__')) {
     function __()
@@ -22,6 +24,6 @@ if (!function_exists('__')) {
             $argc = $argc[0];
         }
 
-        return new \Magento\Framework\Phrase($text, $argc);
+        return new Phrase($text, $argc);
     }
 }

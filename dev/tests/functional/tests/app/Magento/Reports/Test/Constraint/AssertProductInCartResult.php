@@ -9,6 +9,7 @@ namespace Magento\Reports\Test\Constraint;
 use Magento\Catalog\Test\Fixture\CatalogProductSimple;
 use Magento\Reports\Test\Page\Adminhtml\ShopCartProductReport;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductInCartResult
@@ -27,7 +28,7 @@ class AssertProductInCartResult extends AbstractConstraint
     public function processAssert(ShopCartProductReport $shopCartProductReport, CatalogProductSimple $product, $carts)
     {
         $shopCartProductReport->open();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $shopCartProductReport->getGridBlock()->isProductVisible($product, $carts),
             'Product is absent in Products in Carts report grid.'
         );

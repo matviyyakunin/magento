@@ -7,14 +7,18 @@
  */
 namespace Magento\Test\Integrity;
 
+use Exception;
+use Magento\Framework\App\Utility\AggregateInvoker;
 use Magento\Framework\App\Utility\Classes;
 use Magento\Framework\Component\ComponentRegistrar;
 use Magento\Framework\App\Utility\Files;
+use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
-class ClassesTest extends \PHPUnit\Framework\TestCase
+class ClassesTest extends TestCase
 {
     /**
      * @var ComponentRegistrar
@@ -48,7 +52,7 @@ class ClassesTest extends \PHPUnit\Framework\TestCase
 
     public function testPhpFiles()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * @param string $file
@@ -122,7 +126,7 @@ class ClassesTest extends \PHPUnit\Framework\TestCase
 
     public function testConfigFiles()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * @param string $path
@@ -137,7 +141,7 @@ class ClassesTest extends \PHPUnit\Framework\TestCase
 
     public function testLayoutFiles()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * @param string $path
@@ -211,7 +215,7 @@ class ClassesTest extends \PHPUnit\Framework\TestCase
                     );
                 }
                 $this->existingClasses[$class] = 1;
-            } catch (\PHPUnit\Framework\AssertionFailedError $e) {
+            } catch (AssertionFailedError $e) {
                 $badClasses[] = '\\' . $class;
             }
         }
@@ -225,7 +229,7 @@ class ClassesTest extends \PHPUnit\Framework\TestCase
 
     public function testClassNamespaces()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * Assert PHP classes have valid formal namespaces according to file locations
@@ -306,7 +310,7 @@ class ClassesTest extends \PHPUnit\Framework\TestCase
 
     public function testClassReferences()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * @param string $file
@@ -519,7 +523,7 @@ class ClassesTest extends \PHPUnit\Framework\TestCase
      * @param array $badClasses
      * @param string $badClass
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     private function removeSpecialCasesNonFullyQualifiedClassNames($namespacePath, &$badClasses, $badClass)
     {

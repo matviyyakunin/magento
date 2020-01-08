@@ -9,6 +9,7 @@ namespace Magento\Catalog\Test\Constraint;
 use Magento\Catalog\Test\Fixture\Category;
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that relations of categories in navigation menu are correct.
@@ -39,7 +40,7 @@ class AssertCategoryNavigationMenu extends AbstractConstraint
         $cmsIndex->open();
 
         foreach (array_reverse($categoriesNames) as $category) {
-            \PHPUnit\Framework\Assert::assertTrue(
+            Assert::assertTrue(
                 $cmsIndex->getTopmenu()->isCategoryVisible($category),
                 'Category ' . $category . ' is not visible in top menu.'
             );

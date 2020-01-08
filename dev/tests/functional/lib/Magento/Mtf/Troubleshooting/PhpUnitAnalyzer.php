@@ -6,14 +6,16 @@
 
 namespace Magento\Mtf\Troubleshooting;
 
+use Magento\Mtf\Console\Output;
 use Magento\Mtf\ObjectManagerInterface;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * PHPUnit analyzer based on the URL specified in the phpunit.xml.
  */
-class PhpUnitAnalyzer extends \Symfony\Component\Console\Command\Command
+class PhpUnitAnalyzer extends Command
 {
     /**
      * Object manager instance.
@@ -54,7 +56,7 @@ class PhpUnitAnalyzer extends \Symfony\Component\Console\Command\Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output = $this->objectManager->create(
-            \Magento\Mtf\Console\Output::class,
+            Output::class,
             ['output' => $output]
         );
         $output->writeln("Checking phpunit.xml file availability...");

@@ -8,6 +8,7 @@ namespace Magento\Search\Test\Constraint;
 
 use Magento\Search\Test\Page\Adminhtml\SynonymGroupIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that synonym groups can be found by keywords.
@@ -28,7 +29,7 @@ class AssertSynonymGroupsSearch extends AbstractConstraint
         foreach ($searchQueries as $query) {
             $synonymGroupIndex->getSynonymGroupGrid()->fullTextSearch($query['query']);
             foreach ($query['results'] as $key => $result) {
-                \PHPUnit\Framework\Assert::assertEquals(
+                Assert::assertEquals(
                     $result,
                     $synonymGroupIndex->getSynonymGroupGrid()->isRowVisible(
                         ['synonyms' => $synonymGroups[$key]->getData()['synonyms']],

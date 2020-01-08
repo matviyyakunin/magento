@@ -9,6 +9,7 @@ namespace Magento\User\Test\Constraint;
 use Magento\Backend\Test\Page\AdminAuthLogin;
 use Magento\Backend\Test\Page\Adminhtml\Dashboard;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertUserSuccessLogOut
@@ -28,7 +29,7 @@ class AssertUserSuccessLogOut extends AbstractConstraint
     ) {
         $dashboard->getAdminPanelHeader()->logOut();
         $isLoginBlockVisible = $adminAuth->getLoginBlock()->isVisible();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $isLoginBlockVisible,
             'Admin user was not logged out.'
         );

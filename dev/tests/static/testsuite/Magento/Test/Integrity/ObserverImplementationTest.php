@@ -6,16 +6,20 @@
 namespace Magento\Test\Integrity;
 
 use Magento\Framework\App\Utility\Files;
+use Magento\Framework\Event\ObserverInterface;
+use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use ReflectionMethod;
 
 /**
  * PAY ATTENTION: Current implementation does not support of virtual types
  */
-class ObserverImplementationTest extends \PHPUnit\Framework\TestCase
+class ObserverImplementationTest extends TestCase
 {
     /**
      * Observer interface
      */
-    const OBSERVER_INTERFACE = \Magento\Framework\Event\ObserverInterface::class;
+    const OBSERVER_INTERFACE = ObserverInterface::class;
 
     /**
      * @var array
@@ -55,10 +59,10 @@ class ObserverImplementationTest extends \PHPUnit\Framework\TestCase
     {
         $errors = [];
         foreach (self::$observerClasses as $observerClass) {
-            $reflection = (new \ReflectionClass($observerClass));
+            $reflection = (new ReflectionClass($observerClass));
             $maxCountMethod = $reflection->getConstructor() ? 2 : 1;
 
-            if (count($reflection->getMethods(\ReflectionMethod::IS_PUBLIC)) > $maxCountMethod) {
+            if (count($reflection->getMethods(ReflectionMethod::IS_PUBLIC)) > $maxCountMethod) {
                 $errors[] = $observerClass;
             }
         }

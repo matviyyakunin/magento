@@ -8,6 +8,7 @@ namespace Magento\Backend\Test\Constraint;
 
 use Magento\Backend\Test\Page\Adminhtml\Dashboard;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert menu item availability.
@@ -25,7 +26,7 @@ class AssertMenuItemNotVisible extends AbstractConstraint
     {
         $dashboard->open();
 
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $dashboard->getMenuBlock()->isMenuItemVisible($menuItem),
             'Menu item ' . $menuItem . '  is supposed to be not visible.'
         );

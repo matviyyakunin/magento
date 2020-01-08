@@ -10,6 +10,7 @@
 namespace Magento\TestFramework\CodingStandard\Tool\CodeSniffer;
 
 use PHP_CodeSniffer\Config;
+use PHP_CodeSniffer\Exceptions\DeepExitException;
 use PHP_CodeSniffer\Runner;
 
 /**
@@ -39,7 +40,7 @@ class Wrapper extends Runner
     /**
      * Initialize PHPCS runner and modifies the configuration settings
      *
-     * @throws \PHP_CodeSniffer\Exceptions\DeepExitException
+     * @throws DeepExitException
      */
     public function init()
     {

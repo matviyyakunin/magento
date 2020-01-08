@@ -10,6 +10,7 @@ use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\CustomerOrderView;
 use Magento\Sales\Test\Page\InvoiceView;
 use Magento\Sales\Test\Page\OrderHistory;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertInvoicedAmountOnFrontend
@@ -38,7 +39,7 @@ class AssertInvoicedAmountOnFrontend extends AbstractAssertOrderOnFrontend
         $orderHistory->getOrderHistoryBlock()->openOrderById($order->getId());
         $customerOrderView->getOrderViewBlock()->openLinkByName('Invoices');
         foreach ($ids['invoiceIds'] as $key => $invoiceId) {
-            \PHPUnit\Framework\Assert::assertEquals(
+            Assert::assertEquals(
                 number_format($order->getPrice()['invoice'][$key]['grand_invoice_total'], 2),
                 $invoiceView->getInvoiceBlock()->getItemBlock($invoiceId)->getGrandTotal()
             );

@@ -6,9 +6,11 @@
 
 namespace Magento\Sales\Test\Constraint;
 
+use Magento\Sales\Test\Block\Adminhtml\Order\View\Tab\Info;
 use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that comment about voided amount exists in Comments History section on order page in Admin.
@@ -38,11 +40,11 @@ class AssertVoidInCommentsHistory extends AbstractConstraint
         $salesOrder->open();
         $salesOrder->getSalesOrderGrid()->searchAndOpen(['id' => $orderId]);
 
-        /** @var \Magento\Sales\Test\Block\Adminhtml\Order\View\Tab\Info $infoTab */
+        /** @var Info $infoTab */
         $infoTab = $salesOrderView->getOrderForm()->openTab('info')->getTab('info');
         $latestComment = $infoTab->getCommentsHistoryBlock()->getLatestComment();
 
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             self::VOIDED_AMOUNT . $prices['grandTotal'],
             $latestComment['comment'],
             'Incorrect voided amount value for the order #' . $orderId

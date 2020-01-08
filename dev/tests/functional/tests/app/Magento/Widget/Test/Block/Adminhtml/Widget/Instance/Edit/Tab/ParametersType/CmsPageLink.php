@@ -6,6 +6,8 @@
 
 namespace Magento\Widget\Test\Block\Adminhtml\Widget\Instance\Edit\Tab\ParametersType;
 
+use Magento\Widget\Test\Block\Adminhtml\Widget\Instance\Edit\Tab\ParametersType\CmsPageLink\Grid;
+
 /**
  * Filling Widget Options that have cms page link type.
  */
@@ -24,6 +26,6 @@ class CmsPageLink extends ParametersForm
      * @var string
      */
     // @codingStandardsIgnoreStart
-    protected $pathToGrid = \Magento\Widget\Test\Block\Adminhtml\Widget\Instance\Edit\Tab\ParametersType\CmsPageLink\Grid::class;
+    protected $pathToGrid = Grid::class;
     // @codingStandardsIgnoreEnd
 }

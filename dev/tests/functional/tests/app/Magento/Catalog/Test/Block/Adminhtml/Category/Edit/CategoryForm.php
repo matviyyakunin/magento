@@ -6,10 +6,11 @@
 
 namespace Magento\Catalog\Test\Block\Adminhtml\Category\Edit;
 
-use Magento\Ui\Test\Block\Adminhtml\FormSections;
 use Magento\Mtf\Client\Element\SimpleElement;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\Fixture\FixtureInterface;
+use Magento\Ui\Test\Block\Adminhtml\FormSections;
+use Magento\Ui\Test\Block\Adminhtml\Modal;
 
 /**
  * Category container block.
@@ -52,9 +53,9 @@ class CategoryForm extends FormSections
             $storeSwitcherBlock = $this->browser->find($this->storeSwitcherBlock);
             $storeSwitcherBlock->find($this->dropdownBlock, Locator::SELECTOR_CSS, 'liselectstore')->setValue($store);
             $modalElement = $this->browser->find($this->confirmModal);
-            /** @var \Magento\Ui\Test\Block\Adminhtml\Modal $modal */
+            /** @var Modal $modal */
             $modal = $this->blockFactory->create(
-                \Magento\Ui\Test\Block\Adminhtml\Modal::class,
+                Modal::class,
                 ['element' => $modalElement]
             );
             $modal->acceptAlert();

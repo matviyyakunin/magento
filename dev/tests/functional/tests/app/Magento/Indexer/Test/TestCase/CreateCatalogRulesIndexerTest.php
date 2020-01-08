@@ -6,22 +6,24 @@
 
 namespace Magento\Indexer\Test\TestCase;
 
-use Magento\Mtf\TestCase\Injectable;
-use Magento\CatalogRule\Test\Fixture\CatalogRule;
-use Magento\Customer\Test\Fixture\Customer;
-use Magento\Mtf\Util\Command\Cli\Cron;
-use Magento\Mtf\TestStep\TestStepFactory;
-use Magento\Mtf\Util\Command\Cli\Indexer;
-use Magento\Indexer\Test\Constraint\AssertIndexerStatus;
-use Magento\CatalogRule\Test\Constraint\AssertCatalogPriceRuleNotAppliedProductPage;
-use Magento\CatalogRule\Test\Constraint\AssertCatalogPriceRuleAppliedProductPage;
-use Magento\Indexer\Test\Page\Adminhtml\IndexManagement;
-use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Catalog\Test\Page\Category\CatalogCategoryView;
 use Magento\Catalog\Test\Page\Product\CatalogProductView;
+use Magento\Catalog\Test\TestStep\CreateProductsStep;
+use Magento\CatalogRule\Test\Constraint\AssertCatalogPriceRuleAppliedProductPage;
+use Magento\CatalogRule\Test\Constraint\AssertCatalogPriceRuleNotAppliedProductPage;
+use Magento\CatalogRule\Test\Fixture\CatalogRule;
 use Magento\CatalogRule\Test\Page\Adminhtml\CatalogRuleIndex;
 use Magento\CatalogRule\Test\Page\Adminhtml\CatalogRuleNew;
-use Magento\Catalog\Test\TestStep\CreateProductsStep;
+use Magento\CatalogRule\Test\TestStep\DeleteAllCatalogRulesStep;
+use Magento\Cms\Test\Page\CmsIndex;
+use Magento\Customer\Test\Fixture\Customer;
+use Magento\Customer\Test\TestStep\LogoutCustomerOnFrontendStep;
+use Magento\Indexer\Test\Constraint\AssertIndexerStatus;
+use Magento\Indexer\Test\Page\Adminhtml\IndexManagement;
+use Magento\Mtf\TestCase\Injectable;
+use Magento\Mtf\TestStep\TestStepFactory;
+use Magento\Mtf\Util\Command\Cli\Cron;
+use Magento\Mtf\Util\Command\Cli\Indexer;
 
 /**
  * Catalog rules indexer test.
@@ -203,7 +205,7 @@ class CreateCatalogRulesIndexerTest extends Injectable
         }
         $catalogPriceRuleOriginal->persist();
         $this->assertIndexerStatus->processAssert($this->indexManagement, $indexers, true);
-        $this->objectManager->create(\Magento\Customer\Test\TestStep\LogoutCustomerOnFrontendStep::class)->run();
+        $this->objectManager->create(LogoutCustomerOnFrontendStep::class)->run();
         $this->assertCatalogPriceRuleNotAppliedProductPage->processAssert(
             $this->catalogProductViewPage,
             $this->cmsIndexPage,
@@ -233,7 +235,7 @@ class CreateCatalogRulesIndexerTest extends Injectable
         $this->catalogRuleNew->getEditForm()->fill($catalogPriceRule);
         $this->catalogRuleNew->getFormPageActions()->saveAndApply();
         $this->assertIndexerStatus->processAssert($this->indexManagement, $indexers, false);
-        $this->objectManager->create(\Magento\Customer\Test\TestStep\LogoutCustomerOnFrontendStep::class)->run();
+        $this->objectManager->create(LogoutCustomerOnFrontendStep::class)->run();
         $this->assertCatalogPriceRuleNotAppliedProductPage->processAssert(
             $this->catalogProductViewPage,
             $this->cmsIndexPage,
@@ -267,7 +269,7 @@ class CreateCatalogRulesIndexerTest extends Injectable
         $cron->run();
         $cron->run();
         $this->assertIndexerStatus->processAssert($this->indexManagement, $indexers, true);
-        $this->objectManager->create(\Magento\Customer\Test\TestStep\LogoutCustomerOnFrontendStep::class)->run();
+        $this->objectManager->create(LogoutCustomerOnFrontendStep::class)->run();
         $this->assertCatalogPriceRuleNotAppliedProductPage->processAssert(
             $this->catalogProductViewPage,
             $this->cmsIndexPage,
@@ -283,6 +285,6 @@ class CreateCatalogRulesIndexerTest extends Injectable
      */
     public function tearDown()
     {
-        $this->objectManager->create(\Magento\CatalogRule\Test\TestStep\DeleteAllCatalogRulesStep::class)->run();
+        $this->objectManager->create(DeleteAllCatalogRulesStep::class)->run();
     }
 }

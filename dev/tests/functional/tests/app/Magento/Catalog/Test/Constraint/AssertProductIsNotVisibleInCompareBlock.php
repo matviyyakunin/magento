@@ -10,6 +10,7 @@ use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Customer\Test\Page\CustomerAccountIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductIsNotVisibleInCompareBlock
@@ -39,12 +40,12 @@ class AssertProductIsNotVisibleInCompareBlock extends AbstractConstraint
         $compareBlock = $customerAccountIndex->getCompareProductsBlock();
 
         if (($countProducts > 1) && ($product !== null)) {
-            \PHPUnit\Framework\Assert::assertFalse(
+            Assert::assertFalse(
                 $compareBlock->isProductVisibleInCompareBlock($product->getName()),
                 'The product displays on Compare Products block on my account page.'
             );
         } else {
-            \PHPUnit\Framework\Assert::assertEquals(
+            Assert::assertEquals(
                 self::SUCCESS_MESSAGE,
                 $compareBlock->getEmptyMessage(),
                 'The product displays on Compare Products block on my account page.'

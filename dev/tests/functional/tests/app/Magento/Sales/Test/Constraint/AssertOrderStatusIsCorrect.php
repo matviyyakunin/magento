@@ -6,9 +6,11 @@
 
 namespace Magento\Sales\Test\Constraint;
 
+use Magento\Sales\Test\Block\Adminhtml\Order\View\Tab\Info;
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
 use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that status is correct on order page in admin panel (same with value of orderStatus variable).
@@ -36,9 +38,9 @@ class AssertOrderStatusIsCorrect extends AbstractConstraint
         $salesOrder->getSalesOrderGrid()->searchAndOpen(['id' => $orderId]);
         $orderStatus = $statusToCheck == null ? $status : $statusToCheck;
 
-        /** @var \Magento\Sales\Test\Block\Adminhtml\Order\View\Tab\Info $infoTab */
+        /** @var Info $infoTab */
         $infoTab = $salesOrderView->getOrderForm()->openTab('info')->getTab('info');
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $orderStatus,
             $infoTab->getOrderStatus()
         );

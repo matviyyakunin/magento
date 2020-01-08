@@ -5,6 +5,7 @@
  */
 namespace Magento\Sales\Test\Constraint;
 
+use Magento\Catalog\Test\Constraint\AssertProductForm;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductEdit;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
@@ -67,7 +68,7 @@ class AssertProductQtyDecreased extends AbstractConstraint
         CatalogProductEdit $productPage
     ) {
         $product = $this->getProduct($order);
-        $this->objectManager->get(\Magento\Catalog\Test\Constraint\AssertProductForm::class)->processAssert(
+        $this->objectManager->get(AssertProductForm::class)->processAssert(
             $product,
             $productGrid,
             $productPage

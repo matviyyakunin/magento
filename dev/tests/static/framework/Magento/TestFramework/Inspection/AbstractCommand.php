@@ -126,7 +126,7 @@ abstract class AbstractCommand
     /**
      * Generate message about last execution result, prepared for output to a user
      *
-     * @return \Magento\TestFramework\Inspection\AbstractCommand
+     * @return AbstractCommand
      */
     protected function _generateLastRunMessage()
     {

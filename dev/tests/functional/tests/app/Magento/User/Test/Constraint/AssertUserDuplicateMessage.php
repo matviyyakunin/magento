@@ -8,6 +8,7 @@ namespace Magento\User\Test\Constraint;
 
 use Magento\User\Test\Page\Adminhtml\UserEdit;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertUserDuplicateMessage
@@ -25,7 +26,7 @@ class AssertUserDuplicateMessage extends AbstractConstraint
     public function processAssert(UserEdit $userEdit)
     {
         $failedMessage = $userEdit->getMessagesBlock()->getErrorMessage();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::ERROR_MESSAGE,
             $failedMessage,
             'Wrong success message is displayed.'

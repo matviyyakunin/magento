@@ -6,6 +6,7 @@
 
 namespace Magento\User\Test\Fixture\User;
 
+use Magento\Mtf\Config\DataInterface;
 use Magento\Mtf\ObjectManager;
 use Magento\Mtf\Fixture\FixtureInterface;
 
@@ -36,9 +37,9 @@ class CurrentPassword implements FixtureInterface
     public function __construct(array $params, $data = '')
     {
         $this->params = $params;
-        /** @var \Magento\Mtf\Config\DataInterface $systemConfig */
+        /** @var DataInterface $systemConfig */
         if ($data == '%current_password%') {
-            $systemConfig = ObjectManager::getInstance()->create(\Magento\Mtf\Config\DataInterface::class);
+            $systemConfig = ObjectManager::getInstance()->create(DataInterface::class);
             $data = $systemConfig->get('application/0/backendPassword/0/value');
         }
         $this->data = $data;

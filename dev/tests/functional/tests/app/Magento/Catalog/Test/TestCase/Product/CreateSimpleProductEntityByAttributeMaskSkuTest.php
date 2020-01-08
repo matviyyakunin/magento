@@ -9,6 +9,8 @@ namespace Magento\Catalog\Test\TestCase\Product;
 use Magento\Catalog\Test\Fixture\CatalogProductSimple;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductNew;
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
+use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Mtf\TestCase\Injectable;
 
 /**
@@ -40,7 +42,7 @@ class CreateSimpleProductEntityByAttributeMaskSkuTest extends Injectable
     private $flushCache;
 
     /**
-     * @var \Magento\Mtf\Fixture\FixtureFactory
+     * @var FixtureFactory
      */
     private $fixtureFactory;
 
@@ -58,7 +60,7 @@ class CreateSimpleProductEntityByAttributeMaskSkuTest extends Injectable
         CatalogProductSimple $product,
         CatalogProductIndex $productGrid,
         CatalogProductNew $newProductPage,
-        \Magento\Mtf\Fixture\FixtureFactory $fixtureFactory,
+        FixtureFactory $fixtureFactory,
         $flushCache = false,
         $configData = null
     ) {
@@ -68,7 +70,7 @@ class CreateSimpleProductEntityByAttributeMaskSkuTest extends Injectable
 
         // Preconditions
         $this->objectManager->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData, 'flushCache' => $this->flushCache]
         )->run();
 
@@ -127,7 +129,7 @@ class CreateSimpleProductEntityByAttributeMaskSkuTest extends Injectable
     public function tearDown()
     {
         $this->objectManager->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData, 'rollback' => true, 'flushCache' => $this->flushCache]
         )->run();
     }

@@ -6,6 +6,8 @@
 
 namespace Magento\Mtf\Util\Generate\Fixture;
 
+use DOMDocument;
+use DOMElement;
 use Magento\Framework\ObjectManagerInterface;
 
 /**
@@ -30,7 +32,7 @@ class SchemaXml
     /**
      * The DOMDocument class represents an entire XML.
      *
-     * @var \DOMDocument
+     * @var DOMDocument
      */
     protected $dom;
 
@@ -52,8 +54,8 @@ class SchemaXml
     public function __construct(ObjectManagerInterface $objectManager)
     {
         $this->objectManager = $objectManager;
-        $this->fieldsProvider = $this->objectManager->create(\Magento\Mtf\Util\Generate\Fixture\FieldsProvider::class);
-        $this->dom = new \DOMDocument('1.0');
+        $this->fieldsProvider = $this->objectManager->create(FieldsProvider::class);
+        $this->dom = new DOMDocument('1.0');
         $this->dom->load(dirname(__FILE__) . '/template.xml');
         $this->dom->preserveWhiteSpace = false;
         $this->dom->formatOutput = true;
@@ -125,7 +127,7 @@ class SchemaXml
             mkdir($folderName, 0777, true);
         }
 
-        /** @var \DOMElement $root */
+        /** @var DOMElement $root */
         $root = $this->dom->getElementsByTagName('config')->item(0);
 
         $fixture = $this->dom->createElement('fixture');

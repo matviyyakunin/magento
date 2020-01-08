@@ -5,14 +5,16 @@
  */
 namespace Magento\Test\Legacy;
 
+use Magento\Framework\App\Utility\AggregateInvoker;
 use Magento\Framework\App\Utility\Files;
 use Magento\Framework\Component\ComponentRegistrar;
 use Magento\TestFramework\Utility\FunctionDetector;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests to detect unsecure functions usage
  */
-class UnsecureFunctionsUsageTest extends \PHPUnit\Framework\TestCase
+class UnsecureFunctionsUsageTest extends TestCase
 {
     /**
      * Php unsecure functions
@@ -92,7 +94,7 @@ class UnsecureFunctionsUsageTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnsecureFunctionsUsage()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $functionDetector = new FunctionDetector();
         $invoker(
             function ($fileFullPath) use ($functionDetector) {

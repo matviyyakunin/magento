@@ -10,6 +10,7 @@ use Magento\Backend\Test\Fixture\GlobalSearch;
 use Magento\Backend\Test\Page\Adminhtml\Dashboard;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertGlobalSearchOrderId
@@ -30,7 +31,7 @@ class AssertGlobalSearchOrderId extends AbstractConstraint
         $order = $search->getDataFieldConfig('query')['source']->getEntity();
         $orderId = "Order #" . $order->getId();
         $isVisibleInResult = $dashboard->getAdminPanelHeader()->isSearchResultVisible($orderId);
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $isVisibleInResult,
             'Order Id ' . $order->getId() . ' is absent in search results'
         );
@@ -38,11 +39,11 @@ class AssertGlobalSearchOrderId extends AbstractConstraint
         $dashboard->getAdminPanelHeader()->navigateToGrid("Orders");
         $isOrderGridVisible = $orderIndex->getSalesOrderGrid()->isVisible();
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $isOrderGridVisible,
             'Order grid is not visible'
         );
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             (string) $order->getId(),
             $orderIndex->getSalesOrderGrid()->getAllIds(),
             'Order grid does not have ' . $order->getId()  . ' in search results'

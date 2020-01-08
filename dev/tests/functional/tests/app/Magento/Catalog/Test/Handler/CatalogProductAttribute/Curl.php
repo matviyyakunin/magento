@@ -6,6 +6,7 @@
 
 namespace Magento\Catalog\Test\Handler\CatalogProductAttribute;
 
+use Exception;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Handler\Curl as AbstractCurl;
 use Magento\Mtf\Util\Protocol\CurlTransport;
@@ -80,7 +81,7 @@ class Curl extends AbstractCurl implements CatalogProductAttributeInterface
      *
      * @param FixtureInterface|null $fixture [optional]
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function persist(FixtureInterface $fixture = null)
     {
@@ -114,7 +115,7 @@ class Curl extends AbstractCurl implements CatalogProductAttributeInterface
 
         if (strpos($response, 'data-ui-id="messages-message-success"') === false) {
             $this->_eventManager->dispatchEvent(['curl_failed'], [$response]);
-            throw new \Exception($this->responseExceptionMessage);
+            throw new Exception($this->responseExceptionMessage);
         }
 
         $resultData = [];

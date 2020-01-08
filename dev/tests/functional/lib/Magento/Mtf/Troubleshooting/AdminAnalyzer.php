@@ -6,22 +6,27 @@
 
 namespace Magento\Mtf\Troubleshooting;
 
+use Exception;
+use Magento\Mtf\Config\DataInterface;
+use Magento\Mtf\Console\Output;
+use Magento\Mtf\ObjectManagerFactory;
 use Magento\Mtf\ObjectManagerInterface;
 use Magento\Mtf\Troubleshooting\Helper\UrlAnalyzer;
 use Magento\Mtf\Util\Protocol\CurlTransport;
 use Magento\Mtf\Util\Protocol\CurlTransport\BackendDecorator;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Analyze Magento Admin.
  */
-class AdminAnalyzer extends \Symfony\Component\Console\Command\Command
+class AdminAnalyzer extends Command
 {
     /**
      * Console output of formatted messages.
      *
-     * @var \Magento\Mtf\Console\Output
+     * @var Output
      */
     private $output;
 
@@ -76,7 +81,7 @@ class AdminAnalyzer extends \Symfony\Component\Console\Command\Command
     {
         \PHPUnit\Util\Configuration::getInstance(MTF_PHPUNIT_FILE)->handlePHPConfiguration();
         $this->output = $this->objectManager->create(
-            \Magento\Mtf\Console\Output::class,
+            Output::class,
             ['output' => $output]
         );
         $this->output->writeln("Verifying Magento Admin...");
@@ -115,8 +120,8 @@ class AdminAnalyzer extends \Symfony\Component\Console\Command\Command
         foreach ($urls as $url) {
             $_ENV['app_backend_url'] = $url;
             try {
-                $config = \Magento\Mtf\ObjectManagerFactory::getObjectManager()->create(
-                    \Magento\Mtf\Config\DataInterface::class
+                $config = ObjectManagerFactory::getObjectManager()->create(
+                    DataInterface::class
                 );
                 $curl = new BackendDecorator(new CurlTransport(), $config);
                 $response = $curl->read();
@@ -126,7 +131,7 @@ class AdminAnalyzer extends \Symfony\Component\Console\Command\Command
                 $curl->close();
                 $isUrlValid = true;
                 break;
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 continue;
             }
         }

@@ -25,7 +25,7 @@ class Items extends AbstractItemsNewBlock
     {
         $selector = sprintf($this->productItem, $productSku);
         return $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Invoice\Form\Items\Product::class,
+            Product::class,
             ['element' => $this->_rootElement->find($selector, Locator::SELECTOR_XPATH)]
         );
     }

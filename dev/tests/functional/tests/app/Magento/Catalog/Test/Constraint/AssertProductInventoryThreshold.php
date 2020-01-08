@@ -11,6 +11,7 @@ use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Fixture\FixtureFactory;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that checks if threshold message setting is working correctly.
@@ -44,13 +45,13 @@ class AssertProductInventoryThreshold extends AbstractConstraint
             $browser->open($_ENV['app_frontend_url'] . $product->getUrlKey() . '.html');
             $isThresholdMessageDisplayed = $catalogProductView->getViewBlock()
                 ->isThresholdMessageDisplayed($browser, $product);
-            \PHPUnit\Framework\Assert::assertEquals(
+            Assert::assertEquals(
                 $isThresholdMessageDisplayed,
                 $thresholdItem['is_message_displayed'],
                 'Product inventory threshold message display is not correct.'
             );
             if ($thresholdItem['is_message_displayed']) {
-                \PHPUnit\Framework\Assert::assertEquals(
+                Assert::assertEquals(
                     sprintf(self::SUCCESS_MESSAGE, $thresholdItem['expected']),
                     $catalogProductView->getViewBlock()->getThresholdMessage(),
                     'Product inventory success message is not displayed.'

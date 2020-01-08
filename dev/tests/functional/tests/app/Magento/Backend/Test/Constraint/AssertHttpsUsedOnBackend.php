@@ -9,6 +9,7 @@ namespace Magento\Backend\Test\Constraint;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Backend\Test\Page\Adminhtml\Dashboard;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that https protocol is used all over the Admin panel.
@@ -58,7 +59,7 @@ class AssertHttpsUsedOnBackend extends AbstractConstraint
             $expectedProtocol .= '://';
         }
 
-        \PHPUnit\Framework\Assert::assertStringStartsWith(
+        Assert::assertStringStartsWith(
             $expectedProtocol,
             $this->browser->getUrl(),
             "$expectedProtocol is not used."
@@ -74,7 +75,7 @@ class AssertHttpsUsedOnBackend extends AbstractConstraint
     {
         $fakeUrl = str_replace(self::SCHEME_HTTPS, self::SCHEME_HTTP, $this->browser->getUrl());
         $this->browser->open($fakeUrl);
-        \PHPUnit\Framework\Assert::assertStringStartsWith(
+        Assert::assertStringStartsWith(
             self::SCHEME_HTTPS,
             $this->browser->getUrl(),
             'Merchant is not redirected to https if tries to access the Admin panel page directly via http.'

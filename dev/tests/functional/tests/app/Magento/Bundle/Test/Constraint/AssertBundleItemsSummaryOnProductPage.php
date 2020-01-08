@@ -9,6 +9,7 @@ use Magento\Bundle\Test\Fixture\BundleProduct;
 use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractAssertForm;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that displayed summary for bundle options equals to passed from fixture.
@@ -67,7 +68,7 @@ class AssertBundleItemsSummaryOnProductPage extends AbstractAssertForm
             }
         }
 
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $expectedResult,
             $actualResult,
             'Bundle Summary Section does not contain correct bundle options data.'

@@ -11,6 +11,7 @@ use Magento\Catalog\Test\Page\Category\CatalogCategoryView;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureFactory;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert category name on custom website store.
@@ -59,7 +60,7 @@ class AssertCategoryOnCustomWebsite extends AbstractConstraint
 
         $websiteCode = $storeGroup->getDataFieldConfig('website_id')['source']->getWebsite()->getData('code');
         $browser->open($_ENV['app_frontend_url'] . 'websites/' . $websiteCode . '/' . $category->getName() . '.html');
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $category->getName(),
             $categoryView->getTitleBlock()->getTitle(),
             'Wrong category name is displayed on custom website store.'

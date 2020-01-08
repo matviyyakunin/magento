@@ -8,6 +8,7 @@ namespace Magento\User\Test\Constraint;
 
 use Magento\User\Test\Page\Adminhtml\UserEdit;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertImpossibleDeleteYourOwnAccount
@@ -25,7 +26,7 @@ class AssertImpossibleDeleteYourOwnAccount extends AbstractConstraint
     public function processAssert(UserEdit $userEdit)
     {
         $errorMessage = $userEdit->getMessagesBlock()->getErrorMessage();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::ERROR_MESSAGE,
             $errorMessage,
             'Wrong error message is displayed.'

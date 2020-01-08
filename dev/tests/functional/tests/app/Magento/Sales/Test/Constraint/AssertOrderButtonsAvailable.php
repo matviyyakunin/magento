@@ -8,6 +8,7 @@ namespace Magento\Sales\Test\Constraint;
 
 use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that specified in data set buttons exist on order page in backend.
@@ -34,7 +35,7 @@ class AssertOrderButtonsAvailable extends AbstractConstraint
             }
         }
 
-        \PHPUnit\Framework\Assert::assertEmpty(
+        Assert::assertEmpty(
             $absentButtons,
             "Next buttons was not found on page: \n" . implode(";\n", $absentButtons)
         );

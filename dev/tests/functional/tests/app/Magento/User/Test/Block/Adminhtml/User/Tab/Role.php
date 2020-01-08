@@ -8,6 +8,7 @@ namespace Magento\User\Test\Block\Adminhtml\User\Tab;
 
 use Magento\Mtf\Client\Element\SimpleElement;
 use Magento\Backend\Test\Block\Widget\Tab;
+use Magento\User\Test\Block\Adminhtml\User\Tab\Role\Grid;
 
 /**
  * Class Role
@@ -31,12 +32,12 @@ class Role extends Tab
     /**
      * Returns role grid
      *
-     * @return \Magento\User\Test\Block\Adminhtml\User\Tab\Role\Grid
+     * @return Grid
      */
     public function getRoleGrid()
     {
         return $this->blockFactory->create(
-            \Magento\User\Test\Block\Adminhtml\User\Tab\Role\Grid::class,
+            Grid::class,
             ['element' => $this->_rootElement->find('#permissionsUserRolesGrid')]
         );
     }

@@ -6,11 +6,12 @@
 
 namespace Magento\Cms\Test\Block\Adminhtml\Page\Edit\Tab;
 
-use Magento\Mtf\Client\Locator;
 use Magento\Backend\Test\Block\Widget\Tab;
-use Magento\Mtf\Client\Element\SimpleElement;
-use Magento\Widget\Test\Block\Adminhtml\WidgetForm;
 use Magento\Cms\Test\Block\Adminhtml\Wysiwyg\Config;
+use Magento\Mtf\Client\Element\SimpleElement;
+use Magento\Mtf\Client\Locator;
+use Magento\Widget\Test\Block\Adminhtml\WidgetForm;
+use PHPUnit_Extensions_Selenium2TestCase_WebDriverException;
 
 /**
  * Backend cms page content tab.
@@ -94,7 +95,7 @@ class Content extends Tab
         if ($addWidgetButton->isVisible()) {
             try {
                 $addWidgetButton->click();
-            } catch (\PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
+            } catch (PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
                 $this->browser->find($this->header)->hover();
                 $addWidgetButton->click();
             }
@@ -109,7 +110,7 @@ class Content extends Tab
     public function getWysiwygConfig()
     {
         return $this->blockFactory->create(
-            \Magento\Cms\Test\Block\Adminhtml\Wysiwyg\Config::class,
+            Config::class,
             ['element' => $this->_rootElement->find($this->systemVariableBlock, Locator::SELECTOR_XPATH)]
         );
     }
@@ -122,7 +123,7 @@ class Content extends Tab
     public function getWidgetBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Widget\Test\Block\Adminhtml\WidgetForm::class,
+            WidgetForm::class,
             ['element' => $this->_rootElement->find($this->widgetBlock, Locator::SELECTOR_XPATH)]
         );
     }

@@ -8,6 +8,7 @@ namespace Magento\Review\Test\Constraint;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Catalog\Test\Page\Product\CatalogProductView;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that product don't have a review on product page.
@@ -36,12 +37,12 @@ class AssertProductReviewIsAbsentOnProductPage extends AbstractConstraint
     {
         $catalogProductView->getViewBlock()->selectTab('Reviews');
 
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $catalogProductView->getCustomerReviewBlock()->isVisibleReviewItem(),
             'No reviews below the form required.'
         );
 
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::NO_REVIEW_LINK_TEXT,
             trim($catalogProductView->getReviewSummary()->getAddReviewLink()->getText()),
             sprintf('"%s" link is not available', self::NO_REVIEW_LINK_TEXT)

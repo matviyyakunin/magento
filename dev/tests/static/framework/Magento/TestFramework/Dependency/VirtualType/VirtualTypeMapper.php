@@ -8,6 +8,8 @@
 namespace Magento\TestFramework\Dependency\VirtualType;
 
 use DOMDocument;
+use DOMElement;
+use Exception;
 use Magento\Framework\App\Utility\Files;
 
 class VirtualTypeMapper
@@ -68,7 +70,7 @@ class VirtualTypeMapper
 
     /**
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     private function loadDiConfigs()
     {
@@ -78,7 +80,7 @@ class VirtualTypeMapper
     /**
      * @param array $diFiles
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function loadMap(array $diFiles = [])
     {
@@ -91,7 +93,7 @@ class VirtualTypeMapper
             $doc = new DOMDocument();
             $doc->loadXML(file_get_contents($file));
             $nodes = $doc->getElementsByTagName('virtualType');
-/** @var \DOMElement $node */
+/** @var DOMElement $node */
             foreach ($nodes as $node) {
                 $name = $node->getAttribute('name');
                 $type = $node->getAttribute('type');

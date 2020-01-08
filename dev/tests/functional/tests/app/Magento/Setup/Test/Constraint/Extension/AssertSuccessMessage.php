@@ -6,9 +6,10 @@
 
 namespace Magento\Setup\Test\Constraint\Extension;
 
-use Magento\Setup\Test\Page\Adminhtml\SetupWizard;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Setup\Test\Fixture\Extension;
+use Magento\Setup\Test\Page\Adminhtml\SetupWizard;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check extension installing, updating or uninstalling is successfully.
@@ -50,12 +51,12 @@ class AssertSuccessMessage extends AbstractConstraint
                 $message = '';
         }
 
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             $message,
             $setupWizard->getSuccessMessage()->getUpdaterStatus(),
             'Success message is incorrect.'
         );
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             $extension->getExtensionName(),
             $setupWizard->getSuccessMessage()->getUpdaterStatus(),
             'Extension name is incorrect.'

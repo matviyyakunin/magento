@@ -6,6 +6,7 @@
 
 namespace Magento\Mtf\Client\Element;
 
+use Magento\Mtf\Client\ElementInterface;
 use Magento\Mtf\Client\Locator;
 
 /**
@@ -73,7 +74,7 @@ class MultisuggestElement extends SuggestElement
         $values = [];
 
         foreach ($choices as $choice) {
-            /** @var \Magento\Mtf\Client\ElementInterface $choice */
+            /** @var ElementInterface $choice */
             $values[] = $choice->getText();
         }
         return $values;

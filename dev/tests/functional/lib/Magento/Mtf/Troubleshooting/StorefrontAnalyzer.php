@@ -6,17 +6,20 @@
 
 namespace Magento\Mtf\Troubleshooting;
 
+use Exception;
+use Magento\Mtf\Console\Output;
 use Magento\Mtf\ObjectManagerInterface;
 use Magento\Mtf\Troubleshooting\Helper\UrlAnalyzer;
 use Magento\Mtf\Util\Protocol\CurlInterface;
 use Magento\Mtf\Util\Protocol\CurlTransport;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Analyze URL specified in the phpunit.xml.
  */
-class StorefrontAnalyzer extends \Symfony\Component\Console\Command\Command
+class StorefrontAnalyzer extends Command
 {
     /**
      * HTTP CURL Adapter.
@@ -79,7 +82,7 @@ class StorefrontAnalyzer extends \Symfony\Component\Console\Command\Command
     {
         \PHPUnit\Util\Configuration::getInstance(MTF_PHPUNIT_FILE)->handlePHPConfiguration();
         $output = $this->objectManager->create(
-            \Magento\Mtf\Console\Output::class,
+            Output::class,
             ['output' => $output]
         );
         $output->writeln("Verifying Magento Storefront...");
@@ -113,7 +116,7 @@ class StorefrontAnalyzer extends \Symfony\Component\Console\Command\Command
             if (strpos($response, 'Home Page') === false) {
                 $messages['error'][] = 'Magento seems not installed. Check your Magento instance.';
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $messages['error'][] = $e->getMessage();
         }
         $this->curlTransport->close();

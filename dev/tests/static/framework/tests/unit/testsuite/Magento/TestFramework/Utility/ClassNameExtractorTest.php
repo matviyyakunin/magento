@@ -5,7 +5,9 @@
  */
 namespace Magento\TestFramework\Utility;
 
-class ClassNameExtractorTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+class ClassNameExtractorTest extends TestCase
 {
     /**
      * @param string $file
@@ -14,7 +16,7 @@ class ClassNameExtractorTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetNameWithNamespace($file, $className)
     {
-        $classNameExtractor = new \Magento\TestFramework\Utility\ClassNameExtractor();
+        $classNameExtractor = new ClassNameExtractor();
         $this->assertEquals(
             $classNameExtractor->getNameWithNamespace($this->getFileContent($file)),
             $className
@@ -65,7 +67,7 @@ class ClassNameExtractorTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetName($file, $className)
     {
-        $classNameExtractor = new \Magento\TestFramework\Utility\ClassNameExtractor();
+        $classNameExtractor = new ClassNameExtractor();
         $this->assertEquals(
             $classNameExtractor->getName($this->getFileContent($file)),
             $className
@@ -104,7 +106,7 @@ class ClassNameExtractorTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetNamespace($file, $className)
     {
-        $classNameExtractor = new \Magento\TestFramework\Utility\ClassNameExtractor();
+        $classNameExtractor = new ClassNameExtractor();
         $this->assertEquals(
             $classNameExtractor->getNamespace($this->getFileContent($file)),
             $className

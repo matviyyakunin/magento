@@ -9,6 +9,7 @@ namespace Magento\Setup\Test\Constraint;
 use Magento\Backend\Test\Page\Adminhtml\Dashboard;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check application version
@@ -24,7 +25,7 @@ class AssertApplicationVersion extends AbstractConstraint
      */
     public function processAssert(Dashboard $dashboard, $version)
     {
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             $version,
             $dashboard->getApplicationVersion()->getVersion(),
             'Application version is incorrect.'

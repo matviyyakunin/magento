@@ -8,6 +8,7 @@ namespace Magento\Store\Test\Constraint;
 
 use Magento\Backend\Test\Page\Adminhtml\StoreIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertWebsiteSuccessSaveMessage
@@ -28,7 +29,7 @@ class AssertWebsiteSuccessSaveMessage extends AbstractConstraint
      */
     public function processAssert(StoreIndex $storeIndex)
     {
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $storeIndex->getMessagesBlock()->getSuccessMessage(),
             'Wrong success message is displayed.'

@@ -6,29 +6,35 @@
 
 namespace Magento\Catalog\Test\Constraint;
 
+use Magento\Catalog\Test\Page\Adminhtml\CatalogProductEdit;
+use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
+use Magento\Mtf\Constraint\AbstractConstraint;
+use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
+
 /**
  * Assert that can save already exist product.
  */
-class AssertCanSaveProduct extends \Magento\Mtf\Constraint\AbstractConstraint
+class AssertCanSaveProduct extends AbstractConstraint
 {
     /**
      * Assert that can save already existing product.
      *
-     * @param \Magento\Mtf\Fixture\FixtureInterface $product
-     * @param \Magento\Catalog\Test\Page\Adminhtml\CatalogProductEdit $catalogProductEdit
-     * @param \Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex $catalogProductIndex
+     * @param FixtureInterface $product
+     * @param CatalogProductEdit $catalogProductEdit
+     * @param CatalogProductIndex $catalogProductIndex
      * @return void
      */
     public function processAssert(
-        \Magento\Mtf\Fixture\FixtureInterface $product,
-        \Magento\Catalog\Test\Page\Adminhtml\CatalogProductEdit $catalogProductEdit,
-        \Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex $catalogProductIndex
+        FixtureInterface $product,
+        CatalogProductEdit $catalogProductEdit,
+        CatalogProductIndex $catalogProductIndex
     ) {
         $filter = ['sku' => $product->getSku()];
         $catalogProductIndex->open()->getProductGrid()->searchAndOpen($filter);
         $catalogProductEdit->getFormPageActions()->save();
 
-        \PHPUnit\Framework\Assert::assertNotEmpty(
+        Assert::assertNotEmpty(
             $catalogProductEdit->getMessagesBlock()->getSuccessMessage(),
             'Can\'t save existing product.'
         );

@@ -6,6 +6,8 @@
 
 namespace Magento\Tax\Test\Constraint;
 
+use PHPUnit\Framework\Assert;
+
 /**
  * Class AssertTaxWithCrossBorderApplied
  * Checks that prices on category, product and cart pages are equal for both customers
@@ -21,7 +23,7 @@ class AssertTaxWithCrossBorderApplied extends AbstractAssertTaxWithCrossBorderAp
     public function assert($actualPrices)
     {
         //Prices verification
-        \PHPUnit\Framework\Assert::assertEmpty(
+        Assert::assertEmpty(
             array_diff($actualPrices[0], $actualPrices[1]),
             'Prices for customers should be equal. Cross border is not applied.'
         );

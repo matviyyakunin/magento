@@ -6,6 +6,7 @@
 
 namespace Magento\Widget\Test\Block\Adminhtml\Widget\Instance\Edit\Tab;
 
+use Magento\Backend\Test\Block\Template;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\Client\Element\SimpleElement;
 use Magento\Backend\Test\Block\Widget\Tab;
@@ -76,12 +77,12 @@ class WidgetInstance extends Tab
     /**
      * Get backend abstract block.
      *
-     * @return \Magento\Backend\Test\Block\Template
+     * @return Template
      */
     protected function getTemplateBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Backend\Test\Block\Template::class,
+            Template::class,
             ['element' => $this->_rootElement->find($this->templateBlock, Locator::SELECTOR_XPATH)]
         );
     }

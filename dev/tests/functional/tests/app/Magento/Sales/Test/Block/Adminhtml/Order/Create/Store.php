@@ -6,10 +6,11 @@
 
 namespace Magento\Sales\Test\Block\Adminhtml\Order\Create;
 
-use Magento\Store\Test\Fixture\Store as StoreFixture;
+use Magento\Backend\Test\Block\Template;
 use Magento\Mtf\Block\Block;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\Factory\Factory;
+use Magento\Store\Test\Fixture\Store as StoreFixture;
 
 /**
  * Class Store
@@ -35,7 +36,7 @@ class Store extends Block
     /**
      * Get backend abstract block
      *
-     * @return \Magento\Backend\Test\Block\Template
+     * @return Template
      */
     protected function getTemplateBlock()
     {

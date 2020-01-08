@@ -6,6 +6,7 @@
 
 namespace Magento\Cms\Test\Block;
 
+use Exception;
 use Magento\Mtf\Block\Block;
 use Magento\Mtf\Client\Locator;
 
@@ -99,7 +100,7 @@ class Page extends Block
      * @param string $widgetType
      * @param string $widgetText
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function isWidgetVisible($widgetType, $widgetText)
     {
@@ -108,7 +109,7 @@ class Page extends Block
                 ->find(sprintf($this->widgetSelectors[$widgetType], $widgetText), Locator::SELECTOR_XPATH)
                 ->isVisible();
         } else {
-            throw new \Exception('Determine how to find the widget on the page.');
+            throw new Exception('Determine how to find the widget on the page.');
         }
     }
 

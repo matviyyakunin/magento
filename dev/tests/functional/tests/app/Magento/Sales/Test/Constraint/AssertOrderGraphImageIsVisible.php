@@ -6,9 +6,11 @@
 
 namespace Magento\Sales\Test\Constraint;
 
+use Magento\Backend\Test\TestStep\GetDashboardOrderStep;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\TestStep\TestStepFactory;
 use Magento\Backend\Test\Page\Adminhtml\Dashboard;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert order graph image is visible on admin dashboard.
@@ -29,11 +31,11 @@ class AssertOrderGraphImageIsVisible extends AbstractConstraint
         array $argumentsList
     ) {
         $stepFactory->create(
-            \Magento\Backend\Test\TestStep\GetDashboardOrderStep::class,
+            GetDashboardOrderStep::class,
             ['argumentsList' => $argumentsList]
         )->run();
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $dashboard->getMainBlock()->isGraphImageVisible(),
             'Graph image is not visible on admin dashboard.'
         );

@@ -6,12 +6,13 @@
 
 namespace Magento\Widget\Test\Constraint;
 
-use Magento\PageCache\Test\Page\Adminhtml\AdminCache;
+use Magento\Catalog\Test\Fixture\CatalogProductSimple;
 use Magento\Catalog\Test\Page\Category\CatalogCategoryView;
 use Magento\Cms\Test\Page\CmsIndex;
-use Magento\Widget\Test\Fixture\Widget;
 use Magento\Mtf\Constraint\AbstractConstraint;
-use Magento\Catalog\Test\Fixture\CatalogProductSimple;
+use Magento\PageCache\Test\Page\Adminhtml\AdminCache;
+use Magento\Widget\Test\Fixture\Widget;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check that created Catalog New Products List widget displayed on frontend on Category Page.
@@ -24,7 +25,7 @@ class AssertWidgetCatalogNewProductsList extends AbstractConstraint
      * @var CatalogCategoryView
      */
     protected $catalogCategoryView;
-    
+
     /**
      * Assert that created Catalog New Products List widget displayed on frontend on Category Page.
      *
@@ -45,7 +46,7 @@ class AssertWidgetCatalogNewProductsList extends AbstractConstraint
         AdminCache $adminCache
     ) {
         $this->catalogCategoryView = $catalogCategoryView;
-        
+
         // Flush cache
         $adminCache->open();
         $adminCache->getActionsBlock()->flushMagentoCache();
@@ -59,11 +60,11 @@ class AssertWidgetCatalogNewProductsList extends AbstractConstraint
         $cmsIndex->open();
         $categoryName = $widget->getWidgetInstance()[0]['entities']->getName();
         $cmsIndex->getTopmenu()->selectCategoryByName($categoryName);
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $catalogCategoryView->getWidgetView()->isWidgetVisible($widget, 'New Products'),
             'Widget is absent on Category page.'
         );
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $products,
             $this->catalogCategoryView->getViewBlock()->getProductsFromCatalogNewProductsListBlock(),
             'There are wrong products or products are absent on Catalog New Products List block on Category page.'

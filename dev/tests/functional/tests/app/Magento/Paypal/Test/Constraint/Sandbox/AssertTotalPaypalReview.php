@@ -8,6 +8,7 @@ namespace Magento\Paypal\Test\Constraint\Sandbox;
 
 use Magento\Paypal\Test\Page\Sandbox\ExpressReview;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that Order total is correct on PayPal Review page.
@@ -25,7 +26,7 @@ class AssertTotalPaypalReview extends AbstractConstraint
     {
         $reviewTotal = $expressReview->getExpressMainReviewBlock()->getReviewBlock()->getTotal();
 
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $reviewTotal,
             number_format($total, 2),
             'Total price: \'' . $reviewTotal

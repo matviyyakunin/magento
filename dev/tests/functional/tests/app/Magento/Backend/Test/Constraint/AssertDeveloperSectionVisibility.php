@@ -7,6 +7,7 @@ namespace Magento\Backend\Test\Constraint;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Backend\Test\Page\Adminhtml\SystemConfigEdit;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that Developer section is not present in production mode.
@@ -22,12 +23,12 @@ class AssertDeveloperSectionVisibility extends AbstractConstraint
     public function processAssert(SystemConfigEdit $configEdit)
     {
         if ($_ENV['mage_mode'] === 'production') {
-            \PHPUnit\Framework\Assert::assertFalse(
+            Assert::assertFalse(
                 in_array('Developer', $configEdit->getTabs()->getSubTabsNames('Advanced')),
                 'Developer section should be hidden in production mode.'
             );
         } else {
-            \PHPUnit\Framework\Assert::assertTrue(
+            Assert::assertTrue(
                 in_array('Developer', $configEdit->getTabs()->getSubTabsNames('Advanced')),
                 'Developer section should be not hidden in developer or default mode.'
             );

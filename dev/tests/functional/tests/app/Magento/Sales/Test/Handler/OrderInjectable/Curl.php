@@ -6,16 +6,17 @@
 
 namespace Magento\Sales\Test\Handler\OrderInjectable;
 
+use Exception;
 use Magento\Bundle\Test\Fixture\BundleProduct;
 use Magento\ConfigurableProduct\Test\Fixture\ConfigurableProduct;
 use Magento\Customer\Test\Fixture\Customer;
 use Magento\Downloadable\Test\Fixture\DownloadableProduct;
-use Magento\Sales\Test\Fixture\OrderInjectable;
-use Magento\SalesRule\Test\Fixture\SalesRule;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Handler\Curl as AbstractCurl;
 use Magento\Mtf\Util\Protocol\CurlTransport;
 use Magento\Mtf\Util\Protocol\CurlTransport\BackendDecorator;
+use Magento\Sales\Test\Fixture\OrderInjectable;
+use Magento\SalesRule\Test\Fixture\SalesRule;
 
 /**
  * Create new order via curl.
@@ -345,7 +346,7 @@ class Curl extends AbstractCurl implements OrderInjectableInterface
      *
      * @param array $data
      * @return int|null
-     * @throws \Exception
+     * @throws Exception
      */
     protected function createOrder(array $data)
     {
@@ -365,7 +366,7 @@ class Curl extends AbstractCurl implements OrderInjectableInterface
         $curl->close();
 
         if (strpos($response, 'data-ui-id="messages-message-success"') === false) {
-            throw new \Exception("Order creation by curl handler was not successful! Response: $response");
+            throw new Exception("Order creation by curl handler was not successful! Response: $response");
         }
         preg_match("~<h1 class=\"page-title\">#(.*)</h1>~", $response, $matches);
 

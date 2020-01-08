@@ -6,16 +6,16 @@
 
 namespace Magento\Store\Test\TestStep;
 
-use Magento\Backend\Test\Page\Adminhtml\EditWebsite;
 use Magento\Backend\Test\Page\Adminhtml\DeleteWebsite;
+use Magento\Backend\Test\Page\Adminhtml\EditWebsite;
 use Magento\Backend\Test\Page\Adminhtml\StoreIndex;
 use Magento\Backup\Test\Page\Adminhtml\BackupIndex;
 use Magento\Config\Test\TestStep\SetupConfigurationStep;
-use Magento\Store\Test\Fixture\Store;
-use Magento\Mtf\TestStep\TestStepInterface;
 use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\TestStep\TestStepFactory;
+use Magento\Mtf\TestStep\TestStepInterface;
+use Magento\Store\Test\Fixture\Store;
 
 /**
  * Test Step for DeleteWebsitesEntity.

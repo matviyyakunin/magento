@@ -10,6 +10,7 @@ use Magento\Cms\Test\Fixture\CmsPage;
 use Magento\Cms\Test\Page\Adminhtml\CmsPageIndex;
 use Magento\Cms\Test\Page\Adminhtml\CmsPageNew;
 use Magento\Mtf\Constraint\AbstractAssertForm;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that displayed CMS page data on edit page equals passed from fixture.
@@ -52,7 +53,7 @@ class AssertCmsPageForm extends AbstractAssertForm
         $storeId = explode('/', $cms->getStoreId());
         $cmsFixtureData['store_id'] = array_pop($storeId);
         $errors = $this->verifyData($cmsFixtureData, $cmsFormData);
-        \PHPUnit\Framework\Assert::assertEmpty($errors, $errors);
+        Assert::assertEmpty($errors, $errors);
     }
 
     /**

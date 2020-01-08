@@ -6,7 +6,10 @@
 
 namespace Magento\Mtf\EntryPoint;
 
+use DomainException;
+use Exception;
 use Magento\Mtf\ObjectManager;
+use Magento\Mtf\ObjectManagerFactory;
 
 /**
  * Class EntryPoint
@@ -54,20 +57,20 @@ class EntryPoint
      * @param $applicationName
      * @param array $arguments
      * @return mixed
-     * @throws \DomainException
+     * @throws DomainException
      */
     public function run($applicationName, array $arguments = [])
     {
         try {
             if (!$this->_locator) {
-                $locatorFactory = new \Magento\Mtf\ObjectManagerFactory();
+                $locatorFactory = new ObjectManagerFactory();
                 $this->_locator = $locatorFactory->create();
             }
             return $this->_locator->create($applicationName, $arguments)->launch();
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $message = "Error happened during application run.\n";
             $message .= $exception->getMessage();
-            throw new \DomainException($message);
+            throw new DomainException($message);
         }
     }
 }

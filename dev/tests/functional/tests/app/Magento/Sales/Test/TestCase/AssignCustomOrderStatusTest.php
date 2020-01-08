@@ -6,6 +6,7 @@
 
 namespace Magento\Sales\Test\TestCase;
 
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Sales\Test\Constraint\AssertOrderStatusSuccessAssignMessage;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Fixture\OrderStatus;
@@ -172,7 +173,7 @@ class AssignCustomOrderStatusTest extends Injectable
             $this->orderStatusIndex->open()->getOrderStatusGrid()->searchAndUnassign($filter);
             $this->orderStatusIndex->getMessagesBlock()->waitSuccessMessage();
             $this->objectManager->create(
-                \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+                SetupConfigurationStep::class,
                 ['configData' => 'checkmo_custom_new_order_status_rollback']
             )->run();
         }

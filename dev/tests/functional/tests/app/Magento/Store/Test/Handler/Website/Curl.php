@@ -6,6 +6,7 @@
 
 namespace Magento\Store\Test\Handler\Website;
 
+use Exception;
 use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Handler\Curl as AbstractCurl;
@@ -66,7 +67,7 @@ class Curl extends AbstractCurl implements WebsiteInterface
      *
      * @param FixtureInterface|null $fixture [optional]
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function persist(FixtureInterface $fixture = null)
     {
@@ -77,7 +78,7 @@ class Curl extends AbstractCurl implements WebsiteInterface
         $response = $curl->read();
         $curl->close();
         if (strpos($response, 'data-ui-id="messages-message-success"') === false) {
-            throw new \Exception("Website entity creating by curl handler was not successful! Response: $response");
+            throw new Exception("Website entity creating by curl handler was not successful! Response: $response");
         }
 
         $websiteId = $this->getWebSiteIdByWebsiteName($fixture->getName());
@@ -99,7 +100,7 @@ class Curl extends AbstractCurl implements WebsiteInterface
      *
      * @param string $websiteName
      * @return int
-     * @throws \Exception
+     * @throws Exception
      */
     protected function getWebSiteIdByWebsiteName($websiteName)
     {
@@ -116,7 +117,7 @@ class Curl extends AbstractCurl implements WebsiteInterface
         preg_match('/' . $expectedUrl . '([0-9]*)\/(.)*>' . $websiteName . '<\/a>/', $response, $matches);
 
         if (empty($matches)) {
-            throw new \Exception('Cannot find website id.');
+            throw new Exception('Cannot find website id.');
         }
 
         return (int)$matches[1];
@@ -145,7 +146,7 @@ class Curl extends AbstractCurl implements WebsiteInterface
      *
      * @param array $data
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     private function setConfiguration(array $data)
     {

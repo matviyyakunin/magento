@@ -6,11 +6,12 @@
 
 namespace Magento\Tax\Test\Handler\TaxRule;
 
-use Magento\Tax\Test\Fixture\TaxRule;
+use Exception;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Handler\Curl as AbstractCurl;
 use Magento\Mtf\Util\Protocol\CurlTransport;
 use Magento\Mtf\Util\Protocol\CurlTransport\BackendDecorator;
+use Magento\Tax\Test\Fixture\TaxRule;
 
 /**
  * Curl handler for creating Tax Rule.
@@ -32,7 +33,7 @@ class Curl extends AbstractCurl implements TaxRuleInterface
      *
      * @param FixtureInterface $fixture
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function persist(FixtureInterface $fixture = null)
     {
@@ -48,7 +49,7 @@ class Curl extends AbstractCurl implements TaxRuleInterface
 
         if (strpos($response, 'data-ui-id="messages-message-success"') === false) {
             $this->_eventManager->dispatchEvent(['curl_failed'], [$response]);
-            throw new \Exception("Tax rate creation by curl handler was not successful!");
+            throw new Exception("Tax rate creation by curl handler was not successful!");
         }
 
         preg_match("~Location: [^\s]*\/rule\/(\d+)~", $response, $matches);

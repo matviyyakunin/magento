@@ -6,6 +6,10 @@
 
 namespace Magento\Reports\Test\TestCase;
 
+use Magento\Catalog\Test\TestStep\CreateProductsStep;
+use Magento\Checkout\Test\TestStep\AddProductsToTheCartStep;
+use Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep;
+use Magento\Customer\Test\TestStep\LogoutCustomerOnFrontendStep;
 use Magento\Mtf\TestCase\Injectable;
 use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Mtf\Client\BrowserInterface;
@@ -89,12 +93,12 @@ class AbandonedCartsReportEntityTest extends Injectable
         $products = $this->createProducts($products);
         $customer->persist();
         $this->objectManager->create(
-            \Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep::class,
+            LoginCustomerOnFrontendStep::class,
             ['customer' => $customer]
         )->run();
         $this->addProductsToCart($products);
         $this->objectManager->create(
-            \Magento\Customer\Test\TestStep\LogoutCustomerOnFrontendStep::class,
+            LogoutCustomerOnFrontendStep::class,
             ['customer' => $customer]
         )->run();
 
@@ -110,7 +114,7 @@ class AbandonedCartsReportEntityTest extends Injectable
     protected function createProducts($products)
     {
         $createProductsStep = $this->objectManager->create(
-            \Magento\Catalog\Test\TestStep\CreateProductsStep::class,
+            CreateProductsStep::class,
             ['products' => $products]
         );
 
@@ -126,7 +130,7 @@ class AbandonedCartsReportEntityTest extends Injectable
     protected function addProductsToCart(array $products)
     {
         $addProductsToCart = $this->objectManager->create(
-            \Magento\Checkout\Test\TestStep\AddProductsToTheCartStep::class,
+            AddProductsToTheCartStep::class,
             ['products' => $products]
         );
         $addProductsToCart->run();

@@ -8,6 +8,7 @@ namespace Magento\Sales\Test\Constraint;
 
 use Magento\Sales\Test\Page\Adminhtml\OrderStatusNew;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertOrderStatusDuplicateStatus
@@ -26,7 +27,7 @@ class AssertOrderStatusDuplicateStatus extends AbstractConstraint
     public function processAssert(OrderStatusNew $orderStatusNewPage)
     {
         $actualMessage = $orderStatusNewPage->getMessagesBlock()->getErrorMessage();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::DUPLICATE_MESSAGE,
             $actualMessage,
             'Wrong duplicate message is displayed.'

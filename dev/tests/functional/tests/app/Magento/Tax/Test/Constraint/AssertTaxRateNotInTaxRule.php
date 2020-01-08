@@ -9,6 +9,7 @@ namespace Magento\Tax\Test\Constraint;
 use Magento\Tax\Test\Fixture\TaxRate;
 use Magento\Tax\Test\Page\Adminhtml\TaxRuleNew;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertTaxRateNotInTaxRule
@@ -28,7 +29,7 @@ class AssertTaxRateNotInTaxRule extends AbstractConstraint
     ) {
         $taxRuleNew->open();
         $taxRatesList = $taxRuleNew->getTaxRuleForm()->getAllTaxRates();
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             in_array($taxRate->getCode(), $taxRatesList),
             'Tax Rate \'' . $taxRate->getCode() . '\' is present in Tax Rule form.'
         );

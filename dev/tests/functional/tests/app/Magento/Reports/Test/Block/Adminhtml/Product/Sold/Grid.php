@@ -6,9 +6,10 @@
 
 namespace Magento\Reports\Test\Block\Adminhtml\Product\Sold;
 
-use Magento\Sales\Test\Fixture\OrderInjectable;
+use Magento\Backend\Test\Fixture\Source\Date;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\ObjectManager;
+use Magento\Sales\Test\Fixture\OrderInjectable;
 
 /**
  * Class Grid
@@ -85,7 +86,7 @@ class Grid extends \Magento\Backend\Test\Block\Widget\Grid
                 continue;
             }
             $date = ObjectManager::getInstance()->create(
-                \Magento\Backend\Test\Fixture\Source\Date::class,
+                Date::class,
                 ['params' => [], 'data' => ['pattern' => $reportFilter]]
             );
             $customersReport[$name] = $date->getData();

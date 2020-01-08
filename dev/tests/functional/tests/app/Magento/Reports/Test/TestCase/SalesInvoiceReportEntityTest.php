@@ -10,6 +10,7 @@ use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Mtf\TestCase\Injectable;
 use Magento\Reports\Test\Page\Adminhtml\SalesInvoiceReport;
 use Magento\Sales\Test\Fixture\OrderInjectable;
+use Magento\Sales\Test\TestStep\CreateInvoiceStep;
 
 /**
  * Preconditions:
@@ -68,7 +69,7 @@ class SalesInvoiceReportEntityTest extends Injectable
         $cart['data']['items'] = ['products' => $products];
         $cart = $fixtureFactory->createByCode('cart', $cart);
         $invoice = $this->objectManager->create(
-            \Magento\Sales\Test\TestStep\CreateInvoiceStep::class,
+            CreateInvoiceStep::class,
             ['order' => $order, 'cart' => $cart]
         );
         $invoice->run();

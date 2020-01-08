@@ -6,6 +6,8 @@
 
 namespace Magento\Tax\Test\Block\Adminhtml\Rule\Edit;
 
+use Exception;
+use Magento\Mtf\Client\Element\MultiselectlistElement;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Tax\Test\Fixture\TaxRule;
@@ -179,9 +181,9 @@ class Form extends FormInterface
         );
 
         $taxRateBlock = $this->_rootElement->find($this->taxRateBlock, Locator::SELECTOR_CSS, 'multiselectlist');
-        /** @var \Magento\Tax\Test\Block\Adminhtml\Rule\Edit\TaxRate $taxRateForm */
+        /** @var TaxRate $taxRateForm */
         $taxRateForm = $this->blockFactory->create(
-            \Magento\Tax\Test\Block\Adminhtml\Rule\Edit\TaxRate::class,
+            TaxRate::class,
             ['element' => $this->browser->find($this->taxRateForm)]
         );
 
@@ -227,7 +229,7 @@ class Form extends FormInterface
      *
      * @param SimpleElement $element
      * @param string $taxClass
-     * @throws \Exception
+     * @throws Exception
      * @return void
      */
     protected function setNewTaxClassName(SimpleElement $element, $taxClass)
@@ -242,13 +244,13 @@ class Form extends FormInterface
                 $element->find($this->saveButton)->click();
                 $this->waitUntilOptionIsVisible($element, $taxClass);
                 return;
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 // In parallel run on windows change the focus is lost on element
                 $count++;
             }
         } while ($count < self::MAX_TRY_COUNT);
 
-        throw new \Exception("Input for new tax class name isn't display.\n" . $e);
+        throw new Exception("Input for new tax class name isn't display.\n" . $e);
     }
 
     /**
@@ -324,7 +326,7 @@ class Form extends FormInterface
     public function getAllTaxRates()
     {
         $this->waitForTaxRates();
-        /** @var \Magento\Mtf\Client\Element\MultiselectlistElement $taxRates */
+        /** @var MultiselectlistElement $taxRates */
         $taxRates = $this->_rootElement->find($this->taxRateBlock, Locator::SELECTOR_CSS, 'multiselectlist');
 
         return $taxRates->getAllValues();
@@ -339,7 +341,7 @@ class Form extends FormInterface
     public function isTaxRateAvailable($value)
     {
         $this->waitForTaxRates();
-        /** @var \Magento\Mtf\Client\Element\MultiselectlistElement $taxRate */
+        /** @var MultiselectlistElement $taxRate */
         $taxRate = $this->_rootElement->find($this->taxRateBlock, Locator::SELECTOR_CSS, 'multiselectlist');
         return $taxRate->isValueVisible($value);
     }

@@ -6,6 +6,7 @@
 
 namespace Magento\Catalog\Test\Block\Adminhtml\Product\Edit\Section\Websites;
 
+use Exception;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\Client\Element\SimpleElement;
 
@@ -33,7 +34,7 @@ class StoreTree extends SimpleElement
      *
      * @param array|string $values
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function setValue($values)
     {
@@ -43,7 +44,7 @@ class StoreTree extends SimpleElement
         foreach ($values as $value) {
             $website = $this->find(sprintf($this->website, $value), Locator::SELECTOR_XPATH);
             if (!$website->isVisible()) {
-                throw new \Exception("Can't find website: \"{$value}\".");
+                throw new Exception("Can't find website: \"{$value}\".");
             }
             if (!$website->isSelected()) {
                 $website->click();

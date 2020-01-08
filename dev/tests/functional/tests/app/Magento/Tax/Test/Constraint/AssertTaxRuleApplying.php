@@ -11,10 +11,12 @@ use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Checkout\Test\Page\CheckoutCart;
 use Magento\Customer\Test\Fixture\Address;
 use Magento\Customer\Test\Fixture\Customer;
-use Magento\Tax\Test\Fixture\TaxRule;
+use Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureFactory;
+use Magento\Tax\Test\Fixture\TaxClass;
+use Magento\Tax\Test\Fixture\TaxRule;
 
 /**
  * Abstract class for implementing assert applying.
@@ -112,7 +114,7 @@ abstract class AssertTaxRuleApplying extends AbstractConstraint
             $this->taxRuleCode = $this->taxRule->getCode();
         }
         // Creating simple product with custom tax class
-        /** @var \Magento\Tax\Test\Fixture\TaxClass $taxProductClass */
+        /** @var TaxClass $taxProductClass */
         $taxProductClass = $taxRule->getDataFieldConfig('tax_product_class')['source']->getFixture()[0];
         $this->productSimple = $fixtureFactory->createByCode(
             'catalogProductSimple',
@@ -126,7 +128,7 @@ abstract class AssertTaxRuleApplying extends AbstractConstraint
         $this->productSimple->persist();
         // Customer login
         $this->objectManager->create(
-            \Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep::class,
+            LoginCustomerOnFrontendStep::class,
             ['customer' => $customer]
         )->run();
         // Clearing shopping cart and adding product to shopping cart

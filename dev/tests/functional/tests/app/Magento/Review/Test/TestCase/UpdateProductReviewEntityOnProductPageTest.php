@@ -7,6 +7,7 @@
 namespace Magento\Review\Test\TestCase;
 
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductEdit;
+use Magento\Catalog\Test\TestStep\OpenProductOnBackendStep;
 use Magento\Review\Test\Fixture\Review;
 use Magento\Review\Test\Page\Adminhtml\RatingEdit;
 use Magento\Review\Test\Page\Adminhtml\RatingIndex;
@@ -130,7 +131,7 @@ class UpdateProductReviewEntityOnProductPageTest extends Injectable
         $review = $this->createReview($review, $rating);
         $product = $this->reviewInitial->getDataFieldConfig('entity_id')['source']->getEntity();
         $this->objectManager->create(
-            \Magento\Catalog\Test\TestStep\OpenProductOnBackendStep::class,
+            OpenProductOnBackendStep::class,
             ['product' => $product]
         )->run();
 

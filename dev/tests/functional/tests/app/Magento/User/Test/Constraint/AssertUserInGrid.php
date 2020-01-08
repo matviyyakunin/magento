@@ -9,6 +9,7 @@ namespace Magento\User\Test\Constraint;
 use Magento\User\Test\Fixture\User;
 use Magento\User\Test\Page\Adminhtml\UserIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Asserts that user is present in User Grid.
@@ -27,7 +28,7 @@ class AssertUserInGrid extends AbstractConstraint
         $filter = ['username' => $user->getUsername()];
 
         $userIndex->open();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $userIndex->getUserGrid()->isRowVisible($filter),
             'User with name \'' . $user->getUsername() . '\' is absent in User grid.'
         );

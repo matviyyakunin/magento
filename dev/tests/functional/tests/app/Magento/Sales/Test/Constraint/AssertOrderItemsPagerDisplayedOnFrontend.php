@@ -7,11 +7,13 @@
 namespace Magento\Sales\Test\Constraint;
 
 use Magento\Customer\Test\Page\CustomerAccountIndex;
+use Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep;
+use Magento\Mtf\Constraint\AbstractConstraint;
+use Magento\Mtf\ObjectManager;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\CustomerOrderView;
 use Magento\Sales\Test\Page\OrderHistory;
-use Magento\Mtf\Constraint\AbstractConstraint;
-use Magento\Mtf\ObjectManager;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that order items pager is present on order view on frontend.
@@ -44,18 +46,18 @@ class AssertOrderItemsPagerDisplayedOnFrontend extends AbstractConstraint
         $orderId = $order->hasData('id') ? $order->getId() : $orderId;
 
         $objectManager->create(
-            \Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep::class,
+            LoginCustomerOnFrontendStep::class,
             ['customer' => $order->getDataFieldConfig('customer_id')['source']->getCustomer()]
         )->run();
         $customerAccountIndex->getAccountMenuBlock()->openMenuItem('My Orders');
         $orderHistory->getOrderHistoryBlock()->openOrderById($orderId);
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $customerOrderView->getOrderViewBlock()->isTopPagerDisplayed(),
-            'Order items top pager is expected to be displayed for order '. $orderId
+            'Order items top pager is expected to be displayed for order ' . $orderId
         );
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $customerOrderView->getOrderViewBlock()->isBottomPagerDisplayed(),
-            'Order items bottom pager is expected to be displayed for order '. $orderId
+            'Order items bottom pager is expected to be displayed for order ' . $orderId
         );
     }
 

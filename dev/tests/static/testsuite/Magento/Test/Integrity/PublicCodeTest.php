@@ -5,12 +5,22 @@
  */
 namespace Magento\Test\Integrity;
 
+use Exception;
 use Magento\Framework\App\Utility\Files;
+use Magento\Setup\Module\Di\Code\Reader\FileScanner;
+use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use ReflectionException;
+use ReflectionMethod;
+use SimpleXMLElement;
+use Zend\Code\Scanner\ClassScanner;
+use function class_exists;
+use function file_get_contents;
 
 /**
  * Tests @api annotated code integrity
  */
-class PublicCodeTest extends \PHPUnit\Framework\TestCase
+class PublicCodeTest extends TestCase
 {
     /**
      * List of simple return types that are used in docblocks.
@@ -57,7 +67,7 @@ class PublicCodeTest extends \PHPUnit\Framework\TestCase
      * So all blocks should be @api annotated. This test checks that all blocks declared in layout files are public
      *
      * @param $layoutFile
-     * @throws \ReflectionException
+     * @throws ReflectionException
      * @dataProvider layoutFilesDataProvider
      */
     public function testAllBlocksReferencedInLayoutArePublic($layoutFile)
@@ -65,11 +75,11 @@ class PublicCodeTest extends \PHPUnit\Framework\TestCase
         $nonPublishedBlocks = [];
         $xml = simplexml_load_file($layoutFile);
         $elements = $xml->xpath('//block | //referenceBlock') ?: [];
-        /** @var $node \SimpleXMLElement */
+        /** @var $node SimpleXMLElement */
         foreach ($elements as $node) {
             $class = (string) $node['class'];
-            if ($class && \class_exists($class) && !in_array($class, $this->getWhitelist())) {
-                $reflection = (new \ReflectionClass($class));
+            if ($class && class_exists($class) && !in_array($class, $this->getWhitelist())) {
+                $reflection = (new ReflectionClass($class));
                 if (strpos($reflection->getDocComment(), '@api') === false) {
                     $nonPublishedBlocks[] = $class;
                 }
@@ -87,7 +97,7 @@ class PublicCodeTest extends \PHPUnit\Framework\TestCase
      * Find all layout update files in magento modules and themes.
      *
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function layoutFilesDataProvider()
     {
@@ -101,16 +111,16 @@ class PublicCodeTest extends \PHPUnit\Framework\TestCase
      * and return values are public types.
      *
      * @param string $class
-     * @throws \ReflectionException
+     * @throws ReflectionException
      * @dataProvider publicPHPTypesDataProvider
      */
     public function testAllPHPClassesReferencedFromPublicClassesArePublic($class)
     {
         $nonPublishedClasses = [];
-        $reflection = new \ReflectionClass($class);
-        $filter = \ReflectionMethod::IS_PUBLIC;
+        $reflection = new ReflectionClass($class);
+        $filter = ReflectionMethod::IS_PUBLIC;
         if ($reflection->isAbstract()) {
-            $filter = $filter | \ReflectionMethod::IS_PROTECTED;
+            $filter = $filter | ReflectionMethod::IS_PROTECTED;
         }
         $methods = $reflection->getMethods($filter);
         foreach ($methods as $method) {
@@ -142,14 +152,14 @@ class PublicCodeTest extends \PHPUnit\Framework\TestCase
     /**
      * Retrieve list of all interfaces and classes in Magento codebase that are marked with @api annotation.
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function publicPHPTypesDataProvider()
     {
         $files = Files::init()->getPhpFiles(Files::INCLUDE_LIBS | Files::INCLUDE_APP_CODE);
         $result = [];
         foreach ($files as $file) {
-            $fileContents = \file_get_contents($file);
+            $fileContents = file_get_contents($file);
             if (strpos($fileContents, '@api') !== false) {
                 foreach ($this->getDeclaredClassesAndInterfaces($file) as $class) {
                     if (!in_array($class->getName(), $this->getWhitelist())
@@ -167,21 +177,21 @@ class PublicCodeTest extends \PHPUnit\Framework\TestCase
      * Retrieve list of classes and interfaces declared in the file
      *
      * @param string $file
-     * @return \Zend\Code\Scanner\ClassScanner[]
+     * @return ClassScanner[]
      */
     private function getDeclaredClassesAndInterfaces($file)
     {
-        $fileScanner = new \Magento\Setup\Module\Di\Code\Reader\FileScanner($file);
+        $fileScanner = new FileScanner($file);
         return $fileScanner->getClasses();
     }
 
     /**
      * Check if a class is @api annotated
      *
-     * @param \ReflectionClass $class
+     * @param ReflectionClass $class
      * @return bool
      */
-    private function isPublished(\ReflectionClass $class)
+    private function isPublished(ReflectionClass $class)
     {
         return strpos($class->getDocComment(), '@api') !== false;
     }
@@ -251,9 +261,9 @@ class PublicCodeTest extends \PHPUnit\Framework\TestCase
         foreach ($returnTypes as $returnType) {
             if (!in_array($returnType, $this->simpleReturnTypes)
                 && !$this->isGenerated($returnType)
-                && \class_exists($returnType)
+                && class_exists($returnType)
             ) {
-                $returnTypeReflection = new \ReflectionClass($returnType);
+                $returnTypeReflection = new ReflectionClass($returnType);
                 if (!$returnTypeReflection->isInternal()
                     && $this->areClassesFromSameVendor($returnType, $class)
                     && !$this->isPublished($returnTypeReflection)
@@ -268,11 +278,11 @@ class PublicCodeTest extends \PHPUnit\Framework\TestCase
     /**
      * Check if all method parameters are public
      * @param string $class
-     * @param \ReflectionMethod $method
+     * @param ReflectionMethod $method
      * @param array $nonPublishedClasses
      * @return array
      */
-    private function checkParameters($class, \ReflectionMethod $method, array $nonPublishedClasses)
+    private function checkParameters($class, ReflectionMethod $method, array $nonPublishedClasses)
     {
         /* Ignoring docblocks for argument types */
         foreach ($method->getParameters() as $parameter) {

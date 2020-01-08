@@ -7,14 +7,20 @@
  */
 namespace Magento\TestFramework\Integrity;
 
-abstract class AbstractConfig extends \PHPUnit\Framework\TestCase
+use DOMDocument;
+use Magento\Framework\App\Utility\AggregateInvoker;
+use Magento\Framework\App\Utility\Files;
+use Magento\Framework\Config\Dom;
+use PHPUnit\Framework\TestCase;
+
+abstract class AbstractConfig extends TestCase
 {
     public function testXmlFiles()
     {
         if (null === $this->_getXmlName()) {
             $this->markTestSkipped('No XML validation of files requested');
         }
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * @param string $configFile
@@ -22,7 +28,7 @@ abstract class AbstractConfig extends \PHPUnit\Framework\TestCase
             function ($configFile) {
                 $this->_validateFileExpectSuccess($configFile, $this->_getXsd(), $this->_getFileXsd());
             },
-            \Magento\Framework\App\Utility\Files::init()->getConfigFiles($this->_getXmlName())
+            Files::init()->getConfigFiles($this->_getXmlName())
         );
     }
 
@@ -96,12 +102,12 @@ abstract class AbstractConfig extends \PHPUnit\Framework\TestCase
      */
     protected function _validateFileExpectSuccess($xmlFile, $schemaFile, $fileSchemaFile = null)
     {
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->loadXML(file_get_contents($xmlFile));
-        $errors = \Magento\Framework\Config\Dom::validateDomDocument($dom, $schemaFile);
+        $errors = Dom::validateDomDocument($dom, $schemaFile);
         if ($errors) {
             if ($fileSchemaFile !== null) {
-                $moreErrors = \Magento\Framework\Config\Dom::validateDomDocument($dom, $fileSchemaFile);
+                $moreErrors = Dom::validateDomDocument($dom, $fileSchemaFile);
                 if (empty($moreErrors)) {
                     return;
                 } else {
@@ -129,9 +135,9 @@ abstract class AbstractConfig extends \PHPUnit\Framework\TestCase
      */
     protected function _validateFileExpectFailure($xmlFile, $schemaFile, $expectedErrors = null)
     {
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->loadXML(file_get_contents($xmlFile));
-        $actualErrors = \Magento\Framework\Config\Dom::validateDomDocument($dom, $schemaFile);
+        $actualErrors = Dom::validateDomDocument($dom, $schemaFile);
 
         if (isset($expectedErrors)) {
             $this->assertNotEmpty(

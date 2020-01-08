@@ -9,18 +9,22 @@
  */
 namespace Magento\Test\Legacy;
 
+use Magento\Framework\App\Utility\AggregateInvoker;
+use Magento\Framework\App\Utility\Files;
 use Magento\Framework\Component\ComponentRegistrar;
+use Magento\TestFramework\Inspection\WordsFinder;
+use PHPUnit\Framework\TestCase;
 
-class WordsTest extends \PHPUnit\Framework\TestCase
+class WordsTest extends TestCase
 {
     /**
-     * @var \Magento\TestFramework\Inspection\WordsFinder
+     * @var WordsFinder
      */
     protected static $_wordsFinder;
 
     public static function setUpBeforeClass()
     {
-        self::$_wordsFinder = new \Magento\TestFramework\Inspection\WordsFinder(
+        self::$_wordsFinder = new WordsFinder(
             glob(__DIR__ . '/_files/words_*.xml'),
             BP,
             new ComponentRegistrar()
@@ -29,7 +33,7 @@ class WordsTest extends \PHPUnit\Framework\TestCase
 
     public function testWords()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * @param string $file
@@ -40,7 +44,7 @@ class WordsTest extends \PHPUnit\Framework\TestCase
                     $this->fail("Found words: '" . implode("', '", $words) . "' in '{$file}' file");
                 }
             },
-            \Magento\Framework\App\Utility\Files::init()->getAllFiles()
+            Files::init()->getAllFiles()
         );
     }
 }

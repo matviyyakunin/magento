@@ -10,6 +10,7 @@ use Magento\Catalog\Test\Fixture\CatalogProductSimple;
 use Magento\Reports\Test\Page\Adminhtml\OrderedProductsReport;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertOrderedProductResult
@@ -37,7 +38,7 @@ class AssertOrderedProductResult extends AbstractConstraint
             $product = $products[$key];
             $productQty[$key] = $product->getCheckoutData()['qty'];
         }
-        \PHPUnit\Framework\Assert::assertEquals($totalQuantity, $productQty);
+        Assert::assertEquals($totalQuantity, $productQty);
     }
 
     /**

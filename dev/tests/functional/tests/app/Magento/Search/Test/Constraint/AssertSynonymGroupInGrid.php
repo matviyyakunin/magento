@@ -9,6 +9,7 @@ namespace Magento\Search\Test\Constraint;
 use Magento\Search\Test\Fixture\SynonymGroup;
 use Magento\Search\Test\Page\Adminhtml\SynonymGroupIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that created Synonym Group can be found in grid.
@@ -40,12 +41,12 @@ class AssertSynonymGroupInGrid extends AbstractConstraint
         $this->prepareFilter($synonymGroup, $synonymFilter);
         $synonymGroupIndex->getSynonymGroupGrid()->search($this->filter);
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $synonymGroupIndex->getSynonymGroupGrid()->isRowVisible($this->filter, false, false),
             'Synonym Group is absent in Synonym grid'
         );
 
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             count($synonymGroupIndex->getSynonymGroupGrid()->getAllIds()),
             1,
             'There is more than one synonyms founded'

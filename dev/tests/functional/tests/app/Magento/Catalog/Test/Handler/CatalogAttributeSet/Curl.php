@@ -6,6 +6,7 @@
 
 namespace Magento\Catalog\Test\Handler\CatalogAttributeSet;
 
+use Exception;
 use Magento\Catalog\Test\Fixture\CatalogAttributeSet;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Handler\Curl as AbstractCurl;
@@ -182,13 +183,13 @@ class Curl extends AbstractCurl implements CatalogAttributeSetInterface
      * @param string $response
      * @param bool $isJson
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     protected function getData($regularExpression, $response, $isJson = false)
     {
         preg_match($regularExpression, $response, $matches);
         if (!isset($matches[1])) {
-            throw new \Exception("Can't find data in response by regular expression \"{$regularExpression}\".");
+            throw new Exception("Can't find data in response by regular expression \"{$regularExpression}\".");
         }
 
         return $isJson ? json_decode($matches[1], true) : $matches[1];

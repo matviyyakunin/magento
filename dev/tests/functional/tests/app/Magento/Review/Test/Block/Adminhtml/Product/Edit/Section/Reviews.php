@@ -6,6 +6,7 @@
 
 namespace Magento\Review\Test\Block\Adminhtml\Product\Edit\Section;
 
+use Magento\Review\Test\Block\Adminhtml\Edit\Product\Grid;
 use Magento\Ui\Test\Block\Adminhtml\Section;
 
 /**
@@ -23,12 +24,12 @@ class Reviews extends Section
     /**
      * Returns product reviews grid.
      *
-     * @return \Magento\Review\Test\Block\Adminhtml\Edit\Product\Grid
+     * @return Grid
      */
     public function getReviewsGrid()
     {
         return $this->blockFactory->create(
-            \Magento\Review\Test\Block\Adminhtml\Edit\Product\Grid::class,
+            Grid::class,
             ['element' => $this->_rootElement->find($this->reviews)]
         );
     }

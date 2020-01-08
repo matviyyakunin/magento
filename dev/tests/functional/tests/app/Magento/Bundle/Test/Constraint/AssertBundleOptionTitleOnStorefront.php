@@ -11,6 +11,7 @@ use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Cms\Test\Page\CmsIndex;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that option title is correct in different stores on bundle product page.
@@ -43,7 +44,7 @@ class AssertBundleOptionTitleOnStorefront extends AbstractConstraint
             $cmsIndex->getLinksBlock()->waitWelcomeMessage();
             $browser->open($_ENV['app_frontend_url'] . $originalProduct->getUrlKey() . '.html');
             $catalogProductView->getBundleViewBlock()->clickCustomize();
-            \PHPUnit\Framework\Assert::assertTrue(
+            Assert::assertTrue(
                 $catalogProductView->getBundleViewBlock()->getBundleBlock()->isOptionVisible(
                     $optionTitles[$store->getStoreId()]
                 ),

@@ -6,6 +6,7 @@
 
 namespace Magento\Mtf\Util\Protocol\CurlTransport;
 
+use Exception;
 use Magento\Customer\Test\Fixture\Customer;
 use Magento\Mtf\Util\Protocol\CurlInterface;
 use Magento\Mtf\Util\Protocol\CurlTransport;
@@ -58,7 +59,7 @@ class FrontendDecorator implements CurlInterface
      * Authorize customer on frontend.
      *
      * @param Customer $customer
-     * @throws \Exception
+     * @throws Exception
      * @return void
      */
     protected function authorize(Customer $customer)
@@ -75,7 +76,7 @@ class FrontendDecorator implements CurlInterface
         $this->transport->write($url, $data, CurlInterface::POST, ['Set-Cookie:' . $this->cookies]);
         $response = $this->read();
         if (strpos($response, 'customer/account/login') !== false) {
-            throw new \Exception($customer->getFirstname() . ', cannot be logged in by curl handler!');
+            throw new Exception($customer->getFirstname() . ', cannot be logged in by curl handler!');
         }
     }
 

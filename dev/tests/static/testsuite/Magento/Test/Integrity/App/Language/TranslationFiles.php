@@ -6,18 +6,20 @@
 namespace Magento\Test\Integrity\App\Language;
 
 use Magento\Framework\Component\ComponentRegistrar;
+use Magento\Framework\File\Csv;
 use Magento\Framework\Filesystem\Driver\File;
+use PHPUnit\Framework\TestCase;
 
-class TranslationFiles extends \PHPUnit\Framework\TestCase
+class TranslationFiles extends TestCase
 {
     /**
-     * @var \Magento\Framework\File\Csv
+     * @var Csv
      */
     protected $csvParser;
 
     protected function setUp()
     {
-        $this->csvParser = new \Magento\Framework\File\Csv(new File());
+        $this->csvParser = new Csv(new File());
     }
 
     /**

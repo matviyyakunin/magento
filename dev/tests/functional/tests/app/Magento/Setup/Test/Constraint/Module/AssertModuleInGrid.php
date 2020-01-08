@@ -7,6 +7,7 @@ namespace Magento\Setup\Test\Constraint\Module;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Setup\Test\Page\Adminhtml\SetupWizard;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertGrid
@@ -24,7 +25,7 @@ class AssertModuleInGrid extends AbstractConstraint
      */
     public function processAssert(SetupWizard $setupWizard, $moduleName)
     {
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $setupWizard->getModuleGrid()->findModuleByName($moduleName)->isVisible(),
             'Module was not found in grid.'
         );

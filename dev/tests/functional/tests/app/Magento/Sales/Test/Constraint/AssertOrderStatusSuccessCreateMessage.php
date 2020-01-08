@@ -8,6 +8,7 @@ namespace Magento\Sales\Test\Constraint;
 
 use Magento\Sales\Test\Page\Adminhtml\OrderStatusIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertOrderStatusSuccessCreateMessage
@@ -30,7 +31,7 @@ class AssertOrderStatusSuccessCreateMessage extends AbstractConstraint
     public function processAssert(OrderStatusIndex $orderStatusIndexPage)
     {
         $actualMessage = $orderStatusIndexPage->getMessagesBlock()->getSuccessMessage();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $actualMessage,
             'Wrong success message is displayed.'

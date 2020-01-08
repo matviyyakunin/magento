@@ -9,6 +9,7 @@ use Magento\Catalog\Test\Block\Adminhtml\Product\Edit\Section\AdvancedPricing;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductEdit;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert advanced price is absent on product page in form.
@@ -31,7 +32,7 @@ class AssertAdvancedPriceAbsentOnProductForm extends AbstractConstraint
                 ->openSection('advanced-pricing')
                 ->getSection('advanced-pricing');
 
-            \PHPUnit\Framework\Assert::assertFalse(
+            Assert::assertFalse(
                 $advancedPricing->getTierPriceForm()->hasGroupPriceOptions(),
                 'Customer group price options is present in grid.'
             );

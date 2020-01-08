@@ -9,6 +9,7 @@ namespace Magento\Store\Test\Constraint;
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Store\Test\Fixture\Store;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertStoreFrontend
@@ -36,7 +37,7 @@ class AssertStoreFrontend extends AbstractConstraint
             ? true // if only one store view is assigned to store group
             : $cmsIndex->getStoreSwitcherBlock()->isStoreViewVisible($store);
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $isStoreViewVisible,
             "Store view is not visible in dropdown on CmsIndex page"
         );

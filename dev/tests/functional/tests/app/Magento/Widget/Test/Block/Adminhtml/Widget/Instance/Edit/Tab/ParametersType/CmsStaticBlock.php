@@ -6,6 +6,8 @@
 
 namespace Magento\Widget\Test\Block\Adminhtml\Widget\Instance\Edit\Tab\ParametersType;
 
+use Magento\Widget\Test\Block\Adminhtml\Widget\Instance\Edit\Tab\ParametersType\CmsStaticBlock\Grid;
+
 /**
  * Filling Widget Options that have cms static block type.
  */
@@ -24,6 +26,6 @@ class CmsStaticBlock extends ParametersForm
      * @var string
      */
     // @codingStandardsIgnoreStart
-    protected $pathToGrid = \Magento\Widget\Test\Block\Adminhtml\Widget\Instance\Edit\Tab\ParametersType\CmsStaticBlock\Grid::class;
+    protected $pathToGrid = Grid::class;
     // @codingStandardsIgnoreEnd
 }

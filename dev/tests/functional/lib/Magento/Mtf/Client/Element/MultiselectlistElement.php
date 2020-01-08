@@ -6,6 +6,8 @@
 
 namespace Magento\Mtf\Client\Element;
 
+use Exception;
+use Magento\Mtf\Client\ElementInterface;
 use Magento\Mtf\Client\Locator;
 
 /**
@@ -38,7 +40,7 @@ class MultiselectlistElement extends MultiselectElement
      * Select options by values in multiple select list
      *
      * @param array|string $values
-     * @throws \Exception
+     * @throws Exception
      */
     public function setValue($values)
     {
@@ -46,7 +48,7 @@ class MultiselectlistElement extends MultiselectElement
         $values = is_array($values) ? $values : [$values];
 
         foreach ($options as $option) {
-            /** @var \Magento\Mtf\Client\ElementInterface $option */
+            /** @var ElementInterface $option */
             $optionText = $option->getText();
             $isChecked = $option->find($this->optionCheckedElement, Locator::SELECTOR_XPATH)->isVisible();
             $inArray = in_array($optionText, $values);
@@ -67,7 +69,7 @@ class MultiselectlistElement extends MultiselectElement
         $options = $this->getOptions();
 
         foreach ($options as $option) {
-            /** @var \Magento\Mtf\Client\ElementInterface $option */
+            /** @var ElementInterface $option */
             $checkedOption = $option->find($this->optionCheckedElement, Locator::SELECTOR_XPATH);
             if ($checkedOption->isVisible()) {
                 $checkedOptions[] = $checkedOption->getText();
@@ -108,7 +110,7 @@ class MultiselectlistElement extends MultiselectElement
         $options = $this->getOptions();
 
         foreach ($options as $option) {
-            /** @var \Magento\Mtf\Client\ElementInterface $option */
+            /** @var ElementInterface $option */
             $optionsValue[] = $option->getText();
         }
 

@@ -7,6 +7,7 @@
 namespace Magento\Review\Test\Block\Adminhtml\Customer\Edit\Tab;
 
 use Magento\Backend\Test\Block\Widget\Tab;
+use Magento\Review\Test\Block\Adminhtml\Grid;
 
 /**
  * Reviews tab on customer edit page.
@@ -23,12 +24,12 @@ class Reviews extends Tab
     /**
      * Returns product reviews grid.
      *
-     * @return \Magento\Review\Test\Block\Adminhtml\Grid
+     * @return Grid
      */
     public function getReviewsGrid()
     {
         return $this->blockFactory->create(
-            \Magento\Review\Test\Block\Adminhtml\Grid::class,
+            Grid::class,
             ['element' => $this->_rootElement->find($this->reviews)]
         );
     }

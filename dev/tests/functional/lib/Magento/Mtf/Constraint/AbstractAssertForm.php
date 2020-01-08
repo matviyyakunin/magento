@@ -6,6 +6,8 @@
 
 namespace Magento\Mtf\Constraint;
 
+use Exception;
+
 /**
  * Class AssertForm
  * Abstract class AssertForm
@@ -152,7 +154,7 @@ abstract class AbstractAssertForm extends AbstractConstraint
      * @param array $data
      * @param string $path
      * @return array
-     * @throws \Exception
+     * @throws Exception
      *
      * @SuppressWarnings(PHPMD.NPathComplexity)
      */

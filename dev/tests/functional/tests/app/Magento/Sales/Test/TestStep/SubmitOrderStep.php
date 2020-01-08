@@ -9,6 +9,7 @@ namespace Magento\Sales\Test\TestStep;
 use Magento\Customer\Test\Fixture\Address;
 use Magento\Customer\Test\Fixture\Customer;
 use Magento\Mtf\Fixture\FixtureFactory;
+use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\TestStep\TestStepInterface;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\Adminhtml\OrderCreateIndex;
@@ -57,7 +58,7 @@ class SubmitOrderStep implements TestStepInterface
     /**
      * Products fixtures.
      *
-     * @var array|\Magento\Mtf\Fixture\FixtureInterface[]
+     * @var array|FixtureInterface[]
      */
     private $products;
 
@@ -73,7 +74,7 @@ class SubmitOrderStep implements TestStepInterface
      * @param SalesOrderView $salesOrderView
      * @param FixtureFactory $fixtureFactory
      * @param Customer $customer
-     * @param \Magento\Mtf\Fixture\FixtureInterface[] $products
+     * @param FixtureInterface[] $products
      * @param Address|null $billingAddress
      * @param OrderInjectable|null $order
      */

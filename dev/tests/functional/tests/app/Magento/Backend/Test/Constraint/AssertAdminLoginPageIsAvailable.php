@@ -8,6 +8,7 @@ namespace Magento\Backend\Test\Constraint;
 
 use Magento\Backend\Test\Page\AdminAuthLogin;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that AdminAuthLogin page is present as the result of an expired admin session.
@@ -23,7 +24,7 @@ class AssertAdminLoginPageIsAvailable extends AbstractConstraint
     public function processAssert(AdminAuthLogin $adminAuthLogin)
     {
         $adminAuthLogin->open();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $adminAuthLogin->getLoginBlock()->isVisible(),
             'Admin session does not expire properly.'
         );

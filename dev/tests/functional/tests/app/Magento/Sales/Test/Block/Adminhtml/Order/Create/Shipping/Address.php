@@ -6,6 +6,7 @@
 
 namespace Magento\Sales\Test\Block\Adminhtml\Order\Create\Shipping;
 
+use Exception;
 use Magento\Mtf\Block\Form;
 use Magento\Mtf\Client\Locator;
 use Magento\Backend\Test\Block\Template;
@@ -99,7 +100,7 @@ class Address extends Form
     protected function getTemplateBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Backend\Test\Block\Template::class,
+            Template::class,
             ['element' => $this->_rootElement->find($this->templateBlock, Locator::SELECTOR_XPATH)]
         );
     }
@@ -110,7 +111,7 @@ class Address extends Form
      * @param array $fields
      * @param SimpleElement $element
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function _fill(array $fields, SimpleElement $element = null)
     {
@@ -121,7 +122,7 @@ class Address extends Form
             if (!$element->isDisabled()) {
                 $element->setValue($field['value']);
             } else {
-                throw new \Exception("Unable to set value to field '$name' as it's disabled.");
+                throw new Exception("Unable to set value to field '$name' as it's disabled.");
             }
         }
     }

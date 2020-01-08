@@ -14,6 +14,7 @@ use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductNew;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureFactory;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertAttributeSetOnProductForm
@@ -63,7 +64,7 @@ class AssertAttributeSetOnProductForm extends AbstractConstraint
 
         $formData = $productEdit->getProductForm()->getData($productSimple);
         $formAttributeSet = $formData['attribute_set_id'];
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $attributeSet->getAttributeSetName(),
             $formAttributeSet,
             'The attribute set wasn\'t found on product form.'
@@ -74,7 +75,7 @@ class AssertAttributeSetOnProductForm extends AbstractConstraint
         if ($attributeSetOriginal === null) {
             $productEdit->getProductForm()->openSection('product-details');
 
-            \PHPUnit\Framework\Assert::assertTrue(
+            Assert::assertTrue(
                 $productEdit->getProductForm()->checkAttributeLabel($productAttribute),
                 "Product Attribute is absent on Product form."
             );

@@ -8,6 +8,7 @@ namespace Magento\Captcha\Test\Constraint;
 
 use Magento\Customer\Test\Page\CustomerAccountCreate;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert captcha on storefront account register page.
@@ -22,12 +23,12 @@ class AssertCaptchaFieldOnRegisterForm extends AbstractConstraint
      */
     public function processAssertRegisterForm(CustomerAccountCreate $createAccountPage)
     {
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $createAccountPage->getRegisterForm()->isVisibleCaptcha(),
             'Captcha image is not displayed on the storefront account register page.'
         );
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $createAccountPage->getRegisterForm()->isVisibleCaptchaReloadButton(),
             'Captcha reload button is not displayed on the storefront account register page.'
         );

@@ -11,6 +11,7 @@ use Magento\Catalog\Test\Page\Category\CatalogCategoryView;
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\InjectableFixture;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check out if the attribute in the navigation bar on the search results page in Layered navigation.
@@ -36,7 +37,7 @@ class AssertProductAttributeIsFilterableInSearch extends AbstractConstraint
         $label = $attribute->hasData('manage_frontend_label')
             ? $attribute->getManageFrontendLabel()
             : $attribute->getFrontendLabel();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             in_array(strtoupper($label), $catalogCategoryView->getLayeredNavigationBlock()->getFilters()),
             'Attribute is absent in layered navigation on search page.'
         );

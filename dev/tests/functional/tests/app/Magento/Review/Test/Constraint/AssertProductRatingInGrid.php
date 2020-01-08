@@ -9,6 +9,7 @@ namespace Magento\Review\Test\Constraint;
 use Magento\Review\Test\Fixture\Rating;
 use Magento\Review\Test\Page\Adminhtml\RatingIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductRatingInGrid
@@ -27,7 +28,7 @@ class AssertProductRatingInGrid extends AbstractConstraint
         $filter = ['rating_code' => $productRating->getRatingCode()];
 
         $ratingIndex->open();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $ratingIndex->getRatingGrid()->isRowVisible($filter),
             "Product Rating " . $productRating->getRatingCode() . " is absent on product Rating grid."
         );

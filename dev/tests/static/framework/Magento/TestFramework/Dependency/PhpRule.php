@@ -7,6 +7,9 @@
  */
 namespace Magento\TestFramework\Dependency;
 
+use DOMDocument;
+use DOMElement;
+use Exception;
 use Magento\Framework\App\Utility\Files;
 
 class PhpRule implements RuleInterface
@@ -69,7 +72,7 @@ class PhpRule implements RuleInterface
     {
         $this->_mapRouters = $mapRouters;
         $this->_mapLayoutBlocks = $mapLayoutBlocks;
-        $this->_namespaces = implode('|', \Magento\Framework\App\Utility\Files::init()->getNamespaces());
+        $this->_namespaces = implode('|', Files::init()->getNamespaces());
         $this->pluginMap = $pluginMap ?: null;
     }
 
@@ -170,7 +173,7 @@ class PhpRule implements RuleInterface
 
     /**
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     private function loadDiFiles()
     {
@@ -189,12 +192,12 @@ class PhpRule implements RuleInterface
     {
         if (!$this->pluginMap) {
             foreach ($this->loadDiFiles() as $filepath) {
-                $dom = new \DOMDocument();
+                $dom = new DOMDocument();
                 $dom->loadXML(file_get_contents($filepath));
                 $typeNodes = $dom->getElementsByTagName('type');
-                /** @var \DOMElement $type */
+                /** @var DOMElement $type */
                 foreach ($typeNodes as $type) {
-                    /** @var \DOMElement $plugin */
+                    /** @var DOMElement $plugin */
                     foreach ($type->getElementsByTagName('plugin') as $plugin) {
                         $subject = $type->getAttribute('name');
                         $pluginType = $plugin->getAttribute('type');

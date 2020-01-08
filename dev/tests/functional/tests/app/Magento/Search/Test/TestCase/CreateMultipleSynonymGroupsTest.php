@@ -8,6 +8,7 @@ namespace Magento\Search\Test\TestCase;
 
 use Magento\Mtf\TestCase\Injectable;
 use Magento\Mtf\Fixture\FixtureFactory;
+use Magento\Search\Test\TestStep\DeleteAllSynonymGroupsStep;
 
 /**
  * Steps:
@@ -68,6 +69,6 @@ class CreateMultipleSynonymGroupsTest extends Injectable
      */
     public function tearDown()
     {
-        $this->objectManager->create(\Magento\Search\Test\TestStep\DeleteAllSynonymGroupsStep::class)->run();
+        $this->objectManager->create(DeleteAllSynonymGroupsStep::class)->run();
     }
 }

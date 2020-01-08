@@ -9,6 +9,7 @@ namespace Magento\Reports\Test\Constraint;
 use Magento\Reports\Test\Page\Adminhtml\SalesCouponReportView;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertCouponReportResult
@@ -37,7 +38,7 @@ class AssertCouponReportResult extends AbstractConstraint
             'subtotal' => $currency . number_format($data['price']['subtotal'], 2),
             'discount' => $discount,
         ];
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $salesCouponReportView->getGridBlock()->isRowVisible($filter, false),
             "Coupon with code - '$couponCode' is not visible."
         );

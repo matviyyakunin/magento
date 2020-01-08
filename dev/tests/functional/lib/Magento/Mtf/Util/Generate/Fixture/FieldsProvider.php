@@ -6,10 +6,13 @@
 
 namespace Magento\Mtf\Util\Generate\Fixture;
 
-use Magento\Framework\App\ResourceConnection;
-use Magento\Framework\ObjectManagerInterface;
+use Exception;
 use Magento\Eav\Model\Config;
+use Magento\Eav\Model\Entity\Attribute;
+use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\DB\Adapter\AdapterInterface;
+use Magento\Framework\ObjectManagerInterface;
+use Zend_Db_Adapter_Exception;
 
 /**
  * Provider of fields from database.
@@ -43,8 +46,8 @@ class FieldsProvider
      */
     public function __construct(ObjectManagerInterface $objectManager)
     {
-        $this->eavConfig = $objectManager->create(\Magento\Eav\Model\Config::class);
-        $this->resource = $objectManager->create(\Magento\Framework\App\ResourceConnection::class);
+        $this->eavConfig = $objectManager->create(Config::class);
+        $this->resource = $objectManager->create(ResourceConnection::class);
     }
 
     /**
@@ -55,8 +58,8 @@ class FieldsProvider
     public function checkConnection()
     {
         $this->connection = $this->getConnection('core');
-        if (!$this->connection || $this->connection instanceof \Zend_Db_Adapter_Exception) {
-            echo ('Connection to Magento 2 database is absent. Fixture data has not been fetched.' . PHP_EOL);
+        if (!$this->connection || $this->connection instanceof Zend_Db_Adapter_Exception) {
+            echo('Connection to Magento 2 database is absent. Fixture data has not been fetched.' . PHP_EOL);
             return false;
         }
 
@@ -97,7 +100,7 @@ class FieldsProvider
                     continue;
                 }
             }
-            /** @var $attribute \Magento\Eav\Model\Entity\Attribute */
+            /** @var $attribute Attribute */
             $code = $attribute->getAttributeCode();
             $attributes[$code] = [
                 'attribute_code' => $code,
@@ -132,7 +135,7 @@ class FieldsProvider
     {
         $entityType = $fixture['entity_type'];
 
-        /** @var $connection \Magento\Framework\DB\Adapter\AdapterInterface */
+        /** @var $connection AdapterInterface */
         $fields = $this->connection->describeTable($entityType);
 
         $attributes = [];
@@ -182,14 +185,14 @@ class FieldsProvider
      * Retrieve connection to resource specified by $resourceName.
      *
      * @param string $resourceName
-     * @return \Exception|false|\Magento\Framework\DB\Adapter\AdapterInterface
+     * @return Exception|false|AdapterInterface
      */
     protected function getConnection($resourceName)
     {
         try {
             $connection = $this->resource->getConnection($resourceName);
             return $connection;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             echo $e->getMessage() . PHP_EOL;
             return $e;
         }

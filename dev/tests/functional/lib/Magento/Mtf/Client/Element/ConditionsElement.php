@@ -6,9 +6,11 @@
 
 namespace Magento\Mtf\Client\Element;
 
+use Exception;
 use Magento\Mtf\Client\ElementInterface;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\ObjectManager;
+use PHPUnit_Extensions_Selenium2TestCase_WebDriverException;
 
 /**
  * Typified element class for conditions.
@@ -191,7 +193,7 @@ class ConditionsElement extends SimpleElement
     /**
      * Latest occurred exception.
      *
-     * @var \Exception
+     * @var Exception
      */
     protected $exception;
 
@@ -274,7 +276,7 @@ class ConditionsElement extends SimpleElement
      * @param string $type
      * @param ElementInterface $context
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function addCondition($type, ElementInterface $context)
     {
@@ -287,7 +289,7 @@ class ConditionsElement extends SimpleElement
             try {
                 $newCondition->find($this->typeNew, Locator::SELECTOR_XPATH, 'select')->setValue($type);
                 $isSetType = true;
-            } catch (\PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
+            } catch (PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
                 $isSetType = false;
                 $this->exception = $e;
                 $this->eventManager->dispatchEvent(['exception'], [__METHOD__, $this->getAbsoluteSelector()]);
@@ -296,7 +298,7 @@ class ConditionsElement extends SimpleElement
         } while (!$isSetType && $count < self::TRY_COUNT);
 
         if (!$isSetType) {
-            $exception = $this->exception ? $this->exception : (new \Exception("Can not add condition: {$type}"));
+            $exception = $this->exception ? $this->exception : (new Exception("Can not add condition: {$type}"));
             throw $exception;
         }
     }
@@ -307,7 +309,7 @@ class ConditionsElement extends SimpleElement
      * @param array $rules
      * @param ElementInterface $element
      * @return void
-     * @throws \Exception
+     * @throws Exception
      *
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @SuppressWarnings(PHPMD.NPathComplexity)
@@ -338,7 +340,7 @@ class ConditionsElement extends SimpleElement
                     } elseif ($this->fillText($rule, $param)) {
                         $isSet = true;
                     }
-                } catch (\PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
+                } catch (PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
                     $isSet = false;
                     $this->exception = $e;
                     $this->eventManager->dispatchEvent(['exception'], [__METHOD__, $this->getAbsoluteSelector()]);
@@ -347,7 +349,7 @@ class ConditionsElement extends SimpleElement
             } while (!$isSet && $count < self::TRY_COUNT);
 
             if (!$isSet) {
-                $exception = $this->exception ? $this->exception : (new \Exception('Can not set value: ' . $rule));
+                $exception = $this->exception ? $this->exception : (new Exception('Can not set value: ' . $rule));
                 throw $exception;
             }
         }
@@ -441,7 +443,7 @@ class ConditionsElement extends SimpleElement
      *
      * @param string $value
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     protected function decodeValue($value)
     {
@@ -454,7 +456,7 @@ class ConditionsElement extends SimpleElement
         $value = "[{$value}]";
         $value = json_decode($value, true);
         if (null === $value) {
-            throw new \Exception('Bad format value.');
+            throw new Exception('Bad format value.');
         }
         return $value;
     }
@@ -464,12 +466,12 @@ class ConditionsElement extends SimpleElement
      *
      * @param string $condition
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     protected function parseCondition($condition)
     {
         if (!preg_match_all('/([^|]+\|?)/', $condition, $match)) {
-            throw new \Exception('Bad format condition');
+            throw new Exception('Bad format condition');
         }
         foreach ($match[1] as $key => $value) {
             $match[1][$key] = rtrim($value, '|');
@@ -486,12 +488,12 @@ class ConditionsElement extends SimpleElement
      *
      * @param string $condition
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     protected function parseTopLevelCondition($condition)
     {
         if (preg_match_all('/([^|]+)\|?/', $condition, $match) === false) {
-            throw new \Exception('Bad format condition');
+            throw new Exception('Bad format condition');
         }
 
         return [
@@ -504,13 +506,13 @@ class ConditionsElement extends SimpleElement
      *
      * @param ElementInterface $context
      * @return ElementInterface
-     * @throws \Exception
+     * @throws Exception
      */
     protected function findNextParam(ElementInterface $context)
     {
         do {
             if (!isset($this->mapParams[$this->findKeyParam])) {
-                throw new \Exception("Empty map of params");
+                throw new Exception("Empty map of params");
             }
             $param = $this->mapParams[$this->findKeyParam];
             $element = $context->find(sprintf($this->param, strlen($param), $param), Locator::SELECTOR_XPATH);

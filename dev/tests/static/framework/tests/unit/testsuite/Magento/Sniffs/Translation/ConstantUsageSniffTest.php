@@ -6,11 +6,13 @@
 namespace Magento\Sniffs\Translation;
 
 use PHP_CodeSniffer\Files\File;
+use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_MockObject_MockObject;
 
-class ConstantUsageSniffTest extends \PHPUnit\Framework\TestCase
+class ConstantUsageSniffTest extends TestCase
 {
     /**
-     * @var File|\PHPUnit_Framework_MockObject_MockObject
+     * @var File|PHPUnit_Framework_MockObject_MockObject
      */
     private $fileMock;
 

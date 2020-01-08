@@ -9,6 +9,7 @@ namespace Magento\Mtf\Util\Command\File;
 use Magento\Mtf\ObjectManagerInterface;
 use Magento\Mtf\Util\Command\File\Export\Data;
 use Magento\Mtf\Util\Command\File\Export\ReaderInterface;
+use ReflectionException;
 
 /**
  * Get Exporting file from the Magento.
@@ -51,15 +52,15 @@ class Export implements ExportInterface
      *
      * @param string $type
      * @return ReaderInterface
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     private function getReader($type)
     {
         $readerPath = sprintf($this->readerPath, ucfirst($type));
         try {
             return $this->objectManager->create($readerPath);
-        } catch (\ReflectionException $e) {
-            throw new \ReflectionException("Virtual type '$readerPath' does not exist. Please, check it in di.xml.");
+        } catch (ReflectionException $e) {
+            throw new ReflectionException("Virtual type '$readerPath' does not exist. Please, check it in di.xml.");
         }
     }
 

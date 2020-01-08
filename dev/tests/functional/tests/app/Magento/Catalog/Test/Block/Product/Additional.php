@@ -6,6 +6,7 @@
 
 namespace Magento\Catalog\Test\Block\Product;
 
+use DOMDocument;
 use Magento\Mtf\Block\Block;
 use Magento\Mtf\Client\Locator;
 use Magento\Catalog\Test\Fixture\CatalogProductAttribute;
@@ -97,7 +98,7 @@ class Additional extends Block
     protected function resolveHtmlStructure($stringWithHtml)
     {
         $selector = '';
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->loadHTML($stringWithHtml);
         $xmlStructure = $xmlStructure = $dom->saveXML();
         $parser = xml_parser_create();

@@ -6,14 +6,16 @@
 
 namespace Magento\Widget\Test\Constraint;
 
-use Magento\Mtf\Util\Command\Cli\Cache;
-use Magento\Catalog\Test\Fixture\Category;
 use Magento\Catalog\Test\Fixture\CatalogProductSimple;
+use Magento\Catalog\Test\Fixture\Category;
 use Magento\Catalog\Test\Page\Category\CatalogCategoryView;
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Customer\Test\Fixture\Customer;
+use Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use Magento\Mtf\Util\Command\Cli\Cache;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check that widget with type Recently Viewed Products is present on category page
@@ -72,7 +74,7 @@ class AssertWidgetRecentlyViewedProducts extends AbstractConstraint
         // Log in customer
         $customer->persist();
         $this->objectManager->create(
-            \Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep::class,
+            LoginCustomerOnFrontendStep::class,
             ['customer' => $customer]
         )->run();
 
@@ -108,7 +110,7 @@ class AssertWidgetRecentlyViewedProducts extends AbstractConstraint
         $this->cmsIndex->getTopmenu()->selectCategoryByName($category->getName());
 
         $products = $this->catalogCategoryView->getViewBlock()->getProductsFromRecentlyViewedBlock();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             in_array($productSimple->getName(), $products),
             'Product' . $productSimple->getName() . ' is absent on Recently Viewed block on Category page.'
         );

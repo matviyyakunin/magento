@@ -11,6 +11,7 @@ use Magento\Catalog\Test\Fixture\Category\LandingPage;
 use Magento\Catalog\Test\Page\Category\CatalogCategoryView;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that displayed category data on category page equals to passed from fixture.
@@ -71,7 +72,7 @@ class AssertCategoryPage extends AbstractConstraint
         $diff = array_merge($diff, $this->verifyContent($categoryData));
         $diff = array_merge($diff, $this->verifyDisplaySettings($categoryData));
         $diff = array_merge($diff, $this->verifySearchEngineOptimization($categoryData));
-        \PHPUnit\Framework\Assert::assertEmpty(
+        Assert::assertEmpty(
             $diff,
             "Category settings on Storefront page are different.\n" . implode(' ', $diff)
         );

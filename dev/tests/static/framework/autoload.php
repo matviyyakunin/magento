@@ -4,13 +4,14 @@
  * See COPYING.txt for license details.
  */
 
-use \Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\Autoload\AutoloaderRegistry;
 
 $baseDir = realpath(__DIR__ . '/../../../../');
 require $baseDir . '/app/autoload.php';
 require $baseDir . '/vendor/squizlabs/php_codesniffer/autoload.php';
 $testsBaseDir = $baseDir . '/dev/tests/static';
-$autoloadWrapper = \Magento\Framework\Autoload\AutoloaderRegistry::getAutoloader();
+$autoloadWrapper = AutoloaderRegistry::getAutoloader();
 $autoloadWrapper->addPsr4('Magento\\', $testsBaseDir . '/testsuite/Magento/');
 $autoloadWrapper->addPsr4(
     'Magento\\TestFramework\\',

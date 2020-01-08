@@ -9,8 +9,10 @@ namespace Magento\Test\Integrity;
 
 use Magento\Framework\App\Utility\Files;
 use Magento\Setup\Module\Dependency\Circular;
+use PHPUnit\Framework\TestCase;
+use SimpleXMLElement;
 
-class CircularDependencyTest extends \PHPUnit\Framework\TestCase
+class CircularDependencyTest extends TestCase
 {
     /**
      * Modules dependencies map
@@ -45,7 +47,7 @@ class CircularDependencyTest extends \PHPUnit\Framework\TestCase
             $config = simplexml_load_file($configFile);
             $result = $config->xpath("/config/module/depends/module") ?: [];
             foreach ($result as $node) {
-                /** @var \SimpleXMLElement $node */
+                /** @var SimpleXMLElement $node */
                 $this->moduleDependencies[$moduleName][] = (string) $node['name'];
             }
         }

@@ -6,6 +6,7 @@
 
 namespace Magento\Catalog\Test\Block\Adminhtml\Product\Edit\Section;
 
+use Exception;
 use Magento\Catalog\Test\Block\Adminhtml\Product\Edit\Section\AdvancedPricing\OptionTier;
 use Magento\Mtf\Client\Element\SimpleElement;
 use Magento\Ui\Test\Block\Adminhtml\Section;
@@ -51,7 +52,7 @@ class AdvancedPricing extends Section
      * @param array $fields
      * @param SimpleElement|null $contextElement
      * @return $this
-     * @throws \Exception
+     * @throws Exception
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function setFieldsData(array $fields, SimpleElement $contextElement = null)
@@ -108,7 +109,7 @@ class AdvancedPricing extends Section
     {
         $element = $element ?: $this->browser->find($this->advancedPricingRootElement);
         return $this->blockFactory->create(
-            \Magento\Catalog\Test\Block\Adminhtml\Product\Edit\Section\AdvancedPricing\OptionTier::class,
+            OptionTier::class,
             ['element' => $element]
         );
     }

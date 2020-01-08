@@ -8,6 +8,7 @@ namespace Magento\Setup\Test\Constraint;
 
 use Magento\Setup\Test\Page\Adminhtml\SetupWizard;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check upgrade is successfully
@@ -24,12 +25,12 @@ class AssertSuccessMessage extends AbstractConstraint
     public function processAssert(SetupWizard $setupWizard, $package)
     {
         $message = "You upgraded";
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             $message,
             $setupWizard->getSuccessMessage()->getUpdaterStatus(),
             'Success message is incorrect.'
         );
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             $package,
             $setupWizard->getSuccessMessage()->getUpdaterStatus(),
             'Updated package is incorrect.'

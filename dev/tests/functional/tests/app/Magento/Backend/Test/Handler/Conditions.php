@@ -6,6 +6,7 @@
 
 namespace Magento\Backend\Test\Handler;
 
+use Exception;
 use Magento\Mtf\Handler\Curl;
 
 /**
@@ -160,7 +161,7 @@ abstract class Conditions extends Curl
      *
      * @param string $condition
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     private function convertSingleCondition($condition)
     {
@@ -174,7 +175,7 @@ abstract class Conditions extends Curl
             $typeParam = $this->getTypeParam($type);
         }
         if (empty($typeParam)) {
-            throw new \Exception("Can't find type param \"{$type}\".");
+            throw new Exception("Can't find type param \"{$type}\".");
         }
 
         $ruleParam = [];
@@ -187,7 +188,7 @@ abstract class Conditions extends Curl
             $ruleParam += $param;
         }
         if (count($ruleParam) != count($rules)) {
-            throw new \Exception(
+            throw new Exception(
                 "Can't find all params. "
                 . "\nSearch: " . implode(', ', $rules) . " "
                 . "\nFind: " . implode(', ', $ruleParam)
@@ -229,7 +230,7 @@ abstract class Conditions extends Curl
      *
      * @param string $value
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     private function decodeValue($value)
     {
@@ -243,7 +244,7 @@ abstract class Conditions extends Curl
         $value = "[{$value}]";
         $value = json_decode($value, true);
         if (null === $value) {
-            throw new \Exception('Bad format value.');
+            throw new Exception('Bad format value.');
         }
         return $value;
     }
@@ -253,12 +254,12 @@ abstract class Conditions extends Curl
      *
      * @param string $condition
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     private function parseCondition($condition)
     {
         if (!preg_match_all('/([^|]+\|?)/', $condition, $match)) {
-            throw new \Exception('Bad format condition');
+            throw new Exception('Bad format condition');
         }
         foreach ($match[1] as $key => $value) {
             $match[1][$key] = rtrim($value, '|');

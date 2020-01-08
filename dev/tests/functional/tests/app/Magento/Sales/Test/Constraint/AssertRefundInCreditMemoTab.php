@@ -11,6 +11,7 @@ use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
 use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that refund is present in the tab with ID and refunded amount(depending on full/partial refund).
@@ -44,7 +45,7 @@ class AssertRefundInCreditMemoTab extends AbstractConstraint
                 'amount_from' => $amount[$key]['grand_creditmemo_total'],
                 'amount_to' => $amount[$key]['grand_creditmemo_total']
             ];
-            \PHPUnit\Framework\Assert::assertTrue(
+            Assert::assertTrue(
                 $grid->isRowVisible($filter, true, false),
                 'Credit memo is absent on credit memos tab.'
             );

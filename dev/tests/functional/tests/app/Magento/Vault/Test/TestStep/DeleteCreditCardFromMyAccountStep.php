@@ -7,6 +7,7 @@ namespace Magento\Vault\Test\TestStep;
 
 use Magento\Customer\Test\Fixture\Customer;
 use Magento\Customer\Test\Page\CustomerAccountIndex;
+use Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep;
 use Magento\Mtf\ObjectManager;
 use Magento\Mtf\TestStep\TestStepInterface;
 use Magento\Payment\Test\Fixture\CreditCard;
@@ -94,7 +95,7 @@ class DeleteCreditCardFromMyAccountStep implements TestStepInterface
     public function run()
     {
         $this->objectManager->create(
-            \Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep::class,
+            LoginCustomerOnFrontendStep::class,
             ['customer' => $this->customer]
         )->run();
         $this->customerAccountIndex->getAccountMenuBlock()->openMenuItem('Stored Payment Methods');

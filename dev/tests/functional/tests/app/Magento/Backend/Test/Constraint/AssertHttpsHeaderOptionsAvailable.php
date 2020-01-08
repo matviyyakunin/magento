@@ -6,9 +6,11 @@
 
 namespace Magento\Backend\Test\Constraint;
 
-use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Backend\Test\Page\Adminhtml\SystemConfigEdit;
 use Magento\Config\Test\Fixture\ConfigData;
+use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
+use PHPUnit_Extensions_Selenium2TestCase_WebDriverException;
 
 /**
  * Assert that https header options are available.
@@ -62,12 +64,12 @@ class AssertHttpsHeaderOptionsAvailable extends AbstractConstraint
                 $group = $systemConfigEdit->getForm()->getGroup($tabName, $groupName);
                 $group->setValue($tabName, $groupName, $fieldName, 'Yes');
                 $group->setValue($tabName, $groupName, $fieldName, 'No');
-                \PHPUnit\Framework\Assert::assertTrue(
+                Assert::assertTrue(
                     true,
                     $fieldName . " configuration is enabled with options Yes & No."
                 );
-            } catch (\PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
-                \PHPUnit\Framework\Assert::assertFalse(
+            } catch (PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
+                Assert::assertFalse(
                     true,
                     $fieldName . " configuration is not enabled with options Yes & No."
                 );

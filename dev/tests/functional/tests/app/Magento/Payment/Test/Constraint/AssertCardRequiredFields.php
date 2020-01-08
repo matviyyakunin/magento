@@ -9,6 +9,7 @@ namespace Magento\Payment\Test\Constraint;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Payment\Test\Repository\CreditCard;
 use Magento\Sales\Test\Page\Adminhtml\OrderCreateIndex;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertCardRequiredFields
@@ -39,7 +40,7 @@ class AssertCardRequiredFields extends AbstractConstraint
             ->getJsErrors();
         $creditCardEmpty = $creditCard->get('visa_empty');
         foreach (array_keys($creditCardEmpty) as $field) {
-            \PHPUnit\Framework\Assert::assertTrue(
+            Assert::assertTrue(
                 isset($actualRequiredFields[$field]),
                 "Field '$field' is not highlighted with an JS error."
             );
@@ -47,7 +48,7 @@ class AssertCardRequiredFields extends AbstractConstraint
             if (in_array($field, ['cc_number', 'cc_cid'])) {
                 $expected = self::VALID_NUMBER_MESSAGE;
             }
-            \PHPUnit\Framework\Assert::assertEquals(
+            Assert::assertEquals(
                 $expected,
                 $actualRequiredFields[$field],
                 "Field '$field' is not highlighted as required."

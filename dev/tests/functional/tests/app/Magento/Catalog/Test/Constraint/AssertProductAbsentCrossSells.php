@@ -12,6 +12,7 @@ use Magento\Checkout\Test\Page\CheckoutCart;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\InjectableFixture;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that product is not displayed in cross-sell section.
@@ -53,7 +54,7 @@ class AssertProductAbsentCrossSells extends AbstractConstraint
         $catalogProductView->getMessagesBlock()->waitSuccessMessage();
         $checkoutCart->open();
         foreach ($promotedProducts as $promotedProduct) {
-            \PHPUnit\Framework\Assert::assertFalse(
+            Assert::assertFalse(
                 $checkoutCart->getCrosssellBlock()->getProductItem($promotedProduct)->isVisible(),
                 'Product \'' . $promotedProduct->getName() . '\' exists in cross-sell section.'
             );

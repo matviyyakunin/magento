@@ -6,6 +6,9 @@
 
 namespace Magento\Backend\Test\Fixture\Source;
 
+use DateTime;
+use DateTimeZone;
+use Exception;
 use Magento\Mtf\Fixture\DataSource;
 
 /**
@@ -28,7 +31,7 @@ class Date extends DataSource
      * @constructor
      * @param array $params
      * @param array|string $data
-     * @throws \Exception
+     * @throws Exception
      */
     public function __construct(array $params, $data = [])
     {
@@ -41,12 +44,12 @@ class Date extends DataSource
             }
             $timestamp = $delta === '' ? time() : strtotime($delta);
             if (!$timestamp) {
-                throw new \Exception('Invalid date format for "' . $this->params['attribute_code'] . '" field');
+                throw new Exception('Invalid date format for "' . $this->params['attribute_code'] . '" field');
             }
             if (isset($data['apply_timezone']) && $data['apply_timezone'] === true) {
-                $date = new \DateTime();
+                $date = new DateTime();
                 $date->setTimestamp($timestamp);
-                $date->setTimezone(new \DateTimeZone($_ENV['magento_timezone']));
+                $date->setTimezone(new DateTimeZone($_ENV['magento_timezone']));
                 $date = $date->format(str_replace($delta, '', $data['pattern']));
                 $this->isTimezoneApplied = true;
             } else {

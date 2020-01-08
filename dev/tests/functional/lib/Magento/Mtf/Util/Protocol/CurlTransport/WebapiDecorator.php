@@ -6,6 +6,9 @@
 
 namespace Magento\Mtf\Util\Protocol\CurlTransport;
 
+use DOMDocument;
+use DOMXPath;
+use Magento\Config\Test\Fixture\ConfigData;
 use Magento\Integration\Test\Fixture\Integration;
 use Magento\Mtf\Config\DataInterface;
 use Magento\Mtf\Fixture\FixtureFactory;
@@ -102,9 +105,9 @@ class WebapiDecorator implements CurlInterface
 
         if (null === $integrationToken || !$this->isValidIntegration()) {
             $this->disableSecretKey();
-            /** @var \Magento\Integration\Test\Fixture\Integration $integration */
+            /** @var Integration $integration */
             $integration = $this->fixtureFactory->create(
-                \Magento\Integration\Test\Fixture\Integration::class,
+                Integration::class,
                 ['dataset' => 'default_active']
             );
             $integration->persist();
@@ -121,7 +124,7 @@ class WebapiDecorator implements CurlInterface
     protected function disableSecretKey()
     {
         $config = $this->fixtureFactory->create(
-            \Magento\Config\Test\Fixture\ConfigData::class,
+            ConfigData::class,
             ['dataset' => 'secret_key_disable']
         );
         $config->persist();
@@ -136,22 +139,22 @@ class WebapiDecorator implements CurlInterface
     protected function setConfiguration(Integration $integration)
     {
         $fileConfig = MTF_BP . '/etc/config.xml';
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         if (!file_exists($fileConfig)) {
             copy(MTF_BP . '/etc/config.xml.dist', $fileConfig);
         }
         $dom->load($fileConfig);
 
-        $webapiToken = (new \DOMXPath($dom))->query('//config/handler/webapi/token')->item(0);
+        $webapiToken = (new DOMXPath($dom))->query('//config/handler/webapi/token')->item(0);
         if ($webapiToken) {
             $webapiToken->nodeValue = $integration->getToken();
         } else {
-            $webapi = (new \DOMXPath($dom))->query('//config/handler/webapi')->item(0);
+            $webapi = (new DOMXPath($dom))->query('//config/handler/webapi')->item(0);
             $webapi->appendChild($dom->createElement('token', $integration->getToken()));
         }
 
         $dom->save($fileConfig);
-        $this->configuration = $this->objectManager->create(\Magento\Mtf\Config\DataInterface::class);
+        $this->configuration = $this->objectManager->create(DataInterface::class);
     }
 
     /**

@@ -6,11 +6,14 @@
 
 namespace Magento\Catalog\Test\Handler\CatalogProductSimple;
 
+use Exception;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Fixture\InjectableFixture;
 use Magento\Mtf\Handler\Curl as AbstractCurl;
+use Magento\Mtf\ObjectManagerFactory;
 use Magento\Mtf\Util\Protocol\CurlTransport;
 use Magento\Mtf\Util\Protocol\CurlTransport\BackendDecorator;
+use Magento\Store\Test\Fixture\Website;
 
 /**
  * Create new simple product via curl.
@@ -227,7 +230,7 @@ class Curl extends AbstractCurl implements CatalogProductSimpleInterface
      * @param array $data
      * @param array $config
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     protected function createProduct(array $data, array $config)
     {
@@ -241,7 +244,7 @@ class Curl extends AbstractCurl implements CatalogProductSimpleInterface
 
         if (strpos($response, 'data-ui-id="messages-message-success"') === false) {
             $this->_eventManager->dispatchEvent(['curl_failed'], [$response]);
-            throw new \Exception('Product creation by curl handler was not successful!');
+            throw new Exception('Product creation by curl handler was not successful!');
         }
 
         return $this->parseResponse($response);
@@ -447,8 +450,8 @@ class Curl extends AbstractCurl implements CatalogProductSimpleInterface
                 $this->fields['product']['website_ids'][$key] = $website->getWebsiteId();
             }
         } else {
-            $website = \Magento\Mtf\ObjectManagerFactory::getObjectManager()
-                ->create(\Magento\Store\Test\Fixture\Website::class, ['dataset' => 'default']);
+            $website = ObjectManagerFactory::getObjectManager()
+                ->create(Website::class, ['dataset' => 'default']);
             $this->fields['product']['website_ids'][] = $website->getWebsiteId();
         }
     }

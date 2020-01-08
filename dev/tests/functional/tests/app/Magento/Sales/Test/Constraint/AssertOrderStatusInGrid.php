@@ -9,6 +9,7 @@ namespace Magento\Sales\Test\Constraint;
 use Magento\Sales\Test\Fixture\OrderStatus;
 use Magento\Sales\Test\Page\Adminhtml\OrderStatusIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertOrderStatusInGrid
@@ -44,7 +45,7 @@ class AssertOrderStatusInGrid extends AbstractConstraint
             $filter = ['label' => $defaultState, 'state' => $state];
         }
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $orderStatusIndexPage->getOrderStatusGrid()->isRowVisible($filter, true, false),
             'Order status \'' . $orderStatusLabel . '\' is absent in Order Status grid.'
         );

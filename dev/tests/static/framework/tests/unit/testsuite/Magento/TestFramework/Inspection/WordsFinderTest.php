@@ -6,18 +6,19 @@
 namespace Magento\TestFramework\Inspection;
 
 use Magento\Framework\Component\ComponentRegistrar;
+use PHPUnit\Framework\TestCase;
 
-class WordsFinderTest extends \PHPUnit\Framework\TestCase
+class WordsFinderTest extends TestCase
 {
     /**
      * @param string $configFile
      * @param string $baseDir
-     * @expectedException \Magento\TestFramework\Inspection\Exception
+     * @expectedException Exception
      * @dataProvider constructorExceptionDataProvider
      */
     public function testConstructorException($configFile, $baseDir)
     {
-        new \Magento\TestFramework\Inspection\WordsFinder($configFile, $baseDir, new ComponentRegistrar());
+        new WordsFinder($configFile, $baseDir, new ComponentRegistrar());
     }
 
     public function constructorExceptionDataProvider()
@@ -40,7 +41,7 @@ class WordsFinderTest extends \PHPUnit\Framework\TestCase
      */
     public function testFindWords($configFiles, $file, $expected)
     {
-        $wordsFinder = new \Magento\TestFramework\Inspection\WordsFinder(
+        $wordsFinder = new WordsFinder(
             $configFiles,
             __DIR__ . '/_files/words_finder',
             new ComponentRegistrar()

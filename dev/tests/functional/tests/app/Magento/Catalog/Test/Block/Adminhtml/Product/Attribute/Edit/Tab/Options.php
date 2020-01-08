@@ -7,6 +7,7 @@
 namespace Magento\Catalog\Test\Block\Adminhtml\Product\Attribute\Edit\Tab;
 
 use Magento\Backend\Test\Block\Widget\Tab;
+use Magento\Catalog\Test\Block\Adminhtml\Product\Attribute\Edit\Tab\Options\Option;
 use Magento\Mtf\Client\Element\SimpleElement;
 use Magento\Mtf\Client\Element;
 
@@ -35,7 +36,7 @@ class Options extends Tab
         foreach ($fields['options']['value'] as $field) {
             $this->_rootElement->find($this->addOption)->click();
             $this->blockFactory->create(
-                \Magento\Catalog\Test\Block\Adminhtml\Product\Attribute\Edit\Tab\Options\Option::class,
+                Option::class,
                 ['element' => $this->_rootElement->find('.ui-sortable tr:last-child')]
             )->fillOptions($field);
         }

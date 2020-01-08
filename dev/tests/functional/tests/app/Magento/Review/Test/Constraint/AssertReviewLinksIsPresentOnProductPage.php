@@ -10,6 +10,7 @@ use Magento\Mtf\Client\Browser;
 use Magento\Mtf\Fixture\InjectableFixture;
 use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that add and view review links are present on product page.
@@ -36,18 +37,18 @@ class AssertReviewLinksIsPresentOnProductPage extends AbstractConstraint
         $browser->open($_ENV['app_frontend_url'] . $product->getUrlKey() . '.html');
 
         // Verify add review link
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $catalogProductView->getReviewSummary()->getAddReviewLink()->isVisible(),
             'Add review link is not visible on product page.'
         );
 
         // Verify view review link
         $viewReviewLink = $catalogProductView->getReviewSummary()->getViewReviewLink();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $viewReviewLink->isVisible(),
             'View review link is not visible on product page.'
         );
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             '1',
             $viewReviewLink->getText(),
             'There is more than 1 approved review.'

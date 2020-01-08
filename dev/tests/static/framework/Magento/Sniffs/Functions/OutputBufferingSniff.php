@@ -6,10 +6,12 @@
 
 namespace Magento\Sniffs\Functions;
 
+use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\ForbiddenFunctionsSniff;
+
 /**
  * Sniff prohibiting usage of output buffering functions.
  */
-class OutputBufferingSniff extends \PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\ForbiddenFunctionsSniff
+class OutputBufferingSniff extends ForbiddenFunctionsSniff
 {
     public $forbiddenFunctions = ['ob_start' => null];
 

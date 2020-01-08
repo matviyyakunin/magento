@@ -8,6 +8,7 @@ namespace Magento\Setup\Test\Constraint;
 
 use Magento\Setup\Test\Page\Adminhtml\SetupWizard;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check that Updater, Dependency, PHP Version, PHP Extensions and File Permission are ok.
@@ -52,34 +53,34 @@ class AssertSuccessfulReadinessCheck extends AbstractConstraint
      */
     public function processAssert(SetupWizard $setupWizard)
     {
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             self::UPDATER_APPLICATION_MESSAGE,
             $setupWizard->getReadiness()->getUpdaterApplicationCheck(),
             'Updater application check is incorrect.'
         );
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             self::CRON_SCRIPT_MESSAGE,
             $setupWizard->getReadiness()->getCronScriptCheck(),
             'Cron scripts are incorrect.'
         );
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             self::DEPENDENCY_CHECK_MESSAGE,
             $setupWizard->getReadiness()->getDependencyCheck(),
             'Dependency check is incorrect.'
         );
         if ($setupWizard->getReadiness()->isPhpVersionCheckVisible()) {
-            \PHPUnit\Framework\Assert::assertContains(
+            Assert::assertContains(
                 self::PHP_VERSION_MESSAGE,
                 $setupWizard->getReadiness()->getPhpVersionCheck(),
                 'PHP version is incorrect.'
             );
         }
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             self::PHP_SETTING_REGEXP,
             $setupWizard->getReadiness()->getSettingsCheck(),
             'PHP settings check failed.'
         );
-        \PHPUnit\Framework\Assert::assertRegExp(
+        Assert::assertRegExp(
             self::PHP_EXTENSIONS_REGEXP,
             $setupWizard->getReadiness()->getPhpExtensionsCheck(),
             'PHP extensions missed.'

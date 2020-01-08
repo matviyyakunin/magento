@@ -11,6 +11,7 @@ use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Catalog\Test\TestStep\ConfigureProductOnProductPageStep;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\TestStep\TestStepFactory;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert calculated price after configure bundle product on product page.
@@ -45,7 +46,7 @@ class AssertBundlePriceCalculatedOnProductPage extends AbstractConstraint
     protected function assertPrice(BundleProduct $product, CatalogProductView $productView)
     {
         $checkoutData = $product->getCheckoutData();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $checkoutData['cartItem']['configuredPrice'],
             $productView->getBundleViewBlock()->getBundleSummaryBlock()->getConfiguredPriceBlock()->getPrice(),
             'Bundle price calculated is not correct.'

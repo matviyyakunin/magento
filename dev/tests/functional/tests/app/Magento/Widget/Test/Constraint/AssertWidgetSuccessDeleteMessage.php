@@ -8,6 +8,7 @@ namespace Magento\Widget\Test\Constraint;
 
 use Magento\Widget\Test\Page\Adminhtml\WidgetInstanceIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check that Widget success delete message presents
@@ -32,7 +33,7 @@ class AssertWidgetSuccessDeleteMessage extends AbstractConstraint
     public function processAssert(WidgetInstanceIndex $widgetInstanceIndex)
     {
         $actualMessage = $widgetInstanceIndex->getMessagesBlock()->getSuccessMessage();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::DELETE_MESSAGE,
             $actualMessage,
             'Wrong widget success delete message is displayed.'

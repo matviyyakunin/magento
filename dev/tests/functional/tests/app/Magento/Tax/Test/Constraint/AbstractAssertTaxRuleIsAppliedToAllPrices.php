@@ -15,6 +15,7 @@ use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Fixture\InjectableFixture;
+use PHPUnit\Framework\Assert;
 
 /**
  * Checks that prices excl tax on category, product and cart pages are equal to specified in dataset.
@@ -129,7 +130,7 @@ abstract class AbstractAssertTaxRuleIsAppliedToAllPrices extends AbstractConstra
         $actualPrices = $this->getTotals($actualPrices);
         //Prices verification
         $message = 'Prices from dataset should be equal to prices on frontend.';
-        \PHPUnit\Framework\Assert::assertEquals($prices, $actualPrices, $message);
+        Assert::assertEquals($prices, $actualPrices, $message);
     }
 
     /**

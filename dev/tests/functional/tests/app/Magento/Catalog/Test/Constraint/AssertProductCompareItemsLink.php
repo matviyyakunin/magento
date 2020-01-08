@@ -8,6 +8,7 @@ namespace Magento\Catalog\Test\Constraint;
 
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductCompareItemsLink
@@ -26,14 +27,14 @@ class AssertProductCompareItemsLink extends AbstractConstraint
         $productQty = count($products);
         $qtyOnPage = $cmsIndex->getCompareLinkBlock()->getQtyInCompareList();
 
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $productQty,
             $qtyOnPage,
             'Qty is not correct in "Compare Products" link.'
         );
 
         $compareProductUrl = '/catalog/product_compare/';
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             strpos($cmsIndex->getLinksBlock()->getLinkUrl('Compare Products'), $compareProductUrl) !== false,
             'Compare product link isn\'t lead to Compare Product Page.'
         );

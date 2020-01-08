@@ -10,6 +10,7 @@ use Magento\CatalogSearch\Test\Page\CatalogsearchResult;
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductNotSearchableBySku
@@ -32,7 +33,7 @@ class AssertProductNotSearchableBySku extends AbstractConstraint
     ) {
         $cmsIndex->open();
         $cmsIndex->getSearchBlock()->search($product->getSku());
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $catalogSearchResult->getListProductBlock()->getProductItem($product)->isVisible(),
             'Product was found by SKU.'
         );

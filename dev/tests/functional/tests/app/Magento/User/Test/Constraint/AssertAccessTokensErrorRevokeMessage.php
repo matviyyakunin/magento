@@ -8,6 +8,7 @@ namespace Magento\User\Test\Constraint;
 
 use Magento\User\Test\Page\Adminhtml\UserEdit;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertAccessTokensErrorRevokeMessage
@@ -28,7 +29,7 @@ class AssertAccessTokensErrorRevokeMessage extends AbstractConstraint
      */
     public function processAssert(UserEdit $userEdit)
     {
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::ERROR_MESSAGE,
             $userEdit->getMessagesBlock()->getErrorMessage()
         );

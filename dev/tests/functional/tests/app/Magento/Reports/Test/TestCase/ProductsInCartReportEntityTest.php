@@ -10,6 +10,8 @@ use Magento\Catalog\Test\Fixture\CatalogProductSimple;
 use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Customer\Test\Fixture\Customer;
+use Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep;
+use Magento\Customer\Test\TestStep\LogoutCustomerOnFrontendStep;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\TestCase\Injectable;
 
@@ -96,7 +98,7 @@ class ProductsInCartReportEntityTest extends Injectable
 
         //Steps
         $this->objectManager->create(
-            \Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep::class,
+            LoginCustomerOnFrontendStep::class,
             ['customer' => $customer]
         )->run();
         $productUrl = $_ENV['app_frontend_url'] . $product->getUrlKey() . '.html';
@@ -104,7 +106,7 @@ class ProductsInCartReportEntityTest extends Injectable
         $this->catalogProductView->getViewBlock()->addToCart($product);
         $this->catalogProductView->getMessagesBlock()->waitSuccessMessage();
         if ($isGuest) {
-            $this->objectManager->create(\Magento\Customer\Test\TestStep\LogoutCustomerOnFrontendStep::class)->run();
+            $this->objectManager->create(LogoutCustomerOnFrontendStep::class)->run();
             $browser->open($productUrl);
             $this->catalogProductView->getViewBlock()->addToCart($product);
             $this->catalogProductView->getMessagesBlock()->waitSuccessMessage();
@@ -118,6 +120,6 @@ class ProductsInCartReportEntityTest extends Injectable
      */
     public function tearDown()
     {
-        $this->objectManager->create(\Magento\Customer\Test\TestStep\LogoutCustomerOnFrontendStep::class)->run();
+        $this->objectManager->create(LogoutCustomerOnFrontendStep::class)->run();
     }
 }

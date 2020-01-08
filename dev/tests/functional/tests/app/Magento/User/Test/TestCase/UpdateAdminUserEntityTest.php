@@ -6,9 +6,11 @@
 
 namespace Magento\User\Test\TestCase;
 
+use Exception;
 use Magento\Backend\Test\Page\AdminAuthLogin;
 use Magento\Backend\Test\Page\Adminhtml\Dashboard;
 use Magento\Config\Test\Fixture\ConfigData;
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Mtf\TestCase\Injectable;
 use Magento\Mtf\TestStep\TestStepFactory;
@@ -123,7 +125,7 @@ class UpdateAdminUserEntityTest extends Injectable
      * @param ConfigData $config
      * @param string $configData
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function testUpdateAdminUser(
         User $initialUser,
@@ -136,7 +138,7 @@ class UpdateAdminUserEntityTest extends Injectable
         $this->configData = $configData;
         $config->persist();
         $this->testStepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $configData]
         )->run();
         $initialUser->persist();

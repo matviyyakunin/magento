@@ -9,6 +9,7 @@ namespace Magento\Sales\Test\Constraint;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\Adminhtml\CreditMemoIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that refund is present in the 'Refunds' grid with correct ID, order ID, refunded amount.
@@ -38,7 +39,7 @@ class AssertRefundInRefundsGrid extends AbstractConstraint
             $creditMemoIndex->getCreditMemoGrid()->search($filter);
             $filter['grand_total_from'] = number_format($amount[$key]['grand_creditmemo_total'], 2);
             $filter['grand_total_to'] = number_format($amount[$key]['grand_creditmemo_total'], 2);
-            \PHPUnit\Framework\Assert::assertTrue(
+            Assert::assertTrue(
                 $creditMemoIndex->getCreditMemoGrid()->isRowVisible($filter, false, false),
                 "Credit memo '#$creditMemoId' is absent in credit memos grid on credit memo index page."
             );

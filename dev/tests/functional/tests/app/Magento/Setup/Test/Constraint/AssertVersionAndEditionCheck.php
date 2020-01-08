@@ -8,6 +8,7 @@ namespace Magento\Setup\Test\Constraint;
 
 use Magento\Setup\Test\Page\Adminhtml\SetupWizard;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check that package and version is correct
@@ -30,7 +31,7 @@ class AssertVersionAndEditionCheck extends AbstractConstraint
             }
         }
         $actualMessage = $setupWizard->getSystemUpgrade()->getUpgradeMessage();
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             $message,
             $actualMessage,
             "Updater application check is incorrect: \n"

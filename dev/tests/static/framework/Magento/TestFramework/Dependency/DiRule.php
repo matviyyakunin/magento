@@ -8,7 +8,9 @@
 namespace Magento\TestFramework\Dependency;
 
 use DOMDocument;
+use DOMElement;
 use DOMXPath;
+use Exception;
 use Magento\Framework\App\Utility\Files;
 use Magento\TestFramework\Dependency\VirtualType\VirtualTypeMapper;
 
@@ -34,7 +36,7 @@ class DiRule implements RuleInterface
 
     /**
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     private function getPattern()
     {
@@ -68,7 +70,7 @@ class DiRule implements RuleInterface
      * @param string $file
      * @param string $contents
      * @return array
-     * @throws \Exception
+     * @throws Exception
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getDependencyInfo($currentModule, $fileType, $file, &$contents)
@@ -121,7 +123,7 @@ class DiRule implements RuleInterface
         $result = [];
         foreach (self::$tagNameMap as $tagName => $attributeNames) {
             $nodes = $doc->getElementsByTagName($tagName);
-        /** @var \DOMElement $node */
+        /** @var DOMElement $node */
             foreach ($nodes as $node) {
                 foreach ($attributeNames as $attributeName) {
                     $result[] = $node->getAttribute($attributeName);
@@ -141,7 +143,7 @@ class DiRule implements RuleInterface
         $result = [];
         $xpath = new DOMXPath($doc);
         $textNodes = $xpath->query('//*[@xsi:type="object"]');
-        /** @var \DOMElement $node */
+        /** @var DOMElement $node */
         foreach ($textNodes as $node) {
             $result[] = $node->nodeValue;
         }

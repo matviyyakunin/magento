@@ -5,19 +5,20 @@
  */
 namespace Magento\Test\Integrity\Library;
 
-use Magento\Framework\App\Utility\Files;
 use Magento\Framework\App\Utility\AggregateInvoker;
+use Magento\Framework\App\Utility\Files;
 use Magento\Framework\Component\ComponentRegistrar;
 use Magento\TestFramework\Integrity\Library\Injectable;
 use Magento\TestFramework\Integrity\Library\PhpParser\ParserFactory;
 use Magento\TestFramework\Integrity\Library\PhpParser\Tokens;
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Reflection\FileReflection;
 
 /**
  * Test check if Magento library components contain incorrect dependencies to application layer
  *
  */
-class DependencyTest extends \PHPUnit\Framework\TestCase
+class DependencyTest extends TestCase
 {
     /**
      * Collect errors
@@ -58,7 +59,7 @@ class DependencyTest extends \PHPUnit\Framework\TestCase
 
     public function testCheckDependencies()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * @param string $file
@@ -81,7 +82,7 @@ class DependencyTest extends \PHPUnit\Framework\TestCase
                     $dependencyPath = implode('\\', $dependencyPaths);
                     $libraryPaths = $componentRegistrar->getPaths(ComponentRegistrar::LIBRARY);
                     foreach ($libraryPaths as $libraryPath) {
-                        $filePath = str_replace('\\', '/', $libraryPath .  '/' . $dependencyPath . '.php');
+                        $filePath = str_replace('\\', '/', $libraryPath . '/' . $dependencyPath . '.php');
                         if (preg_match($pattern, $dependency) && !file_exists($filePath)) {
                             $this->errors[$fileReflection->getFileName()][] = $dependency;
                         }

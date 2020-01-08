@@ -8,6 +8,7 @@ namespace Magento\Config\Test\Constraint;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Config\Test\Page\Adminhtml\AdminAccountSharing;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert Admin account sharing is available in Stores>Configuration>advanced>admin grid.
@@ -20,7 +21,7 @@ class AssertAdminAccountSharing extends AbstractConstraint
      */
     public function processAssert(AdminAccountSharing $adminAccountSharing)
     {
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $adminAccountSharing->getAdminForm()->adminAccountSharingAvailability(),
             'Admin Account Sharing Option is not available'
         );

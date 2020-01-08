@@ -8,6 +8,7 @@ namespace Magento\Reports\Test\Constraint;
 
 use Magento\Reports\Test\Page\Adminhtml\SearchIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertSearchTermsInGrid
@@ -31,7 +32,7 @@ class AssertSearchTermsInGrid extends AbstractConstraint
             'num_results' => $countProducts,
             'popularity' => $countSearch,
         ];
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $searchIndex->getSearchGrid()->isRowVisible($filter),
             'Search terms report is absent in Search Terms grid.'
         );

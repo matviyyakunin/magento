@@ -7,6 +7,7 @@
 namespace Magento\Weee\Test\Block\Cart;
 
 use Magento\Mtf\Client\Locator;
+use Magento\Weee\Test\Block\Cart\CartItem\Fpt;
 
 /**
  * Product item fpt block on cart page
@@ -31,12 +32,12 @@ class CartItem extends \Magento\Checkout\Test\Block\Cart\CartItem
     /**
      * Get block price fpt
      *
-     * @return \Magento\Weee\Test\Block\Cart\CartItem\Fpt
+     * @return Fpt
      */
     public function getPriceFptBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Weee\Test\Block\Cart\CartItem\Fpt::class,
+            Fpt::class,
             ['element' => $this->_rootElement->find($this->priceFptBlock, Locator::SELECTOR_XPATH)]
         );
     }
@@ -44,12 +45,12 @@ class CartItem extends \Magento\Checkout\Test\Block\Cart\CartItem
     /**
      * Get block subtotal fpt
      *
-     * @return \Magento\Weee\Test\Block\Cart\CartItem\Fpt
+     * @return Fpt
      */
     public function getSubtotalFptBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Weee\Test\Block\Cart\CartItem\Fpt::class,
+            Fpt::class,
             ['element' => $this->_rootElement->find($this->subtotalFptBlock, Locator::SELECTOR_XPATH)]
         );
     }

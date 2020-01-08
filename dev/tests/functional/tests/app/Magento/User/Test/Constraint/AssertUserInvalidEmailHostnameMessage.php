@@ -9,6 +9,7 @@ namespace Magento\User\Test\Constraint;
 use Magento\User\Test\Fixture\User;
 use Magento\User\Test\Page\Adminhtml\UserEdit;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertUserInvalidEmailHostnameMessage
@@ -34,7 +35,7 @@ class AssertUserInvalidEmailHostnameMessage extends AbstractConstraint
         $hostname = substr($email, strpos($email, '@')+1);
         $expectedMessage = sprintf(self::ERROR_MESSAGE, $hostname, $email);
         $actualMessage = $userEdit->getMessagesBlock()->getErrorMessage();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $expectedMessage,
             $actualMessage,
             'Wrong error message is displayed.'

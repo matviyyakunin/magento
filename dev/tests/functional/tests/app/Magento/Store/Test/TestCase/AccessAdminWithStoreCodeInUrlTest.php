@@ -6,8 +6,10 @@
 
 namespace Magento\Store\Test\TestCase;
 
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Mtf\TestCase\Injectable;
 use Magento\Mtf\TestStep\TestStepFactory;
+use Magento\User\Test\TestStep\LogoutUserOnBackendStep;
 
 /**
  * Steps:
@@ -58,11 +60,11 @@ class AccessAdminWithStoreCodeInUrlTest extends Injectable
     {
         $this->configData = $configData;
         $this->stepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData]
         )->run();
         $this->stepFactory->create(
-            \Magento\User\Test\TestStep\LogoutUserOnBackendStep::class,
+            LogoutUserOnBackendStep::class,
             ['configData' => $this->configData]
         )->run();
     }
@@ -75,7 +77,7 @@ class AccessAdminWithStoreCodeInUrlTest extends Injectable
     public function tearDown()
     {
         $this->stepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData, 'rollback' => true]
         )->run();
     }

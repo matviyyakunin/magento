@@ -6,6 +6,8 @@
 
 namespace Magento\TestFramework\Utility;
 
+use Exception;
+
 /**
  * Searches for usage of classes, namespaces, functions, etc in PHP files
  */
@@ -136,14 +138,14 @@ class CodeCheck
      *
      * @param string $regexp
      * @param string $content
-     * @throws \Exception
+     * @throws Exception
      * @return bool True if the content matches the regexp
      */
     protected static function _isRegexpMatched($regexp, $content)
     {
         $result = preg_match($regexp, $content);
         if ($result === false) {
-            throw new \Exception('An error occurred when matching regexp "' . $regexp . '""');
+            throw new Exception('An error occurred when matching regexp "' . $regexp . '""');
         }
         return 1 === $result;
     }

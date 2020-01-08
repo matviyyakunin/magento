@@ -6,10 +6,12 @@
 
 namespace Magento\Sales\Test\Constraint;
 
+use Magento\Sales\Test\Block\Adminhtml\Order\View\Tab\Info;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
 use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that status is correct on order page in admin panel.
@@ -34,9 +36,9 @@ class AssertReorderStatusIsCorrect extends AbstractConstraint
         $salesOrder->open();
         $salesOrder->getSalesOrderGrid()->searchAndOpen(['id' => $order->getId()]);
 
-        /** @var \Magento\Sales\Test\Block\Adminhtml\Order\View\Tab\Info $infoTab */
+        /** @var Info $infoTab */
         $infoTab = $salesOrderView->getOrderForm()->openTab('info')->getTab('info');
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $previousOrderStatus,
             $infoTab->getOrderStatus(),
             'Order status is incorrect on order page in backend.'

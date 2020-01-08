@@ -10,15 +10,17 @@
  */
 namespace Magento\Test\Legacy;
 
+use Exception;
 use Magento\Framework\App\Utility\AggregateInvoker;
 use Magento\Framework\App\Utility\Files;
 use Magento\Framework\Component\ComponentRegistrar;
 use Magento\TestFramework\Utility\ChangedFiles;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
-class ObsoleteCodeTest extends \PHPUnit\Framework\TestCase
+class ObsoleteCodeTest extends TestCase
 {
     /**@#+
      * Lists of obsolete entities from fixtures
@@ -60,7 +62,7 @@ class ObsoleteCodeTest extends \PHPUnit\Framework\TestCase
                 }
                 $message .= PHP_EOL;
             }
-            throw new \Exception($message);
+            throw new Exception($message);
         }
     }
 
@@ -911,7 +913,7 @@ class ObsoleteCodeTest extends \PHPUnit\Framework\TestCase
      * @param string $appPath
      * @param string $pattern
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     private function processPattern($appPath, $pattern)
     {
@@ -931,7 +933,7 @@ class ObsoleteCodeTest extends \PHPUnit\Framework\TestCase
      *
      * @param bool $absolutePath
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     private function getBlacklistFiles($absolutePath = false)
     {

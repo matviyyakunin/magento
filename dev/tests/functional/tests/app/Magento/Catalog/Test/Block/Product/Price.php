@@ -6,10 +6,12 @@
 
 namespace Magento\Catalog\Test\Block\Product;
 
+use Magento\Catalog\Test\Block\AbstractPriceBlock;
+
 /**
  * This class is used to access the price related information from the storefront.
  */
-class Price extends \Magento\Catalog\Test\Block\AbstractPriceBlock
+class Price extends AbstractPriceBlock
 {
     /**
      * Mapping for different type of price.

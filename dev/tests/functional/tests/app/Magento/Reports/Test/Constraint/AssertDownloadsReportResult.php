@@ -9,6 +9,7 @@ namespace Magento\Reports\Test\Constraint;
 use Magento\Reports\Test\Page\Adminhtml\DownloadsReport;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertDownloadsReportResult
@@ -40,7 +41,7 @@ class AssertDownloadsReportResult extends AbstractConstraint
                 ];
                 $downloadsReport->getGridBlock()->search($filter);
                 $filter[] = $downloads;
-                \PHPUnit\Framework\Assert::assertTrue(
+                Assert::assertTrue(
                     $downloadsReport->getGridBlock()->isRowVisible($filter, false),
                     "Downloads report link {$link['title']} is not present in reports grid."
                 );

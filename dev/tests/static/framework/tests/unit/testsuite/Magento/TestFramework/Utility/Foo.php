@@ -5,6 +5,10 @@
  */
 namespace Magento\TestFramework\Utility;
 
+use Magento\Catalog\Api\Data\ProductLinkInterfaceFactory;
+use Magento\Catalog\Model\Indexer\Product\Flat\Table\BuilderInterfaceFactory;
+use Magento\Customer\Api\CustomerRepositoryInterfaceFactory;
+use Magento\Framework\App\ObjectManager;
 use Magento\Framework\UrlFactory;
 use Magento\Catalog\Model\Product;
 
@@ -13,21 +17,21 @@ class Foo
     /**
      * Constructor
      *
-     * @param \Magento\Customer\Api\CustomerRepositoryInterfaceFactory|null $customerRepositoryFactory
+     * @param CustomerRepositoryInterfaceFactory|null $customerRepositoryFactory
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function __construct(
-        \Magento\Customer\Api\CustomerRepositoryInterfaceFactory $customerRepositoryFactory = null
+        CustomerRepositoryInterfaceFactory $customerRepositoryFactory = null
     ) {
     }
 
     /**
-     * @return \Magento\Catalog\Model\Indexer\Product\Flat\Table\BuilderInterfaceFactory
+     * @return BuilderInterfaceFactory
      */
     public function getBuilderFactory()
     {
-        return \Magento\Framework\App\ObjectManager::getInstance()->get(
-            \Magento\Catalog\Model\Indexer\Product\Flat\Table\BuilderInterfaceFactory::class
+        return ObjectManager::getInstance()->get(
+            BuilderInterfaceFactory::class
         );
     }
 
@@ -36,7 +40,7 @@ class Foo
      */
     public function getBarFactory()
     {
-        return \Magento\Framework\App\ObjectManager::getInstance()->get(BarFactory::class);
+        return ObjectManager::getInstance()->get(BarFactory::class);
     }
 
     /**
@@ -44,7 +48,7 @@ class Foo
      */
     public function getPartialNamespaceBarFactory()
     {
-        return \Magento\Framework\App\ObjectManager::getInstance()->get(PartialNamespace\BarFactory::class);
+        return ObjectManager::getInstance()->get(PartialNamespace\BarFactory::class);
     }
 
     /**
@@ -52,7 +56,7 @@ class Foo
      */
     public function getUrlFactory()
     {
-        return \Magento\Framework\App\ObjectManager::getInstance()->get(UrlFactory::class);
+        return ObjectManager::getInstance()->get(UrlFactory::class);
     }
 
     /**
@@ -60,27 +64,27 @@ class Foo
      */
     public function getOptionFactory()
     {
-        return \Magento\Framework\App\ObjectManager::getInstance()->get(Product\OptionFactory::class);
+        return ObjectManager::getInstance()->get(Product\OptionFactory::class);
     }
 
     /**
-     * @return \Magento\Catalog\Api\Data\ProductLinkInterfaceFactory
+     * @return ProductLinkInterfaceFactory
      */
     public function getProductLinkFactory()
     {
-        return \Magento\Framework\App\ObjectManager::getInstance()
+        return ObjectManager::getInstance()
             ->get(
-                \Magento\Catalog\Api\Data\ProductLinkInterfaceFactory::class
+                ProductLinkInterfaceFactory::class
             );
     }
 
     /**
-     * @return \Magento\Customer\Api\CustomerRepositoryInterfaceFactory
+     * @return CustomerRepositoryInterfaceFactory
      */
     public function getCustomerRepositoryFactory()
     {
-        return \Magento\Framework\App\ObjectManager::getInstance()->get(
-            \Magento\Customer\Api\CustomerRepositoryInterfaceFactory::class
+        return ObjectManager::getInstance()->get(
+            CustomerRepositoryInterfaceFactory::class
         );
     }
 }

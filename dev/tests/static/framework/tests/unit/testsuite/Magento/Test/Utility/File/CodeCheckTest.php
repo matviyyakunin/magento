@@ -6,8 +6,9 @@
 namespace Magento\Test\Utility\File;
 
 use Magento\TestFramework\Utility\CodeCheck;
+use PHPUnit\Framework\TestCase;
 
-class CodeCheckTest extends \PHPUnit\Framework\TestCase
+class CodeCheckTest extends TestCase
 {
     /**
      * @var CodeCheck

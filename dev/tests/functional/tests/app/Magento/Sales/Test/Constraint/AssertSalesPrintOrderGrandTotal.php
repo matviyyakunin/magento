@@ -8,6 +8,7 @@ namespace Magento\Sales\Test\Constraint;
 
 use Magento\Sales\Test\Page\SalesGuestPrint;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that Grand Total price was printed correctly on sales guest print page.
@@ -23,7 +24,7 @@ class AssertSalesPrintOrderGrandTotal extends AbstractConstraint
      */
     public function processAssert(SalesGuestPrint $salesGuestPrint, array $prices)
     {
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             number_format(array_sum($prices), 2),
             $salesGuestPrint->getViewBlock()->getItemBlock()->getGrandTotal(),
             "Grand total was printed incorrectly."

@@ -9,6 +9,7 @@ namespace Magento\Catalog\Test\Constraint;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductNotInGrid
@@ -29,7 +30,7 @@ class AssertProductNotInGrid extends AbstractConstraint
         foreach ($products as $product) {
             $filter = ['sku' => $product->getSku(), 'name' => $product->getName()];
             $productGrid->open();
-            \PHPUnit\Framework\Assert::assertFalse(
+            Assert::assertFalse(
                 $productGrid->getProductGrid()->isRowVisible($filter),
                 "Product with sku \"{$filter['sku']}\" and name \"{$filter['name']}\" is attend in Products grid."
             );

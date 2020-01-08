@@ -11,6 +11,7 @@ use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\InjectableFixture;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that product is not displayed in up-sell section.
@@ -40,7 +41,7 @@ class AssertProductAbsentUpSells extends AbstractConstraint
 
         $browser->open($_ENV['app_frontend_url'] . $product->getUrlKey() . '.html');
         foreach ($promotedProducts as $promotedProduct) {
-            \PHPUnit\Framework\Assert::assertFalse(
+            Assert::assertFalse(
                 $catalogProductView->getUpsellBlock()->getProductItem($promotedProduct)->isVisible(),
                 'Product \'' . $promotedProduct->getName() . '\' exists in up-sells products.'
             );

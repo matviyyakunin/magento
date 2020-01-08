@@ -6,6 +6,7 @@
 
 namespace Magento\Backend\Test\Block\Dashboard\Tab;
 
+use Magento\Backend\Test\Block\Dashboard\Tab\Products\Ordered;
 use Magento\Mtf\Client\Element;
 use Magento\Backend\Test\Block\Widget\Tab;
 
@@ -21,12 +22,12 @@ class Products extends Tab
     /**
      * Get bestsellers grid
      *
-     * @return \Magento\Backend\Test\Block\Dashboard\Tab\Products\Ordered
+     * @return Ordered
      */
     public function getBestsellersGrid()
     {
         return $this->blockFactory->create(
-            \Magento\Backend\Test\Block\Dashboard\Tab\Products\Ordered::class,
+            Ordered::class,
             ['element' => $this->browser->find($this->orderedProductsGrid)]
         );
     }

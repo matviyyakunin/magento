@@ -7,6 +7,7 @@
 namespace Magento\Captcha\Test\TestCase;
 
 use Magento\Captcha\Test\Constraint\AssertCaptchaFieldOnStorefront;
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Customer\Test\Fixture\Customer;
 use Magento\Customer\Test\Page\CustomerAccountLogin;
 use Magento\Mtf\Fixture\FixtureFactory;
@@ -101,7 +102,7 @@ class CaptchaOnStoreFrontLoginTest extends Injectable
 
         // Preconditions
         $this->stepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData]
         )->run();
         $customer->persist();
@@ -128,7 +129,7 @@ class CaptchaOnStoreFrontLoginTest extends Injectable
     public function tearDown()
     {
         $this->stepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData, 'rollback' => true]
         )->run();
     }

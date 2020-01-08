@@ -6,9 +6,12 @@
 
 namespace Magento\Catalog\Test\Constraint;
 
+use Magento\Catalog\Test\Block\Adminhtml\Product\Edit\Section\Options;
+use Magento\Catalog\Test\Page\Adminhtml\CatalogProductNew;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that symbol before price is correct.
@@ -21,13 +24,13 @@ class AssertAddBeforeForPrice extends AbstractConstraint
      * @param FixtureInterface $product
      * @param CatalogProductIndex $productGrid
      * @param string $priceTypeSymbol
-     * @param \Magento\Catalog\Test\Page\Adminhtml\CatalogProductNew $catalogProductNew
+     * @param CatalogProductNew $catalogProductNew
      */
     public function processAssert(
         FixtureInterface $product,
         CatalogProductIndex $productGrid,
         string $priceTypeSymbol,
-        \Magento\Catalog\Test\Page\Adminhtml\CatalogProductNew $catalogProductNew
+        CatalogProductNew $catalogProductNew
     ) {
         $filter = ['sku' => $product->getSku()];
         $productGrid->open();
@@ -35,7 +38,7 @@ class AssertAddBeforeForPrice extends AbstractConstraint
 
         $catalogProductNew->getProductForm()->openSection('customer-options');
 
-        /** @var \Magento\Catalog\Test\Block\Adminhtml\Product\Edit\Section\Options $options */
+        /** @var Options $options */
         $options = $catalogProductNew->getProductForm()->getSection('customer-options');
         $customOptions = $product->getCustomOptions()['import']['options'];
 
@@ -48,7 +51,7 @@ class AssertAddBeforeForPrice extends AbstractConstraint
             );
 
             foreach ($valuesFromForm as $value) {
-                \PHPUnit\Framework\Assert::assertEquals($priceTypeSymbol, $value['add_before']);
+                Assert::assertEquals($priceTypeSymbol, $value['add_before']);
             }
         }
     }

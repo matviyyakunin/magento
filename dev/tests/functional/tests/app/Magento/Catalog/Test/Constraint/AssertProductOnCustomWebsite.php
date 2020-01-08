@@ -10,6 +10,7 @@ use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractAssertForm;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that Product is present on Custom Website and absent on Main Website.
@@ -67,7 +68,7 @@ class AssertProductOnCustomWebsite extends AbstractAssertForm
     {
         $this->browser->open($_ENV['app_frontend_url'] . $product->getUrlKey() . '.html');
 
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::NOT_FOUND_MESSAGE,
             $this->productViewPage->getTitleBlock()->getTitle(),
             'Product ' . $product->getName() . ' is available on Main Website, but should not.'
@@ -88,7 +89,7 @@ class AssertProductOnCustomWebsite extends AbstractAssertForm
                 $_ENV['app_frontend_url'] . 'websites/' . $website->getCode() . '/' . $product->getUrlKey() . '.html'
             );
 
-            \PHPUnit\Framework\Assert::assertEquals(
+            Assert::assertEquals(
                 $product->getName(),
                 $this->productViewPage->getViewBlock()->getProductName(),
                 'Product ' . $product->getName() . ' is not available on ' . $website->getName() . ' website.'

@@ -6,12 +6,13 @@
 
 namespace Magento\Review\Test\Constraint;
 
-use Magento\PageCache\Test\Page\Adminhtml\AdminCache;
 use Magento\Catalog\Test\Page\Product\CatalogProductView;
-use Magento\Review\Test\Fixture\Review;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
+use Magento\PageCache\Test\Page\Adminhtml\AdminCache;
+use Magento\Review\Test\Fixture\Review;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that product review available on product page.
@@ -42,7 +43,7 @@ class AssertProductReviewOnProductPage extends AbstractConstraint
         $reviewBlock = $catalogProductView->getCustomerReviewBlock();
         $catalogProductView->getViewBlock()->selectTab('Reviews');
 
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             sprintf("You're reviewing:\n%s", $product->getName()),
             $catalogProductView->getReviewFormBlock()->getLegend()->getText()
         );
@@ -54,7 +55,7 @@ class AssertProductReviewOnProductPage extends AbstractConstraint
             }
         }
 
-        \PHPUnit\Framework\Assert::assertEmpty(
+        Assert::assertEmpty(
             $errors,
             'The Review contains the following errors:' . PHP_EOL . implode(PHP_EOL, $errors)
         );

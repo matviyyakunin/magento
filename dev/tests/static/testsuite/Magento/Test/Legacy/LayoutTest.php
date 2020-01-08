@@ -9,9 +9,12 @@
  */
 namespace Magento\Test\Legacy;
 
+use Magento\Framework\App\Utility\AggregateInvoker;
+use Magento\Framework\App\Utility\Files;
 use Magento\Framework\Component\ComponentRegistrar;
+use PHPUnit\Framework\TestCase;
 
-class LayoutTest extends \PHPUnit\Framework\TestCase
+class LayoutTest extends TestCase
 {
     /**
      * List of obsolete nodes
@@ -87,7 +90,7 @@ class LayoutTest extends \PHPUnit\Framework\TestCase
 
     public function testLayoutFile()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * @param string $layoutFile
@@ -154,7 +157,7 @@ class LayoutTest extends \PHPUnit\Framework\TestCase
                     ' is not supposed to be used in layout anymore.'
                 );
             },
-            \Magento\Framework\App\Utility\Files::init()->getLayoutFiles()
+            Files::init()->getLayoutFiles()
         );
     }
 
@@ -206,7 +209,7 @@ class LayoutTest extends \PHPUnit\Framework\TestCase
 
     public function testActionNodeMethods()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * @param string $layoutFile
@@ -224,7 +227,7 @@ class LayoutTest extends \PHPUnit\Framework\TestCase
                     );
                 }
             },
-            \Magento\Framework\App\Utility\Files::init()->getLayoutFiles()
+            Files::init()->getLayoutFiles()
         );
     }
 

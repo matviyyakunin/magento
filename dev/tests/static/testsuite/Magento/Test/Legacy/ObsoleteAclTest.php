@@ -9,11 +9,15 @@
  */
 namespace Magento\Test\Legacy;
 
-class ObsoleteAclTest extends \PHPUnit\Framework\TestCase
+use Magento\Framework\App\Utility\AggregateInvoker;
+use Magento\Framework\App\Utility\Files;
+use PHPUnit\Framework\TestCase;
+
+class ObsoleteAclTest extends TestCase
 {
     public function testAclDeclarations()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * @param string $aclFile
@@ -26,7 +30,7 @@ class ObsoleteAclTest extends \PHPUnit\Framework\TestCase
                     'Obsolete acl structure detected in file ' . $aclFile . '.'
                 );
             },
-            \Magento\Framework\App\Utility\Files::init()->getMainConfigFiles()
+            Files::init()->getMainConfigFiles()
         );
     }
 }

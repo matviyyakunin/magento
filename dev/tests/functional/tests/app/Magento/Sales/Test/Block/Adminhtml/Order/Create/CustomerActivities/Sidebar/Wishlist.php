@@ -6,8 +6,10 @@
 
 namespace Magento\Sales\Test\Block\Adminhtml\Order\Create\CustomerActivities\Sidebar;
 
+use Magento\Catalog\Test\Block\Adminhtml\Product\Composite\Configure;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\Fixture\InjectableFixture;
+use Magento\Sales\Test\Block\Adminhtml\Order\Create\CustomerActivities;
 use Magento\Sales\Test\Block\Adminhtml\Order\Create\CustomerActivities\Sidebar;
 
 /**
@@ -83,12 +85,12 @@ class Wishlist extends Sidebar
     /**
      * Get configure block.
      *
-     * @return \Magento\Catalog\Test\Block\Adminhtml\Product\Composite\Configure
+     * @return Configure
      */
     public function getConfigureBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Catalog\Test\Block\Adminhtml\Product\Composite\Configure::class,
+            Configure::class,
             [
                 'element' => $this->_rootElement
                     ->find($this->configureBlock . $this->elementWithShowClass, Locator::SELECTOR_XPATH)
@@ -99,12 +101,12 @@ class Wishlist extends Sidebar
     /**
      * Get customer activities block.
      *
-     * @return \Magento\Sales\Test\Block\Adminhtml\Order\Create\CustomerActivities
+     * @return CustomerActivities
      */
     public function getCustomerActivitiesBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Create\CustomerActivities::class,
+            CustomerActivities::class,
             [
                 'element' => $this->browser->find($this->customerActivities, Locator::SELECTOR_CSS)
             ]

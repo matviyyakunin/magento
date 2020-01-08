@@ -11,6 +11,7 @@ use Magento\Cms\Test\Page\Adminhtml\CmsPageIndex;
 use Magento\Cms\Test\Page\CmsIndex as FrontCmsIndex;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that created CMS page with 'Status' - Disabled displays with '404 Not Found' message on Frontend.
@@ -38,7 +39,7 @@ class AssertCmsPageDisabledOnFrontend extends AbstractConstraint
         $filter = ['title' => $cms->getTitle()];
         $cmsIndex->getCmsPageGridBlock()->searchAndPreview($filter);
         $browser->selectWindow();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::NOT_FOUND_MESSAGE,
             $frontCmsIndex->getTitleBlock()->getTitle(),
             'Wrong page is displayed.'

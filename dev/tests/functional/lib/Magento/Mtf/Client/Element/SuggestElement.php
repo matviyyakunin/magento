@@ -6,6 +6,7 @@
 
 namespace Magento\Mtf\Client\Element;
 
+use Exception;
 use Magento\Mtf\Client\Locator;
 
 /**
@@ -163,7 +164,7 @@ class SuggestElement extends SimpleElement
         if ($needle->isVisible()) {
             try {
                 return true;
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 // In parallel run on windows change the focus is lost on element
                 // that causes disappearing of attribute suggest list.
             }

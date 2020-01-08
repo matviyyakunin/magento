@@ -6,7 +6,9 @@
 
 namespace Magento\Backend\Test\TestCase;
 
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Customer\Test\Fixture\Customer;
+use Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep;
 use Magento\Mtf\TestCase\Injectable;
 use Magento\Mtf\TestStep\TestStepFactory;
 
@@ -68,14 +70,14 @@ class ExpireSessionTest extends Injectable
     ) {
         $this->configData = $configData;
         $this->stepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData]
         )->run();
 
         if ($customer != null) {
             $customer->persist();
             $this->stepFactory->create(
-                \Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep::class,
+                LoginCustomerOnFrontendStep::class,
                 ['customer' => $customer]
             )->run();
         }
@@ -94,7 +96,7 @@ class ExpireSessionTest extends Injectable
     public function tearDown()
     {
         $this->stepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData, 'rollback' => true]
         )->run();
     }

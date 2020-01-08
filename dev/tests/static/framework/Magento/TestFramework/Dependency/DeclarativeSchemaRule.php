@@ -7,6 +7,9 @@
  */
 namespace Magento\TestFramework\Dependency;
 
+use DOMDocument;
+use DOMElement;
+
 /**
  * Rule for testing integrity within declarative schema.
  *
@@ -51,7 +54,7 @@ class DeclarativeSchemaRule implements RuleInterface
         $dependenciesInfo = [];
         $unKnowTables = [];
 
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->loadXML($contents);
         $tables = $dom->getElementsByTagName('table');
         $constraints = $dom->getElementsByTagName('constraint');
@@ -60,12 +63,12 @@ class DeclarativeSchemaRule implements RuleInterface
         $foreignKeyTables = [];
         $foreignKeyReferenceTables = [];
 
-        /** @var \DOMElement $table */
+        /** @var DOMElement $table */
         foreach ($tables as $table) {
             $tableNames[] = $table->getAttribute('name');
         }
 
-        /** @var \DOMElement $constraint */
+        /** @var DOMElement $constraint */
         foreach ($constraints as $constraint) {
             $xsiType = $constraint->getAttribute('xsi:type');
             if (strtolower($xsiType) == 'foreign' && $constraint->getAttribute('disabled') !== '1') {

@@ -8,6 +8,7 @@ namespace Magento\Sales\Test\Constraint;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Sales\Test\Page\Adminhtml\OrderCreateIndex;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that customer's Shopping Cart section on Order Create backend page contains products.
@@ -28,7 +29,7 @@ class AssertCartSectionWithProductsOnBackendOrderPage extends AbstractConstraint
             $expectedItemNames[] = $product->getName();
         }
         $itemsNames = $orderCreateIndex->getBackendOrderSidebarBlock()->getCartItemsNames();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             sort($expectedItemNames),
             sort($itemsNames),
             "Customer's Shopping Cart section on Order Create backend page doesn't contain correct products."

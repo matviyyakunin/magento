@@ -6,6 +6,7 @@
 
 namespace Magento\Catalog\Test\Block\Adminhtml\Product\Edit\Section;
 
+use Magento\Catalog\Test\Block\Adminhtml\Product\Edit\Section\ProductDetails\NewCategoryIds;
 use Magento\Ui\Test\Block\Adminhtml\Section;
 use Magento\Mtf\Client\Element\SimpleElement;
 
@@ -66,7 +67,7 @@ class ProductDetails extends Section
                 && !$fields['category_ids']['source']->getCategories()[0]->hasData('id')
             ) {
                 $this->blockFactory->create(
-                    \Magento\Catalog\Test\Block\Adminhtml\Product\Edit\Section\ProductDetails\NewCategoryIds::class,
+                    NewCategoryIds::class,
                     ['element' => $this->browser->find($this->newCategoryRootElement)]
                 )->addNewCategory($fields['category_ids']['source']->getCategories()[0]);
             } else {

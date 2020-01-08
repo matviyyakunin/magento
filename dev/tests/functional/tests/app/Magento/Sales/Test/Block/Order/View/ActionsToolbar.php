@@ -6,6 +6,7 @@
 
 namespace Magento\Sales\Test\Block\Order\View;
 
+use Exception;
 use Magento\Mtf\Block\Block;
 use Magento\Mtf\Client\Locator;
 
@@ -25,13 +26,13 @@ class ActionsToolbar extends Block
      * Click link on this page.
      *
      * @param string $linkName
-     * @throws \Exception
+     * @throws Exception
      */
     public function clickLink($linkName)
     {
         $link = $this->_rootElement->find(sprintf($this->linkSelector, $linkName), Locator::SELECTOR_XPATH);
         if (!$link->isVisible()) {
-            throw new \Exception(sprintf('"%s" link is not visible', $linkName));
+            throw new Exception(sprintf('"%s" link is not visible', $linkName));
         }
         $link->click();
     }

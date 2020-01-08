@@ -5,7 +5,9 @@
  */
 namespace Magento\TestFramework\Dependency;
 
-class DbRuleTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+class DbRuleTest extends TestCase
 {
     /**
      * @var DbRule
@@ -52,7 +54,7 @@ class DbRuleTest extends \PHPUnit\Framework\TestCase
                 [
                     [
                         'module' => 'SomeModule',
-                        'type' => \Magento\TestFramework\Dependency\RuleInterface::TYPE_HARD,
+                        'type' => RuleInterface::TYPE_HARD,
                         'source' => 'some_table',
                     ]
                 ]

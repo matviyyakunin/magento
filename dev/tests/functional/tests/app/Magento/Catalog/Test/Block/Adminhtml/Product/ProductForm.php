@@ -6,6 +6,7 @@
 
 namespace Magento\Catalog\Test\Block\Adminhtml\Product;
 
+use Exception;
 use Magento\Catalog\Test\Block\Adminhtml\Product\Attribute\AttributeForm;
 use Magento\Catalog\Test\Block\Adminhtml\Product\Attribute\CustomAttribute;
 use Magento\Catalog\Test\Block\Adminhtml\Product\Edit\Section\ProductDetails\NewCategoryIds;
@@ -93,7 +94,7 @@ class ProductForm extends FormSections
      * @param SimpleElement|null $element
      * @param FixtureInterface|null $category
      * @return $this
-     * @throws \Exception
+     * @throws Exception
      */
     public function fill(FixtureInterface $product, SimpleElement $element = null, FixtureInterface $category = null)
     {
@@ -236,7 +237,7 @@ class ProductForm extends FormSections
     public function getAttributeForm()
     {
         return $this->blockFactory->create(
-            \Magento\Catalog\Test\Block\Adminhtml\Product\Attribute\AttributeForm::class,
+            AttributeForm::class,
             ['element' => $this->browser->find($this->newAttributeModal)]
         );
     }
@@ -249,7 +250,7 @@ class ProductForm extends FormSections
     public function getNewCategoryModalForm()
     {
         return $this->blockFactory->create(
-            \Magento\Catalog\Test\Block\Adminhtml\Product\Edit\Section\ProductDetails\NewCategoryIds::class,
+            NewCategoryIds::class,
             ['element' => $this->browser->find($this->newCategoryModalForm)]
         );
     }
@@ -265,7 +266,7 @@ class ProductForm extends FormSections
         return $this->_rootElement->find(
             sprintf($this->attributeBlock, $attribute->getAttributeCode()),
             Locator::SELECTOR_CSS,
-            \Magento\Catalog\Test\Block\Adminhtml\Product\Attribute\CustomAttribute::class
+            CustomAttribute::class
         );
     }
 

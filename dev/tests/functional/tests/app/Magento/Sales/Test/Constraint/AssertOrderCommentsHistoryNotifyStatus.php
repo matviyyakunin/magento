@@ -6,9 +6,11 @@
 namespace Magento\Sales\Test\Constraint;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
+use Magento\Sales\Test\Block\Adminhtml\Order\View\Tab\Info;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
 use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that comment has appropriate notification status in Comments History section on order page in Admin.
@@ -33,11 +35,11 @@ class AssertOrderCommentsHistoryNotifyStatus extends AbstractConstraint
         $sendMail = isset($refundsData[0]['form_data']['send_email'])
             ? filter_var($refundsData[0]['form_data']['send_email'], FILTER_VALIDATE_BOOLEAN)
             : false;
-        /** @var \Magento\Sales\Test\Block\Adminhtml\Order\View\Tab\Info $infoTab */
+        /** @var Info $infoTab */
         $infoTab = $salesOrderView->getOrderForm()->openTab('info')->getTab('info');
         $latestComment = $infoTab->getCommentsHistoryBlock()->getLatestComment();
 
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             $latestComment['is_customer_notified'],
             (bool)$sendMail ? 'Customer Notified' : 'Customer Not Notified'
         );

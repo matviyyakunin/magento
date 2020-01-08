@@ -6,6 +6,8 @@
 
 namespace Magento\Sales\Test\TestCase;
 
+use Magento\Catalog\Test\TestStep\CreateProductsStep;
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Customer\Test\Fixture\Address;
 use Magento\Customer\Test\Fixture\Customer;
 use Magento\Customer\Test\Page\Adminhtml\CustomerIndex;
@@ -18,6 +20,10 @@ use Magento\Sales\Test\Constraint\AssertItemsOrderedSectionContainsProducts;
 use Magento\Sales\Test\Constraint\AssertItemsOrderedSectionOnBackendOrderIsEmpty;
 use Magento\Sales\Test\Page\Adminhtml\OrderCreateIndex;
 use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
+use Magento\Sales\Test\TestStep\AddProductsStep;
+use Magento\Sales\Test\TestStep\FillBillingAddressStep;
+use Magento\Sales\Test\TestStep\SelectPaymentMethodForOrderStep;
+use Magento\Sales\Test\TestStep\SelectShippingMethodForOrderStep;
 use Magento\Store\Test\Fixture\Store;
 use Magento\Wishlist\Test\Constraint\AssertCustomerWishlistOnBackendIsEmpty;
 use Magento\Wishlist\Test\Constraint\AssertProductsIsPresentInCustomerBackendWishlist;
@@ -227,12 +233,12 @@ class CreateOrderFromEditCustomerPageTest extends Injectable
         // Preconditions:
         $this->configData = $configData;
         $this->stepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData]
         )->run();
         $customer->persist();
         $products = $this->stepFactory->create(
-            \Magento\Catalog\Test\TestStep\CreateProductsStep::class,
+            CreateProductsStep::class,
             ['products' => $products]
         )->run()['products'];
 
@@ -244,7 +250,7 @@ class CreateOrderFromEditCustomerPageTest extends Injectable
             $this->orderCreateIndex->getStoreBlock()->selectStoreView($this->store);
         }
         $this->stepFactory->create(
-            \Magento\Sales\Test\TestStep\AddProductsStep::class,
+            AddProductsStep::class,
             ['products' => $products]
         )->run();
         $createBlock = $this->orderCreateIndex->getCreateBlock();
@@ -288,7 +294,7 @@ class CreateOrderFromEditCustomerPageTest extends Injectable
             ->processAssert($customer, $this->customerIndexEdit, [$products[0], $products[2]]);
         $this->assertCartSectionWithProductsOnBackendOrderPage->processAssert($this->orderCreateIndex, [$products[1]]);
         $this->stepFactory->create(
-            \Magento\Sales\Test\TestStep\FillBillingAddressStep::class,
+            FillBillingAddressStep::class,
             [
                 'orderCreateIndex' => $this->orderCreateIndex,
                 'billingAddress' => $billingAddress,
@@ -296,11 +302,11 @@ class CreateOrderFromEditCustomerPageTest extends Injectable
             ]
         )->run();
         $this->stepFactory->create(
-            \Magento\Sales\Test\TestStep\SelectPaymentMethodForOrderStep::class,
+            SelectPaymentMethodForOrderStep::class,
             ['payment' => $payment]
         )->run();
         $this->stepFactory->create(
-            \Magento\Sales\Test\TestStep\SelectShippingMethodForOrderStep::class,
+            SelectShippingMethodForOrderStep::class,
             ['shipping' => $shipping]
         )->run();
         $createBlock->submitOrder();
@@ -322,7 +328,7 @@ class CreateOrderFromEditCustomerPageTest extends Injectable
     public function tearDown()
     {
         $this->stepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData, 'rollback' => true]
         )->run();
     }

@@ -8,6 +8,7 @@ namespace Magento\Catalog\Test\Constraint;
 
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductEdit;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertDateInvalidErrorMessage
@@ -28,7 +29,7 @@ class AssertDateInvalidErrorMessage extends AbstractConstraint
     public function processAssert(CatalogProductEdit $productPage)
     {
         $actualMessages = $productPage->getMessagesBlock()->getErrorMessage();
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             self::INVALID_DATE_ERROR_MESSAGE,
             $actualMessages,
             'Wrong error message is displayed.'

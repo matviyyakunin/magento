@@ -6,11 +6,12 @@
 
 namespace Magento\Backend\Test\Constraint;
 
-use Magento\Store\Test\Fixture\Store;
-use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Backend\Test\Page\Adminhtml\SystemConfig;
 use Magento\Cms\Test\Page\CmsIndex;
+use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\PageCache\Test\Page\Adminhtml\AdminCache;
+use Magento\Store\Test\Fixture\Store;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that store can be localized.
@@ -59,7 +60,7 @@ class AssertStoreCanBeLocalized extends AbstractConstraint
 
         $cmsIndex->getStoreSwitcherBlock()->selectStoreView($store->getName());
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $cmsIndex->getSearchBlock()->isPlaceholderContains($welcomeText),
             "Locale not applied."
         );

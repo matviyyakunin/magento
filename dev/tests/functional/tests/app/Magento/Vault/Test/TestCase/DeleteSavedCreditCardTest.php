@@ -5,11 +5,25 @@
  */
 namespace Magento\Vault\Test\TestCase;
 
+use Magento\Catalog\Test\TestStep\CreateProductsStep;
 use Magento\Checkout\Test\Page\CheckoutOnepage;
+use Magento\Checkout\Test\TestStep\AddProductsToTheCartStep;
+use Magento\Checkout\Test\TestStep\FillBillingInformationStep;
+use Magento\Checkout\Test\TestStep\FillShippingAddressStep;
+use Magento\Checkout\Test\TestStep\FillShippingMethodStep;
+use Magento\Checkout\Test\TestStep\PlaceOrderStep;
+use Magento\Checkout\Test\TestStep\ProceedToCheckoutStep;
+use Magento\Checkout\Test\TestStep\SelectCheckoutMethodStep;
+use Magento\Checkout\Test\TestStep\SelectPaymentMethodStep;
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Customer\Test\Fixture\Customer;
+use Magento\Customer\Test\TestStep\CreateCustomerStep;
 use Magento\Mtf\ObjectManager;
 use Magento\Mtf\TestCase\Injectable;
 use Magento\Vault\Test\Constraint\AssertCreditCardNotPresentOnCheckout;
+use Magento\Vault\Test\TestStep\DeleteCreditCardFromMyAccountStep;
+use Magento\Vault\Test\TestStep\SaveCreditCardStep;
+use Magento\Vault\Test\TestStep\UseSavedPaymentMethodStep;
 
 /**
  * Preconditions:
@@ -128,7 +142,7 @@ class DeleteSavedCreditCardTest extends Injectable
     private function setupConfiguration($configData)
     {
         $setupConfigurationStep = ObjectManager::getInstance()->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $configData]
         );
 
@@ -144,7 +158,7 @@ class DeleteSavedCreditCardTest extends Injectable
     protected function prepareProducts($productList)
     {
         $addToCartStep = ObjectManager::getInstance()->create(
-            \Magento\Catalog\Test\TestStep\CreateProductsStep::class,
+            CreateProductsStep::class,
             ['products' => $productList]
         );
 
@@ -161,7 +175,7 @@ class DeleteSavedCreditCardTest extends Injectable
     protected function addToCart(array $products)
     {
         $addToCartStep = ObjectManager::getInstance()->create(
-            \Magento\Checkout\Test\TestStep\AddProductsToTheCartStep::class,
+            AddProductsToTheCartStep::class,
             ['products' => $products]
         );
         $addToCartStep->run();
@@ -175,7 +189,7 @@ class DeleteSavedCreditCardTest extends Injectable
     protected function proceedToCheckout()
     {
         $clickProceedToCheckoutStep = ObjectManager::getInstance()->create(
-            \Magento\Checkout\Test\TestStep\ProceedToCheckoutStep::class
+            ProceedToCheckoutStep::class
         );
         $clickProceedToCheckoutStep->run();
     }
@@ -189,7 +203,7 @@ class DeleteSavedCreditCardTest extends Injectable
     protected function createCustomer(array $customer)
     {
         $createCustomerStep = ObjectManager::getInstance()->create(
-            \Magento\Customer\Test\TestStep\CreateCustomerStep::class,
+            CreateCustomerStep::class,
             ['customer' => $customer]
         );
         $result = $createCustomerStep->run();
@@ -206,7 +220,7 @@ class DeleteSavedCreditCardTest extends Injectable
     protected function selectCheckoutMethod($checkoutMethod, $customer)
     {
         $selectCheckoutMethodStep = ObjectManager::getInstance()->create(
-            \Magento\Checkout\Test\TestStep\SelectCheckoutMethodStep::class,
+            SelectCheckoutMethodStep::class,
             [
                 'checkoutMethod' => $checkoutMethod,
                 'customer' => $customer,
@@ -224,7 +238,7 @@ class DeleteSavedCreditCardTest extends Injectable
     protected function fillShippingAddress(array $shippingAddress)
     {
         $fillShippingAddressStep = ObjectManager::getInstance()->create(
-            \Magento\Checkout\Test\TestStep\FillShippingAddressStep::class,
+            FillShippingAddressStep::class,
             ['shippingAddress' => $shippingAddress]
         );
         $fillShippingAddressStep->run();
@@ -239,7 +253,7 @@ class DeleteSavedCreditCardTest extends Injectable
     protected function fillShippingMethod(array $shipping)
     {
         $fillShippingMethodStep = ObjectManager::getInstance()->create(
-            \Magento\Checkout\Test\TestStep\FillShippingMethodStep::class,
+            FillShippingMethodStep::class,
             ['shipping' => $shipping]
         );
         $fillShippingMethodStep->run();
@@ -256,7 +270,7 @@ class DeleteSavedCreditCardTest extends Injectable
     protected function selectPaymentMethod(array $payment, array $creditCard, array $arguments)
     {
         $selectPaymentMethodStep = ObjectManager::getInstance()->create(
-            \Magento\Checkout\Test\TestStep\SelectPaymentMethodStep::class,
+            SelectPaymentMethodStep::class,
             array_merge(
                 [
                     'payment' => $payment,
@@ -278,7 +292,7 @@ class DeleteSavedCreditCardTest extends Injectable
     protected function saveCreditCard($payment, $creditCardSave)
     {
         $saveCreditCardStep = ObjectManager::getInstance()->create(
-            \Magento\Vault\Test\TestStep\SaveCreditCardStep::class,
+            SaveCreditCardStep::class,
             [
                 'creditCardSave' => $creditCardSave,
                 'payment' => $payment
@@ -295,7 +309,7 @@ class DeleteSavedCreditCardTest extends Injectable
     protected function fillBillingInformation()
     {
         $fillBillingInformationStep = ObjectManager::getInstance()->create(
-            \Magento\Checkout\Test\TestStep\FillBillingInformationStep::class
+            FillBillingInformationStep::class
         );
         $fillBillingInformationStep->run();
     }
@@ -308,7 +322,7 @@ class DeleteSavedCreditCardTest extends Injectable
     protected function placeOrder()
     {
         $placeOrderStep = ObjectManager::getInstance()->create(
-            \Magento\Checkout\Test\TestStep\PlaceOrderStep::class
+            PlaceOrderStep::class
         );
         $placeOrderStep->run();
     }
@@ -322,7 +336,7 @@ class DeleteSavedCreditCardTest extends Injectable
     protected function useSavedCreditCard($payment)
     {
         $useSavedCreditCardStep = ObjectManager::getInstance()->create(
-            \Magento\Vault\Test\TestStep\UseSavedPaymentMethodStep::class,
+            UseSavedPaymentMethodStep::class,
             ['vault' => $payment]
         );
         $useSavedCreditCardStep->run();
@@ -338,7 +352,7 @@ class DeleteSavedCreditCardTest extends Injectable
     protected function deleteCreditCardFromMyAccount($customer, $creditCard)
     {
         $deleteCreditCardFromMyAccountStep = ObjectManager::getInstance()->create(
-            \Magento\Vault\Test\TestStep\DeleteCreditCardFromMyAccountStep::class,
+            DeleteCreditCardFromMyAccountStep::class,
             [
                 'customer' => $customer,
                 'creditCard' => $creditCard

@@ -9,6 +9,7 @@ namespace Magento\Sales\Test\Constraint;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that order is present in Orders grid.
@@ -46,7 +47,7 @@ class AssertOrderInOrdersGrid extends AbstractConstraint
             'status' => $status
         ];
         $errorMessage = implode(', ', $filter);
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $orderIndex->getSalesOrderGrid()->isRowVisible(array_filter($filter)),
             'Order with following data \'' . $errorMessage . '\' is absent in Orders grid.'
         );

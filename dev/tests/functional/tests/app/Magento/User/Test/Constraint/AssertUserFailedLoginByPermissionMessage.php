@@ -9,6 +9,7 @@ namespace Magento\User\Test\Constraint;
 use Magento\Backend\Test\Page\AdminAuthLogin;
 use Magento\User\Test\Fixture\User;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Verify incorrect credentials message while login to admin.
@@ -30,7 +31,7 @@ class AssertUserFailedLoginByPermissionMessage extends AbstractConstraint
         $adminAuth->getLoginBlock()->fill($customAdmin);
         $adminAuth->getLoginBlock()->submit();
 
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::FAILED_LOGIN_MESSAGE,
             $adminAuth->getMessagesBlock()->getErrorMessage(),
             'Message "' . self::FAILED_LOGIN_MESSAGE . '" is not visible.'

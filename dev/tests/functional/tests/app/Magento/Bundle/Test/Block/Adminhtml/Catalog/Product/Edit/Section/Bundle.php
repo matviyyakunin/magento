@@ -83,7 +83,7 @@ class Bundle extends Section
     private function getBundleOptionBlock($rowNumber, ElementInterface $element)
     {
         return $this->blockFactory->create(
-            \Magento\Bundle\Test\Block\Adminhtml\Catalog\Product\Edit\Section\Bundle\Option::class,
+            Option::class,
             [
                 'element' => $element->find(sprintf($this->bundleOptionRow, $rowNumber), Locator::SELECTOR_XPATH)
             ]

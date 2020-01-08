@@ -6,11 +6,13 @@
 
 namespace Magento\User\Test\Handler\User;
 
+use Exception;
 use Magento\Backend\Test\Handler\Extractor;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Handler\Curl as AbstractCurl;
 use Magento\Mtf\Util\Protocol\CurlTransport;
 use Magento\Mtf\Util\Protocol\CurlTransport\BackendDecorator;
+use Magento\User\Test\Fixture\User;
 
 /**
  * Class Curl
@@ -23,11 +25,11 @@ class Curl extends AbstractCurl implements UserInterface
      *
      * @param FixtureInterface $fixture
      * @return array|mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function persist(FixtureInterface $fixture = null)
     {
-        /** @var \Magento\User\Test\Fixture\User $fixture */
+        /** @var User $fixture */
         $data = $fixture->getData();
         if ($fixture->hasData('role_id')) {
             $data['roles[]'] = $fixture->getDataFieldConfig('role_id')['source']->getRole()->getRoleId();
@@ -41,7 +43,7 @@ class Curl extends AbstractCurl implements UserInterface
         $curl->close();
 
         if (strpos($response, 'data-ui-id="messages-message-success"') === false) {
-            throw new \Exception("Admin user entity creating by curl handler was not successful! Response: $response");
+            throw new Exception("Admin user entity creating by curl handler was not successful! Response: $response");
         }
 
         $url = 'admin/user/roleGrid/sort/user_id/dir/desc';

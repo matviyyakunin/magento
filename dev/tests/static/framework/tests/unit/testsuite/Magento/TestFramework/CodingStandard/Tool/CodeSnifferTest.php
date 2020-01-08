@@ -5,12 +5,14 @@
  */
 namespace Magento\TestFramework\CodingStandard\Tool;
 
+use Magento\TestFramework\CodingStandard\Tool\CodeSniffer\Wrapper;
 use PHP_CodeSniffer\Runner;
+use PHPUnit\Framework\TestCase;
 
-class CodeSnifferTest extends \PHPUnit\Framework\TestCase
+class CodeSnifferTest extends TestCase
 {
     /**
-     * @var \Magento\TestFramework\CodingStandard\Tool\CodeSniffer
+     * @var CodeSniffer
      */
     protected $_tool;
 
@@ -31,8 +33,8 @@ class CodeSnifferTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp()
     {
-        $this->_wrapper = $this->createMock(\Magento\TestFramework\CodingStandard\Tool\CodeSniffer\Wrapper::class);
-        $this->_tool = new \Magento\TestFramework\CodingStandard\Tool\CodeSniffer(
+        $this->_wrapper = $this->createMock(Wrapper::class);
+        $this->_tool = new CodeSniffer(
             self::RULE_SET,
             self::REPORT_FILE,
             $this->_wrapper

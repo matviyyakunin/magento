@@ -6,12 +6,16 @@
 
 namespace Magento\Tax\Test\TestCase;
 
-use Magento\Tax\Test\Fixture\TaxRule;
 use Magento\Checkout\Test\Fixture\Cart;
-use Magento\Config\Test\Fixture\ConfigData;
 use Magento\Checkout\Test\Page\CheckoutCart;
-use Magento\Sales\Test\Fixture\OrderInjectable;
+use Magento\Checkout\Test\TestStep\AddProductsToTheCartStep;
+use Magento\Config\Test\Fixture\ConfigData;
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Customer\Test\TestCase\AbstractApplyVatIdTest;
+use Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep;
+use Magento\Sales\Test\Fixture\OrderInjectable;
+use Magento\Tax\Test\Fixture\TaxRule;
+use Magento\Tax\Test\TestStep\DeleteAllTaxRulesStep;
 
 /**
  * Preconditions:
@@ -80,7 +84,7 @@ class ApplyTaxBasedOnVatIdTest extends AbstractApplyVatIdTest
         $this->configData = $configData;
         $this->customer = $order->getDataFieldConfig('customer_id')['source']->getCustomer();
         $this->objectManager->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData]
         )->run();
 
@@ -101,11 +105,11 @@ class ApplyTaxBasedOnVatIdTest extends AbstractApplyVatIdTest
 
         // Steps
         $this->objectManager->create(
-            \Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep::class,
+            LoginCustomerOnFrontendStep::class,
             ['customer' => $this->customer]
         )->run();
         $this->objectManager->create(
-            \Magento\Checkout\Test\TestStep\AddProductsToTheCartStep::class,
+            AddProductsToTheCartStep::class,
             $order->getEntityId()
         )->run();
         $this->checkoutCart->open();
@@ -195,6 +199,6 @@ class ApplyTaxBasedOnVatIdTest extends AbstractApplyVatIdTest
     public function tearDown()
     {
         parent::tearDown();
-        $this->objectManager->create(\Magento\Tax\Test\TestStep\DeleteAllTaxRulesStep::class)->run();
+        $this->objectManager->create(DeleteAllTaxRulesStep::class)->run();
     }
 }

@@ -8,9 +8,11 @@ namespace Magento\Sales\Test\Constraint;
 
 use Magento\Customer\Test\Fixture\Customer;
 use Magento\Customer\Test\Page\CustomerAccountIndex;
+use Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\OrderHistory;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert order is not visible in customer account on frontend.
@@ -39,11 +41,11 @@ class AssertOrderNotVisibleOnMyAccount extends AbstractConstraint
             'status' => $status,
         ];
         $this->objectManager->create(
-            \Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep::class,
+            LoginCustomerOnFrontendStep::class,
             ['customer' => $customer]
         )->run();
         $customerAccountIndex->getAccountMenuBlock()->openMenuItem('My Orders');
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $orderHistory->getOrderHistoryBlock()->isVisible()
             && $orderHistory->getOrderHistoryBlock()->isOrderVisible($filter),
             'Order with following data \'' . implode(', ', $filter) . '\' is present in Orders block on frontend.'

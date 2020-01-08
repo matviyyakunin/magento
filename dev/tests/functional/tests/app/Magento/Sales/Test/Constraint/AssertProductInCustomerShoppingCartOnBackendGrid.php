@@ -10,6 +10,7 @@ use Magento\Customer\Test\Fixture\Customer;
 use Magento\Customer\Test\Page\Adminhtml\CheckoutIndex;
 use Magento\Customer\Test\Page\Adminhtml\CustomerIndexEdit;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that product is present in grid on customer's shopping cart on backend.
@@ -34,7 +35,7 @@ class AssertProductInCustomerShoppingCartOnBackendGrid extends AbstractConstrain
         $customerIndexEdit->open(['id' => $customer->getId()]);
         $customerIndexEdit->getPageActionsBlock()->manageShoppingCart();
         foreach ($productsInCart as $product) {
-            \PHPUnit\Framework\Assert::assertEquals(
+            Assert::assertEquals(
                 $product->getName(),
                 $checkoutIndex->getItemsBlock()->getItemName($product),
                 'Product ' . $product->getName() . " is not present in grid on customer's shopping cart on backend."

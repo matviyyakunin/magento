@@ -7,9 +7,11 @@
 namespace Magento\Sales\Test\Constraint;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
+use Magento\Sales\Test\Block\Adminhtml\Order\View\Tab\Info;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
 use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that comment about captured amount exists in Comments History section on order page in Admin.
@@ -40,7 +42,7 @@ class AssertCaptureInCommentsHistory extends AbstractConstraint
         $salesOrder->open();
         $salesOrder->getSalesOrderGrid()->searchAndOpen(['id' => $orderId]);
 
-        /** @var \Magento\Sales\Test\Block\Adminhtml\Order\View\Tab\Info $infoTab */
+        /** @var Info $infoTab */
         $infoTab = $salesOrderView->getOrderForm()->openTab('info')->getTab('info');
         $comments = $infoTab->getCommentsHistoryBlock()->getComments();
 
@@ -52,7 +54,7 @@ class AssertCaptureInCommentsHistory extends AbstractConstraint
         $comments = array_values($comments);
 
         foreach ($capturedPrices as $key => $capturedPrice) {
-            \PHPUnit\Framework\Assert::assertRegExp(
+            Assert::assertRegExp(
                 sprintf(self::CAPTURED_AMOUNT_PATTERN, preg_quote(number_format($capturedPrice, 2, '.', ''))),
                 $comments[$key]['comment'],
                 'Incorrect captured amount value for the order #' . $orderId

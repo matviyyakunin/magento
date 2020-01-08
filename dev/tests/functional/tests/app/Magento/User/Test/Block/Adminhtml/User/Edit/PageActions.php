@@ -7,6 +7,7 @@
 namespace Magento\User\Test\Block\Adminhtml\User\Edit;
 
 use Magento\Backend\Test\Block\FormPageActions;
+use Magento\Ui\Test\Block\Adminhtml\Modal;
 
 /**
  * Class PageActions
@@ -37,8 +38,8 @@ class PageActions extends FormPageActions
     {
         $this->_rootElement->find($this->forceSignIn)->click();
         $element = $this->browser->find($this->confirmModal);
-        /** @var \Magento\Ui\Test\Block\Adminhtml\Modal $modal */
-        $modal = $this->blockFactory->create(\Magento\Ui\Test\Block\Adminhtml\Modal::class, ['element' => $element]);
+        /** @var Modal $modal */
+        $modal = $this->blockFactory->create(Modal::class, ['element' => $element]);
         $modal->acceptAlert();
     }
 }

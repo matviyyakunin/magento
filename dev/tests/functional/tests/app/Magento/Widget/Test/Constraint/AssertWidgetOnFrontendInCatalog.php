@@ -8,9 +8,10 @@ namespace Magento\Widget\Test\Constraint;
 
 use Magento\Catalog\Test\Page\Category\CatalogCategoryView;
 use Magento\Cms\Test\Page\CmsIndex;
-use Magento\Widget\Test\Fixture\Widget;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Util\Command\Cli\Cache;
+use Magento\Widget\Test\Fixture\Widget;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check that created widget displayed on frontend in Catalog.
@@ -47,7 +48,7 @@ class AssertWidgetOnFrontendInCatalog extends AbstractConstraint
             $widgetText = $widget->getParameters()['anchor_text'];
         }
         $cmsIndex->getTopmenu()->selectCategoryByName($categoryName);
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $catalogCategoryView->getWidgetView()->isWidgetVisible($widget, $widgetText),
             'Widget is absent on Category page.'
         );

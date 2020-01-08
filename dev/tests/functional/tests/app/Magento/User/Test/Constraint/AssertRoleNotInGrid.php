@@ -9,6 +9,7 @@ namespace Magento\User\Test\Constraint;
 use Magento\User\Test\Fixture\Role;
 use Magento\User\Test\Page\Adminhtml\UserRoleIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertRoleNotInGrid
@@ -28,7 +29,7 @@ class AssertRoleNotInGrid extends AbstractConstraint
     ) {
         $filter = ['rolename' => $role->getRoleName()];
         $rolePage->open();
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $rolePage->getRoleGrid()->isRowVisible($filter),
             'Role with name \'' . $role->getRoleName() . '\' is present in Roles grid.'
         );

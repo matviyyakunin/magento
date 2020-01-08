@@ -8,6 +8,7 @@ namespace Magento\Sales\Test\TestStep;
 
 use Magento\Checkout\Test\Fixture\Cart;
 use Magento\Mtf\TestStep\TestStepInterface;
+use Magento\Sales\Test\Block\Adminhtml\Order\View\Tab\Invoices\Grid;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\Adminhtml\OrderCreditMemoNew;
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
@@ -99,7 +100,7 @@ class CreateOnlineCreditMemoStep implements TestStepInterface
         $this->orderIndex->getSalesOrderGrid()->searchAndOpen(['id' => $this->order->getId()]);
         $refundsData = $this->order->getRefund();
         foreach ($refundsData as $refundData) {
-            /** @var \Magento\Sales\Test\Block\Adminhtml\Order\View\Tab\Invoices\Grid $invoicesGrid */
+            /** @var Grid $invoicesGrid */
             $invoicesGrid = $this->salesOrderView->getOrderForm()->getTab('invoices')->getGridBlock();
             $this->salesOrderView->getOrderForm()->openTab('invoices');
             $invoicesGrid->viewInvoice();

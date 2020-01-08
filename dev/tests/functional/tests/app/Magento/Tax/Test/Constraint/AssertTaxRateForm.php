@@ -10,6 +10,7 @@ use Magento\Tax\Test\Fixture\TaxRate;
 use Magento\Tax\Test\Page\Adminhtml\TaxRateIndex;
 use Magento\Tax\Test\Page\Adminhtml\TaxRateNew;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertTaxRateForm
@@ -40,7 +41,7 @@ class AssertTaxRateForm extends AbstractConstraint
         $taxRateIndexPage->getTaxRateGrid()->searchAndOpen($filter);
         $formData = $taxRateNewPage->getTaxRateForm()->getData($taxRate);
         $dataDiff = $this->verifyForm($formData, $data);
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             empty($dataDiff),
             'Tax Rate form was filled incorrectly.'
             . "\nLog:\n" . implode(";\n", $dataDiff)

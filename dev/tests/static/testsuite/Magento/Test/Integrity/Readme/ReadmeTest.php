@@ -9,9 +9,11 @@
  */
 namespace Magento\Test\Integrity\Readme;
 
+use Magento\Framework\App\Utility\AggregateInvoker;
 use Magento\Framework\App\Utility\Files;
+use PHPUnit\Framework\TestCase;
 
-class ReadmeTest extends \PHPUnit\Framework\TestCase
+class ReadmeTest extends TestCase
 {
     const README_FILENAME = 'README.md';
 
@@ -33,7 +35,7 @@ class ReadmeTest extends \PHPUnit\Framework\TestCase
 
     public function testReadmeFiles()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * @param string $dir

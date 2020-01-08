@@ -6,10 +6,12 @@
 
 namespace Magento\Catalog\Test\Block\Product\Compare;
 
+use Magento\Backend\Test\Block\Messages;
 use Magento\Mtf\Block\Block;
 use Magento\Mtf\Client\Locator;
 use Magento\Catalog\Test\Fixture\CatalogProductAttribute;
 use Magento\Mtf\Client\Element\SimpleElement;
+use Magento\Ui\Test\Block\Adminhtml\Modal;
 
 /**
  * Compare list product block.
@@ -197,9 +199,9 @@ class ListCompare extends Block
     {
         $this->_rootElement->find(sprintf($this->removeButton, $index), Locator::SELECTOR_XPATH)->click();
         $modalElement = $this->browser->find($this->confirmModal);
-        /** @var \Magento\Ui\Test\Block\Adminhtml\Modal $modal */
+        /** @var Modal $modal */
         $modal = $this->blockFactory->create(
-            \Magento\Ui\Test\Block\Adminhtml\Modal::class,
+            Modal::class,
             ['element' => $modalElement]
         );
         $modal->acceptAlert();
@@ -213,9 +215,9 @@ class ListCompare extends Block
     public function removeAllProducts()
     {
         $this->waitForElementVisible(sprintf($this->removeButton, 1), Locator::SELECTOR_XPATH);
-        /** @var \Magento\Backend\Test\Block\Messages $messageBlock */
+        /** @var Messages $messageBlock */
         $messageBlock = $this->blockFactory->create(
-            \Magento\Backend\Test\Block\Messages::class,
+            Messages::class,
             ['element' => $this->browser->find($this->messageBlock)]
         );
 

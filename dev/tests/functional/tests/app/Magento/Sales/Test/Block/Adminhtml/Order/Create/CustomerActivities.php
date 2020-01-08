@@ -6,6 +6,7 @@
 
 namespace Magento\Sales\Test\Block\Adminhtml\Order\Create;
 
+use Magento\Backend\Test\Block\Template;
 use Magento\Sales\Test\Block\Adminhtml\Order\Create\CustomerActivities\Sidebar\LastOrderedItems;
 use Magento\Sales\Test\Block\Adminhtml\Order\Create\CustomerActivities\Sidebar\ProductsInComparison;
 use Magento\Sales\Test\Block\Adminhtml\Order\Create\CustomerActivities\Sidebar\RecentlyComparedProducts;
@@ -89,7 +90,7 @@ class CustomerActivities extends Block
     public function getLastOrderedItemsBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Create\CustomerActivities\Sidebar\LastOrderedItems::class,
+            LastOrderedItems::class,
             ['element' => $this->_rootElement->find($this->reorderSidebar)]
         );
     }
@@ -102,7 +103,7 @@ class CustomerActivities extends Block
     public function getRecentlyViewedItemsBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Create\CustomerActivities\Sidebar\RecentlyViewedItems::class,
+            RecentlyViewedItems::class,
             ['element' => $this->_rootElement->find($this->recentlyViewedSidebar)]
         );
     }
@@ -115,7 +116,7 @@ class CustomerActivities extends Block
     public function getProductsInComparisonBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Create\CustomerActivities\Sidebar\ProductsInComparison::class,
+            ProductsInComparison::class,
             ['element' => $this->_rootElement->find($this->comparedSidebar)]
         );
     }
@@ -128,7 +129,7 @@ class CustomerActivities extends Block
     public function getRecentlyComparedProductsBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Create\CustomerActivities\Sidebar\RecentlyComparedProducts::class,
+            RecentlyComparedProducts::class,
             ['element' => $this->_rootElement->find($this->recentlyComparedSidebar)]
         );
     }
@@ -141,7 +142,7 @@ class CustomerActivities extends Block
     public function getRecentlyViewedProductsBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Create\CustomerActivities\Sidebar\RecentlyViewedProducts::class,
+            RecentlyViewedProducts::class,
             ['element' => $this->_rootElement->find($this->recentlyViewedSidebar)]
         );
     }
@@ -154,7 +155,7 @@ class CustomerActivities extends Block
     public function getShoppingCartItemsBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Create\CustomerActivities\Sidebar\ShoppingCartItems::class,
+            ShoppingCartItems::class,
             ['element' => $this->_rootElement->find($this->shoppingCartSidebar)]
         );
     }
@@ -162,12 +163,12 @@ class CustomerActivities extends Block
     /**
      * Get backend abstract block
      *
-     * @return \Magento\Backend\Test\Block\Template
+     * @return Template
      */
     public function getTemplateBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Backend\Test\Block\Template::class,
+            Template::class,
             ['element' => $this->_rootElement->find($this->templateBlock, Locator::SELECTOR_XPATH)]
         );
     }

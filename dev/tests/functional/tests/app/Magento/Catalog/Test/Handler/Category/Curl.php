@@ -6,6 +6,7 @@
 
 namespace Magento\Catalog\Test\Handler\Category;
 
+use Exception;
 use Magento\Catalog\Test\Fixture\Category;
 use Magento\Mtf\Config\DataInterface;
 use Magento\Mtf\Fixture\FixtureInterface;
@@ -127,7 +128,7 @@ class Curl extends AbstractCurl implements CategoryInterface
      *
      * @param FixtureInterface|null $fixture [optional]
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function persist(FixtureInterface $fixture = null)
     {
@@ -140,7 +141,7 @@ class Curl extends AbstractCurl implements CategoryInterface
 
         if (strpos($response, 'data-ui-id="messages-message-success"') === false) {
             $this->_eventManager->dispatchEvent(['curl_failed'], [$response]);
-            throw new \Exception('Category creation by curl handler was not successful!');
+            throw new Exception('Category creation by curl handler was not successful!');
         }
 
         preg_match('#http://.+/id/(\d+).+store/#m', $response, $matches);

@@ -6,11 +6,12 @@
 namespace Magento\Test\Tools\Composer;
 
 use Magento\Tools\Composer\Package\Reader;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class RootComposerMappingTest
  */
-class RootComposerMappingTest extends \PHPUnit\Framework\TestCase
+class RootComposerMappingTest extends TestCase
 {
     /**
      * Test existence of paths for marshalling

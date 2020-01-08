@@ -8,6 +8,7 @@ namespace Magento\Captcha\Test\Constraint;
 
 use Magento\Captcha\Test\Page\ContactIndexCaptcha as ContactIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert captcha on the Contact Us page.
@@ -22,12 +23,12 @@ class AssertCaptchaFieldOnContactUsForm extends AbstractConstraint
      */
     public function processAssertRegisterForm(ContactIndex $contactIndex)
     {
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $contactIndex->getContactUs()->isVisibleCaptcha(),
             'Captcha image is not displayed on the Contact Us page.'
         );
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $contactIndex->getContactUs()->isVisibleCaptchaReloadButton(),
             'Captcha reload button is not displayed on the Contact Us page.'
         );

@@ -8,6 +8,7 @@ namespace Magento\Install\Test\Constraint;
 
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that selected language currently displays on frontend.
@@ -24,7 +25,7 @@ class AssertLanguageSelected extends AbstractConstraint
     public function processAssert($languageTemplate, CmsIndex $indexPage)
     {
         $indexPage->open();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $indexPage->getFooterBlock()->isLinkVisible($languageTemplate),
             'Selected language not displays on frontend.'
         );

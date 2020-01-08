@@ -10,6 +10,7 @@ use Magento\Backend\Test\Block\Template;
 use Magento\Mtf\Block\Block;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\Fixture\InjectableFixture;
+use Magento\Sales\Test\Block\Adminhtml\Order\Create\Items\ItemProduct;
 
 /**
  * Adminhtml sales order create items block.
@@ -82,12 +83,12 @@ class Items extends Block
      * Get item product block.
      *
      * @param string $name
-     * @return \Magento\Sales\Test\Block\Adminhtml\Order\Create\Items\ItemProduct
+     * @return ItemProduct
      */
     public function getItemProductByName($name)
     {
         return $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Create\Items\ItemProduct::class,
+            ItemProduct::class,
             ['element' => $this->_rootElement->find(sprintf($this->itemProduct, $name), Locator::SELECTOR_XPATH)]
         );
     }
@@ -160,7 +161,7 @@ class Items extends Block
     public function getTemplateBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Backend\Test\Block\Template::class,
+            Template::class,
             ['element' => $this->_rootElement->find($this->template, Locator::SELECTOR_XPATH)]
         );
     }

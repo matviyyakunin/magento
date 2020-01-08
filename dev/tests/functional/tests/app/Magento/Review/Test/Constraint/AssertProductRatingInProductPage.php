@@ -12,6 +12,7 @@ use Magento\Review\Test\Fixture\Rating;
 use Magento\Review\Test\Fixture\Review;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductRatingInProductPage
@@ -43,7 +44,7 @@ class AssertProductRatingInProductPage extends AbstractConstraint
         }
         $rating = $productRating ? $productRating : $review->getDataFieldConfig('ratings')['source']->getRatings()[0];
         $reviewForm = $catalogProductView->getReviewFormBlock();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $reviewForm->isVisibleRating($rating),
             'Product rating "' . $rating->getRatingCode() . '" is not displayed.'
         );

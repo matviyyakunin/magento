@@ -8,6 +8,7 @@ namespace Magento\Catalog\Test\Constraint;
 
 use Magento\Catalog\Test\Page\Adminhtml\CatalogCategoryEdit;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that success message is displayed after category moving.
@@ -28,7 +29,7 @@ class AssertCategoryMovedMessage extends AbstractConstraint
     public function processAssert(CatalogCategoryEdit $catalogCategoryEdit)
     {
         $actualMessage = $catalogCategoryEdit->getMessagesBlock()->getSuccessMessage();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $actualMessage,
             'Wrong success message is displayed.'

@@ -6,10 +6,11 @@
 namespace Magento\Test\Integrity\Library\PhpParser;
 
 use Magento\TestFramework\Integrity\Library\PhpParser\Uses;
+use PHPUnit\Framework\TestCase;
 
 /**
  */
-class UsesTest extends \PHPUnit\Framework\TestCase
+class UsesTest extends TestCase
 {
     /**
      * @var Uses

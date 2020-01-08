@@ -6,6 +6,7 @@
 
 namespace Magento\Config\Test\Handler\ConfigData;
 
+use Exception;
 use Magento\Config\Test\Fixture\ConfigData\Section;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Handler\Curl as AbstractCurl;
@@ -119,7 +120,7 @@ class Curl extends AbstractCurl implements ConfigDataInterface
      *
      * @param array $data
      * @param string $section
-     * @throws \Exception
+     * @throws Exception
      */
     protected function applyConfigSettings(array $data, $section)
     {
@@ -132,7 +133,7 @@ class Curl extends AbstractCurl implements ConfigDataInterface
 
         if (strpos($response, 'data-ui-id="messages-message-success"') === false) {
             $this->_eventManager->dispatchEvent(['curl_failed'], [$response]);
-            throw new \Exception(
+            throw new Exception(
                 "Configuration settings are not applied! Url: $url" . PHP_EOL . "data: " . print_r($data, true)
             );
         }

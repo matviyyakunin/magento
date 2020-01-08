@@ -9,6 +9,7 @@ namespace Magento\Catalog\Test\Constraint;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that product is present in products grid.
@@ -34,7 +35,7 @@ class AssertProductInGrid extends AbstractConstraint
         $this->product = $product;
         $productIndex->open();
         $productIndex->getProductGrid()->resetFilter();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $productIndex->getProductGrid()->isRowVisible($this->prepareFilter()),
             'Product \'' . $this->product->getName() . '\' is absent in Products grid.'
         );

@@ -8,6 +8,7 @@ namespace Magento\Sales\Test\Constraint;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Sales\Test\Page\Adminhtml\OrderCreateIndex;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that Items Ordered section on Create Order page on backend is empty.
@@ -27,7 +28,7 @@ class AssertItemsOrderedSectionOnBackendOrderIsEmpty extends AbstractConstraint
      */
     public function processAssert(OrderCreateIndex $orderCreateIndex)
     {
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $orderCreateIndex->getCreateBlock()->getItemsBlock()->getEmptyTextMessage(),
             self::TEXT_MESSAGE,
             'Items Ordered section on Create Order page on backend is not empty.'

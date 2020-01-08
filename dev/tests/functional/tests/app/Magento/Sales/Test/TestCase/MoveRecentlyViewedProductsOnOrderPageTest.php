@@ -6,8 +6,16 @@
 
 namespace Magento\Sales\Test\TestCase;
 
+use Magento\Catalog\Test\TestStep\CreateProductsStep;
+use Magento\Catalog\Test\TestStep\OpenProductsOnFrontendStep;
+use Magento\Customer\Test\TestStep\CreateOrderFromCustomerAccountStep;
+use Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep;
+use Magento\Customer\Test\TestStep\OpenCustomerOnBackendStep;
 use Magento\Mtf\TestCase\Injectable;
 use Magento\Customer\Test\Fixture\Customer;
+use Magento\Sales\Test\TestStep\AddRecentlyViewedProductsToCartStep;
+use Magento\Sales\Test\TestStep\ConfigureProductsStep;
+use Magento\Sales\Test\TestStep\SelectStoreStep;
 
 /**
  * Preconditions:
@@ -47,7 +55,7 @@ class MoveRecentlyViewedProductsOnOrderPageTest extends Injectable
     {
         $customer->persist();
         $this->objectManager
-            ->create(\Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep::class, ['customer' => $customer])
+            ->create(LoginCustomerOnFrontendStep::class, ['customer' => $customer])
             ->run();
 
         return ['customer' => $customer];
@@ -64,23 +72,23 @@ class MoveRecentlyViewedProductsOnOrderPageTest extends Injectable
     {
         // Preconditions
         $products = $this->objectManager
-            ->create(\Magento\Catalog\Test\TestStep\CreateProductsStep::class, ['products' => $products])
+            ->create(CreateProductsStep::class, ['products' => $products])
             ->run()['products'];
         $this->objectManager
-            ->create(\Magento\Catalog\Test\TestStep\OpenProductsOnFrontendStep::class, ['products' => $products])
+            ->create(OpenProductsOnFrontendStep::class, ['products' => $products])
             ->run();
 
         // Steps
         $this->objectManager
-            ->create(\Magento\Customer\Test\TestStep\OpenCustomerOnBackendStep::class, ['customer' => $customer])
+            ->create(OpenCustomerOnBackendStep::class, ['customer' => $customer])
             ->run();
-        $this->objectManager->create(\Magento\Customer\Test\TestStep\CreateOrderFromCustomerAccountStep::class)->run();
-        $this->objectManager->create(\Magento\Sales\Test\TestStep\SelectStoreStep::class)->run();
+        $this->objectManager->create(CreateOrderFromCustomerAccountStep::class)->run();
+        $this->objectManager->create(SelectStoreStep::class)->run();
         $this->objectManager
-            ->create(\Magento\Sales\Test\TestStep\AddRecentlyViewedProductsToCartStep::class, ['products' => $products])
+            ->create(AddRecentlyViewedProductsToCartStep::class, ['products' => $products])
             ->run();
         $this->objectManager
-            ->create(\Magento\Sales\Test\TestStep\ConfigureProductsStep::class, ['products' => $products])
+            ->create(ConfigureProductsStep::class, ['products' => $products])
             ->run();
 
         return ['products' => $products];

@@ -9,6 +9,7 @@ namespace Magento\Reports\Test\Constraint;
 use Magento\CatalogSearch\Test\Page\Adminhtml\CatalogSearchEdit;
 use Magento\Reports\Test\Page\Adminhtml\SearchIndex;
 use Magento\Mtf\Constraint\AbstractAssertForm;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertSearchTermReportForm
@@ -43,7 +44,7 @@ class AssertSearchTermReportForm extends AbstractAssertForm
 
         $dataDiff = $this->verifyData($filter, $catalogSearchEdit->getForm()->getData());
 
-        \PHPUnit\Framework\Assert::assertEmpty($dataDiff, $dataDiff);
+        Assert::assertEmpty($dataDiff, $dataDiff);
     }
 
     /**

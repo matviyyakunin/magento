@@ -11,6 +11,7 @@ use Magento\Mtf\Handler\Curl;
 use Magento\Mtf\Util\Protocol\CurlInterface;
 use Magento\Mtf\Util\Protocol\CurlTransport;
 use Magento\Mtf\Util\Protocol\CurlTransport\BackendDecorator;
+use RuntimeException;
 
 /**
  * Curl handler remove all tax rules
@@ -101,13 +102,13 @@ class RemoveTaxRule extends Curl
      *
      * @param string $data
      * @param int $taxRuleId
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     protected function checkMessage($data, $taxRuleId)
     {
         preg_match_all('!(' . static::TAX_RULE_REMOVE_MESSAGE . ')!', $data, $result);
         if (!isset($result[1]) || empty($result[1])) {
-            throw new \RuntimeException('Tax rule ID ' . $taxRuleId . 'not removed!');
+            throw new RuntimeException('Tax rule ID ' . $taxRuleId . 'not removed!');
         }
     }
 }

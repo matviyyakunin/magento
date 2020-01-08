@@ -9,6 +9,7 @@ namespace Magento\Cms\Test\Constraint;
 use Magento\Cms\Test\Page\Adminhtml\CmsPageIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Cms\Test\Fixture\CmsPage;
+use PHPUnit\Framework\Assert;
 
 /**
  * Verify that page has not been created.
@@ -31,7 +32,7 @@ class AssertCmsPageDuplicateErrorMessage extends AbstractConstraint
     {
         $actualMessage = $cmsIndex->getMessagesBlock()->getErrorMessage();
 
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             self::ERROR_MESSAGE_TITLE,
             $actualMessage,
             'Wrong error message is displayed.'
@@ -39,7 +40,7 @@ class AssertCmsPageDuplicateErrorMessage extends AbstractConstraint
             . "\nActual:\n" . $actualMessage
         );
 
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             $cmsPage->getIdentifier(),
             $actualMessage,
             'CMS page url is not present on error message.'

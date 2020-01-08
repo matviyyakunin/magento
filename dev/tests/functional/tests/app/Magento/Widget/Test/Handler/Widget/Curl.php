@@ -6,6 +6,7 @@
 
 namespace Magento\Widget\Test\Handler\Widget;
 
+use Exception;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Handler\Curl as AbstractCurl;
 use Magento\Mtf\Config\DataInterface;
@@ -87,7 +88,7 @@ class Curl extends AbstractCurl
      * Post request for creating widget instance.
      *
      * @param FixtureInterface $fixture [optional]
-     * @throws \Exception
+     * @throws Exception
      * @return array
      */
     public function persist(FixtureInterface $fixture = null)
@@ -103,7 +104,7 @@ class Curl extends AbstractCurl
         $curl->close();
 
         if (strpos($response, 'data-ui-id="messages-message-success"') === false) {
-            throw new \Exception("Widget instance creation by curl handler was not successful! Response: $response");
+            throw new Exception("Widget instance creation by curl handler was not successful! Response: $response");
         }
         $id = null;
         if (preg_match_all('/\/widget_instance\/edit\/instance_id\/(\d+)/', $response, $matches)) {
@@ -165,7 +166,7 @@ class Curl extends AbstractCurl
      *
      * @param array $data
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     protected function prepareWidgetInstance(array $data)
     {
@@ -174,7 +175,7 @@ class Curl extends AbstractCurl
             $pageGroup = $widgetInstance['page_group'];
             $method = 'prepare' . str_replace(' ', '', ucwords(str_replace('_', ' ', $pageGroup))) . 'Group';
             if (!method_exists(__CLASS__, $method)) {
-                throw new \Exception('Method for prepare page group "' . $method . '" is not exist.');
+                throw new Exception('Method for prepare page group "' . $method . '" is not exist.');
             }
             $widgetInstances[$key]['page_group'] = $pageGroup;
             $widgetInstances[$key][$pageGroup] = $this->$method($widgetInstance);
@@ -240,7 +241,7 @@ class Curl extends AbstractCurl
      *
      * @param string $title
      * @return int
-     * @throws \Exception
+     * @throws Exception
      */
     protected function getThemeId($title)
     {

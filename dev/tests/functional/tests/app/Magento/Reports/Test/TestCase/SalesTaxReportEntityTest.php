@@ -17,6 +17,7 @@ use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
 use Magento\Tax\Test\Fixture\TaxRule;
 use Magento\Tax\Test\Page\Adminhtml\TaxRuleIndex;
 use Magento\Tax\Test\Page\Adminhtml\TaxRuleNew;
+use Magento\Tax\Test\TestStep\DeleteAllTaxRulesStep;
 
 /**
  * Preconditions:
@@ -114,7 +115,7 @@ class SalesTaxReportEntityTest extends Injectable
      */
     public function __prepare()
     {
-        $deleteTaxRule = $this->objectManager->create(\Magento\Tax\Test\TestStep\DeleteAllTaxRulesStep::class);
+        $deleteTaxRule = $this->objectManager->create(DeleteAllTaxRulesStep::class);
         $deleteTaxRule->run();
     }
 
@@ -217,7 +218,7 @@ class SalesTaxReportEntityTest extends Injectable
      */
     public function tearDown()
     {
-        $deleteTaxRule = $this->objectManager->create(\Magento\Tax\Test\TestStep\DeleteAllTaxRulesStep::class);
+        $deleteTaxRule = $this->objectManager->create(DeleteAllTaxRulesStep::class);
         $deleteTaxRule->run();
     }
 }

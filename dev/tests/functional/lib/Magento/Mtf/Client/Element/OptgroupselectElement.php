@@ -6,6 +6,7 @@
 
 namespace Magento\Mtf\Client\Element;
 
+use Exception;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\Client\ElementInterface;
 
@@ -32,7 +33,7 @@ class OptgroupselectElement extends SelectElement
      * Get the value of form element.
      *
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function getValue()
     {
@@ -40,7 +41,7 @@ class OptgroupselectElement extends SelectElement
 
         $selectedLabel = parent::getValue();
         if ($selectedLabel == '') {
-            throw new \Exception('Selected value has not been found in optgroup select.');
+            throw new Exception('Selected value has not been found in optgroup select.');
         }
 
         $element = $this->find(sprintf($this->optGroup, $selectedLabel), Locator::SELECTOR_XPATH);

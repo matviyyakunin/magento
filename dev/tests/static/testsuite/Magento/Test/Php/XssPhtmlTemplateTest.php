@@ -6,21 +6,23 @@
 
 namespace Magento\Test\Php;
 
+use Magento\Framework\App\Utility\AggregateInvoker;
 use Magento\Framework\App\Utility\Files;
 use Magento\TestFramework\Utility\XssOutputValidator;
 use Magento\Framework\Component\ComponentRegistrar;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Find not escaped output in phtml templates
  */
-class XssPhtmlTemplateTest extends \PHPUnit\Framework\TestCase
+class XssPhtmlTemplateTest extends TestCase
 {
     /**
      * @return void
      */
     public function testXssSensitiveOutput()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $xssOutputValidator = new XssOutputValidator();
         $invoker(
             /**

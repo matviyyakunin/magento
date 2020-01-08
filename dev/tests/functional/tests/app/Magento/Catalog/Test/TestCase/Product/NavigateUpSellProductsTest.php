@@ -7,6 +7,7 @@
 namespace Magento\Catalog\Test\TestCase\Product;
 
 use Magento\Mtf\Fixture\InjectableFixture;
+use PHPUnit\Framework\Assert;
 
 /**
  * Preconditions:
@@ -75,7 +76,7 @@ class NavigateUpSellProductsTest extends AbstractProductPromotedProductsTest
      */
     protected function assertAbsentUpSellSection()
     {
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $this->catalogProductView->getUpsellBlock()->isVisible(),
             "Up-sell section is present."
         );
@@ -101,7 +102,7 @@ class NavigateUpSellProductsTest extends AbstractProductPromotedProductsTest
 
         sort($productNames);
         sort($pageProductNames);
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $productNames,
             $pageProductNames,
             'Wrong products are displayed in up-sell section.'

@@ -10,6 +10,7 @@ use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Backend\Test\Page\Adminhtml\Dashboard;
 use Magento\Customer\Test\Page\CustomerAccountLogin;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that Secure Urls Enabled.
@@ -34,13 +35,13 @@ class AssertSecureUrlEnabled extends AbstractConstraint
         CustomerAccountLogin $customerAccountLogin
     ) {
         $dashboard->open();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             strpos($browser->getUrl(), 'https://') !== false,
             'Secure Url is not displayed on backend.'
         );
 
         $customerAccountLogin->open();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             strpos($browser->getUrl(), 'https://') !== false,
             'Secure Url is not displayed on frontend.'
         );

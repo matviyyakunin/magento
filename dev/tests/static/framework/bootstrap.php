@@ -9,6 +9,7 @@ use Magento\Framework\Component\ComponentRegistrar;
 use Magento\Framework\Component\DirSearch;
 use Magento\Framework\Filesystem\Directory\ReadFactory;
 use Magento\Framework\Filesystem\DriverPool;
+use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Framework\View\Design\Theme\ThemePackageList;
 use Magento\Framework\View\Design\Theme\ThemePackageFactory;
 
@@ -23,9 +24,9 @@ setCustomErrorHandler();
 $componentRegistrar = new ComponentRegistrar();
 $dirSearch = new DirSearch($componentRegistrar, new ReadFactory(new DriverPool()));
 $themePackageList = new ThemePackageList($componentRegistrar, new ThemePackageFactory());
-$serializer = new \Magento\Framework\Serialize\Serializer\Json();
+$serializer = new Json();
 $regexIteratorFactory = new Magento\Framework\App\Utility\RegexIteratorFactory();
-\Magento\Framework\App\Utility\Files::setInstance(
+Files::setInstance(
     new Files($componentRegistrar, $dirSearch, $themePackageList, $serializer, $regexIteratorFactory)
 );
 

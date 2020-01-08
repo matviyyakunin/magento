@@ -7,6 +7,7 @@
 namespace Magento\Ui\Test\Constraint;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that only matched items are shown on the grid after applying filter
@@ -22,7 +23,7 @@ class AssertGridFiltering extends AbstractConstraint
     {
         foreach ($filterResults as $itemId => $filters) {
             foreach ($filters as $filterName => $ids) {
-                \PHPUnit\Framework\Assert::assertCount(
+                Assert::assertCount(
                     1,
                     $ids,
                     sprintf(
@@ -33,7 +34,7 @@ class AssertGridFiltering extends AbstractConstraint
                     )
                 );
                 $actualItemId = $ids[0];
-                \PHPUnit\Framework\Assert::assertEquals(
+                Assert::assertEquals(
                     $itemId,
                     $actualItemId,
                     sprintf(

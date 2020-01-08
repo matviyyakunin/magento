@@ -6,14 +6,15 @@
 
 namespace Magento\Widget\Test\Constraint;
 
-use Magento\Mtf\Util\Command\Cli\Cache;
 use Magento\Catalog\Test\Fixture\CatalogProductSimple;
 use Magento\Catalog\Test\Page\Product\CatalogProductCompare;
 use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Cms\Test\Page\CmsIndex;
-use Magento\Widget\Test\Fixture\Widget;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use Magento\Mtf\Util\Command\Cli\Cache;
+use Magento\Widget\Test\Fixture\Widget;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check that widget with type Recently Compared Products is present on Product Compare page
@@ -89,7 +90,7 @@ class AssertWidgetRecentlyComparedProducts extends AbstractConstraint
         $this->addProducts($products);
         $this->removeCompareProducts();
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $this->catalogProductCompare->getWidgetView()->isWidgetVisible($widget, 'Recently Compared'),
             'Widget is absent on Product Compare page.'
         );

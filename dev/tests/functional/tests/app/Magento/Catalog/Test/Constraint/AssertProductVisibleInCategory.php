@@ -11,6 +11,7 @@ use Magento\Catalog\Test\Page\Category\CatalogCategoryView;
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductVisibleInCategory
@@ -63,7 +64,7 @@ class AssertProductVisibleInCategory extends AbstractConstraint
             $this->successfulMessage = 'Asserts that the product could not be found in this category.';
         }
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $isProductVisible,
             $this->errorMessage
         );

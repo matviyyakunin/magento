@@ -6,11 +6,12 @@
 
 namespace Magento\Catalog\Test\Constraint;
 
-use Magento\Mtf\Fixture\InjectableFixture;
-use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Catalog\Test\Fixture\CatalogProductAttribute;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductEdit;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
+use Magento\Mtf\Constraint\AbstractConstraint;
+use Magento\Mtf\Fixture\InjectableFixture;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert all product attribute options on product creation form.
@@ -44,7 +45,7 @@ class AssertAttributeOptionsOnProductForm extends AbstractConstraint
         $productOptions = explode("\n", $productAttributeOptions);
         $diff = array_diff($options, $productOptions);
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             empty($diff),
             "Products attribute options are absent on product form: " . implode(', ', $diff)
         );

@@ -11,6 +11,7 @@ use Magento\Catalog\Test\Fixture\CatalogProductAttribute;
 use Magento\Catalog\Test\Fixture\CatalogProductSimple;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductAttributeIndex;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductAttributeNew;
+use Magento\Catalog\Test\TestStep\AddAttributeToAttributeSetStep;
 use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Mtf\TestCase\Injectable;
 
@@ -91,7 +92,7 @@ class UpdateProductAttributeEntityTest extends Injectable
         $product->persist();
 
         $this->objectManager->create(
-            \Magento\Catalog\Test\TestStep\AddAttributeToAttributeSetStep::class,
+            AddAttributeToAttributeSetStep::class,
             [
                 'attribute' => $productAttributeOriginal,
                 'attributeSet' => $attributeSet

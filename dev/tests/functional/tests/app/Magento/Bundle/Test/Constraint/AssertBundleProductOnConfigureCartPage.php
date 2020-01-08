@@ -12,6 +12,7 @@ use Magento\Checkout\Test\Constraint\Utils\CartPageLoadTrait;
 use Magento\Checkout\Test\Fixture\Cart;
 use Magento\Checkout\Test\Page\CheckoutCart;
 use Magento\Mtf\Constraint\AbstractAssertForm;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assertion that bundle product is correctly displayed on cart configuration page.
@@ -75,7 +76,7 @@ class AssertBundleProductOnConfigureCartPage extends AbstractAssertForm
         }
 
         $error = $this->verifyData($productOptions, $formOptions);
-        \PHPUnit\Framework\Assert::assertEmpty($error, $error);
+        Assert::assertEmpty($error, $error);
     }
 
     /**

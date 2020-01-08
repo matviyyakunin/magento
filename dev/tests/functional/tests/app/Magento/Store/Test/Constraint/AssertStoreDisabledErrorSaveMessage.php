@@ -8,6 +8,7 @@ namespace Magento\Store\Test\Constraint;
 
 use Magento\Backend\Test\Page\Adminhtml\EditStore;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that after Store View save disabled error message appears.
@@ -27,7 +28,7 @@ class AssertStoreDisabledErrorSaveMessage extends AbstractConstraint
      */
     public function processAssert(EditStore $editStore)
     {
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::ERROR_MESSAGE,
             $editStore->getMessagesBlock()->getErrorMessage(),
             'Wrong error message is displayed.'

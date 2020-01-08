@@ -10,6 +10,7 @@ use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Catalog\Test\Fixture\Category;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that apache redirect correct works.
@@ -29,7 +30,7 @@ class AssertRewritesEnabled extends AbstractConstraint
         $homePage->open();
         $homePage->getTopmenu()->selectCategoryByName($category->getName());
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             strpos($browser->getUrl(), 'index.php') === false,
             'Apache redirect for category does not work.'
         );

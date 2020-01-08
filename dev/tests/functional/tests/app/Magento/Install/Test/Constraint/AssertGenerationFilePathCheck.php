@@ -7,6 +7,7 @@ namespace Magento\Install\Test\Constraint;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Util\Command\PathChecker;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that path of generated files is correct.
@@ -38,14 +39,14 @@ class AssertGenerationFilePathCheck extends AbstractConstraint
         ];
 
         foreach ($existsPaths as $path) {
-            \PHPUnit\Framework\Assert::assertTrue(
+            Assert::assertTrue(
                 $pathChecker->pathExists($path),
                 'Path "' . $path . '" does not exist.'
             );
         }
 
         foreach ($nonExistsPaths as $path) {
-            \PHPUnit\Framework\Assert::assertFalse(
+            Assert::assertFalse(
                 $pathChecker->pathExists($path),
                 'Path "' . $path . '" exists.'
             );

@@ -8,6 +8,7 @@ namespace Magento\Catalog\Test\Constraint;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check mass update success message.
@@ -30,7 +31,7 @@ class AssertMassProductUpdateSuccessMessage extends AbstractConstraint
     {
         $expectedMessage = sprintf(self::SUCCESS_MESSAGE, $productsCount);
         $actualMessage = $productGrid->getMessagesBlock()->getSuccessMessage();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $expectedMessage,
             $actualMessage,
             'Wrong success message is displayed.'

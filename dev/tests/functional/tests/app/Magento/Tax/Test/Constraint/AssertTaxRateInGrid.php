@@ -9,6 +9,7 @@ namespace Magento\Tax\Test\Constraint;
 use Magento\Tax\Test\Fixture\TaxRate;
 use Magento\Tax\Test\Page\Adminhtml\TaxRateIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertTaxRateInGrid
@@ -40,7 +41,7 @@ class AssertTaxRateInGrid extends AbstractConstraint
             : $data['zip_from'] . '-' . $data['zip_to'];
 
         $taxRateIndexPage->open();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $taxRateIndexPage->getTaxRateGrid()->isRowVisible($filter),
             'Tax Rate \'' . $filter['code'] . '\' is absent in Tax Rate grid.'
         );

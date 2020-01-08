@@ -6,9 +6,10 @@
 
 namespace Magento\Widget\Test\Block;
 
-use Magento\Widget\Test\Fixture\Widget;
+use Exception;
 use Magento\Mtf\Block\Block;
 use Magento\Mtf\Client\Locator;
+use Magento\Widget\Test\Fixture\Widget;
 
 /**
  * Widget block on the frontend.
@@ -35,7 +36,7 @@ class WidgetView extends Block
      * @param Widget $widget
      * @param string $widgetText
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function isWidgetVisible(Widget $widget, $widgetText)
     {
@@ -53,7 +54,7 @@ class WidgetView extends Block
                     Locator::SELECTOR_XPATH
                 )->isVisible();
             } else {
-                throw new \Exception('Determine how to find the widget on the page.');
+                throw new Exception('Determine how to find the widget on the page.');
             }
         }
     }
@@ -64,7 +65,7 @@ class WidgetView extends Block
      * @param Widget $widget
      * @param string $widgetText
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function clickToWidget(Widget $widget, $widgetText)
     {
@@ -78,7 +79,7 @@ class WidgetView extends Block
                     Locator::SELECTOR_XPATH
                 )->click();
             } else {
-                throw new \Exception('Determine how to find the widget on the page.');
+                throw new Exception('Determine how to find the widget on the page.');
             }
         }
     }

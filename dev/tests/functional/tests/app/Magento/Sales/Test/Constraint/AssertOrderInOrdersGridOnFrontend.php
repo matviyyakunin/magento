@@ -8,10 +8,12 @@ namespace Magento\Sales\Test\Constraint;
 
 use Magento\Customer\Test\Fixture\Customer;
 use Magento\Customer\Test\Page\CustomerAccountIndex;
+use Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\OrderHistory;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\ObjectManager;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that order is present in Orders grid on frontend.
@@ -51,12 +53,12 @@ class AssertOrderInOrdersGridOnFrontend extends AbstractConstraint
         ];
 
         $objectManager->create(
-            \Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep::class,
+            LoginCustomerOnFrontendStep::class,
             ['customer' => $customer]
         )->run();
         $customerAccountIndex->getAccountMenuBlock()->openMenuItem('My Orders');
         $errorMessage = implode(', ', $filter);
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $orderHistory->getOrderHistoryBlock()->isOrderVisible($filter),
             'Order with following data \'' . $errorMessage . '\' is absent in Orders block on frontend.'
         );

@@ -6,6 +6,7 @@
 
 namespace Magento\Test\Php;
 
+use Exception;
 use Magento\Framework\App\Utility\Files;
 use Magento\Framework\Component\ComponentRegistrar;
 use Magento\TestFramework\CodingStandard\Tool\CodeMessDetector;
@@ -13,11 +14,12 @@ use Magento\TestFramework\CodingStandard\Tool\CodeSniffer;
 use Magento\TestFramework\CodingStandard\Tool\CodeSniffer\Wrapper;
 use Magento\TestFramework\CodingStandard\Tool\CopyPasteDetector;
 use PHPMD\TextUI\Command;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Set of tests for static code analysis, e.g. code style, code complexity, copy paste detecting, etc.
  */
-class LiveCodeTest extends \PHPUnit\Framework\TestCase
+class LiveCodeTest extends TestCase
 {
     /**
      * @var string
@@ -86,7 +88,7 @@ class LiveCodeTest extends \PHPUnit\Framework\TestCase
         $globPatternsFolder = ('' !== $baseFilesFolder) ? $baseFilesFolder : self::getBaseFilesFolder();
         try {
             $directoriesToCheck = Files::init()->readLists($globPatternsFolder . $whitelistFile);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // no directories matched white list
             return [];
         }
@@ -250,7 +252,7 @@ class LiveCodeTest extends \PHPUnit\Framework\TestCase
     {
         try {
             return Files::init()->readLists(__DIR__ . '/_files/whitelist/common.txt');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // nothing is whitelisted
             return [];
         }
@@ -350,7 +352,7 @@ class LiveCodeTest extends \PHPUnit\Framework\TestCase
             $blackList = Files::init()->readLists(
                 self::getBaseFilesFolder() . '/_files/blacklist/strict_type.txt'
             );
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // nothing matched black list
             $blackList = [];
         }

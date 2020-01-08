@@ -6,7 +6,9 @@
 
 namespace Magento\Backend\Test\Block\Dashboard;
 
-class StoreStats extends \Magento\Backend\Test\Block\Widget\FormTabs
+use Magento\Backend\Test\Block\Widget\FormTabs;
+
+class StoreStats extends FormTabs
 {
     /**
      * Refresh data button

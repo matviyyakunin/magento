@@ -8,6 +8,7 @@ namespace Magento\User\Test\Constraint;
 
 use Magento\User\Test\Page\Adminhtml\UserIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertUserSuccessDeleteMessage
@@ -29,7 +30,7 @@ class AssertUserSuccessDeleteMessage extends AbstractConstraint
     public function processAssert(UserIndex $userIndex)
     {
         $successMessage = $userIndex->getMessagesBlock()->getSuccessMessage();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $successMessage,
             'Wrong success message is displayed.'

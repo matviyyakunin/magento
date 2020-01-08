@@ -5,10 +5,11 @@
  */
 namespace Magento\Backend\Test\TestCase;
 
-use Magento\Mtf\TestCase\Injectable;
 use Magento\Backend\Test\Page\Adminhtml\Dashboard;
-use Magento\Mtf\Util\Command\Cli\DeployMode;
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
+use Magento\Mtf\TestCase\Injectable;
 use Magento\Mtf\TestStep\TestStepFactory;
+use Magento\Mtf\Util\Command\Cli\DeployMode;
 use Magento\User\Test\TestStep\LoginUserOnBackendStep;
 
 /**
@@ -70,7 +71,7 @@ class LoginAfterJSMinificationTest extends Injectable
         //Pre-conditions
         $cli->setDeployModeToDeveloper();
         $this->stepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData]
         )->run();
 
@@ -85,7 +86,7 @@ class LoginAfterJSMinificationTest extends Injectable
     protected function tearDown()
     {
         $this->stepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData]
         )->cleanup();
     }

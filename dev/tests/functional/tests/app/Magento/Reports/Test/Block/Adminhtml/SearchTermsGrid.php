@@ -6,11 +6,13 @@
 
 namespace Magento\Reports\Test\Block\Adminhtml;
 
+use Magento\Backend\Test\Block\Widget\Grid;
+
 /**
  * Class SearchTermsGrid
  * Search Terms report Grid
  */
-class SearchTermsGrid extends \Magento\Backend\Test\Block\Widget\Grid
+class SearchTermsGrid extends Grid
 {
     /**
      * Filters array mapping

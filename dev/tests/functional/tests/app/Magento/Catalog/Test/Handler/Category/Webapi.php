@@ -6,6 +6,7 @@
 
 namespace Magento\Catalog\Test\Handler\Category;
 
+use Exception;
 use Magento\Catalog\Test\Fixture\Category;
 use Magento\Mtf\Config\DataInterface;
 use Magento\Mtf\Fixture\FixtureInterface;
@@ -66,7 +67,7 @@ class Webapi extends AbstractWebapi implements CategoryInterface
      *
      * @param FixtureInterface|null $fixture [optional]
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function persist(FixtureInterface $fixture = null)
     {
@@ -79,7 +80,7 @@ class Webapi extends AbstractWebapi implements CategoryInterface
 
         if (empty($response['id'])) {
             $this->eventManager->dispatchEvent(['webapi_failed'], [$response]);
-            throw new \Exception('Category creation by webapi handler was not successful!');
+            throw new Exception('Category creation by webapi handler was not successful!');
         }
 
         $this->assignProducts($response['id'], $fixture);
@@ -125,7 +126,7 @@ class Webapi extends AbstractWebapi implements CategoryInterface
      * @param int $categoryId
      * @param FixtureInterface $fixture
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function assignProducts($categoryId, FixtureInterface $fixture)
     {
@@ -148,7 +149,7 @@ class Webapi extends AbstractWebapi implements CategoryInterface
 
                 if ('true' != $response) {
                     $this->eventManager->dispatchEvent(['webapi_failed'], [$response]);
-                    throw new \Exception('Assign product to category was not successful!');
+                    throw new Exception('Assign product to category was not successful!');
                 }
             }
         }

@@ -6,10 +6,11 @@
 
 namespace Magento\Install\Test\Constraint;
 
-use Magento\User\Test\Fixture\User;
+use Magento\Install\Test\Fixture\Install as InstallConfig;
 use Magento\Install\Test\Page\Install;
 use Magento\Mtf\Constraint\AbstractConstraint;
-use Magento\Install\Test\Fixture\Install as InstallConfig;
+use Magento\User\Test\Fixture\User;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check that Magento successfully installed.
@@ -79,14 +80,14 @@ class AssertSuccessInstall extends AbstractConstraint
     private function checkInstallData(array $allData, array $adminData, array $dbData)
     {
         foreach ($this->adminFieldsList as $field) {
-            \PHPUnit\Framework\Assert::assertEquals(
+            Assert::assertEquals(
                 $allData[$field['fixture']],
                 $adminData[$field['pageData']],
                 'Wrong admin information is displayed.'
             );
         }
         foreach ($this->dbFieldsList as $field) {
-            \PHPUnit\Framework\Assert::assertEquals(
+            Assert::assertEquals(
                 $allData[$field['fixture']],
                 $dbData[$field['pageData']],
                 'Wrong database information is displayed.'

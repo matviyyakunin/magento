@@ -6,6 +6,7 @@
 
 namespace Magento\Sales\Test\TestCase;
 
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
 use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
@@ -81,7 +82,7 @@ class CancelCreatedOrderTest extends Injectable
         // Preconditions
         $this->configData = $configData;
         $stepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $configData]
         )->run();
         $order->persist();
@@ -104,7 +105,7 @@ class CancelCreatedOrderTest extends Injectable
     public function tearDown()
     {
         $this->objectManager->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData, 'rollback' => true]
         )->run();
     }

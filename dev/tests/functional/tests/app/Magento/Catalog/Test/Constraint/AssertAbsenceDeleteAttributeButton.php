@@ -8,6 +8,7 @@ namespace Magento\Catalog\Test\Constraint;
 
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductAttributeNew;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertAbsenceDeleteAttributeButton
@@ -23,7 +24,7 @@ class AssertAbsenceDeleteAttributeButton extends AbstractConstraint
      */
     public function processAssert(CatalogProductAttributeNew $attributeNew)
     {
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $attributeNew->getPageActions()->checkDeleteButton(),
             "Button 'Delete Attribute' is present on Attribute page"
         );

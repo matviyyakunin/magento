@@ -8,6 +8,7 @@ namespace Magento\Catalog\Test\Block\Adminhtml\Category\Edit;
 
 use Magento\Backend\Test\Block\FormPageActions;
 use Magento\Mtf\Client\Locator;
+use Magento\Ui\Test\Block\Adminhtml\Modal;
 
 /**
  * Category page actions.
@@ -67,8 +68,8 @@ class PageActions extends FormPageActions
         $this->waitForElementVisible($name, Locator::SELECTOR_LINK_TEXT);
         $this->_rootElement->find($name, Locator::SELECTOR_LINK_TEXT)->click();
         $element = $this->browser->find($this->confirmModal);
-        /** @var \Magento\Ui\Test\Block\Adminhtml\Modal $modal */
-        $modal = $this->blockFactory->create(\Magento\Ui\Test\Block\Adminhtml\Modal::class, ['element' => $element]);
+        /** @var Modal $modal */
+        $modal = $this->blockFactory->create(Modal::class, ['element' => $element]);
         $modal->acceptAlert();
         $this->waitForElementVisible($this->storeChangeButton);
     }

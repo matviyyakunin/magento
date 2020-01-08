@@ -8,6 +8,7 @@ namespace Magento\Tax\Test\Constraint;
 
 use Magento\Tax\Test\Page\Adminhtml\TaxRuleIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertSuccessSavedMessageTaxRule
@@ -29,7 +30,7 @@ class AssertTaxRuleSuccessSaveMessage extends AbstractConstraint
     public function processAssert(TaxRuleIndex $taxRuleIndex)
     {
         $actualMessage = $taxRuleIndex->getMessagesBlock()->getSuccessMessage();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $actualMessage,
             'Wrong success message is displayed.'

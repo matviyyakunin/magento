@@ -6,10 +6,12 @@
 
 namespace Magento\Catalog\Test\Constraint;
 
+use Exception;
 use Magento\Catalog\Test\Fixture\CatalogProductAttribute;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductAttributeIndex;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductAttributeNew;
 use Magento\Mtf\Constraint\AbstractAssertForm;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that displayed attribute data on edit page equals passed from fixture.
@@ -22,7 +24,7 @@ class AssertAttributeForm extends AbstractAssertForm
      * @param CatalogProductAttributeIndex $catalogProductAttributeIndex
      * @param CatalogProductAttributeNew $catalogProductAttributeNew
      * @param CatalogProductAttribute $attribute
-     * @throws \Exception
+     * @throws Exception
      * @return void
      */
     public function processAssert(
@@ -37,7 +39,7 @@ class AssertAttributeForm extends AbstractAssertForm
             $attribute->getData(),
             $catalogProductAttributeNew->getAttributeForm()->getData($attribute)
         );
-        \PHPUnit\Framework\Assert::assertEmpty($errors, $errors);
+        Assert::assertEmpty($errors, $errors);
     }
 
     /**

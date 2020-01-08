@@ -7,9 +7,11 @@
 namespace Magento\Sales\Test\Constraint;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
+use Magento\Sales\Test\Block\Adminhtml\Order\View\Tab\Info;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
 use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that payment information is valid and matches with expected values.
@@ -33,11 +35,11 @@ class AssertOrderPaymentInformation extends AbstractConstraint
     ) {
         $orderIndex->open();
         $orderIndex->getSalesOrderGrid()->searchAndOpen(['id' => $order->getId()]);
-        /** @var \Magento\Sales\Test\Block\Adminhtml\Order\View\Tab\Info $infoTab */
+        /** @var Info $infoTab */
         $infoTab = $salesOrderView->getOrderForm()->openTab('info')->getTab('info');
         $actualPaymentInformation = $infoTab->getPaymentInfoBlock()->getData();
 
-        \PHPUnit\Framework\Assert::assertEmpty(
+        Assert::assertEmpty(
             array_diff($paymentInfo, $actualPaymentInformation),
             'Payment Information missmatch with expected values.'
         );

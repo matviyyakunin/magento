@@ -5,6 +5,7 @@
  */
 namespace Magento\Test\Integrity\Magento\Webapi\Model;
 
+use Magento\Framework\Config\Dom\UrnResolver;
 use Magento\TestFramework\Integrity\AbstractConfig;
 
 /**
@@ -84,7 +85,7 @@ class ConfigTest extends AbstractConfig
      */
     protected function _getXsd()
     {
-        $urnResolver = new \Magento\Framework\Config\Dom\UrnResolver();
+        $urnResolver = new UrnResolver();
         return $urnResolver->getRealPath('urn:magento:module:Magento_Webapi:etc/webapi.xsd');
     }
 

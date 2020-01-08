@@ -6,6 +6,7 @@
 
 namespace Magento\Review\Test\Handler\Review;
 
+use Exception;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Util\Protocol\CurlTransport;
 use Magento\Review\Test\Fixture\Rating;
@@ -41,7 +42,7 @@ class Curl extends AbstractCurl implements ReviewInterface
      *
      * @param FixtureInterface|null $review [optional]
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function persist(FixtureInterface $review = null)
     {
@@ -54,7 +55,7 @@ class Curl extends AbstractCurl implements ReviewInterface
         $response = $curl->read();
         $curl->close();
         if (strpos($response, 'data-ui-id="messages-message-success"') === false) {
-            throw new \Exception(
+            throw new Exception(
                 'Product Review entity creating by curl handler was not successful! Response:' . $response
             );
         }

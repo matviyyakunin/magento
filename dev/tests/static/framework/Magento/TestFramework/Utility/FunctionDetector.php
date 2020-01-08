@@ -40,7 +40,7 @@ class FunctionDetector
             return $result;
         }
 
-        $fileContent = \Magento\TestFramework\Utility\ChangedFiles::getChangedContent($filePath);
+        $fileContent = ChangedFiles::getChangedContent($filePath);
         $file = file($filePath);
 
         return $fileContent

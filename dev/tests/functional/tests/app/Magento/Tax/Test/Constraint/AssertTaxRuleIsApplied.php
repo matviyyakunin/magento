@@ -6,6 +6,8 @@
 
 namespace Magento\Tax\Test\Constraint;
 
+use PHPUnit\Framework\Assert;
+
 /**
  * Class AssertTaxRuleIsApplied
  */
@@ -42,7 +44,7 @@ class AssertTaxRuleIsApplied extends AssertTaxRuleApplying
                 . "\nActual: " . $actualGrandTotal;
         }
 
-        \PHPUnit\Framework\Assert::assertTrue(empty($errorMessages), implode(";\n", $errorMessages));
+        Assert::assertTrue(empty($errorMessages), implode(";\n", $errorMessages));
     }
 
     /**

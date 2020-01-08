@@ -7,11 +7,12 @@
 namespace Magento\Bundle\Test\TestStep;
 
 use Magento\Mtf\TestStep\TestStepInterface;
+use Magento\Sales\Test\TestStep\CreateInvoiceStep;
 
 /**
  * Create invoice from order on backend.
  */
-class CreatePartialInvoiceStep extends \Magento\Sales\Test\TestStep\CreateInvoiceStep implements TestStepInterface
+class CreatePartialInvoiceStep extends CreateInvoiceStep implements TestStepInterface
 {
 
     /**

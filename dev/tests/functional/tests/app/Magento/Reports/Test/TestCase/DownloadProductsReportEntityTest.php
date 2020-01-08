@@ -7,11 +7,13 @@
 namespace Magento\Reports\Test\TestCase;
 
 use Magento\Customer\Test\Page\CustomerAccountIndex;
+use Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep;
 use Magento\Downloadable\Test\Page\DownloadableCustomerProducts;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Mtf\TestCase\Injectable;
 use Magento\Sales\Test\Fixture\OrderInjectable;
+use Magento\Sales\Test\TestStep\CreateInvoiceStep;
 
 /**
  * Preconditions:
@@ -99,7 +101,7 @@ class DownloadProductsReportEntityTest extends Injectable
         $cart['data']['items'] = ['products' => $products];
         $cart = $this->fixtureFactory->createByCode('cart', $cart);
         $invoice = $this->objectManager->create(
-            \Magento\Sales\Test\TestStep\CreateInvoiceStep::class,
+            CreateInvoiceStep::class,
             ['order' => $order, 'cart' => $cart]
         );
         $invoice->run();
@@ -116,7 +118,7 @@ class DownloadProductsReportEntityTest extends Injectable
     protected function openDownloadableLink(OrderInjectable $order, $downloads)
     {
         $customerLogin = $this->objectManager->create(
-            \Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep::class,
+            LoginCustomerOnFrontendStep::class,
             ['customer' => $order->getDataFieldConfig('customer_id')['source']->getCustomer()]
         );
         $customerLogin->run();

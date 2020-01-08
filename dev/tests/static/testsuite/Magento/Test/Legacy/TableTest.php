@@ -9,13 +9,15 @@
  */
 namespace Magento\Test\Legacy;
 
+use Magento\Framework\App\Utility\AggregateInvoker;
 use Magento\Framework\App\Utility\Files;
+use PHPUnit\Framework\TestCase;
 
-class TableTest extends \PHPUnit\Framework\TestCase
+class TableTest extends TestCase
 {
     public function testTableName()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * @param string $filePath

@@ -6,6 +6,8 @@
 
 namespace Magento\Mtf\Client\Element;
 
+use BadMethodCallException;
+use Exception;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\Client\ElementInterface;
 
@@ -70,7 +72,7 @@ class GlobalsearchElement extends SimpleElement
      * Wait init search suggest container.
      *
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function waitInitElement()
     {
@@ -104,11 +106,11 @@ class GlobalsearchElement extends SimpleElement
     /**
      * Get value.
      *
-     * @throws \BadMethodCallException
+     * @throws BadMethodCallException
      */
     public function getValue()
     {
-        throw new \BadMethodCallException('Not applicable for this class of elements (GlobalSearch)');
+        throw new BadMethodCallException('Not applicable for this class of elements (GlobalSearch)');
     }
 
     /**

@@ -6,6 +6,8 @@
 
 namespace Magento\Catalog\Test\Block\Product;
 
+use Exception;
+use Magento\Backend\Test\Block\Messages;
 use Magento\Catalog\Test\Block\AbstractConfigureBlock;
 use Magento\Catalog\Test\Fixture\CatalogProductSimple;
 use Magento\Checkout\Test\Block\Cart\Sidebar;
@@ -261,7 +263,7 @@ class View extends AbstractConfigureBlock
         }
 
         return $this->blockFactory->create(
-            \Magento\Catalog\Test\Block\Product\Price::class,
+            Price::class,
             ['element' => $this->_rootElement->find($this->priceBlock, Locator::SELECTOR_XPATH)]
         );
     }
@@ -509,9 +511,9 @@ class View extends AbstractConfigureBlock
      */
     public function clickAddToCompare()
     {
-        /** @var \Magento\Backend\Test\Block\Messages $messageBlock */
+        /** @var Messages $messageBlock */
         $messageBlock = $this->blockFactory->create(
-            \Magento\Backend\Test\Block\Messages::class,
+            Messages::class,
             ['element' => $this->browser->find($this->messageBlock)]
         );
         $this->_rootElement->find($this->clickAddToCompare, Locator::SELECTOR_CSS)->click();
@@ -565,7 +567,7 @@ class View extends AbstractConfigureBlock
     {
         try {
             $this->waitForElementNotVisible($this->ajaxLoading);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
         }
     }
 

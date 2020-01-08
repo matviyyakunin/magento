@@ -6,6 +6,7 @@
 
 namespace Magento\Cms\Test\Handler\CmsBlock;
 
+use Exception;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Handler\Curl as AbstractCurl;
 use Magento\Mtf\Util\Protocol\CurlTransport;
@@ -49,7 +50,7 @@ class Curl extends AbstractCurl implements CmsBlockInterface
      *
      * @param FixtureInterface|null $fixture [optional]
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function persist(FixtureInterface $fixture = null)
     {
@@ -60,7 +61,7 @@ class Curl extends AbstractCurl implements CmsBlockInterface
         $response = $curl->read();
         $curl->close();
         if (strpos($response, 'data-ui-id="messages-message-success"') === false) {
-            throw new \Exception("CMS Block entity creating by curl handler was not successful! Response: $response");
+            throw new Exception("CMS Block entity creating by curl handler was not successful! Response: $response");
         }
 
         preg_match("`block_id\/(\d*?)\/`", $response, $matches);

@@ -12,6 +12,7 @@ use Magento\Cms\Test\Page\CmsIndex as FrontCmsIndex;
 use Magento\Cms\Test\Page\CmsPage as FrontCmsPage;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that content of created cms page displayed in section 'maincontent' and equals passed from fixture.
@@ -47,21 +48,21 @@ class AssertCmsPagePreview extends AbstractConstraint
         $browser->selectWindow();
 
         $fixtureContent = $cms->getContent();
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             $displayContent != null ? $displayContent : $fixtureContent['content'],
             $frontCmsPage->getCmsPageBlock()->getPageContent(),
             'Wrong content is displayed.'
         );
         if (isset($fixtureContent['widget'])) {
             foreach ($fixtureContent['widget']['dataset'] as $widget) {
-                \PHPUnit\Framework\Assert::assertTrue(
+                Assert::assertTrue(
                     $frontCmsPage->getCmsPageBlock()->isWidgetVisible($widget['widget_type'], $widget['anchor_text']),
                     'Widget \'' . $widget['widget_type'] . '\' is not displayed.'
                 );
             }
         }
         if ($cms->getContentHeading()) {
-            \PHPUnit\Framework\Assert::assertEquals(
+            Assert::assertEquals(
                 $cms->getContentHeading(),
                 $frontCmsIndex->getTitleBlock()->getTitle(),
                 'Wrong title is displayed.'

@@ -6,6 +6,7 @@
 
 namespace Magento\Captcha\Test\TestCase;
 
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Customer\Test\Block\Form\Login;
 use Magento\Customer\Test\Fixture\Customer;
 use Magento\Customer\Test\Page\Adminhtml\CustomerIndexEdit;
@@ -110,7 +111,7 @@ class CaptchaLockoutCustomerTest extends Injectable
 
         // Preconditions
         $this->stepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData]
         )->run();
         $customer->persist();
@@ -168,7 +169,7 @@ class CaptchaLockoutCustomerTest extends Injectable
     public function tearDown()
     {
         $this->stepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData, 'rollback' => true]
         )->run();
     }

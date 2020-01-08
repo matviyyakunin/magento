@@ -10,6 +10,7 @@ use Magento\Review\Test\Fixture\Review;
 use Magento\Review\Test\Page\Adminhtml\ReviewEdit;
 use Magento\Review\Test\Page\Adminhtml\ReviewIndex;
 use Magento\Mtf\Constraint\AbstractAssertForm;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductRatingOnReviewPage
@@ -44,7 +45,7 @@ class AssertProductRatingOnReviewPage extends AbstractAssertForm
         $ratingForm = $reviewEdit->getReviewForm()->getData();
         $ratingForm = $this->sortDataByPath($ratingForm['ratings'], '::title');
         $error = $this->verifyData($ratingReview, $ratingForm);
-        \PHPUnit\Framework\Assert::assertTrue(empty($error), $error);
+        Assert::assertTrue(empty($error), $error);
     }
 
     /**

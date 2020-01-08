@@ -8,6 +8,7 @@ namespace Magento\Install\Test\Constraint;
 
 use Magento\Install\Test\Page\DevdocsInstall;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check Developer Documentation link.
@@ -27,7 +28,7 @@ class AssertDevdocsLink extends AbstractConstraint
      */
     public function processAssert(DevdocsInstall $devdocsInstallPage)
     {
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::DEVDOCS_TITLE_TEXT,
             $devdocsInstallPage->getDevdocsBlock()->getDevdocsTitle(),
             'Developer Documentation link is wrong.'

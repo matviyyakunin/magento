@@ -6,16 +6,19 @@
 
 namespace Magento\Mtf\Troubleshooting;
 
+use Exception;
+use Magento\Mtf\Console\Output;
 use Magento\Mtf\ObjectManagerInterface;
 use Magento\Mtf\Util\Protocol\CurlInterface;
 use Magento\Mtf\Util\Protocol\CurlTransport;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Checks if .htaccess is identical to .htaccess.sample.
  */
-class HtaccessAnalyzer extends \Symfony\Component\Console\Command\Command
+class HtaccessAnalyzer extends Command
 {
     /**
      * Object manager instance.
@@ -75,7 +78,7 @@ class HtaccessAnalyzer extends \Symfony\Component\Console\Command\Command
     {
         \PHPUnit\Util\Configuration::getInstance(MTF_PHPUNIT_FILE)->handlePHPConfiguration();
         $output = $this->objectManager->create(
-            \Magento\Mtf\Console\Output::class,
+            Output::class,
             ['output' => $output]
         );
         try {
@@ -89,7 +92,7 @@ class HtaccessAnalyzer extends \Symfony\Component\Console\Command\Command
                 $output->outputMessages($message);
             }
             $this->curl->close();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $output->outputMessages(['error' => [$e->getMessage()]]);
         }
         $output->writeln(".htaccess check finished.");

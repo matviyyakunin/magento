@@ -11,6 +11,7 @@ use Magento\Review\Test\Fixture\Review;
 use Magento\Review\Test\Page\Adminhtml\ReviewIndex;
 use Magento\PageCache\Test\Page\Adminhtml\AdminCache;
 use Magento\Review\Test\Page\Adminhtml\ReviewEdit;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that product review can do approved.
@@ -70,7 +71,7 @@ class AssertSetApprovedProductReview extends AbstractConstraint
         $this->cachePage->open();
         $this->cachePage->getActionsBlock()->flushCacheStorage();
         $this->cachePage->getModalBlock()->acceptAlert();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $this->cachePage->getActionsBlock()->isStorageCacheFlushed(),
             'Cache is not flushed.'
         );

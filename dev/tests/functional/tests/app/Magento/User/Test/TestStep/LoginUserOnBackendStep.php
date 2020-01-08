@@ -11,6 +11,7 @@ use Magento\Backend\Test\Page\Adminhtml\Dashboard;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\TestStep\TestStepInterface;
 use Magento\User\Test\Fixture\User;
+use PHPUnit_Extensions_Selenium2TestCase_WebDriverException;
 
 /**
  * Login user on backend.
@@ -99,7 +100,7 @@ class LoginUserOnBackendStep implements TestStepInterface
 
         try {
             $this->login();
-        } catch (\PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
+        } catch (PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
             if (strpos($e->getMessage(), 'Timed out after') !== false) {
                 $messages = $this->adminAuth->getMessagesBlock();
                 if (in_array($messages->getErrorMessage(), $this->errorMessages, true)) {

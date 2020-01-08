@@ -11,6 +11,7 @@ use Magento\Bundle\Test\Fixture\BundleProduct;
 use Magento\Catalog\Test\Page\Category\CatalogCategoryView;
 use Magento\Catalog\Test\Constraint\AssertProductInCategory;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check bundle product on the category page.
@@ -39,13 +40,13 @@ class AssertBundleInCategory extends AssertProductInCategory
                 : $priceBlock->getPrice();
         }
 
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $priceData['price_from'],
             $priceLow,
             'Bundle price From on category page is not correct.'
         );
         if ($bundle->getPriceView() == 'Price Range') {
-            \PHPUnit\Framework\Assert::assertEquals(
+            Assert::assertEquals(
                 $priceData['price_to'],
                 $priceBlock->getPriceTo(),
                 'Bundle price To on category page is not correct.'

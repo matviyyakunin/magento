@@ -9,6 +9,7 @@ namespace Magento\Store\Test\Constraint;
 use Magento\Backend\Test\Page\Adminhtml\StoreIndex;
 use Magento\Store\Test\Fixture\Website;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertWebsiteNotInGrid
@@ -27,7 +28,7 @@ class AssertWebsiteNotInGrid extends AbstractConstraint
     {
         $websiteName = $website->getName();
         $storeIndex->open()->getStoreGrid()->search(['website_title' => $websiteName]);
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $storeIndex->getStoreGrid()->isWebsiteExists($website),
             'Website \'' . $websiteName . '\' is present in grid.'
         );

@@ -8,6 +8,7 @@ namespace Magento\Payment\Test\Constraint;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Backend\Test\Page\Adminhtml\SystemConfigEditSectionPayment;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertFieldsAreActive
@@ -25,7 +26,7 @@ class AssertFieldsAreActive extends AbstractConstraint
     public function processAssert(SystemConfigEditSectionPayment $configEditSectionPayment, array $fieldIds)
     {
         foreach ($fieldIds as $fieldId) {
-            \PHPUnit\Framework\Assert::assertFalse(
+            Assert::assertFalse(
                 $configEditSectionPayment->getPaymentsConfigBlock()->isFieldDisabled($fieldId),
                 'Field is disabled.'
             );

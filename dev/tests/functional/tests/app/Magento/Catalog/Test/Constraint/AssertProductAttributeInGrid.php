@@ -9,6 +9,7 @@ namespace Magento\Catalog\Test\Constraint;
 use Magento\Catalog\Test\Fixture\CatalogProductAttribute;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductAttributeIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that created product attribute is found in grid.
@@ -26,7 +27,7 @@ class AssertProductAttributeInGrid extends AbstractConstraint
     {
         $attributeIndexPage->open();
         $code = $attribute->getAttributeCode();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $attributeIndexPage->getGrid()->isRowVisible(['attribute_code' => $code]),
             'Attribute with attribute code "' . $code . '" is absent in attribute grid.'
         );

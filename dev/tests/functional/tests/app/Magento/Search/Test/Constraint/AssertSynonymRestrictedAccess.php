@@ -9,6 +9,7 @@ namespace Magento\Search\Test\Constraint;
 use Magento\Search\Test\Page\Adminhtml\SynonymGroupIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Backend\Test\Page\Adminhtml\Dashboard;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that access to synonym group index page by direct url is restricted.
@@ -31,7 +32,7 @@ class AssertSynonymRestrictedAccess extends AbstractConstraint
     {
         $synonymGroupIndex->open();
 
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             self::ACCESS_DENIED_TEXT,
             $dashboard->getErrorBlock()->getContent(),
             'Synonym group index page is available.'

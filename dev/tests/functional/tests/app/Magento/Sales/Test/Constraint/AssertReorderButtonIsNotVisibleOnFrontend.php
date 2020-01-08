@@ -8,10 +8,12 @@ namespace Magento\Sales\Test\Constraint;
 
 use Magento\Customer\Test\Fixture\Customer;
 use Magento\Customer\Test\Page\CustomerAccountIndex;
+use Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\ObjectManager;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\OrderHistory;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that "Reorder" button is absent in Orders grid on frontend.
@@ -51,12 +53,12 @@ class AssertReorderButtonIsNotVisibleOnFrontend extends AbstractConstraint
         ];
 
         $objectManager->create(
-            \Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep::class,
+            LoginCustomerOnFrontendStep::class,
             ['customer' => $customer]
         )->run();
         $customerAccountIndex->getAccountMenuBlock()->openMenuItem('My Orders');
         $errorMessage = implode(', ', $filter);
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $orderHistory->getOrderHistoryBlock()->isReorderButtonPresentByOrderId($filter['id']),
             '"Reorder" button for order with following data \'' . $errorMessage
             . '\' is present in Orders block on frontend.'

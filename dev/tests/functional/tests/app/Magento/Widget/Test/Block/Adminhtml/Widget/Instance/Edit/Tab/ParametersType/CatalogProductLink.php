@@ -7,6 +7,7 @@
 namespace Magento\Widget\Test\Block\Adminhtml\Widget\Instance\Edit\Tab\ParametersType;
 
 use Magento\Mtf\Fixture\InjectableFixture;
+use Magento\Widget\Test\Block\Adminhtml\Widget\Instance\Edit\Tab\ParametersType\CatalogProductLink\Grid;
 
 /**
  * Filling Widget Options that have catalog product link type.
@@ -26,7 +27,7 @@ class CatalogProductLink extends ParametersForm
      * @var string
      */
     // @codingStandardsIgnoreStart
-    protected $pathToGrid = \Magento\Widget\Test\Block\Adminhtml\Widget\Instance\Edit\Tab\ParametersType\CatalogProductLink\Grid::class;
+    protected $pathToGrid = Grid::class;
     // @codingStandardsIgnoreEnd
 
     /**

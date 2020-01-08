@@ -10,6 +10,7 @@ use Magento\Catalog\Test\Fixture\Category;
 use Magento\Catalog\Test\Page\Category\CatalogCategoryView;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertCategoryIsNotActive
@@ -33,11 +34,11 @@ class AssertCategoryIsNotActive extends AbstractConstraint
         BrowserInterface $browser
     ) {
         $browser->open($this->getCategoryUrl($category));
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $categoryView->getTopmenu()->isCategoryVisible($category->getName()),
             'Category can be accessed from the navigation bar in the frontend.'
         );
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::NOT_FOUND_MESSAGE,
             $categoryView->getTitleBlock()->getTitle(),
             'Wrong page is displayed.'

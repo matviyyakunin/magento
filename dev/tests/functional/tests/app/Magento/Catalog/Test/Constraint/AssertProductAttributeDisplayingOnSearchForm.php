@@ -9,6 +9,7 @@ namespace Magento\Catalog\Test\Constraint;
 use Magento\Catalog\Test\Fixture\CatalogProductAttribute;
 use Magento\CatalogSearch\Test\Page\AdvancedSearch;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check whether attribute is displayed in the advanced search form on the frontend.
@@ -33,7 +34,7 @@ class AssertProductAttributeDisplayingOnSearchForm extends AbstractConstraint
         $label = $attribute->hasData('manage_frontend_label')
             ? $attribute->getManageFrontendLabel()
             : $attribute->getFrontendLabel();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             in_array($label, $formLabels),
             'Attribute is absent on advanced search form.'
         );

@@ -6,8 +6,11 @@
 
 namespace Magento\Catalog\Test\Fixture\Product;
 
+use Exception;
+use Magento\Mtf\Config\DataInterface;
 use Magento\Mtf\Fixture\DataSource;
 use Magento\Mtf\Fixture\FixtureFactory;
+use Magento\Mtf\ObjectManagerFactory;
 use Magento\Mtf\Util\Protocol\CurlInterface;
 use Magento\Mtf\Util\Protocol\CurlTransport;
 use Magento\Tax\Test\Fixture\TaxClass as FixtureTaxClass;
@@ -39,7 +42,7 @@ class TaxClass extends DataSource
     /**
      * Tax class fixture.
      *
-     * @var \Magento\Tax\Test\Fixture\TaxClass
+     * @var FixtureTaxClass
      */
     protected $taxClass;
 
@@ -82,13 +85,13 @@ class TaxClass extends DataSource
      *
      * @param string $taxClassName
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function setTaxClassId($taxClassName)
     {
         $url = $_ENV['app_backend_url'] . 'tax/rule/new/';
-        $config = \Magento\Mtf\ObjectManagerFactory::getObjectManager()->create(
-            \Magento\Mtf\Config\DataInterface::class
+        $config = ObjectManagerFactory::getObjectManager()->create(
+            DataInterface::class
         );
         $curl = new BackendDecorator(new CurlTransport(), $config);
         $curl->addOption(CURLOPT_HEADER, 1);
@@ -98,7 +101,7 @@ class TaxClass extends DataSource
 
         preg_match('~<option value="(\d+)".*>' . $taxClassName . '</option>~', $response, $matches);
         if (!isset($matches[1]) || empty($matches[1])) {
-            throw new \Exception('Product tax class id ' . $taxClassName . ' undefined!');
+            throw new Exception('Product tax class id ' . $taxClassName . ' undefined!');
         }
 
         $this->taxClassId = (int)$matches[1];

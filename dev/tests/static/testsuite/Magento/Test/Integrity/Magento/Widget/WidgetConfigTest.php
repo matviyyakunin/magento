@@ -7,19 +7,26 @@
  */
 namespace Magento\Test\Integrity\Magento\Widget;
 
-class WidgetConfigTest extends \PHPUnit\Framework\TestCase
+use DOMDocument;
+use Magento\Framework\App\Utility\AggregateInvoker;
+use Magento\Framework\App\Utility\Files;
+use Magento\Framework\Config\Dom;
+use Magento\Framework\Config\Dom\UrnResolver;
+use PHPUnit\Framework\TestCase;
+
+class WidgetConfigTest extends TestCase
 {
-    /** @var \Magento\Framework\Config\Dom\UrnResolver */
+    /** @var UrnResolver */
     protected $urnResolver;
 
     protected function setUp()
     {
-        $this->urnResolver = new \Magento\Framework\Config\Dom\UrnResolver();
+        $this->urnResolver = new UrnResolver();
     }
 
     public function testXmlFiles()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * @param string $configFile
@@ -29,8 +36,8 @@ class WidgetConfigTest extends \PHPUnit\Framework\TestCase
                 $this->_validateFileExpectSuccess($configFile, $schema);
             },
             array_merge(
-                \Magento\Framework\App\Utility\Files::init()->getConfigFiles('widget.xml'),
-                \Magento\Framework\App\Utility\Files::init()->getLayoutConfigFiles('widget.xml')
+                Files::init()->getConfigFiles('widget.xml'),
+                Files::init()->getLayoutConfigFiles('widget.xml')
             )
         );
     }
@@ -79,9 +86,9 @@ class WidgetConfigTest extends \PHPUnit\Framework\TestCase
      */
     protected function _validateFileExpectFailure($xmlFile, $schemaFile)
     {
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->loadXML(file_get_contents($xmlFile));
-        $errors = \Magento\Framework\Config\Dom::validateDomDocument($dom, $schemaFile);
+        $errors = Dom::validateDomDocument($dom, $schemaFile);
         if (!$errors) {
             $this->fail('There is a problem with the schema.  A known bad XML file passed validation');
         }
@@ -97,9 +104,9 @@ class WidgetConfigTest extends \PHPUnit\Framework\TestCase
      */
     protected function _validateFileExpectSuccess($xmlFile, $schemaFile)
     {
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->loadXML(file_get_contents($xmlFile));
-        $errors = \Magento\Framework\Config\Dom::validateDomDocument($dom, $schemaFile);
+        $errors = Dom::validateDomDocument($dom, $schemaFile);
         if ($errors) {
             $this->fail(
                 'There is a problem with the schema.  A known good XML file failed validation: ' . PHP_EOL . implode(

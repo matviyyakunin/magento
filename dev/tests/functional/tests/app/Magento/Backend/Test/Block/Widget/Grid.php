@@ -6,10 +6,13 @@
 
 namespace Magento\Backend\Test\Block\Widget;
 
+use Exception;
+use Magento\Backend\Test\Block\Template;
 use Magento\Mtf\Block\Block;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\Client\Element\SimpleElement;
 use Magento\Mtf\Factory\Factory;
+use Magento\Ui\Test\Block\Adminhtml\Modal;
 
 /**
  * Abstract class Grid
@@ -205,7 +208,7 @@ abstract class Grid extends Block
     /**
      * Get backend abstract block
      *
-     * @return \Magento\Backend\Test\Block\Template
+     * @return Template
      */
     protected function getTemplateBlock()
     {
@@ -218,7 +221,7 @@ abstract class Grid extends Block
      * Prepare data to perform search, fill in search filter
      *
      * @param array $filters
-     * @throws \Exception
+     * @throws Exception
      */
     protected function prepareForSearch(array $filters)
     {
@@ -233,7 +236,7 @@ abstract class Grid extends Block
                     : null;
                 $this->_rootElement->find($selector, $strategy, $typifiedElement)->setValue($value);
             } else {
-                throw new \Exception("Column $key is absent in the grid or not described yet.");
+                throw new Exception("Column $key is absent in the grid or not described yet.");
             }
         }
     }
@@ -255,7 +258,7 @@ abstract class Grid extends Block
      * Search item and open it
      *
      * @param array $filter
-     * @throws \Exception
+     * @throws Exception
      */
     public function searchAndOpen(array $filter)
     {
@@ -264,7 +267,7 @@ abstract class Grid extends Block
         if ($rowItem->isVisible()) {
             $rowItem->find($this->editLink, Locator::SELECTOR_CSS)->click();
         } else {
-            throw new \Exception("Searched item was not found by filter\n" . print_r($filter, true));
+            throw new Exception("Searched item was not found by filter\n" . print_r($filter, true));
         }
         $this->waitLoader();
     }
@@ -284,7 +287,7 @@ abstract class Grid extends Block
      * Search for item and select it
      *
      * @param array $filter
-     * @throws \Exception
+     * @throws Exception
      */
     public function searchAndSelect(array $filter)
     {
@@ -293,7 +296,7 @@ abstract class Grid extends Block
         if ($selectItem->isVisible()) {
             $selectItem->click();
         } else {
-            throw new \Exception("Searched item was not found by filter\n" . print_r($filter, true));
+            throw new Exception("Searched item was not found by filter\n" . print_r($filter, true));
         }
     }
 
@@ -350,9 +353,9 @@ abstract class Grid extends Block
         $this->_rootElement->find($this->massactionSubmit, Locator::SELECTOR_CSS)->click();
         if ($acceptAlert) {
             $element = $this->browser->find($this->confirmModal);
-            /** @var \Magento\Ui\Test\Block\Adminhtml\Modal $modal */
+            /** @var Modal $modal */
             $modal = $this->blockFactory->create(
-                \Magento\Ui\Test\Block\Adminhtml\Modal::class,
+                Modal::class,
                 ['element' => $element]
             );
             $modal->acceptAlert();

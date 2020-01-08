@@ -9,7 +9,9 @@
  */
 namespace Magento\Test\Legacy;
 
-class LibraryLocationTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+class LibraryLocationTest extends TestCase
 {
     /**
      * Root path of Magento

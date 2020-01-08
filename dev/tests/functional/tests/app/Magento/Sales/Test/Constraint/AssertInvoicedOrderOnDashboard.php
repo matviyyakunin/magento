@@ -6,8 +6,10 @@
 
 namespace Magento\Sales\Test\Constraint;
 
+use Magento\Backend\Test\TestStep\GetDashboardOrderStep;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\TestStep\TestStepFactory;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert invoiced order on admin dashboard.
@@ -30,12 +32,12 @@ class AssertInvoicedOrderOnDashboard extends AbstractConstraint
         $expectedOrdersQuantityOnDashboard
     ) {
         $orderQty = $stepFactory->create(
-            \Magento\Backend\Test\TestStep\GetDashboardOrderStep::class,
+            GetDashboardOrderStep::class,
             ['argumentsList' => $argumentsList]
         )->run()['dashboardOrder']['quantity'];
         $invoicedOrdersQty = $orderQty - $dashboardOrder['quantity'];
 
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $invoicedOrdersQty,
             $expectedOrdersQuantityOnDashboard,
             'Order quantity om admin dashboard is not correct.'

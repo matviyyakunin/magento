@@ -7,6 +7,8 @@
 namespace Magento\Catalog\Test\TestCase\Product;
 
 use Magento\Catalog\Test\Fixture\CatalogProductSimple;
+use Magento\Checkout\Test\TestStep\AddProductsToTheCartStep;
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Mtf\TestCase\Injectable;
 
@@ -66,7 +68,7 @@ class ManageProductsStockTest extends Injectable
     {
         $this->configData = $configData;
         $this->objectManager->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData]
         )->run();
 
@@ -76,7 +78,7 @@ class ManageProductsStockTest extends Injectable
         // Steps
         if (!$skipAddingToCart) {
             $this->objectManager->create(
-                \Magento\Checkout\Test\TestStep\AddProductsToTheCartStep::class,
+                AddProductsToTheCartStep::class,
                 ['products' => [$product]]
             )->run();
 
@@ -94,7 +96,7 @@ class ManageProductsStockTest extends Injectable
     public function tearDown()
     {
         $this->objectManager->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData, 'rollback' => true]
         )->run();
     }

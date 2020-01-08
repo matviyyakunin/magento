@@ -6,15 +6,15 @@
 
 namespace Magento\Catalog\Test\Constraint;
 
-use Magento\Mtf\ObjectManager;
-use Magento\Mtf\Fixture\FixtureFactory;
-use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Catalog\Test\Fixture\CatalogAttributeSet;
-use Magento\Catalog\Test\Fixture\CatalogProductSimple;
 use Magento\Catalog\Test\Fixture\CatalogProductAttribute;
-use Magento\Catalog\Test\Page\Adminhtml\CatalogProductNew;
-use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
+use Magento\Catalog\Test\Fixture\CatalogProductSimple;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductEdit;
+use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
+use Magento\Catalog\Test\Page\Adminhtml\CatalogProductNew;
+use Magento\Mtf\Constraint\AbstractConstraint;
+use Magento\Mtf\Fixture\FixtureFactory;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertAttributeSetGroupOnProductForm
@@ -60,13 +60,13 @@ class AssertAttributeSetGroupOnProductForm extends AbstractConstraint
         );
         $productBlockForm->fill($productSimple);
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $productEdit->getProductForm()->isCustomSectionVisible($attributeSet->getGroup()),
             "Product Group is absent on Product form sections."
         );
 
         $productEdit->getProductForm()->openCustomSection($attributeSet->getGroup());
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $productEdit->getProductForm()->checkAttributeLabel($productAttributeOriginal),
             "Product Attribute is absent on Product form."
         );

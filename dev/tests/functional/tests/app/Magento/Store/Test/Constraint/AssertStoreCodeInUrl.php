@@ -9,6 +9,7 @@ namespace Magento\Store\Test\Constraint;
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Client\BrowserInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that store code is present in the url.
@@ -27,7 +28,7 @@ class AssertStoreCodeInUrl extends AbstractConstraint
     {
         $cmsIndex->open();
         $cmsIndex->getLogoBlock()->clickOnLogo();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $_ENV['app_frontend_url'] . $storeCode . '/',
             $browser->getUrl(),
             sprintf('Store code \'%s\' is not present in the url: %s', $storeCode, $browser->getUrl())

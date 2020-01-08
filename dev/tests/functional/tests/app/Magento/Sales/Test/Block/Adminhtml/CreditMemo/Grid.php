@@ -6,10 +6,12 @@
 
 namespace Magento\Sales\Test\Block\Adminhtml\CreditMemo;
 
+use Magento\Ui\Test\Block\Adminhtml\DataGrid;
+
 /**
  * Credit memo grid on Credit memos index page.
  */
-class Grid extends \Magento\Ui\Test\Block\Adminhtml\DataGrid
+class Grid extends DataGrid
 {
     /**
      * Locator value for "View" link inside action column.

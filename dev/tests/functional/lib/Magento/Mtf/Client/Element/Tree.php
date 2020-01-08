@@ -6,6 +6,7 @@
 
 namespace Magento\Mtf\Client\Element;
 
+use Exception;
 use Magento\Mtf\Client\ElementInterface;
 use Magento\Mtf\Client\Locator;
 
@@ -69,12 +70,12 @@ abstract class Tree extends SimpleElement
      * Drag and drop element to(between) another element(s).
      *
      * @param ElementInterface $target
-     * @throws \Exception
+     * @throws Exception
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function dragAndDrop(ElementInterface $target)
     {
-        throw new \Exception('Not applicable for this class of elements (TreeElement)');
+        throw new Exception('Not applicable for this class of elements (TreeElement)');
     }
 
     /**
@@ -82,12 +83,12 @@ abstract class Tree extends SimpleElement
      * Throws exception if used.
      *
      * @param array $keys
-     * @throws \Exception
+     * @throws Exception
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function keys(array $keys)
     {
-        throw new \Exception('Not applicable for this class of elements (TreeElement)');
+        throw new Exception('Not applicable for this class of elements (TreeElement)');
     }
 
     /**

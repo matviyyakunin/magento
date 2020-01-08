@@ -12,6 +12,7 @@ use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\InjectableFixture;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check whether there is an opportunity to compare products using given attribute.
@@ -41,7 +42,7 @@ class AssertProductAttributeIsComparable extends AbstractConstraint
             ? $attribute->getManageFrontendLabel()
             : $attribute->getFrontendLabel();
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             in_array($label, $catalogProductCompare->getCompareProductsBlock()->getComparableAttributes()),
             'Attribute is absent on product compare page.'
         );

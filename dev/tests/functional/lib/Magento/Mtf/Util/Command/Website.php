@@ -6,6 +6,7 @@
 
 namespace Magento\Mtf\Util\Command;
 
+use Exception;
 use Magento\Mtf\Util\Protocol\CurlInterface;
 use Magento\Mtf\Util\Protocol\CurlTransport;
 
@@ -39,7 +40,7 @@ class Website
      * Creates Website folder in root directory.
      *
      * @param string $websiteCode
-     * @throws \Exception
+     * @throws Exception
      */
     public function create($websiteCode)
     {

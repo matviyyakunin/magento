@@ -8,6 +8,7 @@ namespace Magento\Review\Test\Constraint;
 
 use Magento\Review\Test\Page\Adminhtml\ReviewIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductReviewBackendSuccessSaveMessage
@@ -28,7 +29,7 @@ class AssertProductReviewBackendSuccessSaveMessage extends AbstractConstraint
      */
     public function processAssert(ReviewIndex $reviewIndex)
     {
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $reviewIndex->getMessagesBlock()->getSuccessMessage(),
             'Wrong success message is displayed.'

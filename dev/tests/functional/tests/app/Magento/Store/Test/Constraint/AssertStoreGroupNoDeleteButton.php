@@ -8,6 +8,7 @@ namespace Magento\Store\Test\Constraint;
 
 use Magento\Backend\Test\Page\Adminhtml\NewGroupIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that 'Delete' button on StoreGroup view edit page is absent.
@@ -22,7 +23,7 @@ class AssertStoreGroupNoDeleteButton extends AbstractConstraint
      */
     public function processAssert(NewGroupIndex $newGroupIndex)
     {
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $newGroupIndex->getFormPageActions()->checkDeleteButton(),
             '\'Delete\' button on StoreGroup view edit page is present when it should not.'
         );

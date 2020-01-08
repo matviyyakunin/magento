@@ -9,6 +9,7 @@ namespace Magento\Review\Test\Constraint;
 use Magento\Review\Test\Fixture\Review;
 use Magento\Review\Test\Page\Adminhtml\ReviewIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductReviewMassActionSuccessDeleteMessage
@@ -36,7 +37,7 @@ class AssertProductReviewMassActionSuccessDeleteMessage extends AbstractConstrai
     {
         $reviews = is_array($review) ? $review : [$review];
         $deleteMessage = sprintf(self::SUCCESS_DELETE_MESSAGE, count($reviews));
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $deleteMessage,
             $reviewIndex->getMessagesBlock()->getSuccessMessage(),
             'Wrong success message is displayed.'

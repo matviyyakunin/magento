@@ -8,6 +8,7 @@ namespace Magento\Cms\Test\Constraint;
 
 use Magento\Cms\Test\Page\Adminhtml\CmsBlockIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that after delete CMS block successful message appears.
@@ -25,7 +26,7 @@ class AssertCmsBlockDeleteMessage extends AbstractConstraint
     public function processAssert(CmsBlockIndex $cmsBlockIndex)
     {
         $actualMessage = $cmsBlockIndex->getMessagesBlock()->getSuccessMessage();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::SUCCESS_DELETE_MESSAGE,
             $actualMessage,
             'Wrong success message is displayed.'

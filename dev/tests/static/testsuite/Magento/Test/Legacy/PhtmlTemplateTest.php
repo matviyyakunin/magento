@@ -7,11 +7,15 @@
  */
 namespace Magento\Test\Legacy;
 
-class PhtmlTemplateTest extends \PHPUnit\Framework\TestCase
+use Magento\Framework\App\Utility\AggregateInvoker;
+use Magento\Framework\App\Utility\Files;
+use PHPUnit\Framework\TestCase;
+
+class PhtmlTemplateTest extends TestCase
 {
     public function testBlockVariableInsteadOfThis()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * Test usage of methods and variables in template through $this
@@ -26,13 +30,13 @@ class PhtmlTemplateTest extends \PHPUnit\Framework\TestCase
                     'obsolete in phtml templates. Use only $block instead of $this.'
                 );
             },
-            \Magento\Framework\App\Utility\Files::init()->getPhtmlFiles()
+            Files::init()->getPhtmlFiles()
         );
     }
 
     public function testObsoleteBlockMethods()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * Test usage of protected and private methods and variables in template
@@ -53,13 +57,13 @@ class PhtmlTemplateTest extends \PHPUnit\Framework\TestCase
                     'obsolete in phtml templates. Use only public members.'
                 );
             },
-            \Magento\Framework\App\Utility\Files::init()->getPhtmlFiles()
+            Files::init()->getPhtmlFiles()
         );
     }
 
     public function testObsoleteJavascriptAttributeType()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * "text/javascript" type attribute in not obligatory to use in templates due to HTML5 standards.
@@ -74,7 +78,7 @@ class PhtmlTemplateTest extends \PHPUnit\Framework\TestCase
                     'Please do not use "text/javascript" type attribute.'
                 );
             },
-            \Magento\Framework\App\Utility\Files::init()->getPhtmlFiles()
+            Files::init()->getPhtmlFiles()
         );
     }
 }

@@ -11,11 +11,16 @@
  */
 namespace Magento\Test\Legacy\Magento\Widget;
 
-class XmlTest extends \PHPUnit\Framework\TestCase
+use Magento\Framework\App\Utility\AggregateInvoker;
+use Magento\Framework\App\Utility\Files;
+use PHPUnit\Framework\TestCase;
+use SimpleXMLElement;
+
+class XmlTest extends TestCase
 {
     public function testClassFactoryNames()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * @param string $file
@@ -23,19 +28,19 @@ class XmlTest extends \PHPUnit\Framework\TestCase
             function ($file) {
                 $xml = simplexml_load_file($file);
                 $nodes = $xml->xpath('/widgets/*[@type]') ?: [];
-                /** @var \SimpleXMLElement $node */
+                /** @var SimpleXMLElement $node */
                 foreach ($nodes as $node) {
                     $type = (string)$node['type'];
                     $this->assertNotRegExp('/\//', $type, "Factory name detected: {$type}.");
                 }
             },
-            \Magento\Framework\App\Utility\Files::init()->getConfigFiles('widget.xml')
+            Files::init()->getConfigFiles('widget.xml')
         );
     }
 
     public function testBlocksIntoContainers()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * @param string $file
@@ -53,7 +58,7 @@ class XmlTest extends \PHPUnit\Framework\TestCase
                     'Obsolete node: <block_name>. To be replaced with <container_name>'
                 );
             },
-            \Magento\Framework\App\Utility\Files::init()->getConfigFiles('widget.xml')
+            Files::init()->getConfigFiles('widget.xml')
         );
     }
 }

@@ -6,10 +6,12 @@
 
 namespace Magento\Catalog\Test\Constraint;
 
+use Magento\Catalog\Test\Block\Product\View;
 use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractAssertForm;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductPage
@@ -20,7 +22,7 @@ class AssertImagesAreVisibleOnProductPage extends AbstractAssertForm
     /**
      * Product view block on frontend page
      *
-     * @var \Magento\Catalog\Test\Block\Product\View
+     * @var View
      */
     protected $productView;
 
@@ -54,7 +56,7 @@ class AssertImagesAreVisibleOnProductPage extends AbstractAssertForm
         $this->productView = $catalogProductView->getViewBlock();
 
         $errors = $this->verify();
-        \PHPUnit\Framework\Assert::assertEmpty(
+        Assert::assertEmpty(
             $errors,
             "\nFound the following errors:\n" . implode(" \n", $errors)
         );

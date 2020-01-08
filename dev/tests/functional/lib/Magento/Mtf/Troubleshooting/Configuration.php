@@ -7,14 +7,16 @@
 namespace Magento\Mtf\Troubleshooting;
 
 use Magento\Mtf\App\State\State1;
+use Magento\Mtf\Console\Output;
 use Magento\Mtf\ObjectManagerInterface;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Analyze Magento configuration.
  */
-class Configuration extends \Symfony\Component\Console\Command\Command
+class Configuration extends Command
 {
     /**
      * Object manager instance.
@@ -66,7 +68,7 @@ class Configuration extends \Symfony\Component\Console\Command\Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output = $this->objectManager->create(
-            \Magento\Mtf\Console\Output::class,
+            Output::class,
             ['output' => $output]
         );
         $output->writeln("Applying Magento configuration...");

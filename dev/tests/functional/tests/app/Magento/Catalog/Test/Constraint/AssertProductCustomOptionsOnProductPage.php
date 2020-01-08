@@ -10,6 +10,7 @@ use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractAssertForm;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductCustomOptionsOnProductPage
@@ -95,7 +96,7 @@ class AssertProductCustomOptionsOnProductPage extends AbstractAssertForm
         $fixtureCustomOptions = $this->prepareOptions($product, $actualPrice);
         $formCustomOptions = $catalogProductView->getViewBlock()->getOptions($product)['custom_options'];
         $error = $this->verifyData($fixtureCustomOptions, $formCustomOptions);
-        \PHPUnit\Framework\Assert::assertEmpty($error, $error);
+        Assert::assertEmpty($error, $error);
     }
 
     /**

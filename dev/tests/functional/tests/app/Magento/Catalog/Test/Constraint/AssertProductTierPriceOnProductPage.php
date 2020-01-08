@@ -11,6 +11,7 @@ use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that displayed tier price on product page equals passed from fixture.
@@ -92,7 +93,7 @@ class AssertProductTierPriceOnProductPage extends AbstractConstraint implements 
             }
         }
 
-        \PHPUnit\Framework\Assert::assertTrue($noError, $this->errorMessage);
+        Assert::assertTrue($noError, $this->errorMessage);
     }
 
     /**

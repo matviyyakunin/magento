@@ -9,6 +9,7 @@ namespace Magento\Catalog\Test\Constraint;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductDuplicatedInGrid
@@ -40,7 +41,7 @@ class AssertProductDuplicatedInGrid extends AbstractConstraint
             ->search($filter);
 
         $filter['price_to'] = '$' . $filter['price_to'];
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $productGrid->getProductGrid()->isRowVisible($filter, false),
             'Product duplicate is absent in Products grid.'
         );

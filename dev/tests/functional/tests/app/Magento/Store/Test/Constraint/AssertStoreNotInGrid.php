@@ -9,6 +9,7 @@ namespace Magento\Store\Test\Constraint;
 use Magento\Backend\Test\Page\Adminhtml\StoreIndex;
 use Magento\Store\Test\Fixture\Store;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertStoreNotInGrid
@@ -31,7 +32,7 @@ class AssertStoreNotInGrid extends AbstractConstraint
     {
         $storeName = $store->getName();
         $storeIndex->open()->getStoreGrid()->search(['store_title' => $storeName]);
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $storeIndex->getStoreGrid()->isStoreExists($storeName),
             'Store \'' . $storeName . '\' is present in grid.'
         );

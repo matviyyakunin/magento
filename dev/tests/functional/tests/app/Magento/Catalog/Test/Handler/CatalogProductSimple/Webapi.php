@@ -6,6 +6,7 @@
 
 namespace Magento\Catalog\Test\Handler\CatalogProductSimple;
 
+use Exception;
 use Magento\Catalog\Test\Fixture\CatalogProductSimple;
 use Magento\Mtf\Config\DataInterface;
 use Magento\Mtf\Fixture\FixtureInterface;
@@ -93,7 +94,7 @@ class Webapi extends AbstractWebApi implements CatalogProductSimpleInterface
      *
      * @param FixtureInterface|null $fixture [optional]
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function persist(FixtureInterface $fixture = null)
     {
@@ -111,7 +112,7 @@ class Webapi extends AbstractWebApi implements CatalogProductSimpleInterface
 
         if (!isset($response['id'])) {
             $this->eventManager->dispatchEvent(['webapi_failed'], [$response]);
-            throw new \Exception("Product creation by webapi handler was not successful! Response: {$encodedResponse}");
+            throw new Exception("Product creation by webapi handler was not successful! Response: {$encodedResponse}");
         }
 
         $this->updateProduct($fixture);
@@ -123,7 +124,7 @@ class Webapi extends AbstractWebApi implements CatalogProductSimpleInterface
      *
      * @param FixtureInterface $fixture
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     private function updateProduct(FixtureInterface $fixture)
     {
@@ -138,7 +139,7 @@ class Webapi extends AbstractWebApi implements CatalogProductSimpleInterface
 
                 if (!isset($response['id'])) {
                     $this->eventManager->dispatchEvent(['webapi_failed'], [$response]);
-                    throw new \Exception(
+                    throw new Exception(
                         "Product update by webapi handler was not successful! Response: {$encodedResponse}"
                     );
                 }

@@ -5,6 +5,9 @@
  */
 namespace Magento\Backend\Test\Page;
 
+use Magento\Backend\Test\Block\Admin\Login;
+use Magento\Backend\Test\Block\Messages;
+use Magento\Backend\Test\Block\Page\Header;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\Factory\Factory;
 use Magento\Mtf\Page\Page;
@@ -51,7 +54,7 @@ class AdminAuthLogin extends Page
     /**
      * Get the login form block.
      *
-     * @return \Magento\Backend\Test\Block\Admin\Login
+     * @return Login
      */
     public function getLoginBlock()
     {
@@ -63,7 +66,7 @@ class AdminAuthLogin extends Page
     /**
      * Get the header panel block of admin dashboard.
      *
-     * @return \Magento\Backend\Test\Block\Page\Header
+     * @return Header
      */
     public function getHeaderBlock()
     {
@@ -75,7 +78,7 @@ class AdminAuthLogin extends Page
     /**
      * Get global messages block.
      *
-     * @return \Magento\Backend\Test\Block\Messages
+     * @return Messages
      */
     public function getMessagesBlock()
     {

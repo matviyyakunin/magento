@@ -9,6 +9,7 @@ namespace Magento\Catalog\Test\Constraint;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductSuccessDeleteMessage
@@ -32,7 +33,7 @@ class AssertProductSuccessDeleteMessage extends AbstractConstraint
         $products = is_array($product) ? $product : [$product];
         $deleteMessage = sprintf(self::SUCCESS_DELETE_MESSAGE, count($products));
         $actualMessage = $productPage->getMessagesBlock()->getSuccessMessage();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $deleteMessage,
             $actualMessage,
             'Wrong success message is displayed.'

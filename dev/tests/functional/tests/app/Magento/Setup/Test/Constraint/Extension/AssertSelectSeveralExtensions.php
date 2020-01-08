@@ -9,6 +9,7 @@ namespace Magento\Setup\Test\Constraint\Extension;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Setup\Test\Block\Extension\AbstractGrid;
 use Magento\Setup\Test\Fixture\Extension;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check that several extensions were selected on the grid.
@@ -25,7 +26,7 @@ class AssertSelectSeveralExtensions extends AbstractConstraint
     public function processAssert(AbstractGrid $grid, array $extensions)
     {
         $extensions = $grid->selectSeveralExtensions($extensions);
-        \PHPUnit\Framework\Assert::assertEmpty(
+        Assert::assertEmpty(
             $extensions,
             'Next extensions are not found on the grid: ' . $this->getExtensionsNames($extensions)
         );

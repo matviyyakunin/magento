@@ -10,6 +10,7 @@ use Magento\Sales\Test\Page\Adminhtml\OrderInvoiceNew;
 use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert message that invoice can be created only offline is present.
@@ -40,7 +41,7 @@ class AssertOnlineInvoiceCannotBeCreated extends AbstractConstraint
         $salesOrder->getSalesOrderGrid()->searchAndOpen(['id' => $orderId]);
         $salesOrderView->getPageActions()->invoice();
 
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::OFFLINE_INVOICE_MESSAGE,
             $orderInvoiceNew->getTotalsBlock()->getCaptureOfflineMessage(),
             'Message incorrect or is not present.'

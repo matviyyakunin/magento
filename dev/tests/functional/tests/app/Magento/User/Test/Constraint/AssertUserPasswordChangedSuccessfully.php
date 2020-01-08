@@ -8,6 +8,7 @@ namespace Magento\User\Test\Constraint;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\User\Test\Page\Adminhtml\UserIndex;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert to check change password error appearance.
@@ -28,7 +29,7 @@ class AssertUserPasswordChangedSuccessfully extends AbstractConstraint
     public function processAssert(UserIndex $userIndex)
     {
         $errorMessage = $userIndex->getMessagesBlock()->getErrorMessage();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::FAIL_MESSAGE,
             $errorMessage,
             'Password update failed with error: "' . self::FAIL_MESSAGE . '"'

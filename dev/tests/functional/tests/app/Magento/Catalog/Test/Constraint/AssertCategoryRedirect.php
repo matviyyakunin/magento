@@ -9,6 +9,7 @@ namespace Magento\Catalog\Test\Constraint;
 use Magento\Catalog\Test\Fixture\Category;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertCategoryRedirect
@@ -31,7 +32,7 @@ class AssertCategoryRedirect extends AbstractConstraint
     ) {
         $browser->open($_ENV['app_frontend_url'] . $initialCategory->getUrlKey() . '.html');
 
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $browser->getUrl(),
             $_ENV['app_frontend_url'] . strtolower($category->getUrlKey()) . '.html',
             'URL rewrite category redirect false.'

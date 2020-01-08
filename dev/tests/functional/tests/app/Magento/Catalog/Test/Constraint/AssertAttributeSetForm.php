@@ -11,6 +11,7 @@ use Magento\Catalog\Test\Fixture\CatalogProductAttribute;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductSetEdit;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductSetIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertAttributeSetForm
@@ -40,7 +41,7 @@ class AssertAttributeSetForm extends AbstractConstraint
         ];
         $productSet->open();
         $productSet->getGrid()->searchAndOpen($filterAttribute);
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $filterAttribute['set_name'],
             $productSetEdit->getAttributeSetEditBlock()->getAttributeSetName(),
             'The attribute set wasn\'t found.'
@@ -49,7 +50,7 @@ class AssertAttributeSetForm extends AbstractConstraint
         );
         if ($productAttribute !== null) {
             $attributeLabel = $productAttribute->getFrontendLabel();
-            \PHPUnit\Framework\Assert::assertTrue(
+            Assert::assertTrue(
                 $productSetEdit->getAttributeSetEditBlock()->checkProductAttribute($attributeLabel),
                 "Product Attribute is absent on Attribute Set Groups"
             );

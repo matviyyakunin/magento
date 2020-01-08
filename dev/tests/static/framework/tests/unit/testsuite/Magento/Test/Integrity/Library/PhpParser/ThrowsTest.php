@@ -6,10 +6,14 @@
 namespace Magento\Test\Integrity\Library\PhpParser;
 
 use Magento\TestFramework\Integrity\Library\PhpParser\Throws;
+use Magento\TestFramework\Integrity\Library\PhpParser\Tokens;
+use Magento\TestFramework\Integrity\Library\PhpParser\Uses;
+use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_MockObject_MockObject;
 
 /**
  */
-class ThrowsTest extends \PHPUnit\Framework\TestCase
+class ThrowsTest extends TestCase
 {
     /**
      * @var Throws
@@ -17,7 +21,7 @@ class ThrowsTest extends \PHPUnit\Framework\TestCase
     protected $throws;
 
     /**
-     * @var \Magento\TestFramework\Integrity\Library\PhpParser\Tokens|\PHPUnit_Framework_MockObject_MockObject
+     * @var Tokens|PHPUnit_Framework_MockObject_MockObject
      */
     protected $tokens;
 
@@ -27,7 +31,7 @@ class ThrowsTest extends \PHPUnit\Framework\TestCase
     public function setUp()
     {
         $this->tokens = $this->getMockBuilder(
-            \Magento\TestFramework\Integrity\Library\PhpParser\Tokens::class
+            Tokens::class
         )->disableOriginalConstructor()->getMock();
     }
 
@@ -70,7 +74,7 @@ class ThrowsTest extends \PHPUnit\Framework\TestCase
         }
 
         $uses = $this->getMockBuilder(
-            \Magento\TestFramework\Integrity\Library\PhpParser\Uses::class
+            Uses::class
         )->disableOriginalConstructor()->getMock();
 
         $uses->expects($this->once())->method('hasUses')->will($this->returnValue(true));

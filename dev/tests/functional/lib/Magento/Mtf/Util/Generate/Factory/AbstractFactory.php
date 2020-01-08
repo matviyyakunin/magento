@@ -6,8 +6,18 @@
 
 namespace Magento\Mtf\Util\Generate\Factory;
 
+use Exception;
+use FilesystemIterator;
 use Magento\Framework\Filesystem\DriverInterface;
 use Magento\Framework\Filesystem\Glob;
+use Magento\Mtf\Util\Generate\GenerateResult;
+use PHPUnit\Util\Test;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use ReflectionClass;
+use RegexIterator;
+use RuntimeException;
+use SplFileInfo;
 
 /**
  * Class AbstractFactory
@@ -39,7 +49,7 @@ abstract class AbstractFactory
 
         $this->endFactory($this->type);
 
-        \Magento\Mtf\Util\Generate\GenerateResult::addResult($this->type, $this->cnt);
+        GenerateResult::addResult($this->type, $this->cnt);
     }
 
     abstract protected function generateContent();
@@ -79,7 +89,7 @@ abstract class AbstractFactory
      *
      * @param $type
      * @return $this
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     protected function endFactory($type)
     {
@@ -93,7 +103,7 @@ abstract class AbstractFactory
 
         $file = MTF_BP . "/generated/Magento/Mtf/{$type}/{$type}FactoryDeprecated.php";
         if (false === file_put_contents($file, $this->factoryContent)) {
-            throw new \RuntimeException("Can't write content to {$file} file");
+            throw new RuntimeException("Can't write content to {$file} file");
         }
     }
 
@@ -103,7 +113,7 @@ abstract class AbstractFactory
      * @param string $folder
      * @param int $mode
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     protected function checkAndCreateFolder($folder, $mode = 0777)
     {
@@ -114,7 +124,7 @@ abstract class AbstractFactory
             $this->checkAndCreateFolder(dirname($folder), $mode);
         }
         if (!is_dir($folder) && !$this->mkDir($folder, $mode)) {
-            throw new \Exception("Unable to create directory '{$folder}'. Access forbidden.");
+            throw new Exception("Unable to create directory '{$folder}'. Access forbidden.");
         }
         return true;
     }
@@ -162,17 +172,17 @@ abstract class AbstractFactory
                 if (!is_dir($filePath)) {
                     $this->_processItem($items, $rewrites, $filePath, $location, $path);
                 } else {
-                    $dirIterator = new \RegexIterator(
-                        new \RecursiveIteratorIterator(
-                            new \RecursiveDirectoryIterator(
+                    $dirIterator = new RegexIterator(
+                        new RecursiveIteratorIterator(
+                            new RecursiveDirectoryIterator(
                                 $filePath,
-                                \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::FOLLOW_SYMLINKS
+                                FilesystemIterator::SKIP_DOTS | FilesystemIterator::FOLLOW_SYMLINKS
                             )
                         ),
                         '/.php$/i'
                     );
                     foreach ($dirIterator as $info) {
-                        /** @var $info \SplFileInfo */
+                        /** @var $info SplFileInfo */
                         $realPath = $info->getPathname();
                         if (is_link($realPath)) {
                             $realPath = readlink($realPath);
@@ -193,7 +203,7 @@ abstract class AbstractFactory
      * @param string $filename
      * @param string $location
      * @param string $path
-     * @throws \Exception
+     * @throws Exception
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     protected function _processItem(& $items, & $rewrites, $filename, $location, $path)
@@ -205,11 +215,11 @@ abstract class AbstractFactory
         $classPath = str_replace('.php', '', $filename);
         $className = str_replace('/', '\\', substr($classPath, $posClassName));
 
-        $reflectionClass = new \ReflectionClass($className);
+        $reflectionClass = new ReflectionClass($className);
         if ($reflectionClass->isAbstract()) {
             return;
         }
-        $annotations = \PHPUnit\Util\Test::parseTestMethodAnnotations($className);
+        $annotations = Test::parseTestMethodAnnotations($className);
 
         list(, $targetClassName) = explode($location . '/', $filename);
         $targetClassName = str_replace('.php', '', $targetClassName);
@@ -230,7 +240,7 @@ abstract class AbstractFactory
                     $message = "Class '{$className}' rewrites class '{$original}'.\n";
                     $prevClass = key($items[$original]['fallback']);
                     $message .= "Class '{$prevClass}' also rewrites class '$original'";
-                    throw new \Exception("Multiple rewrites detected:\n" . $message);
+                    throw new Exception("Multiple rewrites detected:\n" . $message);
                 }
 
                 if (isset($items[$className])) {
@@ -249,7 +259,7 @@ abstract class AbstractFactory
                     $message = "Class '{$className}' rewrites class '{$original}'.\n";
                     $prevClass = key($rewrites[$original]['fallback']);
                     $message .= "Class '{$prevClass}' also rewrites class '$original'";
-                    throw new \Exception("Multiple rewrites detected:\n" . $message);
+                    throw new Exception("Multiple rewrites detected:\n" . $message);
                 }
 
                 if (isset($items[$className])) {
@@ -331,7 +341,7 @@ abstract class AbstractFactory
      *
      * @param string $type
      * @param string $location
-     * @throws \RuntimeException
+     * @throws RuntimeException
      * @return string
      */
     protected function _getPattern($type, $location)

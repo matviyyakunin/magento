@@ -8,13 +8,14 @@ namespace Magento\Mtf\Troubleshooting;
 
 use Magento\Mtf\Console\Output;
 use Magento\Mtf\ObjectManagerInterface;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Generates static classes (Blocks, Pages, Repositories etc.).
  */
-class StaticClassesGenerator extends \Symfony\Component\Console\Command\Command
+class StaticClassesGenerator extends Command
 {
     /**
      * Object manager instance.

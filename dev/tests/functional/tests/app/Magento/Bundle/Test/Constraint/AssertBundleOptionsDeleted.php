@@ -7,10 +7,10 @@
 namespace Magento\Bundle\Test\Constraint;
 
 use Magento\Bundle\Test\Fixture\BundleProduct;
-use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductEdit;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
-use Magento\Mtf\Fixture\FixtureInterface;
+use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert bundle product form.
@@ -41,12 +41,12 @@ class AssertBundleOptionsDeleted extends AbstractConstraint
 
         $productDataLength = count($productData);
         $formDataLength = count($productData);
-        \PHPUnit\Framework\Assert::assertEquals($productDataLength, $formDataLength);
+        Assert::assertEquals($productDataLength, $formDataLength);
 
         foreach ($productData as $index => $option) {
             $productAssociatedDataLength = count($option['assigned_products']);
             $formAssociatedDataLength = count($formData[$index]['assigned_products']);
-            \PHPUnit\Framework\Assert::assertEquals($productAssociatedDataLength, $formAssociatedDataLength);
+            Assert::assertEquals($productAssociatedDataLength, $formAssociatedDataLength);
 
             foreach ($option['assigned_products'] as $productIndex => $associatedProduct) {
                 $associatedProduct['data']['getProductName'] =
@@ -56,13 +56,13 @@ class AssertBundleOptionsDeleted extends AbstractConstraint
                     $associatedProduct,
                     $formData[$index]['assigned_products'][$productIndex]
                 );
-                \PHPUnit\Framework\Assert::assertCount(0, $errorAssociatedProducts);
+                Assert::assertCount(0, $errorAssociatedProducts);
             }
 
             unset($option['assigned_products']);
             unset($formData[$index]['assigned_products']);
             $errorFields = array_diff($option, $formData[$index]);
-            \PHPUnit\Framework\Assert::assertCount(0, $errorFields);
+            Assert::assertCount(0, $errorFields);
         }
     }
 

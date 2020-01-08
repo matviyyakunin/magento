@@ -6,9 +6,10 @@
 
 namespace Magento\User\Test\TestCase;
 
-use Magento\User\Test\Fixture\User;
 use Magento\Mtf\TestCase\Injectable;
 use Magento\Mtf\TestStep\TestStepFactory;
+use Magento\User\Test\Fixture\User;
+use Magento\User\Test\TestStep\LoginUserOnBackendStep;
 
 /**
  * Preconditions:
@@ -55,7 +56,7 @@ class CustomAclPermissionTest extends Injectable
     {
         $user->persist();
         $this->testStepFactory->create(
-            \Magento\User\Test\TestStep\LoginUserOnBackendStep::class,
+            LoginUserOnBackendStep::class,
             ['user' => $user]
         )->run();
     }

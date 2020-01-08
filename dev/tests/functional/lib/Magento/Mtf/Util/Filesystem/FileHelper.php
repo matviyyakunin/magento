@@ -5,6 +5,8 @@
  */
 namespace Magento\Mtf\Util\Filesystem;
 
+use Exception;
+
 /**
  * Filesystem helper.
  */
@@ -59,7 +61,7 @@ class FileHelper
      * @param int $mode
      * @param bool $recursive
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function createDirectory($path, $mode = 0775, $recursive = true)
     {
@@ -76,16 +78,16 @@ class FileHelper
             if (!mkdir($path, $mode)) {
                 return false;
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             if (!is_dir($path)) {
-                throw new \Exception("Failed to create directory \"$path\"");
+                throw new Exception("Failed to create directory \"$path\"");
             }
         }
 
         try {
             return chmod($path, $mode);
-        } catch (\Exception $e) {
-            throw new \Exception("Failed to change permissions for directory \"$path\"");
+        } catch (Exception $e) {
+            throw new Exception("Failed to change permissions for directory \"$path\"");
         }
     }
 

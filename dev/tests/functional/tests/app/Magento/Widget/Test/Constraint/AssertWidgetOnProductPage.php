@@ -6,11 +6,12 @@
 
 namespace Magento\Widget\Test\Constraint;
 
-use Magento\Mtf\Util\Command\Cli\Cache;
 use Magento\Catalog\Test\Page\Product\CatalogProductView;
-use Magento\Widget\Test\Fixture\Widget;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use Magento\Mtf\Util\Command\Cli\Cache;
+use Magento\Widget\Test\Fixture\Widget;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check that created widget displayed on frontend on Product page.
@@ -39,7 +40,7 @@ class AssertWidgetOnProductPage extends AbstractConstraint
         $browser->open($_ENV['app_frontend_url'] . $urlKey . '.html');
         $widgetText = $widget->getParameters()['link_text'];
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $productView->getWidgetView()->isWidgetVisible($widget, $widgetText),
             'Widget is absent on Product page.'
         );

@@ -11,6 +11,7 @@ use Magento\Sales\Test\Block\Adminhtml\Order\View\Tab\Invoices\Grid;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
 use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that invoice is present in the invoices tab of the order with corresponding amount(Grand Total)
@@ -47,7 +48,7 @@ class AssertInvoiceInInvoicesTab extends AbstractConstraint
             $grid->search($filter);
             $filter['amount_from'] = number_format($amount[$key]['grand_invoice_total'], 2);
             unset($filter['amount_to']);
-            \PHPUnit\Framework\Assert::assertTrue(
+            Assert::assertTrue(
                 $grid->isRowVisible($filter, false, false),
                 'Invoice is absent on invoices tab.'
             );

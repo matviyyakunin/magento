@@ -10,11 +10,13 @@ use Magento\Catalog\Test\Page\Product\CatalogProductCompare;
 use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Customer\Test\Fixture\Customer;
+use Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Mtf\Fixture\InjectableFixture;
 use Magento\Mtf\TestCase\Injectable;
+use PHPUnit\Framework\Assert;
 
 /**
  * Abstract class for compare products class.
@@ -112,7 +114,7 @@ abstract class AbstractCompareProductsTest extends Injectable
     protected function loginCustomer()
     {
         $this->objectManager->create(
-            \Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep::class,
+            LoginCustomerOnFrontendStep::class,
             ['customer' => $this->customer]
         )->run();
     }
@@ -163,6 +165,6 @@ abstract class AbstractCompareProductsTest extends Injectable
     protected function productCompareAssert(AbstractConstraint $assert, InjectableFixture $product)
     {
         $assert->configure(['catalogProductView' => $this->catalogProductView, 'product' => $product]);
-        \PHPUnit\Framework\Assert::assertThat($this->getName(), $assert);
+        Assert::assertThat($this->getName(), $assert);
     }
 }

@@ -9,6 +9,7 @@ namespace Magento\Cms\Test\Constraint;
 use Magento\Cms\Test\Fixture\CmsPage;
 use Magento\Cms\Test\Page\Adminhtml\CmsPageIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that CMS page present in grid and can be found by title.
@@ -30,7 +31,7 @@ class AssertCmsPageInGrid extends AbstractConstraint
             'is_active' => $expectedStatus
         ];
         $cmsIndex->open();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $cmsIndex->getCmsPageGridBlock()->isRowVisible($filter, true, false),
             'Cms page \'' . $cms->getTitle() . '\' is not present in pages grid.'
         );

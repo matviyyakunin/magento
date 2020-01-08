@@ -9,6 +9,7 @@ namespace Magento\Sales\Test\Constraint;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\Adminhtml\InvoiceIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that invoice with corresponding order ID is absent in the invoices grid.
@@ -42,7 +43,7 @@ class AssertInvoiceNotInInvoicesGrid extends AbstractConstraint
             $invoiceIndex->getInvoicesGrid()->search($filter);
             $filter['grand_total_from'] = number_format($amount[$key]['grand_invoice_total'], 2);
             $filter['grand_total_to'] = number_format($amount[$key]['grand_invoice_total'], 2);
-            \PHPUnit\Framework\Assert::assertFalse(
+            Assert::assertFalse(
                 $invoiceIndex->getInvoicesGrid()->isRowVisible($filter, false, false),
                 'Invoice is present in invoices grid on invoice index page.'
             );

@@ -7,6 +7,7 @@
 namespace Magento\Captcha\Test\TestCase;
 
 use Magento\Backend\Test\Page\AdminAuthLogin;
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Mtf\TestCase\Injectable;
 use Magento\Mtf\TestStep\TestStepFactory;
 use Magento\User\Test\Fixture\User;
@@ -102,7 +103,7 @@ class CaptchaOnAdminLoginTest extends Injectable
 
         // Preconditions
         $this->stepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $configData]
         )->run();
         $this->adminAuthLogin->open();

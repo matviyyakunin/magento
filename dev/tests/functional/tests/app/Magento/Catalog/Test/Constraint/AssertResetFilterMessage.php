@@ -6,21 +6,25 @@
 
 namespace Magento\Catalog\Test\Constraint;
 
+use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
+use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
+
 /**
  * Assert that filters have been reset successfully.
  */
-class AssertResetFilterMessage extends \Magento\Mtf\Constraint\AbstractConstraint
+class AssertResetFilterMessage extends AbstractConstraint
 {
     /**
      * Assert message that filters have been reset.
      *
-     * @param \Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex $catalogProductIndex
+     * @param CatalogProductIndex $catalogProductIndex
      * @return void
      */
     public function processAssert(
-        \Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex $catalogProductIndex
+        CatalogProductIndex $catalogProductIndex
     ) {
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             'restored the filter to its original state',
             $catalogProductIndex->getMessagesBlock()->getErrorMessage(),
             "Can't find proper message"

@@ -7,6 +7,7 @@ namespace Magento\Backend\Test\Constraint;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Backend\Test\Page\Adminhtml\SystemConfigEdit;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that Locale field has correct visibility.
@@ -22,12 +23,12 @@ class AssertLocaleCodeVisibility extends AbstractConstraint
     public function processAssert(SystemConfigEdit $configEdit)
     {
         if ($_ENV['mage_mode'] === 'production') {
-            \PHPUnit\Framework\Assert::assertTrue(
+            Assert::assertTrue(
                 $configEdit->getForm()->getGroup('general', 'locale')->isFieldDisabled('general', 'locale', 'code'),
                 'Locale field should be disabled in production mode.'
             );
         } else {
-            \PHPUnit\Framework\Assert::assertFalse(
+            Assert::assertFalse(
                 $configEdit->getForm()->getGroup('general', 'locale')->isFieldDisabled('general', 'locale', 'code'),
                 'Locale field should be not disabled in developer or default mode.'
             );

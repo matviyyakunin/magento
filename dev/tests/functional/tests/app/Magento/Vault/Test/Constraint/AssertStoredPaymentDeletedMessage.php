@@ -7,6 +7,7 @@ namespace Magento\Vault\Test\Constraint;
 
 use Magento\Vault\Test\Page\StoredPaymentMethods;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that success message is correct.
@@ -25,7 +26,7 @@ class AssertStoredPaymentDeletedMessage extends AbstractConstraint
      */
     public function processAssert(StoredPaymentMethods $storedPaymentMethods)
     {
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $storedPaymentMethods->getMessagesBlock()->getSuccessMessage(),
             'Message of success deletion of stored payment method is not present or wrong.'

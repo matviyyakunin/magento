@@ -10,6 +10,7 @@ use Magento\Catalog\Test\Fixture\Category;
 use Magento\Catalog\Test\Page\Category\CatalogCategoryView;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that displayed breadcrumbs on category page equals to passed from fixture.
@@ -46,12 +47,12 @@ class AssertCategoryBreadcrumbs extends AbstractConstraint
         $this->openCategory($category);
 
         $breadcrumbs = $this->getBreadcrumbs($category);
-        \PHPUnit\Framework\Assert::assertNotEmpty(
+        Assert::assertNotEmpty(
             $breadcrumbs,
             'No breadcrumbs on category \'' . $category->getName() . '\' page.'
         );
         $pageBreadcrumbs = $catalogCategoryView->getBreadcrumbs()->getText();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $breadcrumbs,
             $pageBreadcrumbs,
             'Wrong breadcrumbs of category page.'

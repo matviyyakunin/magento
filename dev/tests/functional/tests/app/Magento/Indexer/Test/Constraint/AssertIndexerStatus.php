@@ -8,6 +8,7 @@ namespace Magento\Indexer\Test\Constraint;
 
 use Magento\Indexer\Test\Page\Adminhtml\IndexManagement;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert Indexer status in Index Management Page.
@@ -38,7 +39,7 @@ class AssertIndexerStatus extends AbstractConstraint
         $indexManagement->open();
         foreach ($indexers as $indexer) {
             $indexerStatus = $indexManagement->getMainBlock()->getIndexerStatus($indexer);
-            \PHPUnit\Framework\Assert::assertEquals(
+            Assert::assertEquals(
                 $expectedStatus,
                 $indexerStatus,
                 'Wrong ' . $indexer . ' status is displayed.'

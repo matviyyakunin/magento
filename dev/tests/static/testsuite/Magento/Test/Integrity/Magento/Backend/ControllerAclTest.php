@@ -8,8 +8,12 @@ namespace Magento\Test\Integrity\Magento\Backend;
 use Magento\TestFramework\Utility\ChangedFiles;
 use Magento\Framework\App\Utility\Files;
 use Magento\Backend\App\AbstractAction;
+use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use ReflectionException;
+use stdClass;
 
-class ControllerAclTest extends \PHPUnit\Framework\TestCase
+class ControllerAclTest extends TestCase
 {
     /**
      * Default function for checking accessibility of the ACL resource.
@@ -115,10 +119,10 @@ class ControllerAclTest extends \PHPUnit\Framework\TestCase
     /**
      * Collect possible errors for the ACL that exists in the php code but doesn't exists in the XML code.
      *
-     * @param \ReflectionClass $class
+     * @param ReflectionClass $class
      * @return array
      */
-    private function collectAclErrorsInTheXml(\ReflectionClass $class)
+    private function collectAclErrorsInTheXml(ReflectionClass $class)
     {
         $errorMessages = [];
         $className = $class->getName();
@@ -164,10 +168,10 @@ class ControllerAclTest extends \PHPUnit\Framework\TestCase
     /**
      * Is ADMIN_RESOURCE constant was overwritten in the child class.
      *
-     * @param \ReflectionClass $class
+     * @param ReflectionClass $class
      * @return bool
      */
-    private function isConstantOverwritten(\ReflectionClass $class)
+    private function isConstantOverwritten(ReflectionClass $class)
     {
         // check that controller overwrites default ACL to some specific
         if ($class->getConstant(self::ACL_CONST_NAME) !== self::DEFAULT_BACKEND_RESOURCE) {
@@ -180,17 +184,17 @@ class ControllerAclTest extends \PHPUnit\Framework\TestCase
     /**
      * Is _isAllowed method was overwritten in the child class.
      *
-     * @param \ReflectionClass $class
+     * @param ReflectionClass $class
      * @return bool
      */
-    private function isMethodOverwritten(\ReflectionClass $class)
+    private function isMethodOverwritten(ReflectionClass $class)
     {
         // check that controller overwrites default ACL to some specific (at least we check that it was overwritten).
         $method = $class->getMethod(self::ACL_FUNC_NAME);
         try {
             $method->getPrototype();
             return true;
-        } catch (\ReflectionException $e) {
+        } catch (ReflectionException $e) {
             return false;
         }
     }
@@ -198,10 +202,10 @@ class ControllerAclTest extends \PHPUnit\Framework\TestCase
     /**
      * Is controller extends Magento\Backend\App\AbstractAction.
      *
-     * @param \ReflectionClass $class
+     * @param ReflectionClass $class
      * @return bool
      */
-    private function isClassExtendsBackendClass(\ReflectionClass $class)
+    private function isClassExtendsBackendClass(ReflectionClass $class)
     {
         while ($parentClass = $class->getParentClass()) {
             if (AbstractAction::class === $parentClass->getName()) {
@@ -245,15 +249,15 @@ class ControllerAclTest extends \PHPUnit\Framework\TestCase
      * Try to get reflection for a admin html controller class by it path.
      *
      * @param string  $controllerPath
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     private function getClassByFilePath($controllerPath)
     {
         $className = str_replace('/', '\\', $controllerPath);
         try {
-            $reflectionClass = new \ReflectionClass($className);
-        } catch (\ReflectionException $e) {
-            $reflectionClass = new \ReflectionClass(new \stdClass());
+            $reflectionClass = new ReflectionClass($className);
+        } catch (ReflectionException $e) {
+            $reflectionClass = new ReflectionClass(new stdClass());
         }
         return $reflectionClass;
     }

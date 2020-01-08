@@ -8,6 +8,7 @@ namespace Magento\Catalog\Test\Constraint;
 
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductAttributeNew;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertUsedSuperAttributeImpossibilityDeleteMessages
@@ -28,7 +29,7 @@ class AssertUsedSuperAttributeImpossibleDeleteMessages extends AbstractConstrain
      */
     public function processAssert(CatalogProductAttributeNew $newPage)
     {
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::ERROR_DELETE_MESSAGE,
             $newPage->getMessagesBlock()->getErrorMessage(),
             'Wrong impossible to delete message is not displayed.'

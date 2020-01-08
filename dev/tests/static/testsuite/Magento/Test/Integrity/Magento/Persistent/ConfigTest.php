@@ -10,7 +10,10 @@
  */
 namespace Magento\Test\Integrity\Magento\Persistent;
 
-class ConfigTest extends \Magento\TestFramework\Integrity\AbstractConfig
+use Magento\Framework\Config\Dom\UrnResolver;
+use Magento\TestFramework\Integrity\AbstractConfig;
+
+class ConfigTest extends AbstractConfig
 {
     /**
      * Returns the name of the XSD file to be used to validate the XML
@@ -19,7 +22,7 @@ class ConfigTest extends \Magento\TestFramework\Integrity\AbstractConfig
      */
     protected function _getXsd()
     {
-        $urnResolver = new \Magento\Framework\Config\Dom\UrnResolver();
+        $urnResolver = new UrnResolver();
         return $urnResolver->getRealPath('urn:magento:module:Magento_Persistent:etc/persistent.xsd');
     }
 

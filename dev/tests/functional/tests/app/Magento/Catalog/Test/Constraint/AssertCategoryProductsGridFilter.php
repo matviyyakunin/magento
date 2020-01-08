@@ -8,10 +8,12 @@ declare(strict_types=1);
 
 namespace Magento\Catalog\Test\Constraint;
 
+use Magento\Catalog\Test\Block\Adminhtml\Category\Edit\CategoryForm;
 use Magento\Catalog\Test\Fixture\Category;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogCategoryEdit;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogCategoryIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that category products grid filter works correctly.
@@ -26,7 +28,7 @@ class AssertCategoryProductsGridFilter extends AbstractConstraint
     private $testFilterColumns = [
         'visibility',
     ];
-    
+
     /**
      * Assert that category products grid filter works correctly.
      *
@@ -43,7 +45,7 @@ class AssertCategoryProductsGridFilter extends AbstractConstraint
         $catalogCategoryIndex->getTreeCategories()->selectCategory($category, true);
         $categoryProducts = $category->getDataFieldConfig('category_products')['source']->getProducts();
         $catalogCategoryEdit->getEditForm()->openSection('category_products');
-        
+
         foreach ($this->testFilterColumns as $field) {
             $this->testGridFilter($categoryProducts, $catalogCategoryEdit, $field);
         }
@@ -66,7 +68,7 @@ class AssertCategoryProductsGridFilter extends AbstractConstraint
         }
 
         $actualProducts = [];
-        /** @var \Magento\Catalog\Test\Block\Adminhtml\Category\Edit\CategoryForm $productsFieldset */
+        /** @var CategoryForm $productsFieldset */
         $productsFieldset = $catalogCategoryEdit->getEditForm()->getSection('category_products');
         $gridRows = $productsFieldset->getProductGrid()->getRowsData(['name', $filterField]);
         foreach ($gridRows as $row) {
@@ -76,7 +78,7 @@ class AssertCategoryProductsGridFilter extends AbstractConstraint
             ];
         }
 
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $expectedProducts,
             $actualProducts,
             "Category products grid filter '$filterField' does not work correctly"

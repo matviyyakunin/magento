@@ -9,6 +9,7 @@ namespace Magento\Backend\Test\Constraint;
 use Magento\Backend\Test\Fixture\GlobalSearch;
 use Magento\Backend\Test\Page\Adminhtml\Dashboard;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertGlobalSearchPreview
@@ -40,9 +41,9 @@ class AssertGlobalSearchPreview extends AbstractConstraint
      */
     private function adminSearchAssert($dashboard, $search, $type)
     {
-        $adminSearchPreview = '"' . $search->getQuery() . '" in '. $type;
+        $adminSearchPreview = '"' . $search->getQuery() . '" in ' . $type;
         $isVisibleInResult = $dashboard->getAdminPanelHeader()->isAdminSearchPreviewVisible($adminSearchPreview, $type);
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $isVisibleInResult,
             'Search Preview for ' . $type . ' is not in search results'
         );

@@ -9,6 +9,7 @@ namespace Magento\Store\Test\Constraint;
 use Magento\Backend\Test\Page\Adminhtml\SystemConfig;
 use Magento\Store\Test\Fixture\Store;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertStoreBackend
@@ -27,7 +28,7 @@ class AssertStoreBackend extends AbstractConstraint
     {
         $systemConfig->open();
         $isStoreVisible = $systemConfig->getPageActions()->isStoreVisible($store);
-        \PHPUnit\Framework\Assert::assertTrue($isStoreVisible, "Store view is not visible in dropdown on config page");
+        Assert::assertTrue($isStoreVisible, "Store view is not visible in dropdown on config page");
     }
 
     /**

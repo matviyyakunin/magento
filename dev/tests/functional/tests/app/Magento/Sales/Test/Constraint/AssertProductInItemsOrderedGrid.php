@@ -6,10 +6,12 @@
 
 namespace Magento\Sales\Test\Constraint;
 
+use Exception;
 use Magento\Sales\Test\Block\Adminhtml\Order\Create\Items;
 use Magento\Sales\Test\Page\Adminhtml\OrderCreateIndex;
 use Magento\Mtf\Constraint\AbstractAssertForm;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert product was added to Items Ordered grid in customer account on Order creation page backend.
@@ -36,18 +38,18 @@ class AssertProductInItemsOrderedGrid extends AbstractAssertForm
      * @param OrderCreateIndex $orderCreateIndex
      * @param array $products
      * @param bool $productsIsConfigured
-     * @throws \Exception
+     * @throws Exception
      * @return void
      */
     public function processAssert(OrderCreateIndex $orderCreateIndex, array $products, $productsIsConfigured = true)
     {
         if (!$products) {
-            throw new \Exception("No products");
+            throw new Exception("No products");
         }
         $this->productsIsConfigured = $productsIsConfigured;
         $data = $this->prepareData($products, $orderCreateIndex->getCreateBlock()->getItemsBlock());
 
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $data['fixtureData'],
             $data['pageData'],
             'Product data on order create page not equals to passed from fixture.'

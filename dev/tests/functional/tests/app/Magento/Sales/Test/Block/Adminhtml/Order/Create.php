@@ -6,10 +6,15 @@
 
 namespace Magento\Sales\Test\Block\Adminhtml\Order;
 
+use Magento\Backend\Test\Block\Template;
 use Magento\Mtf\Block\Block;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Fixture\InjectableFixture;
+use Magento\Sales\Test\Block\Adminhtml\Order\Create\Form\Account;
+use Magento\Sales\Test\Block\Adminhtml\Order\Create\Items;
+use Magento\Sales\Test\Block\Adminhtml\Order\Create\Shipping\Address;
+use Magento\Sales\Test\Block\Adminhtml\Order\Create\Shipping\Method;
 
 /**
  * Adminhtml sales order create block.
@@ -124,12 +129,12 @@ class Create extends Block
     /**
      * Getter for order selected products grid.
      *
-     * @return \Magento\Sales\Test\Block\Adminhtml\Order\Create\Items
+     * @return Items
      */
     public function getItemsBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Create\Items::class,
+            Items::class,
             ['element' => $this->_rootElement->find($this->itemsBlock, Locator::SELECTOR_CSS)]
         );
     }
@@ -150,12 +155,12 @@ class Create extends Block
     /**
      * Get sales order create billing address block.
      *
-     * @return \Magento\Sales\Test\Block\Adminhtml\Order\Create\Shipping\Address
+     * @return Address
      */
     protected function getShippingAddressBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Create\Shipping\Address::class,
+            Address::class,
             ['element' => $this->_rootElement->find($this->shippingAddressBlock, Locator::SELECTOR_CSS)]
         );
     }
@@ -176,12 +181,12 @@ class Create extends Block
     /**
      * Get sales order create shipping method block.
      *
-     * @return \Magento\Sales\Test\Block\Adminhtml\Order\Create\Shipping\Method
+     * @return Method
      */
     protected function getShippingMethodBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Create\Shipping\Method::class,
+            Method::class,
             ['element' => $this->_rootElement->find($this->shippingMethodBlock, Locator::SELECTOR_CSS)]
         );
     }
@@ -202,12 +207,12 @@ class Create extends Block
     /**
      * Get backend abstract block.
      *
-     * @return \Magento\Backend\Test\Block\Template
+     * @return Template
      */
     public function getTemplateBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Backend\Test\Block\Template::class,
+            Template::class,
             ['element' => $this->_rootElement->find($this->templateBlock, Locator::SELECTOR_XPATH)]
         );
     }
@@ -228,12 +233,12 @@ class Create extends Block
     /**
      * Get sales order create account information block.
      *
-     * @return \Magento\Sales\Test\Block\Adminhtml\Order\Create\Form\Account
+     * @return Account
      */
     public function getAccountBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Create\Form\Account::class,
+            Account::class,
             ['element' => $this->_rootElement->find($this->accountInformationBlock, Locator::SELECTOR_CSS)]
         );
     }
@@ -256,9 +261,9 @@ class Create extends Block
      */
     public function updateProductsData(array $products)
     {
-        /** @var \Magento\Sales\Test\Block\Adminhtml\Order\Create\Items $items */
+        /** @var Items $items */
         $items = $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Create\Items::class,
+            Items::class,
             ['element' => $this->_rootElement->find($this->itemsBlock)]
         );
         foreach ($products as $product) {

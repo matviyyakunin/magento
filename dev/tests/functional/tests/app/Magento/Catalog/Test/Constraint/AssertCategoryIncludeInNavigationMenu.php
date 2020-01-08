@@ -10,6 +10,7 @@ use Magento\Catalog\Test\Fixture\Category;
 use Magento\Catalog\Test\Page\Category\CatalogCategoryView;
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check category is visible in navigation menu.
@@ -30,7 +31,7 @@ class AssertCategoryIncludeInNavigationMenu extends AbstractConstraint
         CmsIndex $cmsIndex
     ) {
         $cmsIndex->open();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $catalogCategoryView->getTopmenu()->isCategoryVisible($category->getName()),
             'Expected that ' . $category->getName() . ' is visible in navigation menu.'
         );

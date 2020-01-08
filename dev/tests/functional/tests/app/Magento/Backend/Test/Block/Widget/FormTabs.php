@@ -6,6 +6,7 @@
 
 namespace Magento\Backend\Test\Block\Widget;
 
+use Exception;
 use Magento\Mtf\Client\Element\SimpleElement;
 use Magento\Ui\Test\Block\Adminhtml\AbstractFormContainers;
 use Magento\Mtf\Fixture\FixtureInterface;
@@ -34,7 +35,7 @@ class FormTabs extends AbstractFormContainers
      *
      * @param string $tabName
      * @return Tab
-     * @throws \Exception
+     * @throws Exception
      */
     public function getTab($tabName)
     {
@@ -81,13 +82,13 @@ class FormTabs extends AbstractFormContainers
      *
      * @param string $tabName
      * @return $this
-     * @throws \Exception
+     * @throws Exception
      */
     public function openTab($tabName)
     {
         $this->browser->find($this->header)->hover();
         if (!$this->isTabVisible($tabName)) {
-            throw new \Exception(
+            throw new Exception(
                 'Tab "' . $tabName . '" is not visible.'
             );
         }

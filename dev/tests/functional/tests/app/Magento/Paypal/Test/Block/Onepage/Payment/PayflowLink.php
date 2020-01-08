@@ -6,6 +6,8 @@
 
 namespace Magento\Paypal\Test\Block\Onepage\Payment;
 
+use Magento\Paypal\Test\Block\Form\PayflowLink\Cc;
+
 /**
  * Payflow Link credit card block.
  */
@@ -16,5 +18,5 @@ class PayflowLink extends PaypalIframe
      *
      * @var string
      */
-    protected $formBlockCc = \Magento\Paypal\Test\Block\Form\PayflowLink\Cc::class;
+    protected $formBlockCc = Cc::class;
 }

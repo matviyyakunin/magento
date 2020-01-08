@@ -6,9 +6,10 @@
 
 namespace Magento\Reports\Test\TestCase;
 
-use Magento\Reports\Test\Page\Adminhtml\Statistics;
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Mtf\TestCase\Injectable;
 use Magento\Mtf\TestStep\TestStepFactory;
+use Magento\Reports\Test\Page\Adminhtml\Statistics;
 
 /**
  * Preconditions:
@@ -71,7 +72,7 @@ class RefreshReportsStatisticsTest extends Injectable
     {
         // Preconditions
         $this->testStepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $configData]
         )->run();
 

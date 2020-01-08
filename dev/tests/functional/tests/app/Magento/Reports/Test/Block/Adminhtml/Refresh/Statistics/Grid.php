@@ -6,6 +6,7 @@
 
 namespace Magento\Reports\Test\Block\Adminhtml\Refresh\Statistics;
 
+use Exception;
 use Magento\Backend\Test\Block\Widget\Grid as AbstractGrid;
 use Magento\Mtf\Client\Locator;
 
@@ -25,7 +26,7 @@ class Grid extends AbstractGrid
      * Search for item and select it.
      *
      * @param array $filter
-     * @throws \Exception
+     * @throws Exception
      * @return void
      */
     public function searchAndSelect(array $filter)
@@ -34,7 +35,7 @@ class Grid extends AbstractGrid
         if ($selectItem->isVisible()) {
             $selectItem->click();
         } else {
-            throw new \Exception("Searched item was not found by filter\n" . print_r($filter, true));
+            throw new Exception("Searched item was not found by filter\n" . print_r($filter, true));
         }
     }
 

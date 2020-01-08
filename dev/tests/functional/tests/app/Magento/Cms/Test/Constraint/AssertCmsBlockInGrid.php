@@ -9,6 +9,7 @@ namespace Magento\Cms\Test\Constraint;
 use Magento\Cms\Test\Fixture\CmsBlock;
 use Magento\Cms\Test\Page\Adminhtml\CmsBlockIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that created CMS block can be found in grid.
@@ -29,7 +30,7 @@ class AssertCmsBlockInGrid extends AbstractConstraint
     {
         $cmsBlockIndex->open();
         $data = $cmsBlock->getData();
-        $data['is_active'] = $data['is_active'] == 'Yes' ?  'Enabled' : 'Disabled';
+        $data['is_active'] = $data['is_active'] == 'Yes' ? 'Enabled' : 'Disabled';
         $filter = [
             'title' => $data['title'],
             'identifier' => $data['identifier'],
@@ -53,7 +54,7 @@ class AssertCmsBlockInGrid extends AbstractConstraint
             $pieces = explode('/', $filter['store_id']);
             $filter['store_id'] = end($pieces);
         }
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $cmsBlockIndex->getCmsBlockGrid()->isRowVisible($filter, false, false),
             'CMS Block with '
             . 'title \'' . $filter['title'] . '\', '

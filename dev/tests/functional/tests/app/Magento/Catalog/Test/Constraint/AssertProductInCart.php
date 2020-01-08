@@ -12,6 +12,7 @@ use Magento\Checkout\Test\Page\CheckoutCart;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assertion that the product is correctly displayed in cart.
@@ -62,7 +63,7 @@ class AssertProductInCart extends AbstractConstraint
 
         // Check price
         $this->countPrices($product, $checkoutCart);
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $this->fixtureActualPrice,
             $this->formPrice,
             'Product price in shopping cart is not correct.'

@@ -8,10 +8,13 @@ namespace Magento\Weee\Test\TestCase;
 
 use Magento\Catalog\Test\Fixture\CatalogAttributeSet;
 use Magento\Catalog\Test\Fixture\CatalogProductSimple;
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Customer\Test\Fixture\Customer;
+use Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep;
 use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Mtf\ObjectManager;
 use Magento\Mtf\TestCase\Injectable;
+use Magento\Tax\Test\TestStep\DeleteAllTaxRulesStep;
 
 /**
  * Preconditions:
@@ -86,7 +89,7 @@ class CreateTaxWithFptTest extends Injectable
     protected function loginCustomer(Customer $customer)
     {
         $this->objectManager->create(
-            \Magento\Customer\Test\TestStep\LoginCustomerOnFrontendStep::class,
+            LoginCustomerOnFrontendStep::class,
             ['customer' => $customer]
         )->run();
     }
@@ -113,7 +116,7 @@ class CreateTaxWithFptTest extends Injectable
         );
         $product->persist();
         $this->objectManager->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $configData]
         )->run();
         $this->loginCustomer($customer);
@@ -128,9 +131,9 @@ class CreateTaxWithFptTest extends Injectable
      */
     public function tearDown()
     {
-        $this->objectManager->create(\Magento\Tax\Test\TestStep\DeleteAllTaxRulesStep::class)->run();
+        $this->objectManager->create(DeleteAllTaxRulesStep::class)->run();
         $this->objectManager->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => 'default_tax_configuration,shipping_tax_class_taxable_goods_rollback']
         )->run();
     }

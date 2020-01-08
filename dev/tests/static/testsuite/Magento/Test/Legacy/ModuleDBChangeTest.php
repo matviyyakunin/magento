@@ -10,7 +10,9 @@
  */
 namespace Magento\Test\Legacy;
 
-class ModuleDBChangeTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+class ModuleDBChangeTest extends TestCase
 {
     /**
      * @var string

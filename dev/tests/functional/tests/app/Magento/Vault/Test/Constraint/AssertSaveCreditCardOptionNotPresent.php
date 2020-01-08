@@ -7,6 +7,7 @@ namespace Magento\Vault\Test\Constraint;
 
 use Magento\Checkout\Test\Page\CheckoutOnepage;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that 'Save for later use' checkbox is not present in credit card form.
@@ -22,7 +23,7 @@ class AssertSaveCreditCardOptionNotPresent extends AbstractConstraint
      */
     public function processAssert(CheckoutOnepage $checkoutOnepage, $payment)
     {
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $checkoutOnepage->getVaultPaymentBlock()->isVaultVisible($payment),
             'Save for later use checkbox is present.'
         );

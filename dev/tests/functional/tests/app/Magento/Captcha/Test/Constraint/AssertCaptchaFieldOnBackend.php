@@ -8,6 +8,7 @@ namespace Magento\Captcha\Test\Constraint;
 
 use Magento\Captcha\Test\Page\Captcha\AdminAuthLoginWithCaptcha;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert captcha on backend login page.
@@ -22,12 +23,12 @@ class AssertCaptchaFieldOnBackend extends AbstractConstraint
      */
     public function processAssert(AdminAuthLoginWithCaptcha $adminAuthLogin)
     {
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $adminAuthLogin->getLoginBlockWithCaptcha()->isVisibleCaptcha(),
             'Captcha image is not present on backend login page.'
         );
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $adminAuthLogin->getLoginBlockWithCaptcha()->isVisibleCaptchaReloadButton(),
             'Captcha reload button is not present on backend login page.'
         );

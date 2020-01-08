@@ -6,6 +6,12 @@
 
 namespace Magento\Mtf\Util\Generate;
 
+use Magento\Mtf\Util\Generate\Factory\Block;
+use Magento\Mtf\Util\Generate\Factory\Fixture;
+use Magento\Mtf\Util\Generate\Factory\Handler;
+use Magento\Mtf\Util\Generate\Factory\Page;
+use Magento\Mtf\Util\Generate\Factory\Repository;
+
 /**
  * Factory classes generator.
  *
@@ -20,11 +26,11 @@ class Factory extends AbstractGenerate
      */
     public function launch()
     {
-        $this->objectManager->create(\Magento\Mtf\Util\Generate\Factory\Block::class)->launch();
-        $this->objectManager->create(\Magento\Mtf\Util\Generate\Factory\Fixture::class)->launch();
-        $this->objectManager->create(\Magento\Mtf\Util\Generate\Factory\Handler::class)->launch();
-        $this->objectManager->create(\Magento\Mtf\Util\Generate\Factory\Page::class)->launch();
-        $this->objectManager->create(\Magento\Mtf\Util\Generate\Factory\Repository::class)->launch();
+        $this->objectManager->create(Block::class)->launch();
+        $this->objectManager->create(Fixture::class)->launch();
+        $this->objectManager->create(Handler::class)->launch();
+        $this->objectManager->create(Page::class)->launch();
+        $this->objectManager->create(Repository::class)->launch();
 
         return true;
     }

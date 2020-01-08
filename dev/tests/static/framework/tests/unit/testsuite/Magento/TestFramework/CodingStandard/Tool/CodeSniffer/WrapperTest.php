@@ -5,7 +5,9 @@
  */
 namespace Magento\TestFramework\CodingStandard\Tool\CodeSniffer;
 
-class WrapperTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+class WrapperTest extends TestCase
 {
     public function testSetValues()
     {

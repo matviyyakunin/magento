@@ -10,6 +10,7 @@ use Magento\Checkout\Test\Fixture\Cart;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\Adminhtml\InvoiceIndex;
 use Magento\Sales\Test\Page\Adminhtml\SalesInvoiceView;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert invoice items on invoice view page.
@@ -46,7 +47,7 @@ class AssertInvoiceItems extends AbstractAssertItems
             $invoiceIndex->getInvoicesGrid()->searchAndOpen($filter);
             $itemsData = $this->preparePageItems($salesInvoiceView->getItemsBlock()->getData());
             $error = $this->verifyData($productsData, $itemsData);
-            \PHPUnit\Framework\Assert::assertEmpty($error, $error);
+            Assert::assertEmpty($error, $error);
         }
     }
 

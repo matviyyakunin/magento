@@ -10,6 +10,7 @@ use Magento\Review\Test\Fixture\Review;
 use Magento\Review\Test\Page\Adminhtml\ReviewIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductReviewNotInGrid
@@ -56,7 +57,7 @@ class AssertProductReviewNotInGrid extends AbstractConstraint
 
         $reviewIndex->getReviewGrid()->search($filter);
         unset($filter['visible_in']);
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $reviewIndex->getReviewGrid()->isRowVisible($filter, false),
             'Review available in grid'
         );

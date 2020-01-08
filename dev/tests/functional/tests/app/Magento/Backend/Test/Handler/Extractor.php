@@ -7,6 +7,9 @@
 
 namespace Magento\Backend\Test\Handler;
 
+use Exception;
+use Magento\Mtf\Config\DataInterface;
+use Magento\Mtf\ObjectManagerFactory;
 use Magento\Mtf\Util\Protocol\CurlInterface;
 use Magento\Mtf\Util\Protocol\CurlTransport;
 use Magento\Mtf\Util\Protocol\CurlTransport\BackendDecorator;
@@ -56,13 +59,13 @@ class Extractor
     /**
      * Retrieves data from cURL response
      *
-     * @throws \Exception
+     * @throws Exception
      * @return array
      */
     public function getData()
     {
-        /** @var \Magento\Mtf\Config\DataInterface $config */
-        $config = \Magento\Mtf\ObjectManagerFactory::getObjectManager()->get(\Magento\Mtf\Config\DataInterface::class);
+        /** @var DataInterface $config */
+        $config = ObjectManagerFactory::getObjectManager()->get(DataInterface::class);
         $url = $_ENV['app_backend_url'] . $this->url;
         $curl = new BackendDecorator(new CurlTransport(), $config);
         $curl->addOption(CURLOPT_HEADER, 1);
@@ -77,7 +80,7 @@ class Extractor
 
         $countMatches = $this->isAll ? count($matches[1]) : count($matches);
         if ($countMatches == 0) {
-            throw new \Exception('Matches array can\'t be empty.');
+            throw new Exception('Matches array can\'t be empty.');
         }
         return $matches;
     }

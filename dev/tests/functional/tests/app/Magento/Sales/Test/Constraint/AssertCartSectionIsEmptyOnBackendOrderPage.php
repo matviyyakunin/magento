@@ -8,6 +8,7 @@ namespace Magento\Sales\Test\Constraint;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Sales\Test\Page\Adminhtml\OrderCreateIndex;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that customer's Shopping Cart section on Order Create backend page is empty.
@@ -24,7 +25,7 @@ class AssertCartSectionIsEmptyOnBackendOrderPage extends AbstractConstraint
     {
         $orderCreateIndex->open();
         $backendOrderSidebarBlock = $orderCreateIndex->getBackendOrderSidebarBlock()->noItemsInCartCheck();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $backendOrderSidebarBlock,
             "Customer's Shopping Cart section on Order Create backend page is not empty."
         );

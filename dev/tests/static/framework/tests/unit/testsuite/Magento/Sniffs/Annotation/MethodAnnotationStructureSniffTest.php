@@ -8,7 +8,11 @@ declare(strict_types=1);
 
 namespace Magento\Sniffs\Annotation;
 
-class MethodAnnotationStructureSniffTest extends \PHPUnit\Framework\TestCase
+use Magento\TestFramework\CodingStandard\Tool\CodeSniffer;
+use Magento\TestFramework\CodingStandard\Tool\CodeSniffer\Wrapper;
+use PHPUnit\Framework\TestCase;
+
+class MethodAnnotationStructureSniffTest extends TestCase
 {
     /**
      * @return array
@@ -56,10 +60,10 @@ class MethodAnnotationStructureSniffTest extends \PHPUnit\Framework\TestCase
             __DIR__ . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR,
             TESTS_TEMP_DIR
         );
-        $codeSniffer = new \Magento\TestFramework\CodingStandard\Tool\CodeSniffer(
+        $codeSniffer = new CodeSniffer(
             'Magento',
             $reportFile,
-            new \Magento\TestFramework\CodingStandard\Tool\CodeSniffer\Wrapper()
+            new Wrapper()
         );
         $result = $codeSniffer->run(
             [TESTS_TEMP_DIR . $fileUnderTest]

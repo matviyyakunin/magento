@@ -6,10 +6,10 @@
 
 namespace Magento\Cms\Test\TestCase;
 
-use Magento\Config\Test\Fixture\ConfigData;
-use Magento\Cms\Test\Fixture\CmsPage as CmsPageFixture;
 use Magento\Cms\Test\Page\Adminhtml\CmsPageIndex;
 use Magento\Cms\Test\Page\Adminhtml\CmsPageNew;
+use Magento\Config\Test\Fixture\ConfigData;
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Mtf\TestCase\Injectable;
 
@@ -90,7 +90,7 @@ class CreateCmsPageEntityTest extends Injectable
 
         // Preconditions
         $this->objectManager->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $configData]
         )->run();
         // Steps
@@ -112,7 +112,7 @@ class CreateCmsPageEntityTest extends Injectable
     {
         if ($this->configData) {
             $this->objectManager->create(
-                \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+                SetupConfigurationStep::class,
                 ['configData' => 'enable_single_store_mode', 'rollback' => true]
             )->run();
         }

@@ -6,10 +6,12 @@
 
 namespace Magento\Weee\Test\Block\Product;
 
+use Magento\Catalog\Test\Block\AbstractPriceBlock;
+
 /**
  * This class is used to access the fpt price from the storefront.
  */
-class Price extends \Magento\Catalog\Test\Block\AbstractPriceBlock
+class Price extends AbstractPriceBlock
 {
     /**
      * Mapping for different type of price.

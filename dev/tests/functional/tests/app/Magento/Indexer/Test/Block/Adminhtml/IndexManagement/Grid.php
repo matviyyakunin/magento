@@ -6,6 +6,7 @@
 
 namespace Magento\Indexer\Test\Block\Adminhtml\IndexManagement;
 
+use Exception;
 use Magento\Mtf\Client\Locator;
 use Magento\Backend\Test\Block\Widget\Grid as WidgetGrid;
 
@@ -52,7 +53,7 @@ class Grid extends WidgetGrid
      * Update indexers action in Index Management Page.
      *
      * @param array $indexers
-     * @throws \Exception
+     * @throws Exception
      * @return void
      */
     public function updateBySchedule(array $indexers)
@@ -62,7 +63,7 @@ class Grid extends WidgetGrid
             if ($selectItem->isVisible()) {
                 $selectItem->click();
             } else {
-                throw new \Exception("Searched item was not found by filter\n" . print_r($indexer, true));
+                throw new Exception("Searched item was not found by filter\n" . print_r($indexer, true));
             }
         }
         $this->_rootElement->find($this->selectAction, Locator::SELECTOR_XPATH, 'select')->click();

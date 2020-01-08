@@ -9,6 +9,7 @@ namespace Magento\Widget\Test\Constraint;
 use Magento\Widget\Test\Fixture\Widget;
 use Magento\Widget\Test\Page\Adminhtml\WidgetInstanceIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert widget is present in widget grid.
@@ -33,7 +34,7 @@ class AssertWidgetInGrid extends AbstractConstraint
     {
         $filter = ['title' => $widget->getTitle(), 'theme_id' => $widget->getThemeId()];
         $widgetInstanceIndex->open();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $widgetInstanceIndex->getWidgetGrid()->isRowVisible($filter),
             'Widget with title \'' . $widget->getTitle() . '\' is absent in Widget grid.'
         );

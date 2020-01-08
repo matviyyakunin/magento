@@ -8,6 +8,7 @@ namespace Magento\Tax\Test\Constraint;
 
 use Magento\Tax\Test\Page\Adminhtml\TaxRateIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertTaxRateSuccessDeleteMessage
@@ -25,7 +26,7 @@ class AssertTaxRateSuccessDeleteMessage extends AbstractConstraint
     public function processAssert(TaxRateIndex $taxRateIndex)
     {
         $actualMessage = $taxRateIndex->getMessagesBlock()->getSuccessMessage();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::SUCCESS_DELETE_MESSAGE,
             $actualMessage,
             'Wrong success delete message is displayed.'

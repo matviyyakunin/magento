@@ -8,6 +8,7 @@ namespace Magento\Backup\Test\Constraint;
 
 use Magento\Backup\Test\Page\Adminhtml\BackupIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertBackupInGrid
@@ -23,7 +24,7 @@ class AssertBackupInGrid extends AbstractConstraint
      */
     public function processAssert(BackupIndex $backupIndex)
     {
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $backupIndex->open()->getBackupGrid()->isBackupRowVisible(),
             'Backup is not present in grid.'
         );

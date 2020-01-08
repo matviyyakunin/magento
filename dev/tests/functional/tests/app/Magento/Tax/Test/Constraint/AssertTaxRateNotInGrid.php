@@ -9,6 +9,7 @@ namespace Magento\Tax\Test\Constraint;
 use Magento\Tax\Test\Fixture\TaxRate;
 use Magento\Tax\Test\Page\Adminhtml\TaxRateIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertTaxRateNotInGrid
@@ -31,7 +32,7 @@ class AssertTaxRateNotInGrid extends AbstractConstraint
         ];
 
         $taxRateIndex->open();
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $taxRateIndex->getTaxRateGrid()->isRowVisible($filter),
             'Tax Rate \'' . $filter['code'] . '\' is present in Tax Rate grid.'
         );

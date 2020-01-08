@@ -6,6 +6,7 @@
 
 namespace Magento\Cms\Test\Block\Adminhtml\Page;
 
+use Exception;
 use Magento\Mtf\Client\Locator;
 use Magento\Ui\Test\Block\Adminhtml\DataGrid;
 use Magento\Mtf\Client\Element\SimpleElement;
@@ -98,7 +99,7 @@ class Grid extends DataGrid
      * Search item and open it on Frontend.
      *
      * @param array $filter
-     * @throws \Exception
+     * @throws Exception
      * @return void
      */
     public function searchAndPreview(array $filter)
@@ -109,7 +110,7 @@ class Grid extends DataGrid
             $rowItem->find($this->selectAction)->click();
             $rowItem->find($this->previewCmsPage)->click();
         } else {
-            throw new \Exception("Searched item was not found by filter\n" . print_r($filter, true));
+            throw new Exception("Searched item was not found by filter\n" . print_r($filter, true));
         }
     }
 }

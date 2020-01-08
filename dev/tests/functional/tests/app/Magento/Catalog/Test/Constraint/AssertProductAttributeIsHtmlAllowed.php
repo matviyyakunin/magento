@@ -6,11 +6,13 @@
 
 namespace Magento\Catalog\Test\Constraint;
 
+use Exception;
 use Magento\Catalog\Test\Fixture\CatalogProductAttribute;
 use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\InjectableFixture;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check whether html tags are using in an attribute value.
@@ -29,7 +31,7 @@ class AssertProductAttributeIsHtmlAllowed extends AbstractConstraint
      * @param CatalogProductAttribute $attribute
      * @param CatalogProductView $catalogProductView
      * @param BrowserInterface $browser
-     * @throws \Exception
+     * @throws Exception
      * @return void
      */
     public function processAssert(
@@ -40,7 +42,7 @@ class AssertProductAttributeIsHtmlAllowed extends AbstractConstraint
     ) {
         $browser->open($_ENV['app_frontend_url'] . $product->getUrlKey() . '.html');
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $catalogProductView->getAdditionalInformationBlock()->hasHtmlTagInAttributeValue($attribute),
             'Attribute is not visible with HTML tags on frontend.'
         );

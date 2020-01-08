@@ -9,6 +9,7 @@ namespace Magento\Catalog\Test\Constraint;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductEdit;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Asserts what custom option values are same as expected.
@@ -40,7 +41,7 @@ class AssertCustomOptions extends AssertProductForm
         $formData = $this->prepareFormData($productPage->getProductForm()->getData($product), $this->sortFields);
         $errors = $this->verifyData($fixtureData, $formData);
 
-        \PHPUnit\Framework\Assert::assertEmpty($errors, $errors);
+        Assert::assertEmpty($errors, $errors);
     }
 
     /**

@@ -8,6 +8,7 @@ namespace Magento\Catalog\Test\Constraint;
 
 use Magento\Catalog\Test\Page\Adminhtml\CatalogCategoryEdit;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that a category cannot be deleted.
@@ -22,7 +23,7 @@ class AssertCategoryCannotBeDeleted extends AbstractConstraint
      */
     public function processAssert(CatalogCategoryEdit $catalogCategoryEdit)
     {
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $catalogCategoryEdit->getFormPageActions()->checkDeleteButton(),
             false,
             'Delete button is available for the category.'

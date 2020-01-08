@@ -9,19 +9,23 @@
  */
 namespace Magento\Test\Legacy;
 
+use Magento\Framework\App\Utility\AggregateInvoker;
+use Magento\Framework\App\Utility\Classes;
 use Magento\Framework\App\Utility\Files;
+use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\TestCase;
 
-class ClassesTest extends \PHPUnit\Framework\TestCase
+class ClassesTest extends TestCase
 {
     public function testPhpCode()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * @param string $file
              */
             function ($file) {
-                $classes = \Magento\Framework\App\Utility\Classes::collectPhpCodeClasses(file_get_contents($file));
+                $classes = Classes::collectPhpCodeClasses(file_get_contents($file));
                 $this->_assertNonFactoryName($classes, $file);
             },
             Files::init()->getPhpFiles(
@@ -37,7 +41,7 @@ class ClassesTest extends \PHPUnit\Framework\TestCase
 
     public function testConfiguration()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * @param string $path
@@ -45,10 +49,10 @@ class ClassesTest extends \PHPUnit\Framework\TestCase
             function ($path) {
                 $xml = simplexml_load_file($path);
 
-                $classes = \Magento\Framework\App\Utility\Classes::collectClassesInConfig($xml);
+                $classes = Classes::collectClassesInConfig($xml);
                 $this->_assertNonFactoryName($classes, $path);
 
-                $modules = \Magento\Framework\App\Utility\Classes::getXmlAttributeValues($xml, '//@module', 'module');
+                $modules = Classes::getXmlAttributeValues($xml, '//@module', 'module');
                 $this->_assertNonFactoryName(array_unique($modules), $path, false, true);
             },
             Files::init()->getConfigFiles()
@@ -57,28 +61,28 @@ class ClassesTest extends \PHPUnit\Framework\TestCase
 
     public function testLayouts()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * @param string $path
              */
             function ($path) {
                 $xml = simplexml_load_file($path);
-                $classes = \Magento\Framework\App\Utility\Classes::collectLayoutClasses($xml);
-                foreach (\Magento\Framework\App\Utility\Classes::getXmlAttributeValues(
+                $classes = Classes::collectLayoutClasses($xml);
+                foreach (Classes::getXmlAttributeValues(
                     $xml,
                     '/layout//@helper',
                     'helper'
                 ) as $class) {
-                    $classes[] = \Magento\Framework\App\Utility\Classes::getCallbackClass($class);
+                    $classes[] = Classes::getCallbackClass($class);
                 }
                 $classes = array_merge(
                     $classes,
-                    \Magento\Framework\App\Utility\Classes::getXmlAttributeValues($xml, '/layout//@module', 'module')
+                    Classes::getXmlAttributeValues($xml, '/layout//@module', 'module')
                 );
                 $this->_assertNonFactoryName(array_unique($classes), $path);
 
-                $tabs = \Magento\Framework\App\Utility\Classes::getXmlNodeValues(
+                $tabs = Classes::getXmlNodeValues(
                     $xml,
                     '/layout//action[@method="addTab"]/block'
                 );
@@ -117,7 +121,7 @@ class ClassesTest extends \PHPUnit\Framework\TestCase
                     $this->assertFalse(false === strpos($name, '\\'));
                     $this->assertRegExp('/^([A-Z\\\\][A-Za-z\d\\\\]+)+$/', $name);
                 }
-            } catch (\PHPUnit\Framework\AssertionFailedError $e) {
+            } catch (AssertionFailedError $e) {
                 $factoryNames[] = $name;
             }
         }

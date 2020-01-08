@@ -7,6 +7,7 @@ namespace Magento\Sales\Test\Constraint;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertDenyPaymentSuccessMessagePresent
@@ -29,7 +30,7 @@ class AssertDenyPaymentSuccessMessagePresent extends AbstractConstraint
      */
     public function processAssert(SalesOrderView $salesOrderView)
     {
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::$successDenyMessage,
             $salesOrderView->getMessagesBlock()->getSuccessMessage()
         );

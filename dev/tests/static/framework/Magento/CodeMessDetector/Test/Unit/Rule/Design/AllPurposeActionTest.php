@@ -11,11 +11,11 @@ namespace Magento\CodeMessDetector\Test\Unit\Rule\Design;
 use Magento\CodeMessDetector\Rule\Design\AllPurposeAction;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\App\ActionInterface;
+use PHPMD\Node\ClassNode;
+use PHPMD\Report;
+use PHPUnit\Framework\MockObject\Builder\InvocationMocker as InvocationMocker;
 use PHPUnit\Framework\TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit\Framework\MockObject\Builder\InvocationMocker as InvocationMocker;
-use PHPMD\Report;
-use PHPMD\Node\ClassNode;
 
 class AllPurposeActionTest extends TestCase
 {
@@ -40,7 +40,7 @@ class AllPurposeActionTest extends TestCase
     {
         return [
             [
-                new class implements ActionInterface, HttpGetActionInterface {
+                new class() implements ActionInterface, HttpGetActionInterface {
                     /**
                      * @inheritDoc
                      */
@@ -52,7 +52,7 @@ class AllPurposeActionTest extends TestCase
                 false
             ],
             [
-                new class implements ActionInterface {
+                new class() implements ActionInterface {
                     /**
                      * @inheritDoc
                      */
@@ -64,7 +64,7 @@ class AllPurposeActionTest extends TestCase
                 true
             ],
             [
-                new class implements HttpGetActionInterface {
+                new class() implements HttpGetActionInterface {
                     /**
                      * @inheritDoc
                      */
@@ -76,8 +76,7 @@ class AllPurposeActionTest extends TestCase
                 false
             ],
             [
-                new class {
-
+                new class() {
                 },
                 false
             ]

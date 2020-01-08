@@ -5,10 +5,14 @@
  */
 namespace Magento\Sniffs\EchoTags;
 
-class ShortEchoSyntaxSniffTest extends \PHPUnit\Framework\TestCase
+use PHP_CodeSniffer_File;
+use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_MockObject_MockObject;
+
+class ShortEchoSyntaxSniffTest extends TestCase
 {
     /**
-     * @var \PHP_CodeSniffer_File|\PHPUnit_Framework_MockObject_MockObject
+     * @var PHP_CodeSniffer_File|PHPUnit_Framework_MockObject_MockObject
      */
     private $fileMock;
 
@@ -19,7 +23,7 @@ class ShortEchoSyntaxSniffTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp()
     {
-        $this->fileMock = $this->getMock(\PHP_CodeSniffer_File::class, [], [], '', false);
+        $this->fileMock = $this->getMock(PHP_CodeSniffer_File::class, [], [], '', false);
         $this->shortEchoUsageSniff = new ShortEchoSyntaxSniff();
     }
 

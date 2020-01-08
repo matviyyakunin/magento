@@ -6,23 +6,25 @@
 
 namespace Magento\Mtf\Troubleshooting;
 
+use Magento\Mtf\Console\CommandList;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Perform all checks.
  */
-class GlobalAnalyzer extends \Symfony\Component\Console\Command\Command
+class GlobalAnalyzer extends Command
 {
     /**
      * List of commands.
      *
-     * @var \Magento\Mtf\Console\CommandList
+     * @var CommandList
      */
     private $commandList;
 
     /**
-     * @param \Symfony\Component\Console\Command\Command[] $commandList
+     * @param Command[] $commandList
      */
     public function __construct(
         $commandList

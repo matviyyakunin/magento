@@ -7,9 +7,11 @@
  */
 namespace Magento\Test\Integrity\Layout;
 
+use Magento\Framework\App\Utility\Classes;
 use Magento\Framework\App\Utility\Files;
+use PHPUnit\Framework\TestCase;
 
-class TemplatesTest extends \PHPUnit\Framework\TestCase
+class TemplatesTest extends TestCase
 {
     /**
      * @var array
@@ -85,7 +87,7 @@ class TemplatesTest extends \PHPUnit\Framework\TestCase
      */
     private static function getBlockVirtualTypesWithDifferentModule()
     {
-        $virtual = \Magento\Framework\App\Utility\Classes::getVirtualClasses();
+        $virtual = Classes::getVirtualClasses();
         foreach ($virtual as $className => $resolvedName) {
             if (strpos($resolvedName, 'Block') !== false) {
                 $matches = [];

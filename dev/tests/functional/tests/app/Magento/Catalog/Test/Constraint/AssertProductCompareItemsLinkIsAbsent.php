@@ -8,6 +8,7 @@ namespace Magento\Catalog\Test\Constraint;
 
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductCompareItemsLinkIsAbsent
@@ -26,7 +27,7 @@ class AssertProductCompareItemsLinkIsAbsent extends AbstractConstraint
      */
     public function processAssert(CmsIndex $cmsIndex)
     {
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $cmsIndex->getLinksBlock()->isLinkVisible("Compare Products"),
             'The link "Compare Products..." is visible at the top of page.'
         );

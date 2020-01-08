@@ -7,11 +7,12 @@
 namespace Magento\Tax\Test\Constraint;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
-use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
+use Magento\Mtf\Fixture\InjectableFixture;
+use Magento\Sales\Test\Page\Adminhtml\OrderCreditMemoNew;
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
 use Magento\Sales\Test\Page\Adminhtml\OrderInvoiceNew;
-use Magento\Sales\Test\Page\Adminhtml\OrderCreditMemoNew;
-use Magento\Mtf\Fixture\InjectableFixture;
+use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
+use PHPUnit\Framework\Assert;
 
 /**
  * Checks that prices displayed excluding tax in order are correct on backend.
@@ -100,28 +101,28 @@ abstract class AbstractAssertOrderTaxOnBackend extends AbstractConstraint
         $actualPrices = $this->getOrderTotals($actualPrices);
         $prices = $this->preparePrices($prices);
         $message = 'Prices on order view page should be equal to defined in dataset.';
-        \PHPUnit\Framework\Assert::assertEquals($prices, array_filter($actualPrices), $message);
+        Assert::assertEquals($prices, array_filter($actualPrices), $message);
         $salesOrderView->getPageActions()->invoice();
         //Check prices on invoice creation page
         $actualPrices = [];
         $actualPrices = $this->getInvoiceNewPrices($actualPrices, $product);
         $actualPrices = $this->getInvoiceNewTotals($actualPrices);
         $message = 'Prices on invoice new page should be equal to defined in dataset.';
-        \PHPUnit\Framework\Assert::assertEquals($prices, array_filter($actualPrices), $message);
+        Assert::assertEquals($prices, array_filter($actualPrices), $message);
         $orderInvoiceNew->getTotalsBlock()->submit();
         //Check prices after invoice on order page
         $actualPrices = [];
         $actualPrices = $this->getOrderPrices($actualPrices, $product);
         $actualPrices = $this->getOrderTotals($actualPrices);
         $message = 'Prices on invoice page should be equal to defined in dataset.';
-        \PHPUnit\Framework\Assert::assertEquals($prices, array_filter($actualPrices), $message);
+        Assert::assertEquals($prices, array_filter($actualPrices), $message);
         $salesOrderView->getPageActions()->orderCreditMemo();
         //Check prices on credit memo creation page
         $actualPrices = [];
         $actualPrices = $this->getCreditMemoNewPrices($actualPrices, $product);
         $actualPrices = $this->getCreditMemoNewTotals($actualPrices);
         $message = 'Prices on credit memo new page should be equal to defined in dataset.';
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             array_diff_key($prices, ['shipping_excl_tax' => null, 'shipping_incl_tax' => null]),
             array_filter($actualPrices),
             $message
@@ -132,7 +133,7 @@ abstract class AbstractAssertOrderTaxOnBackend extends AbstractConstraint
         $actualPrices = $this->getOrderPrices($actualPrices, $product);
         $actualPrices = $this->getOrderTotals($actualPrices);
         $message = 'Prices on credit memo page should be equal to defined in dataset.';
-        \PHPUnit\Framework\Assert::assertEquals($prices, array_filter($actualPrices), $message);
+        Assert::assertEquals($prices, array_filter($actualPrices), $message);
     }
 
     /**

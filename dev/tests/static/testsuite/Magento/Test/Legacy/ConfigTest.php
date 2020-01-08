@@ -9,11 +9,15 @@
  */
 namespace Magento\Test\Legacy;
 
-class ConfigTest extends \PHPUnit\Framework\TestCase
+use Magento\Framework\App\Utility\AggregateInvoker;
+use Magento\Framework\App\Utility\Files;
+use PHPUnit\Framework\TestCase;
+
+class ConfigTest extends TestCase
 {
     public function testConfigFiles()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * @param string $file
@@ -33,7 +37,7 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
                     );
                 }
             },
-            \Magento\Framework\App\Utility\Files::init()->getMainConfigFiles()
+            Files::init()->getMainConfigFiles()
         );
     }
 }

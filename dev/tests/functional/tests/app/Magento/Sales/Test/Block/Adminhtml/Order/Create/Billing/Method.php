@@ -8,6 +8,7 @@ namespace Magento\Sales\Test\Block\Adminhtml\Order\Create\Billing;
 
 use Magento\Mtf\Block\Block;
 use Magento\Mtf\Client\Locator;
+use Magento\Payment\Test\Block\Form\PaymentCc;
 use Magento\Payment\Test\Fixture\CreditCard;
 
 /**
@@ -84,7 +85,7 @@ class Method extends Block
         }
         if ($creditCard !== null) {
             $module = $creditCard->hasData('payment_code') ? ucfirst($creditCard->getPaymentCode()) : 'Payment';
-            /** @var \Magento\Payment\Test\Block\Form\PaymentCc $formBlock */
+            /** @var PaymentCc $formBlock */
             $formBlock = $this->blockFactory->create(
                 "\\Magento\\{$module}\\Test\\Block\\Form\\{$module}Cc",
                 ['element' => $this->_rootElement->find('#payment_form_' . $paymentMethod)]

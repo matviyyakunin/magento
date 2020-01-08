@@ -10,6 +10,7 @@ use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureFactory;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductCompareBlockOnCmsPage
@@ -38,7 +39,7 @@ class AssertProductCompareBlockOnCmsPage extends AbstractConstraint
         foreach ($products as &$product) {
             $product = $product->getName();
         }
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $products,
             $cmsIndex->getCompareProductsBlock()->getProducts(),
             'Compare product block contains NOT valid information about compared products.'

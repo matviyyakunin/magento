@@ -6,8 +6,9 @@
 namespace Magento\TestFramework\Dependency\VirtualType;
 
 use Magento\Framework\TestFramework\Unit\Helper\ObjectManager;
+use PHPUnit\Framework\TestCase;
 
-class VirtualTypeMapperTest extends \PHPUnit\Framework\TestCase
+class VirtualTypeMapperTest extends TestCase
 {
     /**
      * @var VirtualTypeMapper

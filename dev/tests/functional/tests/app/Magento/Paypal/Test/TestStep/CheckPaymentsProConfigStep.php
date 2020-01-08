@@ -12,6 +12,7 @@ use Magento\Payment\Test\Constraint\AssertFieldsAreActive;
 use Magento\Payment\Test\Constraint\AssertFieldsAreDisabled;
 use Magento\Payment\Test\Constraint\AssertFieldsAreEnabled;
 use Magento\Payment\Test\Constraint\AssertFieldsArePresent;
+use Magento\Paypal\Test\Block\System\Config\PaymentsPro;
 
 /**
  * Check PayPal Payments Pro configuration.
@@ -60,7 +61,7 @@ class CheckPaymentsProConfigStep implements TestStepInterface
     private $sections;
 
     /**
-     * @var \Magento\Paypal\Test\Block\System\Config\PaymentsPro
+     * @var PaymentsPro
      */
     private $paymentsProConfigBlock;
 

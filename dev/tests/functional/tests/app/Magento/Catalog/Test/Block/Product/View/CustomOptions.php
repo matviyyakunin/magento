@@ -6,6 +6,7 @@
 
 namespace Magento\Catalog\Test\Block\Product\View;
 
+use Exception;
 use Magento\Mtf\Block\Form;
 use Magento\Mtf\Client\Element\SimpleElement;
 use Magento\Mtf\Client\Locator;
@@ -135,7 +136,7 @@ class CustomOptions extends Form
      *
      * @param FixtureInterface $product
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function getOptions(FixtureInterface $product)
     {
@@ -148,7 +149,7 @@ class CustomOptions extends Form
         foreach ($dataOptions as $option) {
             $title = $option['title'];
             if (!isset($listCustomOptions[$title])) {
-                throw new \Exception("Can't find option: \"{$title}\"");
+                throw new Exception("Can't find option: \"{$title}\"");
             }
 
             /** @var SimpleElement $optionElement */

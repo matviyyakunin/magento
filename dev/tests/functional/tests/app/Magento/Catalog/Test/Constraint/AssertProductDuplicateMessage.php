@@ -8,6 +8,7 @@ namespace Magento\Catalog\Test\Constraint;
 
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductEdit;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductDuplicateMessage
@@ -28,7 +29,7 @@ class AssertProductDuplicateMessage extends AbstractConstraint
     public function processAssert(CatalogProductEdit $productPage)
     {
         $actualMessages = $productPage->getMessagesBlock()->getSuccessMessages();
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             self::DUPLICATE_MESSAGE,
             $actualMessages,
             'Wrong duplicated message is displayed.'

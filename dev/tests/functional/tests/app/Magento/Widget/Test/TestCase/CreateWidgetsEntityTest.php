@@ -7,8 +7,9 @@
 namespace Magento\Widget\Test\TestCase;
 
 use Magento\Mtf\Fixture\FixtureFactory;
-use \Magento\Mtf\TestCase\Injectable;
+use Magento\Mtf\TestCase\Injectable;
 use Magento\Widget\Test\Fixture\Widget;
+use Magento\Widget\Test\TestStep\DeleteAllWidgetsStep;
 
 /**
  * Steps:
@@ -52,6 +53,6 @@ class CreateWidgetsEntityTest extends Injectable
      */
     public function tearDown()
     {
-        $this->objectManager->create(\Magento\Widget\Test\TestStep\DeleteAllWidgetsStep::class)->run();
+        $this->objectManager->create(DeleteAllWidgetsStep::class)->run();
     }
 }

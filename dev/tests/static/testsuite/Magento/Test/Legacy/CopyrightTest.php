@@ -9,11 +9,14 @@
  */
 namespace Magento\Test\Legacy;
 
-class CopyrightTest extends \PHPUnit\Framework\TestCase
+use Magento\Framework\App\Utility\AggregateInvoker;
+use PHPUnit\Framework\TestCase;
+
+class CopyrightTest extends TestCase
 {
     public function testCopyright()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             function ($filename) {
                 $fileText = file_get_contents($filename);

@@ -6,14 +6,13 @@
 
 namespace Magento\Bundle\Test\Block\Catalog\Product\View\Type;
 
+use Exception;
 use Magento\Bundle\Test\Fixture\BundleProduct;
 use Magento\Catalog\Test\Page\Product\CatalogProductView;
-use Magento\Bundle\Test\Block\Catalog\Product\View\Type\Option;
-use Magento\Mtf\Client\Element\SimpleElement;
 use Magento\Mtf\Block\Block;
+use Magento\Mtf\Client\Element\SimpleElement;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\Fixture\FixtureInterface;
-use Magento\Mtf\Fixture\InjectableFixture;
 
 /**
  * Class Bundle
@@ -116,7 +115,7 @@ class Bundle extends Block
      *
      * @param FixtureInterface $product
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function getOptions(FixtureInterface $product)
     {
@@ -131,7 +130,7 @@ class Bundle extends Block
         foreach ($bundleOptions as $index => $option) {
             $title = $option['title'];
             if (!isset($listFormOptions[$title])) {
-                throw new \Exception("Can't find option: \"{$title}\"");
+                throw new Exception("Can't find option: \"{$title}\"");
             }
             $this->optionIndex = $index;
 

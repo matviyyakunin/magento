@@ -12,6 +12,7 @@ use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Catalog\Test\Fixture\CatalogProductAttribute;
 use Magento\Catalog\Test\Page\Category\CatalogCategoryView;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check whether the attribute filter is displayed on the frontend in Layered navigation.
@@ -53,7 +54,7 @@ class AssertProductAttributeIsFilterable extends AbstractConstraint
             ? $attribute->getManageFrontendLabel()
             : $attribute->getFrontendLabel();
         $filters = $catalogCategoryView->getLayeredNavigationBlock()->getFilters();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             in_array(strtoupper($label), $filters),
             'Attribute is absent in layered navigation on category page.'
         );

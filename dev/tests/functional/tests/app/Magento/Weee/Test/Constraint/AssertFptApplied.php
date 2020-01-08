@@ -13,6 +13,7 @@ use Magento\Checkout\Test\Page\CheckoutCart;
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Checks that prices with fpt on category, product and cart pages are equal to specified in dataset.
@@ -83,7 +84,7 @@ class AssertFptApplied extends AbstractConstraint
         $this->clearShoppingCart();
         $actualPrices = $this->getPrices($product);
         //Prices verification
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $prices,
             $actualPrices,
             'Prices on front should be equal to defined in dataset'

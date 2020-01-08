@@ -6,6 +6,7 @@
 
 namespace Magento\Mtf\Client\Element;
 
+use Exception;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\Client\ElementInterface;
 
@@ -124,7 +125,7 @@ class MultiselectgrouplistElement extends MultiselectElement
      *
      * @param string $option
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function selectOption($option)
     {
@@ -160,7 +161,7 @@ class MultiselectgrouplistElement extends MultiselectElement
                 $isOptgroup = true;
             }
         }
-        throw new \Exception("Can't find option \"{$option}\".");
+        throw new Exception("Can't find option \"{$option}\".");
     }
 
     /**
@@ -169,13 +170,13 @@ class MultiselectgrouplistElement extends MultiselectElement
      * @param string $value
      * @param ElementInterface $context
      * @return ElementInterface
-     * @throws \Exception
+     * @throws Exception
      */
     protected function getOptgroup($value, ElementInterface $context)
     {
         $optgroup = $context->find(sprintf($this->optgroupByLabel, $value), Locator::SELECTOR_XPATH);
         if (!$optgroup->isVisible()) {
-            throw new \Exception("Can't find group \"{$value}\".");
+            throw new Exception("Can't find group \"{$value}\".");
         }
 
         return $optgroup;
@@ -187,7 +188,7 @@ class MultiselectgrouplistElement extends MultiselectElement
      * @param string $value
      * @param ElementInterface $context
      * @return ElementInterface
-     * @throws \Exception
+     * @throws Exception
      */
     protected function getChildOptgroup($value, ElementInterface $context)
     {
@@ -196,7 +197,7 @@ class MultiselectgrouplistElement extends MultiselectElement
         while (!$childOptgroup) {
             $optgroup = $context->find(sprintf($this->nextOptgroup, $count), Locator::SELECTOR_XPATH);
             if (!$optgroup->isVisible()) {
-                throw new \Exception("Can't find child group \"{$value}\"");
+                throw new Exception("Can't find child group \"{$value}\"");
             }
 
             $childOptgroup = $context->find(

@@ -8,6 +8,7 @@ namespace Magento\Sales\Test\Constraint;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
 use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that Order Total Paid is correct on order page in Admin.
@@ -32,7 +33,7 @@ class AssertOrderTotalPaid extends AbstractConstraint
         $salesOrder->open();
         $salesOrder->getSalesOrderGrid()->searchAndOpen(['id' => $orderId]);
 
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             number_format($prices['totalPaid'], 2, '.', ','),
             $salesOrderView->getOrderTotalsBlock()->getTotalPaid(),
             'Total Paid price does not equal to price from data set.'

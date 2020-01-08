@@ -6,9 +6,11 @@
 
 namespace Magento\Backend\Test\Constraint;
 
+use Magento\Backend\Test\Block\Dashboard\Tab\Products\Ordered;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Backend\Test\Page\Adminhtml\Dashboard;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that bestsellers tab content on Dashboard successfully refreshed after clicking on Refreshing data button
@@ -30,11 +32,11 @@ class AssertBestsellersOnDashboard extends AbstractConstraint
     {
         $dashboard->open();
         $dashboard->getStoreStatsBlock()->refreshData();
-        /** @var \Magento\Backend\Test\Block\Dashboard\Tab\Products\Ordered $bestsellersGrid */
+        /** @var Ordered $bestsellersGrid */
         $bestsellersGrid = $dashboard->getStoreStatsBlock()->getTab('bestsellers')->getBestsellersGrid();
         $products = $order->getEntityId()['products'];
         foreach ($products as $product) {
-            \PHPUnit\Framework\Assert::assertTrue(
+            Assert::assertTrue(
                 $bestsellersGrid->isProductVisible($product),
                 'Bestseller ' . $product->getName() . ' is not present in report grid after refresh data.'
             );

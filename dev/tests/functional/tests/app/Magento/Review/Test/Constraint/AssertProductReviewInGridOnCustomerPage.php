@@ -12,6 +12,7 @@ use Magento\Customer\Test\Page\Adminhtml\CustomerIndexEdit;
 use Magento\Review\Test\Block\Adminhtml\Product\Grid as ReviewsGrid;
 use Magento\Review\Test\Fixture\Review;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductReviewInGridOnCustomerPage
@@ -48,7 +49,7 @@ class AssertProductReviewInGridOnCustomerPage extends AbstractConstraint
         $reviewsGrid = $customerIndexEdit->getCustomerForm()->getTab('product_reviews')->getReviewsGrid();
         $reviewsGrid->search($filter);
         unset($filter['visible_in']);
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $reviewsGrid->isRowVisible($filter, false),
             'Review is absent in Review grid on customer page.'
         );

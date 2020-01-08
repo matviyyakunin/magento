@@ -6,6 +6,8 @@
 
 namespace Magento\Reports\Test\Block\Adminhtml\Customer;
 
+use Magento\Backend\Test\Block\Widget\Grid;
+use Magento\Backend\Test\Fixture\Source\Date;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\ObjectManager;
 
@@ -13,7 +15,7 @@ use Magento\Mtf\ObjectManager;
  * Class AccountsGrid
  * New Customer Account report grid
  */
-class AccountsGrid extends \Magento\Backend\Test\Block\Widget\Grid
+class AccountsGrid extends Grid
 {
     /**
      * Mapping for fields in Account Report Grid
@@ -87,7 +89,7 @@ class AccountsGrid extends \Magento\Backend\Test\Block\Widget\Grid
                 continue;
             }
             $date = ObjectManager::getInstance()->create(
-                \Magento\Backend\Test\Fixture\Source\Date::class,
+                Date::class,
                 ['params' => [], 'data' => ['pattern' => $reportFilter]]
             );
             $customersReport[$name] = $date->getData();

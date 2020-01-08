@@ -6,6 +6,7 @@
 
 namespace Magento\Ui\Test\Block\Adminhtml;
 
+use Exception;
 use Magento\Mtf\Fixture\InjectableFixture;
 
 /**
@@ -32,7 +33,7 @@ class FormSections extends AbstractFormContainers
      *
      * @param string $sectionName
      * @return Section
-     * @throws \Exception
+     * @throws Exception
      */
     public function getSection($sectionName)
     {
@@ -52,13 +53,13 @@ class FormSections extends AbstractFormContainers
      *
      * @param string $sectionName
      * @return $this
-     * @throws \Exception if section is not visible
+     * @throws Exception if section is not visible
      */
     public function openSection($sectionName)
     {
         $container = $this->getContainerElement($sectionName);
         if (!$container->isVisible()) {
-            throw new \Exception('Container is not found "' . $sectionName . '""');
+            throw new Exception('Container is not found "' . $sectionName . '""');
         }
         $section = $container->find($this->collapsedSection);
         if ($section->isVisible()) {

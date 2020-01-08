@@ -8,8 +8,11 @@
  */
 namespace Magento\Test\Integrity;
 
+use Exception;
+use Magento\Framework\App\Utility\AggregateInvoker;
 use Magento\Framework\App\Utility\Files;
 use Magento\Framework\Component\ComponentRegistrar;
+use Magento\Framework\Config\Composer\Package;
 use Magento\TestFramework\Dependency\DbRule;
 use Magento\TestFramework\Dependency\DeclarativeSchemaRule;
 use Magento\TestFramework\Dependency\DiRule;
@@ -17,13 +20,16 @@ use Magento\TestFramework\Dependency\LayoutRule;
 use Magento\TestFramework\Dependency\PhpRule;
 use Magento\TestFramework\Dependency\ReportsConfigRule;
 use Magento\TestFramework\Dependency\AnalyticsConfigRule;
+use Magento\TestFramework\Dependency\RuleInterface;
 use Magento\TestFramework\Dependency\VirtualType\VirtualTypeMapper;
+use PHPUnit\Framework\TestCase;
+use SimpleXMLElement;
 
 /**
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
-class DependencyTest extends \PHPUnit\Framework\TestCase
+class DependencyTest extends TestCase
 {
     /**
      * Types of dependencies between modules
@@ -301,7 +307,7 @@ class DependencyTest extends \PHPUnit\Framework\TestCase
 
     public function testUndeclared()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * Check undeclared modules dependencies for specified file
@@ -368,7 +374,7 @@ class DependencyTest extends \PHPUnit\Framework\TestCase
         // Apply rules
         $dependencies = [];
         foreach (self::$_rulesInstances as $rule) {
-            /** @var \Magento\TestFramework\Dependency\RuleInterface $rule */
+            /** @var RuleInterface $rule */
             $newDependencies = $rule->getDependencyInfo($module, $fileType, $file, $contents);
             $dependencies = array_merge($dependencies, $newDependencies);
         }
@@ -664,7 +670,7 @@ class DependencyTest extends \PHPUnit\Framework\TestCase
                 $module = $matches['namespace'] . '\\' . $matches['module'];
                 $xml = simplexml_load_file($file);
                 foreach ((array)$xml->xpath('//container | //block') as $element) {
-                    /** @var \SimpleXMLElement $element */
+                    /** @var SimpleXMLElement $element */
                     $attributes = $element->attributes();
                     $block = (string)$attributes->name;
                     if (!empty($block)) {
@@ -693,7 +699,7 @@ class DependencyTest extends \PHPUnit\Framework\TestCase
                 $module = $matches['namespace'] . '\\' . $matches['module'];
                 $xml = simplexml_load_file($file);
                 foreach ((array)$xml->xpath('/layout/child::*') as $element) {
-                    /** @var \SimpleXMLElement $element */
+                    /** @var SimpleXMLElement $element */
                     $handle = $element->getName();
                     self::$_mapLayoutHandles[$area][$handle] = @(self::$_mapLayoutHandles[$area][$handle] ?: []);
                     self::$_mapLayoutHandles[$area][$handle][$module] = $module;
@@ -745,7 +751,7 @@ class DependencyTest extends \PHPUnit\Framework\TestCase
      * @return void
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @SuppressWarnings(PHPMD.NPathComplexity)
-     * @throws \Exception
+     * @throws Exception
      */
     protected static function _initDependencies()
     {
@@ -755,9 +761,9 @@ class DependencyTest extends \PHPUnit\Framework\TestCase
             $contents = file_get_contents($file);
             $decodedJson = json_decode($contents);
             if (null == $decodedJson) {
-                throw new \Exception("Invalid Json: $file");
+                throw new Exception("Invalid Json: $file");
             }
-            $json = new \Magento\Framework\Config\Composer\Package(json_decode($contents));
+            $json = new Package(json_decode($contents));
             $moduleName = self::convertModuleName($json->get('name'), $packageModuleMap);
             if (!isset(self::$mapDependencies[$moduleName])) {
                 self::$mapDependencies[$moduleName] = [];
@@ -832,7 +838,7 @@ class DependencyTest extends \PHPUnit\Framework\TestCase
      * Returns package name on module name mapping.
      *
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     private static function getPackageModuleMapping(): array
     {
@@ -843,7 +849,7 @@ class DependencyTest extends \PHPUnit\Framework\TestCase
             $contents = file_get_contents($file);
             $composerJson = json_decode($contents);
             if (null == $composerJson) {
-                throw new \Exception("Invalid Json: $file");
+                throw new Exception("Invalid Json: $file");
             }
             $moduleXml = simplexml_load_file(dirname($file) . '/etc/module.xml');
             $moduleName = str_replace('_', '\\', (string)$moduleXml->module->attributes()->name);

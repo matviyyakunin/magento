@@ -6,6 +6,7 @@
 
 namespace Magento\Catalog\Test\Fixture\Product;
 
+use Exception;
 use Magento\Customer\Test\Fixture\CustomerGroup;
 use Magento\Mtf\Fixture\DataSource;
 use Magento\Mtf\Fixture\FixtureFactory;
@@ -30,7 +31,7 @@ class TierPrice extends DataSource
     /**
      * Website fixture.
      *
-     * @var \Magento\Store\Test\Fixture\Website
+     * @var Website
      */
     private $website;
 
@@ -61,7 +62,7 @@ class TierPrice extends DataSource
      * @param FixtureFactory $fixtureFactory
      * @param array $params
      * @param array $data
-     * @throws \Exception
+     * @throws Exception
      */
     public function __construct(
         RepositoryFactory $repositoryFactory,
@@ -80,12 +81,12 @@ class TierPrice extends DataSource
      *
      * @param string $key [optional]
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function getData($key = null)
     {
         if (!isset($this->fixtureData['dataset'])) {
-            throw new \Exception("Data must be set");
+            throw new Exception("Data must be set");
         }
         $this->data = $this->repositoryFactory->get($this->params['repository'])->get($this->fixtureData['dataset']);
         if (!empty($this->fixtureData['data']['website'])) {
@@ -145,7 +146,7 @@ class TierPrice extends DataSource
     /**
      * Return website fixture.
      *
-     * @return \Magento\Store\Test\Fixture\Website
+     * @return Website
      */
     public function getWebsite()
     {

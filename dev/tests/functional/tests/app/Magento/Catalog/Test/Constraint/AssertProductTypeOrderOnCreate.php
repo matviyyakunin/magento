@@ -8,6 +8,7 @@ namespace Magento\Catalog\Test\Constraint;
 
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that order and types of product on product page equals to incoming data.
@@ -25,7 +26,7 @@ class AssertProductTypeOrderOnCreate extends AbstractConstraint
     {
         $catalogProductIndex->open();
         ksort($menu);
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             implode("\n", $menu),
             $catalogProductIndex->getGridPageActionBlock()->getTypeList(),
             'Order and filling of types on product page not equals to incoming data.'

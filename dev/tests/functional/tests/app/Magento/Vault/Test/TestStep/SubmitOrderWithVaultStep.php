@@ -9,6 +9,7 @@ namespace Magento\Vault\Test\TestStep;
 use Magento\Customer\Test\Fixture\Address;
 use Magento\Customer\Test\Fixture\Customer;
 use Magento\Mtf\Fixture\FixtureFactory;
+use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\TestStep\TestStepInterface;
 use Magento\Sales\Test\Page\Adminhtml\OrderCreateIndex;
 use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
@@ -56,7 +57,7 @@ class SubmitOrderWithVaultStep implements TestStepInterface
     /**
      * Products fixtures.
      *
-     * @var array|\Magento\Mtf\Fixture\FixtureInterface[]
+     * @var array|FixtureInterface[]
      */
     private $products;
 
@@ -65,7 +66,7 @@ class SubmitOrderWithVaultStep implements TestStepInterface
      * @param SalesOrderView $salesOrderView
      * @param FixtureFactory $fixtureFactory
      * @param Customer $customer
-     * @param \Magento\Mtf\Fixture\FixtureInterface[] $products
+     * @param FixtureInterface[] $products
      * @param OrderCreateIndex $orderCreateIndex
      * @param Address|null $billingAddress
      */

@@ -5,13 +5,16 @@
  */
 namespace Magento\Test\Integrity;
 
+use Magento\Framework\App\Utility\AggregateInvoker;
 use Magento\Framework\App\Utility\Classes;
+use Magento\Framework\Component\ComponentRegistrar;
+use PHPUnit\Framework\TestCase;
 
-class ConfigTest extends \PHPUnit\Framework\TestCase
+class ConfigTest extends TestCase
 {
     public function testPaymentMethods()
     {
-        $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
+        $invoker = new AggregateInvoker($this);
         $invoker(
             /**
              * Verify whether all payment methods are declared in appropriate modules
@@ -52,8 +55,8 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
     protected function _getConfigFilesPerModule()
     {
         $data = [];
-        $componentRegistrar = new \Magento\Framework\Component\ComponentRegistrar();
-        $modulesPaths = $componentRegistrar->getPaths(\Magento\Framework\Component\ComponentRegistrar::MODULE);
+        $componentRegistrar = new ComponentRegistrar();
+        $modulesPaths = $componentRegistrar->getPaths(ComponentRegistrar::MODULE);
 
         foreach ($modulesPaths as $moduleName => $path) {
             if (file_exists($configFile = $path . '/etc/config.xml')) {

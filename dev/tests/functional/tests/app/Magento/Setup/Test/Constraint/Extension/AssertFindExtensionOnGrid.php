@@ -9,6 +9,7 @@ namespace Magento\Setup\Test\Constraint\Extension;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Setup\Test\Block\Extension\AbstractGrid;
 use Magento\Setup\Test\Fixture\Extension;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check that there is extension on grid.
@@ -24,7 +25,7 @@ class AssertFindExtensionOnGrid extends AbstractConstraint
      */
     public function processAssert(AbstractGrid $grid, Extension $extension)
     {
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $grid->findExtensionOnGrid($extension),
             'Extension is not found on the grid.'
         );

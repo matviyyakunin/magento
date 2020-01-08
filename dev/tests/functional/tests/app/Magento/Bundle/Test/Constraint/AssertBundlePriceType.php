@@ -11,6 +11,7 @@ use Magento\Catalog\Test\Page\Product\CatalogProductView;
 use Magento\Checkout\Test\Page\CheckoutCart;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertBundlePriceType
@@ -101,7 +102,7 @@ class AssertBundlePriceType extends AbstractConstraint
 
         foreach ($optionPrice as $index => $item) {
             $item['price'] -= $item['price'] * $specialPrice;
-            \PHPUnit\Framework\Assert::assertEquals(
+            Assert::assertEquals(
                 number_format($item['price'], 2),
                 $cartItem->getPriceBundleOptions($index + 1),
                 'Bundle item ' . ($index + 1) . ' options on frontend don\'t equal to fixture.'
@@ -110,7 +111,7 @@ class AssertBundlePriceType extends AbstractConstraint
         $sumOptionsPrice = $product->getDataFieldConfig('price')['source']->getPriceData()['cart_price'];
 
         $subTotal = number_format($cartItem->getPrice(), 2);
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $sumOptionsPrice,
             $subTotal,
             'Bundle unit price on frontend doesn\'t equal to fixture.'

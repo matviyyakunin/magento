@@ -6,9 +6,11 @@
 
 namespace Magento\Widget\Test\Block\Adminhtml\Widget\Instance\Edit\Tab\WidgetInstanceType;
 
+use Magento\Backend\Test\Block\Template;
 use Magento\Mtf\Block\Form;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\Client\Element\SimpleElement;
+use PHPUnit_Extensions_Selenium2TestCase_WebDriverException;
 
 /**
  * Responds for filling layout form.
@@ -84,12 +86,12 @@ class WidgetInstanceForm extends Form
     /**
      * Get backend abstract block.
      *
-     * @return \Magento\Backend\Test\Block\Template
+     * @return Template
      */
     protected function getTemplateBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Backend\Test\Block\Template::class,
+            Template::class,
             ['element' => $this->_rootElement->find($this->templateBlock, Locator::SELECTOR_XPATH)]
         );
     }
@@ -112,7 +114,7 @@ class WidgetInstanceForm extends Form
         try {
             $this->browser->find($anchor, $anchorStrategy)->hover();
             $this->_rootElement->find($element, $elementStrategy)->click();
-        } catch (\PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
+        } catch (PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
             return false;
         }
         return true;

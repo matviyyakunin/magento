@@ -6,6 +6,7 @@
 
 namespace Magento\Sales\Test\Handler\OrderStatus;
 
+use Exception;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\Handler\Curl as AbstractCurl;
 use Magento\Mtf\Util\Protocol\CurlTransport;
@@ -50,7 +51,7 @@ class Curl extends AbstractCurl implements OrderStatusInterface
      *
      * @param FixtureInterface $fixture
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function persist(FixtureInterface $fixture = null)
     {
@@ -62,7 +63,7 @@ class Curl extends AbstractCurl implements OrderStatusInterface
         $curl->close();
 
         if (strpos($response, 'data-ui-id="messages-message-success"') === false) {
-            throw new \Exception("OrderStatus entity creating by curl handler was not successful! Response: $response");
+            throw new Exception("OrderStatus entity creating by curl handler was not successful! Response: $response");
         }
 
         if (isset($data['state'])) {
@@ -74,7 +75,7 @@ class Curl extends AbstractCurl implements OrderStatusInterface
             $curl->close();
 
             if (strpos($response, 'data-ui-id="messages-message-success"') === false) {
-                throw new \Exception(
+                throw new Exception(
                     "Assigning OrderStatus entity by curl handler was not successful! Response: $response"
                 );
             }

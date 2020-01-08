@@ -6,10 +6,11 @@
 
 namespace Magento\Tax\Test\Constraint;
 
-use Magento\Tax\Test\Fixture\TaxRate;
 use Magento\Mtf\Constraint\AbstractConstraint;
-use Magento\Tax\Test\Page\Adminhtml\TaxRuleNew;
+use Magento\Tax\Test\Fixture\TaxRate;
 use Magento\Tax\Test\Page\Adminhtml\TaxRuleIndex;
+use Magento\Tax\Test\Page\Adminhtml\TaxRuleNew;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that required tax rate is present in tax rule.
@@ -30,7 +31,7 @@ class AssertTaxRateInTaxRule extends AbstractConstraint
         $taxRuleIndex->open();
         $taxRuleIndex->getGridPageActions()->addNew();
 
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $taxRuleNew->getTaxRuleForm()->isTaxRateAvailable($taxRateCode),
             "$taxRateCode is not present in Tax Rates multiselect on tax rule creation page."
         );

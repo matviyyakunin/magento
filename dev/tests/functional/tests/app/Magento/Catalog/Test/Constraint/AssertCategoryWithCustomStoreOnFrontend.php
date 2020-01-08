@@ -11,6 +11,7 @@ use Magento\Catalog\Test\Page\Category\CatalogCategoryView;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Cms\Test\Page\CmsIndex;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that category name is different on different store view.
@@ -37,7 +38,7 @@ class AssertCategoryWithCustomStoreOnFrontend extends AbstractConstraint
         $cmsIndex->open();
         $cmsIndex->getLinksBlock()->waitWelcomeMessage();
         $browser->open($_ENV['app_frontend_url'] . $initialCategory->getUrlKey() . '.html');
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $initialCategory->getName(),
             $categoryView->getTitleBlock()->getTitle(),
             'Wrong category name is displayed for default store.'
@@ -47,7 +48,7 @@ class AssertCategoryWithCustomStoreOnFrontend extends AbstractConstraint
         $cmsIndex->getStoreSwitcherBlock()->selectStoreView($store);
         $cmsIndex->getLinksBlock()->waitWelcomeMessage();
         $browser->open($_ENV['app_frontend_url'] . $initialCategory->getUrlKey() . '.html');
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $category->getName(),
             $categoryView->getTitleBlock()->getTitle(),
             'Wrong category name is displayed for ' . $store

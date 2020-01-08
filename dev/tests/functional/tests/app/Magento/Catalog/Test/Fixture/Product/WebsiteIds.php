@@ -6,6 +6,7 @@
 
 namespace Magento\Catalog\Test\Fixture\Product;
 
+use Exception;
 use Magento\Mtf\Fixture\DataSource;
 use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Store\Test\Fixture\Store;
@@ -64,12 +65,12 @@ class WebsiteIds extends DataSource
      *
      * @param string $key [optional]
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function getData($key = null)
     {
         if (empty($this->fixtureData)) {
-            throw new \Exception("Data must be set");
+            throw new Exception("Data must be set");
         }
 
         foreach ($this->fixtureData as $dataset) {

@@ -6,6 +6,7 @@
 namespace Magento\Setup\Test\Constraint\Module;
 
 use Magento\Setup\Test\Page\Adminhtml\SetupWizard;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertSuccessMessage
@@ -24,7 +25,7 @@ class AssertSuccessMessage
      */
     public function processAssert(SetupWizard $setupWizard)
     {
-        \PHPUnit\Framework\Assert::assertContains(
+        Assert::assertContains(
             static::SUCCESS_MESSAGE,
             $setupWizard->getSuccessMessage()->getDisableModuleStatus(),
             'Success message is incorrect.'

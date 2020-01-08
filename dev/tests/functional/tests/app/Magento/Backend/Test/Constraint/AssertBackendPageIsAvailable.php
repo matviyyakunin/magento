@@ -8,6 +8,7 @@ namespace Magento\Backend\Test\Constraint;
 
 use Magento\Backend\Test\Page\Adminhtml\Dashboard;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert backend page title and it's availability.
@@ -25,12 +26,12 @@ class AssertBackendPageIsAvailable extends AbstractConstraint
      */
     public function processAssert(Dashboard $dashboard, $pageTitle)
     {
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $pageTitle,
             $dashboard->getTitleBlock()->getTitle(),
             'Invalid page title is displayed.'
         );
-        \PHPUnit\Framework\Assert::assertNotContains(
+        Assert::assertNotContains(
             self::ERROR_TEXT,
             $dashboard->getErrorBlock()->getContent(),
             "404 Error is displayed on '$pageTitle' page."

@@ -33,7 +33,7 @@ class ConstantUsageSniff implements Sniff
      *
      * {@inheritdoc}
      *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile
+     * @param File $phpcsFile
      * @param int $stackPtr
      * @return void|int
      */

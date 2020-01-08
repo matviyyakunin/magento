@@ -5,8 +5,10 @@
  */
 namespace Magento\TestFramework\Integrity\Library;
 
+use ReflectionException;
 use Zend\Code\Reflection\ClassReflection;
 use Zend\Code\Reflection\FileReflection;
+use Zend\Code\Reflection\MethodReflection;
 use Zend\Code\Reflection\ParameterReflection;
 
 /**
@@ -14,21 +16,21 @@ use Zend\Code\Reflection\ParameterReflection;
 class Injectable
 {
     /**
-     * @var \ReflectionException[]
+     * @var ReflectionException[]
      */
     protected $dependencies = [];
 
     /**
      * @param FileReflection $fileReflection
-     * @return \ReflectionException[]
-     * @throws \ReflectionException
+     * @return ReflectionException[]
+     * @throws ReflectionException
      */
     public function getDependencies(FileReflection $fileReflection)
     {
         foreach ($fileReflection->getClasses() as $class) {
             /** @var ClassReflection $class */
             foreach ($class->getMethods() as $method) {
-                /** @var \Zend\Code\Reflection\MethodReflection $method */
+                /** @var MethodReflection $method */
                 if ($method->getDeclaringClass()->getName() != $class->getName()) {
                     continue;
                 }
@@ -40,7 +42,7 @@ class Injectable
                         if ($dependency instanceof ClassReflection) {
                             $this->dependencies[] = $dependency->getName();
                         }
-                    } catch (\ReflectionException $e) {
+                    } catch (ReflectionException $e) {
                         if (preg_match('#^Class ([A-Za-z0-9_\\\\]+) does not exist$#', $e->getMessage(), $result)) {
                             $this->dependencies[] = $result[1];
                         } else {

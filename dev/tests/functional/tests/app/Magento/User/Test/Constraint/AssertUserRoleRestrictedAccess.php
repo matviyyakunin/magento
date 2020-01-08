@@ -10,6 +10,8 @@ use Magento\Backend\Test\Page\Adminhtml\Dashboard;
 use Magento\Mtf\Client\BrowserInterface;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\User\Test\Fixture\User;
+use Magento\User\Test\TestStep\LoginUserOnBackendStep;
+use PHPUnit\Framework\Assert;
 
 /**
  * Asserts that user has only related permissions.
@@ -36,16 +38,16 @@ class AssertUserRoleRestrictedAccess extends AbstractConstraint
         $denyUrl
     ) {
         $this->objectManager->create(
-            \Magento\User\Test\TestStep\LoginUserOnBackendStep::class,
+            LoginUserOnBackendStep::class,
             ['user' => $user]
         )->run();
 
         $menuItems = $dashboard->getMenuBlock()->getTopMenuItems();
-        \PHPUnit\Framework\Assert::assertEquals($menuItems, $restrictedAccess, 'Wrong display menu.');
+        Assert::assertEquals($menuItems, $restrictedAccess, 'Wrong display menu.');
 
         $browser->open($_ENV['app_backend_url'] . $denyUrl);
         $deniedMessage = $dashboard->getAccessDeniedBlock()->getTextFromAccessDeniedBlock();
-        \PHPUnit\Framework\Assert::assertEquals(self::DENIED_ACCESS, $deniedMessage, 'Possible access to denied page.');
+        Assert::assertEquals(self::DENIED_ACCESS, $deniedMessage, 'Possible access to denied page.');
     }
 
     /**

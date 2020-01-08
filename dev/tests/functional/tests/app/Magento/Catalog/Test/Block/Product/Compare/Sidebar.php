@@ -6,6 +6,9 @@
 
 namespace Magento\Catalog\Test\Block\Product\Compare;
 
+use Exception;
+use Magento\Ui\Test\Block\Adminhtml\Modal;
+
 /**
  * Compare product block on cms page.
  */
@@ -42,7 +45,7 @@ class Sidebar extends ListCompare
     /**
      * Get compare products block content.
      *
-     * @throws \Exception
+     * @throws Exception
      * @return array|string
      */
     public function getProducts()
@@ -61,7 +64,7 @@ class Sidebar extends ListCompare
                 $result[] = $element->getText();
             }
             return $result;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $isEmpty = $this->_rootElement->find($this->isEmpty);
             if ($isEmpty->isVisible()) {
                 return $isEmpty->getText();
@@ -87,9 +90,9 @@ class Sidebar extends ListCompare
         );
         $this->_rootElement->find($this->clearAll)->click();
         $modalElement = $this->browser->find($this->confirmModal);
-        /** @var \Magento\Ui\Test\Block\Adminhtml\Modal $modal */
+        /** @var Modal $modal */
         $modal = $this->blockFactory->create(
-            \Magento\Ui\Test\Block\Adminhtml\Modal::class,
+            Modal::class,
             ['element' => $modalElement]
         );
         $modal->acceptAlert();

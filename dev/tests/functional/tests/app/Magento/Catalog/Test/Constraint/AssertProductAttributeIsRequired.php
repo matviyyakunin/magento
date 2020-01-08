@@ -11,6 +11,7 @@ use Magento\Catalog\Test\Page\Adminhtml\CatalogProductEdit;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\InjectableFixture;
+use PHPUnit\Framework\Assert;
 
 /**
  * Check whether the attribute is mandatory.
@@ -51,7 +52,7 @@ class AssertProductAttributeIsRequired extends AbstractConstraint
             ? $validationErrors[$attribute->getFrontendLabel()]
             : '';
 
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             self::REQUIRE_MESSAGE,
             $actualMessage,
             'JS error notice on product edit page is not equal to expected.'

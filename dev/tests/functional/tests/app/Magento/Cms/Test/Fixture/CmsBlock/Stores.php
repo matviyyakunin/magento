@@ -8,6 +8,7 @@ namespace Magento\Cms\Test\Fixture\CmsBlock;
 
 use Magento\Mtf\Fixture\DataSource;
 use Magento\Mtf\Fixture\FixtureFactory;
+use Magento\Store\Test\Fixture\Store;
 
 /**
  * Data source for 'stores' field.
@@ -38,7 +39,7 @@ class Stores extends DataSource
         if (isset($data['dataset'])) {
             $datasets = is_array($data['dataset']) ? $data['dataset'] : [$data['dataset']];
             foreach ($datasets as $dataset) {
-                /** @var \Magento\Store\Test\Fixture\Store $store */
+                /** @var Store $store */
                 $store = $fixtureFactory->createByCode('store', ['dataset' => $dataset]);
                 if (!$store->hasData('store_id')) {
                     $store->persist();

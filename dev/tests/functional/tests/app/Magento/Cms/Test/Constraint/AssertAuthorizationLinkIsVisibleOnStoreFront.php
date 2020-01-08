@@ -8,6 +8,7 @@ namespace Magento\Cms\Test\Constraint;
 
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that authorization link is visible on the Store Front.
@@ -23,7 +24,7 @@ class AssertAuthorizationLinkIsVisibleOnStoreFront extends AbstractConstraint
     public function processAssert(CmsIndex $cmsIndex)
     {
         $cmsIndex->open();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $cmsIndex->getLinksBlock()->isAuthorizationVisible(),
             "Authorization link is not visible on the Store Front."
         );

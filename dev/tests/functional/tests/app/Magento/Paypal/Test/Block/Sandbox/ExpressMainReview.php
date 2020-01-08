@@ -23,18 +23,18 @@ class ExpressMainReview extends Block
     /**
      * Determines whether new review block or old is shown.
      *
-     * @return \Magento\Paypal\Test\Block\Sandbox\ExpressReview|\Magento\Paypal\Test\Block\Sandbox\ExpressOldReview
+     * @return ExpressReview|ExpressOldReview
      */
     public function getReviewBlock()
     {
         if ($this->_rootElement->find($this->expressReview)->isVisible()) {
             return $this->blockFactory->create(
-                \Magento\Paypal\Test\Block\Sandbox\ExpressReview::class,
+                ExpressReview::class,
                 ['element' => $this->_rootElement]
             );
         }
         return $this->blockFactory->create(
-            \Magento\Paypal\Test\Block\Sandbox\ExpressOldReview::class,
+            ExpressOldReview::class,
             ['element' => $this->_rootElement]
         );
     }

@@ -10,6 +10,7 @@ use Magento\Backend\Test\Page\Adminhtml\StoreIndex;
 use Magento\Backend\Test\Page\Adminhtml\StoreNew;
 use Magento\Store\Test\Fixture\StoreGroup;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertStoreGroupOnStoreViewForm
@@ -29,7 +30,7 @@ class AssertStoreGroupOnStoreViewForm extends AbstractConstraint
     {
         $storeGroupName = $storeGroup->getName();
         $storeIndex->open()->getGridPageActions()->addStoreView();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $storeNew->getStoreForm()->isStoreVisible($storeGroupName),
             'Store Group \'' . $storeGroupName . '\' is not present on StoreView Form in Store dropdown.'
         );

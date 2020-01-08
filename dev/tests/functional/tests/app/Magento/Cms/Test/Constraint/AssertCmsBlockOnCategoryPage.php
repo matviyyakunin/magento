@@ -11,6 +11,7 @@ use Magento\Cms\Test\Fixture\CmsBlock;
 use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\FixtureFactory;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that created CMS block displayed on frontend category page.
@@ -49,7 +50,7 @@ class AssertCmsBlockOnCategoryPage extends AbstractConstraint
         $cmsIndex->getTopmenu()->selectCategoryByName($category->getName());
         $categoryViewContent = $catalogCategoryView->getViewBlock()->getContent();
 
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $cmsBlock->getContent(),
             $categoryViewContent,
             'Wrong block content on category is displayed.'

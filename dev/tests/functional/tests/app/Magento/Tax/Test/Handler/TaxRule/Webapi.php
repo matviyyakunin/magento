@@ -6,13 +6,13 @@
 
 namespace Magento\Tax\Test\Handler\TaxRule;
 
-use Magento\Tax\Test\Fixture\TaxRule;
+use Exception;
 use Magento\Mtf\Config\DataInterface;
 use Magento\Mtf\Fixture\FixtureInterface;
-use Magento\Mtf\Util\Protocol\CurlTransport;
 use Magento\Mtf\Handler\Webapi as AbstractWebapi;
 use Magento\Mtf\System\Event\EventManagerInterface;
 use Magento\Mtf\Util\Protocol\CurlTransport\WebapiDecorator;
+use Magento\Tax\Test\Fixture\TaxRule;
 
 /**
  * Create Tax Rule via Web API handler.
@@ -48,7 +48,7 @@ class Webapi extends AbstractWebapi implements TaxRuleInterface
      *
      * @param FixtureInterface $fixture
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function persist(FixtureInterface $fixture = null)
     {
@@ -62,7 +62,7 @@ class Webapi extends AbstractWebapi implements TaxRuleInterface
 
         if (empty($response['id'])) {
             $this->eventManager->dispatchEvent(['webapi_failed'], [$response]);
-            throw new \Exception('Tax rule creation by Web API handler was not successful!');
+            throw new Exception('Tax rule creation by Web API handler was not successful!');
         }
 
         return ['id' => $response['id']];

@@ -11,6 +11,7 @@ use Magento\Backend\Test\Page\Adminhtml\Dashboard;
 use Magento\Config\Test\Page\Adminhtml\ConfigIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\User\Test\Fixture\User;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert for check permission for admin user that has access only to Configuration index page
@@ -37,7 +38,7 @@ class AssertUserPermissionsOnlyConfigurationIndexPage extends AbstractConstraint
         $adminAuth->getLoginBlock()->fill($customAdmin);
         $adminAuth->getLoginBlock()->submit();
         $configIndex->open();
-        \PHPUnit\Framework\Assert::assertTrue(
+        Assert::assertTrue(
             $configIndex->getAdminForm()->isEmpty(),
             "Form isn't empty."
         );

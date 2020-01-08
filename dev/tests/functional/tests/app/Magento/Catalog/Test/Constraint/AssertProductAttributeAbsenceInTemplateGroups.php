@@ -10,6 +10,7 @@ use Magento\Catalog\Test\Fixture\CatalogAttributeSet;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductSetEdit;
 use Magento\Catalog\Test\Page\Adminhtml\CatalogProductSetIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class AssertProductAttributeAbsenceInTemplateGroups
@@ -39,7 +40,7 @@ class AssertProductAttributeAbsenceInTemplateGroups extends AbstractConstraint
             ->getAttributes()[0]
             ->getAttributeCode();
 
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $productSetEdit->getAttributeSetEditBlock()->checkProductAttribute($attributeCode),
             "Attribute " . $attributeCode . " is present in Attribute set's Groups section."
         );

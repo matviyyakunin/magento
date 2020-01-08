@@ -6,7 +6,14 @@
 
 namespace Magento\Mtf\Util\Generate\Repository;
 
+use Magento\Framework\Data\Collection\Db\FetchStrategyInterface;
+use Magento\Framework\Data\Collection\EntityFactory;
+use Magento\Framework\DataObject;
+use Magento\Framework\DB\Adapter\AdapterInterface;
+use Magento\Framework\Event\ManagerInterface;
+use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class CollectionProvider
@@ -21,25 +28,25 @@ class TableCollection extends AbstractCollection
 
     /**
      * @constructor
-     * @param \Magento\Framework\Data\Collection\EntityFactory $entityFactory
-     * @param \Psr\Log\LoggerInterface $logger
-     * @param \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy
-     * @param \Magento\Framework\Event\ManagerInterface $eventManager
+     * @param EntityFactory $entityFactory
+     * @param LoggerInterface $logger
+     * @param FetchStrategyInterface $fetchStrategy
+     * @param ManagerInterface $eventManager
      * @param null $connection
-     * @param \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource
+     * @param AbstractDb $resource
      * @param array $fixture
      */
     public function __construct(
-        \Magento\Framework\Data\Collection\EntityFactory $entityFactory,
-        \Psr\Log\LoggerInterface $logger,
-        \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy,
-        \Magento\Framework\Event\ManagerInterface $eventManager,
-        \Magento\Framework\DB\Adapter\AdapterInterface $connection = null,
-        \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource = null,
+        EntityFactory $entityFactory,
+        LoggerInterface $logger,
+        FetchStrategyInterface $fetchStrategy,
+        ManagerInterface $eventManager,
+        AdapterInterface $connection = null,
+        AbstractDb $resource = null,
         array $fixture = []
     ) {
-        $this->setModel(\Magento\Framework\DataObject::class);
-        $this->setResourceModel(\Magento\Mtf\Util\Generate\Repository\RepositoryResource::class);
+        $this->setModel(DataObject::class);
+        $this->setResourceModel(RepositoryResource::class);
 
         $resource = $this->getResource();
         $resource->setFixture($fixture);
@@ -50,7 +57,7 @@ class TableCollection extends AbstractCollection
     /**
      * Get resource instance
      *
-     * @return \Magento\Mtf\Util\Generate\Repository\RepositoryResource
+     * @return RepositoryResource
      */
     public function getResource()
     {

@@ -11,6 +11,7 @@ use Magento\Cms\Test\Page\CmsIndex;
 use Magento\Mtf\Constraint\AbstractConstraint;
 use Magento\Mtf\Fixture\InjectableFixture;
 use Magento\Catalog\Test\Page\Category\CatalogCategoryView;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert product MAP related data on category page.
@@ -37,14 +38,14 @@ class AssertMapOnCategoryPage extends AbstractConstraint
         $productBlock = $catalogCategoryView->getMsrpListProductBlock()->getProductItem($product);
         $productBlock->openMapBlock();
         $mapBlock = $productBlock->getMapBlock();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $product->getMsrp(),
             $mapBlock->getOldPrice(),
             'Displayed on Category page MAP is incorrect.'
         );
         $priceData = $product->getDataFieldConfig('price')['source']->getPriceData();
         $price = isset($priceData['category_price']) ? $priceData['category_price'] : $product->getPrice();
-        \PHPUnit\Framework\Assert::assertEquals(
+        Assert::assertEquals(
             $price,
             $mapBlock->getActualPrice(),
             'Displayed on Category page price is incorrect.'

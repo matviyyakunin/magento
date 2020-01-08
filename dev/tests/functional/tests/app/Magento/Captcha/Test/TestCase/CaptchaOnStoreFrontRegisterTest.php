@@ -7,6 +7,7 @@
 namespace Magento\Captcha\Test\TestCase;
 
 use Magento\Captcha\Test\Constraint\AssertCaptchaFieldOnRegisterForm;
+use Magento\Config\Test\TestStep\SetupConfigurationStep;
 use Magento\Customer\Test\Fixture\Customer;
 use Magento\Customer\Test\Page\CustomerAccountCreate;
 use Magento\Mtf\TestCase\Injectable;
@@ -86,7 +87,7 @@ class CaptchaOnStoreFrontRegisterTest extends Injectable
 
         // Preconditions
         $this->stepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData]
         )->run();
 
@@ -104,7 +105,7 @@ class CaptchaOnStoreFrontRegisterTest extends Injectable
     public function tearDown()
     {
         $this->stepFactory->create(
-            \Magento\Config\Test\TestStep\SetupConfigurationStep::class,
+            SetupConfigurationStep::class,
             ['configData' => $this->configData, 'rollback' => true]
         )->run();
     }

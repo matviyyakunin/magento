@@ -6,6 +6,7 @@
 
 namespace Magento\User\Test\Handler\Role;
 
+use Exception;
 use Magento\Backend\Test\Handler\Extractor;
 use Magento\Mtf\Config\DataInterface;
 use Magento\Mtf\Fixture\FixtureInterface;
@@ -45,7 +46,7 @@ class Curl extends AbstractCurl implements RoleInterface
      *
      * @param FixtureInterface $fixture
      * @return array|mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function persist(FixtureInterface $fixture = null)
     {
@@ -58,7 +59,7 @@ class Curl extends AbstractCurl implements RoleInterface
         $curl->close();
 
         if (strpos($response, 'data-ui-id="messages-message-success"') === false) {
-            throw new \Exception("Role creating by curl handler was not successful! Response: $response");
+            throw new Exception("Role creating by curl handler was not successful! Response: $response");
         }
 
         $url = 'admin/user_role/roleGrid/sort/role_id/dir/desc/';

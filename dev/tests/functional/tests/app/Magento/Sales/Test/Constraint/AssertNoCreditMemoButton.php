@@ -10,6 +10,7 @@ use Magento\Sales\Test\Fixture\OrderInjectable;
 use Magento\Sales\Test\Page\Adminhtml\OrderIndex;
 use Magento\Sales\Test\Page\Adminhtml\SalesOrderView;
 use Magento\Mtf\Constraint\AbstractConstraint;
+use PHPUnit\Framework\Assert;
 
 /**
  * Assert that after refunding full amount 'Credit Memo' is not available any more
@@ -28,7 +29,7 @@ class AssertNoCreditMemoButton extends AbstractConstraint
     {
         $orderIndex->open();
         $orderIndex->getSalesOrderGrid()->searchAndOpen(['id' => $order->getId()]);
-        \PHPUnit\Framework\Assert::assertFalse(
+        Assert::assertFalse(
             $salesOrderView->getPageActions()->isActionButtonVisible('Credit Memo'),
             'Credit memo button should not be present on order view page.'
         );
