@@ -47,3 +47,17 @@
         }
     }
 </script>
+<script type="text/x-magento-init">
+{
+   "*": {
+           "Magento_Ui/js/core/app": {
+               "components": {
+                   "qty_change": {
+                       "component": "Qty_Incrementors/js/view/product/view/qty_change",
+                       "defaultQty": <?php echo $block->getProductDefaultQty() * 1 ?>
+                   }
+               }
+           }
+   }
+}
+</script>
