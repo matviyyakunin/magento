@@ -18,7 +18,7 @@
                 <span data-bind="i18n: 'Email Address'"></span>
             </label>
             <div class="control _with-tooltip">
-                <input disabled class="input-text"
+                <input  class="input-text"
                        type="email"
                        data-bind="
                             ko ifnot: isCustomerLoggedIn()
@@ -41,7 +41,7 @@
                     <span data-bind="i18n: 'Password'"></span>
                 </label>
                 <div class="control">
-                    <input class="input-text"
+                    <input  class="input-text"
                            data-bind="
                                 attr: {
                                     placeholder: $t('Password'),
@@ -72,4 +72,14 @@
         <!--Hidden fields -->
     </fieldset>
 </form>
+<script>
+
+    const isRegistrated = window.checkoutConfig.customerData.email;
+   const crutch = document.getElementById('customer-password');
+   crutch.onload(function () {
+console.log("first")
+   })
+   console.log("something")
+
+</script>
 <!-- /ko -->
