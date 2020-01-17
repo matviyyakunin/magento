@@ -1,0 +1,13 @@
+<div class="note">
+    <a class="action popup-open" href="#">
+        <span>click me</span>
+    </a>
+</div>
+<?php echo $this->getChildHtml('popup') ?>
+<script type="text/x-magento-init">
+{
+   ".popup-open": {
+       "Magento_Catalog/js/popup": {}
+   }
+}
+</script>
