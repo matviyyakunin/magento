@@ -1,0 +1,35 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php
+
+/** @var $block \Magento\Framework\View\Element\Template */
+/** @var $helper \Magento\Search\Helper\Data */
+$helper = $this->helper(\Magento\Search\Helper\Data::class);
+
+?>
+<div class="block-search-toggle" id="search-popup-toggle">
+   <span class="block-search-toggle-icon">
+       click me fucker
+   </span>
+<!--    <span class="block-search-toggle-text">Search</span>-->
+</div>
+<div class="block block-search"  id="search-block">
+  <p>Подпишись и получишь лучшее решение от хандры, геммороя и лени - ПРОПИЗДОН.
+      Пропиздон - не ленись, на рассылку подпишись!!!!
+  </p>
+    <form>
+        <input required type="email" id="custom-input">
+    </form>
+</div>
+<script type="text/x-magento-init">
+       {
+           "#search-popup-toggle": {
+               "Magento_Cms/js/search-popup": {}
+           }
+       }
+</script>
