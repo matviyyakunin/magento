@@ -5,8 +5,6 @@
  * See COPYING.txt for license details.
  */
 
-use Magento\Framework\App\ErrorHandler;
-
 if (PHP_SAPI !== 'cli') {
     echo 'bin/magento must be run as a CLI application';
     exit(1);
@@ -14,16 +12,16 @@ if (PHP_SAPI !== 'cli') {
 
 try {
     require __DIR__ . '/../app/bootstrap.php';
-} catch (Exception $e) {
+} catch (\Exception $e) {
     echo 'Autoload error: ' . $e->getMessage();
     exit(1);
 }
 try {
-    $handler = new ErrorHandler();
+    $handler = new \Magento\Framework\App\ErrorHandler();
     set_error_handler([$handler, 'handler']);
     $application = new Magento\Framework\Console\Cli('Magento CLI');
     $application->run();
-} catch (Exception $e) {
+} catch (\Exception $e) {
     while ($e) {
         echo $e->getMessage();
         echo $e->getTraceAsString();

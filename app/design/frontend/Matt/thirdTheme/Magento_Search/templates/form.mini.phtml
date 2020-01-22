@@ -6,21 +6,23 @@
 // @codingStandardsIgnoreFile
 ?>
 <?php
+
 /** @var $block \Magento\Framework\View\Element\Template */
 /** @var $helper \Magento\Search\Helper\Data */
 $helper = $this->helper(\Magento\Search\Helper\Data::class);
+
 ?>
 <div class="block-search-toggle" id="search-popup-toggle">
    <span class="block-search-toggle-icon">
        click me fucker
    </span>
-<!--    <span class="block-search-toggle-text">Search</span>-->
 </div>
 <div class="block block-search"  id="search-block">
-  <p>popup window</p>
+  <p>Подпишись и получишь лучшее решение от хандры, геммороя и лени - ПРОПИЗДОН.
+      Пропиздон - не ленись, на рассылку подпишись!!!!
+  </p>
     <form>
-        <input type="email">
-        <button>Subscribe my Comrade</button>
+        <input required type="email" id="custom-input">
     </form>
 </div>
 <script type="text/x-magento-init">
