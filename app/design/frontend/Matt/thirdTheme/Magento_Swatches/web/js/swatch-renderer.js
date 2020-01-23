@@ -571,10 +571,10 @@ define([
                         '</div>';
                 } else if (type === 1) {
                     // Color
-                    html += '<option class="' + optionClass + ' color" ' + attr +
+                    html += '<option data-before="hello"   class="' + optionClass + ' color" ' + attr +
                         ' style="background: ' + value +
-                        ' no-repeat center; background-size: initial;">' + '' +
-                        value
+                        ' no-repeat center; background-size: initial; ">' + '' +
+                        value +
                         '</option>';
                 } else if (type === 2) {
                     // Image
