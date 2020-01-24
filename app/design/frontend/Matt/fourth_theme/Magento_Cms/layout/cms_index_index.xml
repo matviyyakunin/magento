@@ -7,11 +7,13 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
 <body>
-    <container ifconfig="true" name="my_custom_container" as="myCustomContainer" label="Custom Container" htmlTag="div" htmlClass="my_custom_container">
-        <block class="Magento\Framework\View\Element\Template" name="top.search" ifconfig="true"  template="Magento_Cms::form.mini.phtml" />
-    </container>
-    <referenceContainer remove="true" name="content">
-        <referenceBlock name="top.search" remove="true"/>
+
+    <referenceContainer name="footer">
+        <block class="Magento\Framework\View\Element\Template" name="homepage_popup" template="Magento_Cms::form.mini.phtml" />
+    </referenceContainer>
+    <referenceContainer name="content">
+        <block class="Magento\Framework\View\Element\Template" name="homepage_slider" template="Magento_Cms::wrapper-for-slider.phtml" />
+
     </referenceContainer>
 </body>
 </page>

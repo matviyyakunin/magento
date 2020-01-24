@@ -1,0 +1,36 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php
+/** @var $block \Magento\Framework\View\Element\Template */
+/** @var $helper \Magento\Search\Helper\Data */
+$helper = $this->helper(\Magento\Search\Helper\Data::class);
+?>
+
+
+<div id="slider-wrapper">
+    <ul  class="my_list">
+        <li>first</li>
+        <li>second</li>
+        <li>third</li>
+        <li>fourth</li>
+        <li>fifth</li>
+        <li>sixth</li>
+        <li>seventh</li>
+        <li>eight</li>
+    </ul>
+</div>
+<script type="text/x-magento-init">
+       {
+           ".my_list": {
+               "Magento_Cms/js/slider": {}
+           }
+       }
+</script>
+<script>
+
+</script>
