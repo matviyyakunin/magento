@@ -104,6 +104,7 @@ define([
             $image = $element.find('.image');
             $title = $element.find('.title');
             $corner = $element.find('.corner');
+            $corner = $element.find('.corner');
 
             $this.hover(function () {
                 if (!$this.hasClass('disabled')) {

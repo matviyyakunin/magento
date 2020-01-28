@@ -1,6 +1,7 @@
 var config = {
     paths: {
-        slick: 'js/slick.min'
+        'ko': 'knockoutjs/knockout',
+        'slick': 'js/slick.min'
     },
     shim: {
         slick: {
