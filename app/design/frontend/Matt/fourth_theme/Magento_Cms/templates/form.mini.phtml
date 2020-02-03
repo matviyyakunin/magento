@@ -6,12 +6,14 @@
 // @codingStandardsIgnoreFile
 ?>
 <?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->create('Magento\Customer\Model\Session');
 /** @var $block \Magento\Framework\View\Element\Template */
 /** @var $helper \Magento\Search\Helper\Data */
 $helper = $this->helper(\Magento\Search\Helper\Data::class);
 ?>
-
 <div class="block-search-toggle" id="search-popup-toggle">
+
 </div>
 <div class="block block-search"  id="search-block">
   <p>Подпишись и получишь лучшее решение от хандры, геммороя и лени - ПРОПИЗДОН.

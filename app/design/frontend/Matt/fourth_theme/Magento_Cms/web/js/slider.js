@@ -18,7 +18,6 @@ define(['ko'
         async function callSlider() {
             await $.ajax(settings).done(function (response) {
                 const productsData = response.data.products.items;
-                console.log(productsData);
                 $.each(productsData, function (i, item) {
                     const basicElement = $('<li><div><p style="text-align:center;">'+ item.name +'</p><div style="display: flex;margin:0 auto;width: 50%;height: 200px;"><img src="'+ item.image.url +'" alt="some-good"></div><p style="text-align:center; margin-top:20px">Price:  '+ item.price.regularPrice.amount.value + item.price.regularPrice.amount.currency+'</p><div style="text-align: center;"><button>Buy This Peace Of Shit</button></div></div></li>'
                     );

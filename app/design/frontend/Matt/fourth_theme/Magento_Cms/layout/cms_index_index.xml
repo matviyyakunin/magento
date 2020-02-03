@@ -13,7 +13,6 @@
     </referenceContainer>
     <referenceContainer name="content">
         <block class="Magento\Framework\View\Element\Template" name="homepage_slider" template="Magento_Cms::wrapper-for-slider.phtml" />
-
     </referenceContainer>
 </body>
 </page>

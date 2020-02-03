@@ -82,7 +82,7 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
                                             <?php $postParams = $block->getAddToCartPostParams($_product); ?>
                                             <?php echo $block->getBlockHtml('formkey')?>
                                             <form data-role="tocart-form" data-product-sku="<?= $block->escapeHtml($_product->getSku()) ?>" action="<?= /* @NoEscape */ $postParams['action'] ?>" method="post">
-                                                <input type="text"
+                                                <input type="number" min="1"
                                                        name="qty"
                                                        maxlength="12"
                                                        title="<?php /* @escapeNotVerified */ echo __('Qty') ?>" class="input-text qty form-control"
